@@ -1,0 +1,824 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cest Indumentaria | Catálogo</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+<style>
+:root {
+  --bg: #050505;
+  --card: rgba(255, 255, 255, 0.08);
+  --card-border: rgba(255, 255, 255, 0.18);
+  --text: #ffffff;
+  --muted: #bdbdbd;
+  --gold: #f7c948;
+  --red: #ff2e63;
+  --blue: #00d4ff;
+  --whatsapp: #25d366;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Montserrat', Arial, sans-serif;
+  margin: 0;
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at top left, rgba(255, 46, 99, 0.35), transparent 32%),
+    radial-gradient(circle at top right, rgba(0, 212, 255, 0.28), transparent 35%),
+    linear-gradient(135deg, #030303, #111111 45%, #050505);
+  color: var(--text);
+  overflow-x: hidden;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.035) 1px, transparent 1px);
+  background-size: 42px 42px;
+  mask-image: linear-gradient(to bottom, rgba(0,0,0,0.9), transparent 80%);
+  pointer-events: none;
+  z-index: -1;
+}
+
+header {
+  position: relative;
+  padding: 60px 20px 40px;
+  text-align: center;
+  border-bottom: 1px solid rgba(255,255,255,0.12);
+}
+
+header::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  width: 70%;
+  height: 1px;
+  transform: translateX(-50%);
+  background: linear-gradient(90deg, transparent, var(--gold), var(--red), var(--blue), transparent);
+  box-shadow: 0 0 22px rgba(247, 201, 72, 0.8);
+}
+
+h1 {
+  margin: 0;
+  font-size: clamp(34px, 7vw, 82px);
+  letter-spacing: 1px;
+  font-weight: 900;
+  font-style: italic;
+  text-transform: uppercase;
+  background: linear-gradient(90deg, #ffffff, #f7c948, #ff2e63, #00d4ff, #ffffff);
+  background-size: 260% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: tituloBrillo 12s linear infinite, entradaTitulo 0.9s ease both;
+  text-shadow: 0 0 40px rgba(255,255,255,0.12);
+}
+
+/* --- ESTILO DEL ICONO WHATSAPP ESTÁTICO (FIXED) --- */
+.wa-header-link {
+  position: fixed; /* Esto lo mantiene estático en pantalla */
+  right: 30px;
+  bottom: 30px; /* Lo bajé un poco para que no estorbe el título y sea más accesible al pulgar */
+  background: var(--whatsapp);
+  color: white;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 32px;
+  text-decoration: none;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3), 0 0 20px rgba(37, 211, 102, 0.4);
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  animation: flotar 3s ease-in-out infinite;
+  z-index: 999; /* Siempre por encima de todo */
+}
+
+.wa-header-link:hover {
+  transform: scale(1.1) rotate(10deg);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4), 0 0 30px rgba(37, 211, 102, 0.6);
+  background: #20ba5a;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 28px;
+  padding: 34px;
+  max-width: 1300px;
+  margin: 0 auto;
+}
+
+.card {
+  position: relative;
+  padding: 14px;
+  border-radius: 24px;
+  background: var(--card);
+  border: 1px solid var(--card-border);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.45);
+  backdrop-filter: blur(18px);
+  overflow: hidden;
+  transform: translateY(28px) scale(0.96);
+  opacity: 0;
+  animation: cardEntrada 0.8s ease forwards;
+}
+
+.card:nth-child(1) { animation-delay: 0.08s; }
+.card:nth-child(2) { animation-delay: 0.16s; }
+.card:nth-child(3) { animation-delay: 0.24s; }
+.card:nth-child(4) { animation-delay: 0.32s; }
+.card:nth-child(5) { animation-delay: 0.40s; }
+.card:nth-child(6) { animation-delay: 0.48s; }
+
+.card::before {
+  content: "";
+  position: absolute;
+  inset: -2px;
+  background: linear-gradient(120deg, transparent 20%, rgba(247,201,72,0.45), rgba(255,46,99,0.35), rgba(0,212,255,0.4), transparent 80%);
+  opacity: 0;
+  transition: 0.35s ease;
+  z-index: -1;
+}
+
+.card:hover {
+  transform: translateY(-10px) scale(1.025);
+  box-shadow: 0 26px 80px rgba(0,0,0,0.7), 0 0 38px rgba(0,212,255,0.15);
+}
+
+.card:hover::before {
+  opacity: 1;
+  filter: blur(16px);
+}
+
+.card img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 4 / 3;
+  border-radius: 18px;
+  object-fit: contain;
+  background: radial-gradient(circle at center, #202020 0%, #0b0b0b 68%);
+  cursor: pointer;
+  display: block;
+  transition: transform 0.45s ease, filter 0.45s ease;
+  filter: drop-shadow(0 20px 30px rgba(0,0,0,0.55));
+}
+
+.card:hover img {
+  transform: scale(1.055) rotate(-1deg);
+  filter: drop-shadow(0 28px 38px rgba(0,0,0,0.75));
+}
+
+.nombre {
+  font-weight: 800;
+  margin-top: 16px;
+  font-size: 17px;
+  letter-spacing: 0.3px;
+}
+
+.precio {
+  font-size: 22px;
+  margin-top: 7px;
+  font-weight: 900;
+  color: var(--gold);
+  text-shadow: 0 0 20px rgba(247,201,72,0.22);
+}
+
+.btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 14px;
+  padding: 12px 18px;
+  background: #ffffff;
+  color: #050505;
+  text-decoration: none;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 900;
+  letter-spacing: 0.7px;
+  text-transform: uppercase;
+  overflow: hidden;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.btn::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.75), transparent);
+  transform: translateX(-120%);
+  transition: transform 0.55s ease;
+}
+
+.btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 30px rgba(255,255,255,0.22);
+}
+
+.btn:hover::before {
+  transform: translateX(120%);
+}
+
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 9999;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background:
+    radial-gradient(circle at center, rgba(255,46,99,0.22), transparent 40%),
+    rgba(0, 0, 0, 0.94);
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  box-sizing: border-box;
+  animation: aparecer 0.25s ease;
+}
+
+.modal img {
+  max-width: 88%;
+  max-height: 84%;
+  border-radius: 22px;
+  object-fit: contain;
+  background: rgba(255,255,255,0.04);
+  box-shadow: 0 0 70px rgba(255,255,255,0.14), 0 0 120px rgba(0,212,255,0.12);
+  animation: zoomModal 0.35s ease;
+}
+
+.cerrar {
+  position: absolute;
+  top: 18px;
+  right: 28px;
+  color: white;
+  font-size: 42px;
+  cursor: pointer;
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+
+.cerrar:hover {
+  transform: rotate(90deg) scale(1.12);
+  color: var(--red);
+}
+
+.flecha {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  color: white;
+  font-size: 58px;
+  cursor: pointer;
+  user-select: none;
+  padding: 15px;
+  transition: transform 0.2s ease, text-shadow 0.2s ease;
+}
+
+.flecha:hover {
+  transform: translateY(-50%) scale(1.18);
+  text-shadow: 0 0 25px var(--blue);
+}
+
+.izquierda {
+  left: 15px;
+}
+
+.derecha {
+  right: 15px;
+}
+
+.contador {
+  position: absolute;
+  bottom: 25px;
+  color: white;
+  font-size: 14px;
+  font-weight: 800;
+  background: rgba(255,255,255,0.12);
+  border: 1px solid rgba(255,255,255,0.18);
+  backdrop-filter: blur(10px);
+  padding: 9px 16px;
+  border-radius: 30px;
+}
+
+@keyframes tituloBrillo {
+  from { background-position: 0% center; }
+  to { background-position: 260% center; }
+}
+
+@keyframes entradaTitulo {
+  from { opacity: 0; transform: translateY(-22px) scale(0.96); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes aparecer {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes flotar {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes cardEntrada {
+  to {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes zoomModal {
+  from { opacity: 0; transform: scale(0.85); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+@media (max-width: 680px) {
+  .wa-header-link {
+    width: 50px;
+    height: 50px;
+    font-size: 26px;
+    right: 20px;
+    bottom: 20px;
+  }
+
+  .grid {
+    padding: 18px;
+    gap: 22px;
+  }
+
+  .card img {
+    height: auto; 
+  }
+
+  .flecha {
+    font-size: 42px;
+    padding: 8px;
+  }
+
+  .izquierda { left: 4px; }
+  .derecha { right: 4px; }
+}
+</style>
+
+</head>
+
+<body>
+
+<header>
+  <h1>Cest Indumentaria</h1>
+</header>
+
+<a href="https://wa.me/5491169974134?text=Hola, vengo del catálogo y tengo una consulta" class="wa-header-link" target="_blank">
+  <i class="fab fa-whatsapp"></i>
+</a>
+
+<div class="grid">
+
+  <div class="card">
+    <img 
+      src="https://i.imgur.com/6A0iZKr.jpeg"
+      data-images="https://i.imgur.com/6A0iZKr.jpeg,https://i.imgur.com/CeLQu4E.jpeg,https://i.imgur.com/wXS18hz.jpeg,https://i.imgur.com/apTc0dV.jpeg,https://i.imgur.com/5VEtKvJ.jpeg,https://i.imgur.com/I9BJ6D2.jpeg,https://i.imgur.com/ugMuCGd.jpeg,https://i.imgur.com/Sey4x9J.jpeg"
+      onclick="abrirGaleria(this)"
+      alt="Buzo Nike Swoosu"
+    >
+    <div class="nombre">Buzo Nike Swoosu</div>
+    <div class="precio">$94.999</div>
+    <a class="btn" href="https://wa.me/5491169974134?text=Hola%20quiero%20consultar%20por%20Buzo%20Nike%20Swoosu%0APrecio%3A%20%2494.999%0AFoto%20del%20producto%3A%20https%3A//i.imgur.com/6A0iZKr.jpeg" target="_blank">Consultar</a>
+  </div>
+
+  <div class="card">
+    <img 
+      src="https://i.imgur.com/ebWo7V3.jpeg"
+      data-images="https://i.imgur.com/ebWo7V3.jpeg,https://i.imgur.com/KWd6FbA.jpeg,https://i.imgur.com/Z8ifAuI.jpeg,https://i.imgur.com/KKZgNt7.jpeg"
+      onclick="abrirGaleria(this)"
+      alt="Buzo Jordan Flyght"
+    >
+    <div class="nombre">Buzo Jordan Flyght</div>
+    <div class="precio">$195.999</div>
+    <a class="btn" href="https://wa.me/5491169974134?text=Hola%20quiero%20consultar%20por%20Buzo%20Jordan%20Flyght%0APrecio%3A%20%24195.999%0AFoto%20del%20producto%3A%20https%3A//i.imgur.com/ebWo7V3.jpeg" target="_blank">Consultar</a>
+  </div>
+
+  <div class="card">
+    <img 
+      src="https://i.imgur.com/B5hm1IJ.jpeg"
+      data-images="https://i.imgur.com/B5hm1IJ.jpeg,https://i.imgur.com/LPPdold.jpeg,https://i.imgur.com/D25OAUW.jpeg"
+      onclick="abrirGaleria(this)"
+      alt="Buzo Jordan #1"
+    >
+    <div class="nombre">Buzo Jordan #1</div>
+    <div class="precio">$47.999</div>
+    <a class="btn" href="https://wa.me/5491169974134?text=Hola%20quiero%20consultar%20por%20Buzo%20Jordan%20%231%0APrecio%3A%20%2447.999%0AFoto%20del%20producto%3A%20https%3A//i.imgur.com/B5hm1IJ.jpeg" target="_blank">Consultar</a>
+  </div>
+
+  <div class="card">
+    <img 
+      src="https://i.imgur.com/HO0299s.jpeg"
+      data-images="https://i.imgur.com/HO0299s.jpeg,https://i.imgur.com/fk4zRFn.jpeg,https://i.imgur.com/iYNK6eZ.jpeg,https://i.imgur.com/E1Eo0ak.jpeg,https://i.imgur.com/dA9KbSc.jpeg"
+      onclick="abrirGaleria(this)"
+      alt="Buzo Jordan #2"
+    >
+    <div class="nombre">Buzo Jordan #2</div>
+    <div class="precio">$89.999</div>
+    <a class="btn" href="https://wa.me/5491169974134?text=Hola%20quiero%20consultar%20por%20Buzo%20Jordan%20%232%0APrecio%3A%20%2489.999%0AFoto%20del%20producto%3A%20https%3A//i.imgur.com/HO0299s.jpeg" target="_blank">Consultar</a>
+  </div>
+
+  <div class="card">
+    <img 
+      src="https://i.imgur.com/6Ym5jgy.jpeg"
+      data-images="https://i.imgur.com/6Ym5jgy.jpeg,https://i.imgur.com/8FXlGqs.jpeg,https://i.imgur.com/WywvLx3.jpeg,https://i.imgur.com/Ob7rGIe.jpeg"
+      onclick="abrirGaleria(this)"
+      alt="Buzo Jordan #3"
+    >
+    <div class="nombre">Buzo Jordan #3</div>
+    <div class="precio">$39.999</div>
+    <a class="btn" href="https://wa.me/5491169974134?text=Hola%20quiero%20consultar%20por%20Buzo%20Jordan%20%233%0APrecio%3A%20%2439.999%0AFoto%20del%20producto%3A%20https%3A//i.imgur.com/6Ym5jgy.jpeg" target="_blank">Consultar</a>
+  </div>
+
+  <div class="card">
+    <img 
+      src="https://i.imgur.com/W3XYCNb.jpeg"
+      data-images="https://i.imgur.com/W3XYCNb.jpeg,https://i.imgur.com/s8LdcxY.jpeg,https://i.imgur.com/mknSf2f.jpeg"
+      onclick="abrirGaleria(this)"
+      alt="Buzo Jordan #4"
+    >
+    <div class="nombre">Buzo Jordan #4</div>
+    <div class="precio">$74.999</div>
+    <a class="btn" href="https://wa.me/5491169974134?text=Hola%20quiero%20consultar%20por%20Buzo%20Jordan%20%234%0APrecio%3A%20%2474.999%0AFoto%20del%20producto%3A%20https%3A//i.imgur.com/W3XYCNb.jpeg" target="_blank">Consultar</a>
+  </div>
+
+  <div class="card">
+    <img 
+      src="https://i.imgur.com/AIeVQqJ.jpeg"
+      data-images="https://i.imgur.com/AIeVQqJ.jpeg,https://i.imgur.com/G21bD5w.jpeg,https://i.imgur.com/7uqv41d.jpeg"
+      onclick="abrirGaleria(this)"
+      alt="Buzo Jordan #5"
+    >
+    <div class="nombre">Buzo Jordan #5</div>
+    <div class="precio">$74.999</div>
+    <a class="btn" href="https://wa.me/5491169974134?text=Hola%20quiero%20consultar%20por%20Buzo%20Jordan%20%235%0APrecio%3A%20%2474.999%0AFoto%20del%20producto%3A%20https%3A//i.imgur.com/AIeVQqJ.jpeg" target="_blank">Consultar</a>
+  </div>
+
+  <div class="card">
+    <img 
+      src="https://i.imgur.com/U4bqyN3.jpeg"
+      data-images="https://i.imgur.com/U4bqyN3.jpeg,https://i.imgur.com/WTuOk8b.jpeg,https://i.imgur.com/n1m4rA7.jpeg,https://i.imgur.com/JORikmC.jpeg"
+      onclick="abrirGaleria(this)"
+      alt="Buzo Jordan #6"
+    >
+    <div class="nombre">Buzo Jordan #6</div>
+    <div class="precio">$74.999</div>
+    <a class="btn" href="https://wa.me/5491169974134?text=Hola%20quiero%20consultar%20por%20Buzo%20Jordan%20%236%0APrecio%3A%20%2474.999%0AFoto%20del%20producto%3A%20https%3A//i.imgur.com/U4bqyN3.jpeg" target="_blank">Consultar</a>
+  </div>
+
+  <div class="card">
+    <img 
+      src="https://i.imgur.com/dKw885W.jpeg"
+      data-images="https://i.imgur.com/dKw885W.jpeg,https://i.imgur.com/ndThI7g.jpeg,https://i.imgur.com/hSFV7Sq.jpeg"
+      onclick="abrirGaleria(this)"
+      alt="Buzo Jordan #7"
+    >
+    <div class="nombre">Buzo Jordan #7</div>
+    <div class="precio">$74.999</div>
+    <a class="btn" href="https://wa.me/5491169974134?text=Hola%20quiero%20consultar%20por%20Buzo%20Jordan%20%237%0APrecio%3A%20%2474.999%0AFoto%20del%20producto%3A%20https%3A//i.imgur.com/dKw885W.jpeg" target="_blank">Consultar</a>
+  </div>
+
+  <div class="card">
+    <img 
+      src="https://i.imgur.com/LelNPjR.jpeg"
+      data-images="https://i.imgur.com/LelNPjR.jpeg"
+      onclick="abrirGaleria(this)"
+      alt="Buzo Jordan #8"
+    >
+    <div class="nombre">Buzo Jordan #8</div>
+    <div class="precio">$74.999</div>
+    <a class="btn" href="https://wa.me/5491169974134?text=Hola%20quiero%20consultar%20por%20Buzo%20Jordan%20%238%0APrecio%3A%20%2474.999%0AFoto%20del%20producto%3A%20https%3A//i.imgur.com/LelNPjR.jpeg" target="_blank">Consultar</a>
+  </div>
+
+  <div class="card">
+    <img 
+      src="https://i.imgur.com/skI6RM1.jpeg"
+      data-images="https://i.imgur.com/skI6RM1.jpeg"
+      onclick="abrirGaleria(this)"
+      alt="Buzo Jordan #9"
+    >
+    <div class="nombre">Buzo Jordan #9</div>
+    <div class="precio">$74.999</div>
+    <a class="btn" href="https://wa.me/5491169974134?text=Hola%20quiero%20consultar%20por%20Buzo%20Jordan%20%239%0APrecio%3A%20%2474.999%0AFoto%20del%20producto%3A%20https%3A//i.imgur.com/skI6RM1.jpeg" target="_blank">Consultar</a>
+  </div>
+
+  <div class="card">
+    <img 
+      src="https://i.imgur.com/FBeY38S.png"
+      data-images="https://i.imgur.com/FBeY38S.png,https://i.imgur.com/sqbf4GL.png,https://i.imgur.com/Bj3Z6md.jpeg"
+      onclick="abrirGaleria(this)"
+      alt="Buzo Jordan #10"
+    >
+    <div class="nombre">Buzo Jordan #10</div>
+    <div class="precio">$74.999</div>
+    <a class="btn" href="https://wa.me/5491169974134?text=Hola%20quiero%20consultar%20por%20Buzo%20Jordan%20%2310%0APrecio%3A%20%2474.999%0AFoto%20del%20producto%3A%20https%3A//i.imgur.com/FBeY38S.png" target="_blank">Consultar</a>
+  </div>
+
+ <div class="card">
+    <img 
+      src="https://i.imgur.com/WEUSPjc.jpeg"
+      data-images="https://i.imgur.com/WEUSPjc.jpeg"
+      onclick="abrirGaleria(this)"
+      alt="Buzo NIKE #11"
+    >
+    <div class="nombre">Buzo NIKE #11</div>
+    <div class="precio">$74.999</div>
+    <a class="btn" href="https://wa.me/5491169974134?text=Hola%20quiero%20consultar%20por%20Buzo%20NIKE%20%2311%0APrecio%3A%20%2474.999%0AFoto%20del%20producto%3A%20https%3A//i.imgur.com/WEUSPjc.jpeg" target="_blank">Consultar</a>
+  </div>
+
+ <div class="card">
+    <img 
+      src="https://i.imgur.com/Qq3PnEt.jpeg"
+      data-images="https://i.imgur.com/Qq3PnEt.jpeg"
+      onclick="abrirGaleria(this)"
+      alt="Buzo Jordan #12"
+    >
+    <div class="nombre">Buzo Jordan #12</div>
+    <div class="precio">$74.999</div>
+    <a class="btn" href="https://wa.me/5491169974134?text=Hola%20quiero%20consultar%20por%20Buzo%20Jordan%20%2312%0APrecio%3A%20%2474.999%0AFoto%20del%20producto%3A%20https%3A//i.imgur.com/Qq3PnEt.jpeg" target="_blank">Consultar</a>
+  </div>
+
+<div class="card">
+    <img 
+      src="https://i.imgur.com/Srra0SX.jpeg"
+      data-images="https://i.imgur.com/Srra0SX.jpeg"
+      onclick="abrirGaleria(this)"
+      alt="Buzo Jordan #13"
+    >
+    <div class="nombre">Buzo Jordan #13</div>
+    <div class="precio">$74.999</div>
+    <a class="btn" href="https://wa.me/5491169974134?text=Hola%20quiero%20consultar%20por%20Buzo%20Jordan%20%2313%0APrecio%3A%20%2474.999%0AFoto%20del%20producto%3A%20https%3A//i.imgur.com/Srra0SX.jpeg" target="_blank">Consultar</a>
+  </div>
+
+<div class="card">
+    <img 
+      src="https://i.imgur.com/NbyeBry.png"
+      data-images="https://i.imgur.com/NbyeBry.png,https://i.imgur.com/EaimR0t.png"
+      onclick="abrirGaleria(this)"
+      alt="Buzo Jordan #14"
+    >
+    <div class="nombre">Buzo Jordan #14</div>
+    <div class="precio">$74.999</div>
+    <a class="btn" href="https://wa.me/5491169974134?text=Hola%20quiero%20consultar%20por%20Buzo%20Jordan%20%2314%0APrecio%3A%20%2474.999%0AFoto%20del%20producto%3A%20https%3A//i.imgur.com/NbyeBry.png" target="_blank">Consultar</a>
+  </div>
+
+<div class="card">
+    <img 
+      src="https://i.imgur.com/b0v8UUR.png"
+      data-images="https://i.imgur.com/b0v8UUR.png,https://i.imgur.com/0oglMXs.png"
+      onclick="abrirGaleria(this)"
+      alt="Buzo Jordan #15"
+    >
+    <div class="nombre">Buzo Jordan #15</div>
+    <div class="precio">$74.999</div>
+    <a class="btn" href="https://wa.me/5491169974134?text=Hola%20quiero%20consultar%20por%20Buzo%20Jordan%20%2315%0APrecio%3A%20%2474.999%0AFoto%20del%20producto%3A%20https%3A//i.imgur.com/b0v8UUR.png" target="_blank">Consultar</a>
+  </div>
+
+<div class="card">
+    <img 
+      src="https://i.imgur.com/RAjt4fE.png"
+      data-images="https://i.imgur.com/RAjt4fE.png,https://i.imgur.com/xYdT68S.png"
+      onclick="abrirGaleria(this)"
+      alt="Buzo Jordan #16"
+    >
+    <div class="nombre">Buzo Jordan #16</div>
+    <div class="precio">$74.999</div>
+    <a class="btn" href="https://wa.me/5491169974134?text=Hola%20quiero%20consultar%20por%20Buzo%20Jordan%20%2316%0APrecio%3A%20%2474.999%0AFoto%20del%20producto%3A%20https%3A//i.imgur.com/RAjt4fE.png" target="_blank">Consultar</a>
+  </div>
+
+<div class="card">
+    <img 
+      src="https://i.imgur.com/MjSIkel.png"
+      data-images="https://i.imgur.com/MjSIkel.png,https://i.imgur.com/9VKZ1Ko.png"
+      onclick="abrirGaleria(this)"
+      alt="Buzo Jordan #17"
+    >
+    <div class="nombre">Buzo Jordan #17</div>
+    <div class="precio">$74.999</div>
+    <a class="btn" href="https://wa.me/5491169974134?text=Hola%20quiero%20consultar%20por%20Buzo%20Jordan%20%2317%0APrecio%3A%20%2474.999%0AFoto%20del%20producto%3A%20https%3A//i.imgur.com/MjSIkel.png" target="_blank">Consultar</a>
+  </div>
+
+
+<div class="card">
+    <img 
+      src="https://i.imgur.com/wQgiHeI.png"
+      data-images="https://i.imgur.com/wQgiHeI.png,https://i.imgur.com/1cHS85H.png"
+      onclick="abrirGaleria(this)"
+      alt="Buzo Hugo Boss"
+    >
+    <div class="nombre">Buzo Hugo Boss</div>
+    <div class="precio">$74.999</div>
+    <a class="btn" href="https://wa.me/5491169974134?text=Hola%20quiero%20consultar%20por%20Buzo%20Hugo%20Boss%0APrecio%3A%20%2474.999%0AFoto%20del%20producto%3A%20https%3A//i.imgur.com/wQgiHeI.png" target="_blank">Consultar</a>
+  </div>
+
+<div class="card">
+    <img 
+      src="https://i.imgur.com/bf4vXmk.png"
+      data-images="https://i.imgur.com/bf4vXmk.png"
+      onclick="abrirGaleria(this)"
+      alt="Buzo Jordan #18"
+    >
+    <div class="nombre">Buzo Jordan #18</div>
+    <div class="precio">$74.999</div>
+    <a class="btn" href="https://wa.me/5491169974134?text=Hola%20quiero%20consultar%20por%20Buzo%20Jordan%20%2318%0APrecio%3A%20%2474.999%0AFoto%20del%20producto%3A%20https%3A//i.imgur.com/bf4vXmk.png" target="_blank">Consultar</a>
+  </div>
+
+<div class="card">
+    <img 
+      src="https://i.imgur.com/GUa1528.png"
+      data-images="https://i.imgur.com/GUa1528.png"
+      onclick="abrirGaleria(this)"
+      alt="Buzo Hugo Boss #2"
+    >
+    <div class="nombre">Buzo Hugo Boss #2</div>
+    <div class="precio">$74.999</div>
+    <a class="btn" href="https://wa.me/5491169974134?text=Hola%20quiero%20consultar%20por%20Buzo%20Hugo%20Boss%20%232%0APrecio%3A%20%2474.999%0AFoto%20del%20producto%3A%20https%3A//i.imgur.com/GUa1528.png" target="_blank">Consultar</a>
+  </div>
+
+<div class="card">
+    <img 
+      src="https://i.imgur.com/SikknUU.png"
+      data-images="https://i.imgur.com/SikknUU.png"
+      onclick="abrirGaleria(this)"
+      alt="Buzo Jordan #19"
+    >
+    <div class="nombre">Buzo Jordan #19</div>
+    <div class="precio">$74.999</div>
+    <a class="btn" href="https://wa.me/5491169974134?text=Hola%20quiero%20consultar%20por%20Buzo%20Jordan%20%2319%0APrecio%3A%20%2474.999%0AFoto%20del%20producto%3A%20https%3A//i.imgur.com/SikknUU.png" target="_blank">Consultar</a>
+  </div>
+
+<div class="card">
+    <img 
+      src="https://i.imgur.com/koLKaIt.png"
+      data-images="https://i.imgur.com/koLKaIt.png"
+      onclick="abrirGaleria(this)"
+      alt="Buzo Calvin Klein"
+    >
+    <div class="nombre">Buzo Calvin Klein</div>
+    <div class="precio">$74.999</div>
+    <a class="btn" href="https://wa.me/5491169974134?text=Hola%20quiero%20consultar%20por%20Buzo%20Calvin%20Klein%0APrecio%3A%20%2474.999%0AFoto%20del%20producto%3A%20https%3A//i.imgur.com/koLKaIt.png" target="_blank">Consultar</a>
+  </div>
+
+<div class="card">
+    <img 
+      src="https://i.imgur.com/wAwbT8X.png"
+      data-images="https://i.imgur.com/wAwbT8X.png"
+      onclick="abrirGaleria(this)"
+      alt="Buzo Jordan #20"
+    >
+    <div class="nombre">Buzo Jordan #20</div>
+    <div class="precio">$74.999</div>
+    <a class="btn" href="https://wa.me/5491169974134?text=Hola%20quiero%20consultar%20por%20Buzo%20Jordan%20%2320%0APrecio%3A%20%2474.999%0AFoto%20del%20producto%3A%20https%3A//i.imgur.com/wAwbT8X.png" target="_blank">Consultar</a>
+  </div>
+
+<div class="card">
+    <img 
+      src="https://i.imgur.com/SdiBpP5.png"
+      data-images="https://i.imgur.com/SdiBpP5.png"
+      onclick="abrirGaleria(this)"
+      alt="Buzo Jordan #21"
+    >
+    <div class="nombre">Buzo Jordan #21</div>
+    <div class="precio">$74.999</div>
+    <a class="btn" href="https://wa.me/5491169974134?text=Hola%20quiero%20consultar%20por%20Buzo%20Jordan%20%2321%0APrecio%3A%20%2474.999%0AFoto%20del%20producto%3A%20https%3A//i.imgur.com/SdiBpP5.png" target="_blank">Consultar</a>
+  </div>
+
+<div class="card">
+    <img 
+      src="https://i.imgur.com/QXLboYt.png"
+      data-images="https://i.imgur.com/QXLboYt.png"
+      onclick="abrirGaleria(this)"
+      alt="Buzo Jordan #22"
+    >
+    <div class="nombre">Buzo Jordan #22</div>
+    <div class="precio">$74.999</div>
+    <a class="btn" href="https://wa.me/5491169974134?text=Hola%20quiero%20consultar%20por%20Buzo%20Jordan%20%2322%0APrecio%3A%20%2474.999%0AFoto%20del%20producto%3A%20https%3A//i.imgur.com/QXLboYt.png" target="_blank">Consultar</a>
+  </div>
+
+<div class="card">
+    <img 
+      src="https://i.imgur.com/xEgZxO2.png"
+      data-images="https://i.imgur.com/xEgZxO2.png"
+      onclick="abrirGaleria(this)"
+      alt="Buzo Jordan #23"
+    >
+    <div class="nombre">Buzo Jordan #23</div>
+    <div class="precio">$74.999</div>
+    <a class="btn" href="https://wa.me/5491169974134?text=Hola%20quiero%20consultar%20por%20Buzo%20Jordan%20%2323%0APrecio%3A%20%2474.999%0AFoto%20del%20producto%3A%20https%3A//i.imgur.com/xEgZxO2.png" target="_blank">Consultar</a>
+  </div>
+
+<div class="card">
+    <img 
+      src="https://i.imgur.com/1xsRGlC.png"
+      data-images="https://i.imgur.com/1xsRGlC.png"
+      onclick="abrirGaleria(this)"
+      alt="Buzo Jordan #24"
+    >
+    <div class="nombre">Buzo Jordan #24</div>
+    <div class="precio">$74.999</div>
+    <a class="btn" href="https://wa.me/5491169974134?text=Hola%20quiero%20consultar%20por%20Buzo%20Jordan%20%2324%0APrecio%3A%20%2474.999%0AFoto%20del%20producto%3A%20https%3A//i.imgur.com/1xsRGlC.png" target="_blank">Consultar</a>
+  </div>
+
+<div class="card">
+    <img 
+      src="https://i.imgur.com/wi4NSYX.png"
+      data-images="https://i.imgur.com/wi4NSYX.png"
+      onclick="abrirGaleria(this)"
+      alt="Buzo Jordan #25"
+    >
+    <div class="nombre">Buzo Jordan #25</div>
+    <div class="precio">$74.999</div>
+    <a class="btn" href="https://wa.me/5491169974134?text=Hola%20quiero%20consultar%20por%20Buzo%20Jordan%20%2324%0APrecio%3A%20%2474.999%0AFoto%20del%20producto%3A%20https%3A//i.imgur.com/wi4NSYX.png" target="_blank">Consultar</a>
+  </div>
+
+
+
+</div>
+
+<div id="modal" class="modal" onclick="cerrarImagen()">
+  <span class="cerrar">&times;</span>
+  <span class="flecha izquierda" onclick="imagenAnterior(event)">❮</span>
+  <img id="imgGrande" alt="Imagen ampliada">
+  <span class="flecha derecha" onclick="imagenSiguiente(event)">❯</span>
+  <div id="contador" class="contador"></div>
+</div>
+
+<script>
+let imagenesActuales = [];
+let indiceActual = 0;
+
+function abrirGaleria(elemento) {
+  imagenesActuales = elemento.dataset.images.split(",");
+  indiceActual = 0;
+
+  document.getElementById("imgGrande").src = imagenesActuales[indiceActual];
+  document.getElementById("modal").style.display = "flex";
+
+  actualizarContador();
+}
+
+function cerrarImagen() {
+  document.getElementById("modal").style.display = "none";
+}
+
+function imagenSiguiente(event) {
+  event.stopPropagation();
+  indiceActual++;
+
+  if (indiceActual >= imagenesActuales.length) {
+    indiceActual = 0;
+  }
+
+  document.getElementById("imgGrande").src = imagenesActuales[indiceActual];
+  actualizarContador();
+}
+
+function imagenAnterior(event) {
+  event.stopPropagation();
+  indiceActual--;
+
+  if (indiceActual < 0) {
+    indiceActual = imagenesActuales.length - 1;
+  }
+
+  document.getElementById("imgGrande").src = imagenesActuales[indiceActual];
+  actualizarContador();
+}
+
+function actualizarContador() {
+  document.getElementById("contador").textContent =
+    (indiceActual + 1) + " / " + imagenesActuales.length;
+}
+
+document.getElementById("imgGrande").addEventListener("click", function(event) {
+  event.stopPropagation();
+});
+
+document.addEventListener("keydown", function(event) {
+  if (document.getElementById("modal").style.display !== "flex") return;
+
+  if (event.key === "Escape") cerrarImagen();
+  if (event.key === "ArrowRight") imagenSiguiente(event);
+  if (event.key === "ArrowLeft") imagenAnterior(event);
+});
+</script>
+
+</body>
+</html>
