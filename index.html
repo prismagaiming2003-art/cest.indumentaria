@@ -26,11 +26,15 @@
 }
 
 body {
+  font-family: 'Montserrat', Arial, sans-serif;
   margin: 0;
-  font-family: 'Montserrat', sans-serif;
-  color: #fff;
-  background: #000000;
   min-height: 100vh;
+  background:
+    radial-gradient(circle at top left, rgba(255, 46, 99, 0.35), transparent 32%),
+    radial-gradient(circle at top right, rgba(0, 212, 255, 0.28), transparent 35%),
+    linear-gradient(135deg, #030303, #111111 45%, #050505);
+  color: var(--text);
+  overflow-x: hidden;
 }
 
 body::before {
@@ -403,83 +407,6 @@ h1 {
   .izquierda { left: 4px; }
   .derecha { right: 4px; }
 }
-.contenedor-productos {
-  position: relative;
-}
-
-.contenedor-productos::before {
-  content: "";
-  position: absolute;
-  top: 20px;
-  bottom: 20px;
-  left: 50%;
-  width: 2px;
-  transform: translateX(-50%);
-
-  background: linear-gradient(
-  to bottom,
-  #f7c948,
-  #ff2e63,
-  #00d4ff,
-  #f7c948
-);
-
-  box-shadow:
-    0 0 10px rgba(255, 46, 99, 0.6),
-    0 0 20px rgba(0, 212, 255, 0.4);
-
-  border-radius: 10px;
-}
-
-#popup-info {
-  position: fixed !important;
-  top: 100px !important;
-  left: 50% !important;
-  transform: translateX(-50%) !important;
-
-  background: #111;
-  color: #fff;
-  padding: 16px 24px;
-  border-radius: 999px;
-  font-weight: 900;
-  font-size: 15px;
-  text-align: center;
-
-  z-index: 999999 !important;
-
-  opacity: 0;
-  pointer-events: none;
-
-  border: 1px solid rgba(255,255,255,0.2);
-
-  box-shadow:
-    0 0 20px rgba(255,46,99,0.6),
-    0 0 30px rgba(0,212,255,0.4);
-
-  transition: 0.4s ease;
-}
-
-#popup-info.mostrar {
-  opacity: 1;
-  top: 120px !important;
-  animation: brilloPopup 1.2s ease-in-out infinite;
-}
-
-@keyframes brilloPopup {
-  0%, 100% {
-    box-shadow:
-      0 0 15px rgba(255,46,99,0.5),
-      0 0 25px rgba(0,212,255,0.35);
-  }
-
-  50% {
-    box-shadow:
-      0 0 28px rgba(255,46,99,0.95),
-      0 0 45px rgba(0,212,255,0.75),
-      0 0 65px rgba(247,201,72,0.45);
-  }
-}
-
 </style>
 
 </head>
@@ -867,104 +794,17 @@ h1 {
   <section class="seccion">
     <h2 class="seccion-titulo">CAMISETAS</h2>
     <div class="grid">
-<div class="card"><img src="https://i.imgur.com/Q9MsY6J.jpeg" data-images="https://i.imgur.com/Q9MsY6J.jpeg" onclick="abrirGaleria(this)" alt="Camiseta #1"><div class="nombre">Camiseta #1</div><div class="precio">$8.000 ARS</div><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Camiseta%20%231%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/Q9MsY6J.jpeg" target="_blank">Consultar</a></div>
-
-<div class="card"><img src="https://i.imgur.com/pJdN75m.jpeg" data-images="https://i.imgur.com/pJdN75m.jpeg" onclick="abrirGaleria(this)" alt="Camiseta #2"><div class="nombre">Camiseta #2</div><div class="precio">$8.000 ARS</div><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Camiseta%20%232%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/pJdN75m.jpeg" target="_blank">Consultar</a></div>
-
-<div class="card"><img src="https://i.imgur.com/pkDjlqw.jpeg" data-images="https://i.imgur.com/pkDjlqw.jpeg" onclick="abrirGaleria(this)" alt="Camiseta #3"><div class="nombre">Camiseta #3</div><div class="precio">$8.000 ARS</div><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Camiseta%20%233%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/pkDjlqw.jpeg" target="_blank">Consultar</a></div>
-
-<div class="card"><img src="https://i.imgur.com/Hn7bY2m.jpeg" data-images="https://i.imgur.com/Hn7bY2m.jpeg,https://i.imgur.com/pxwVeQP.jpeg" onclick="abrirGaleria(this)" alt="Camiseta #4"><div class="nombre">Camiseta #4</div><div class="precio">$8.000 ARS</div><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Camiseta%20%234%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/Hn7bY2m.jpeg" target="_blank">Consultar</a></div>
-
-<div class="card"><img src="https://i.imgur.com/DACUjwo.jpeg" data-images="https://i.imgur.com/DACUjwo.jpeg,https://i.imgur.com/RvoASgk.jpeg" onclick="abrirGaleria(this)" alt="Camiseta #5"><div class="nombre">Camiseta #5</div><div class="precio">$8.000 ARS</div><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Camiseta%20%235%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/DACUjwo.jpeg" target="_blank">Consultar</a></div>
-
-<div class="card"><img src="https://i.imgur.com/8GWdUlM.jpeg" data-images="https://i.imgur.com/8GWdUlM.jpeg" onclick="abrirGaleria(this)" alt="Camiseta #6"><div class="nombre">Camiseta #6</div><div class="precio">$8.000 ARS</div><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Camiseta%20%236%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/8GWdUlM.jpeg" target="_blank">Consultar</a></div>
-
-<div class="card"><img src="https://i.imgur.com/exNy5BV.jpeg" data-images="https://i.imgur.com/exNy5BV.jpeg" onclick="abrirGaleria(this)" alt="Camiseta #7"><div class="nombre">Camiseta #7</div><div class="precio">$8.000 ARS</div><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Camiseta%20%237%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/exNy5BV.jpeg" target="_blank">Consultar</a></div>
-
-<div class="card"><img src="https://i.imgur.com/vV1DBi0.jpeg" data-images="https://i.imgur.com/vV1DBi0.jpeg" onclick="abrirGaleria(this)" alt="Camiseta #8"><div class="nombre">Camiseta #8</div><div class="precio">$8.000 ARS</div><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Camiseta%20%238%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/vV1DBi0.jpeg" target="_blank">Consultar</a></div>
-
-<div class="card"><img src="https://i.imgur.com/RuHNyPO.jpeg" data-images="https://i.imgur.com/RuHNyPO.jpeg" onclick="abrirGaleria(this)" alt="Camiseta #9"><div class="nombre">Camiseta #9</div><div class="precio">$8.000 ARS</div><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Camiseta%20%239%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/RuHNyPO.jpeg" target="_blank">Consultar</a></div>
-
-<div class="card"><img src="https://i.imgur.com/9IwuQf2.jpeg" data-images="https://i.imgur.com/9IwuQf2.jpeg" onclick="abrirGaleria(this)" alt="Camiseta #10"><div class="nombre">Camiseta #10</div><div class="precio">$8.000 ARS</div><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Camiseta%20%2310%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/9IwuQf2.jpeg" target="_blank">Consultar</a></div>
-
-<div class="card"><img src="https://i.imgur.com/FbHkPQt.jpeg" data-images="https://i.imgur.com/FbHkPQt.jpeg" onclick="abrirGaleria(this)" alt="Camiseta #11"><div class="nombre">Camiseta #11</div><div class="precio">$8.000 ARS</div><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Camiseta%20%2311%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/FbHkPQt.jpeg" target="_blank">Consultar</a></div>
-
-<div class="card"><img src="https://i.imgur.com/02OZlHQ.jpeg" data-images="https://i.imgur.com/02OZlHQ.jpeg" onclick="abrirGaleria(this)" alt="Camiseta #12"><div class="nombre">Camiseta #12</div><div class="precio">$8.000 ARS</div><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Camiseta%20%2312%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/02OZlHQ.jpeg" target="_blank">Consultar</a></div>
-
-<div class="card"><img src="https://i.imgur.com/SzjmcaW.jpeg" data-images="https://i.imgur.com/SzjmcaW.jpeg" onclick="abrirGaleria(this)" alt="Camiseta #13"><div class="nombre">Camiseta #13</div><div class="precio">$8.000 ARS</div><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Camiseta%20%2313%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/SzjmcaW.jpeg" target="_blank">Consultar</a></div>
-
-<div class="card"><img src="https://i.imgur.com/Mv0QKSO.jpeg" data-images="https://i.imgur.com/Mv0QKSO.jpeg" onclick="abrirGaleria(this)" alt="Camiseta #14"><div class="nombre">Camiseta #14</div><div class="precio">$8.000 ARS</div><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Camiseta%20%2314%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/Mv0QKSO.jpeg" target="_blank">Consultar</a></div>
-
-<div class="card"><img src="https://i.imgur.com/00COTIs.jpeg" data-images="https://i.imgur.com/00COTIs.jpeg" onclick="abrirGaleria(this)" alt="Camiseta #15"><div class="nombre">Camiseta #15</div><div class="precio">$8.000 ARS</div><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Camiseta%20%2315%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/00COTIs.jpeg" target="_blank">Consultar</a></div>
-
-<div class="card"><img src="https://i.imgur.com/dsa9rIc.jpeg" data-images="https://i.imgur.com/dsa9rIc.jpeg" onclick="abrirGaleria(this)" alt="Camiseta #16"><div class="nombre">Camiseta #16</div><div class="precio">$8.000 ARS</div><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Camiseta%20%2316%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/dsa9rIc.jpeg" target="_blank">Consultar</a></div>
-
-<div class="card"><img src="https://i.imgur.com/hMKEZjs.jpeg" data-images="https://i.imgur.com/hMKEZjs.jpeg" onclick="abrirGaleria(this)" alt="Camiseta #17"><div class="nombre">Camiseta #17</div><div class="precio">$8.000 ARS</div><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Camiseta%20%2317%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/hMKEZjs.jpeg" target="_blank">Consultar</a></div>
-
-<div class="card"><img src="https://i.imgur.com/NfCfZU6.jpeg" data-images="https://i.imgur.com/NfCfZU6.jpeg" onclick="abrirGaleria(this)" alt="Camiseta #18"><div class="nombre">Camiseta #18</div><div class="precio">$8.000 ARS</div><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Camiseta%20%2318%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/NfCfZU6.jpeg" target="_blank">Consultar</a></div>
-
-<div class="card"><img src="https://i.imgur.com/qZcqqDE.jpeg" data-images="https://i.imgur.com/qZcqqDE.jpeg" onclick="abrirGaleria(this)" alt="Camiseta #19"><div class="nombre">Camiseta #19</div><div class="precio">$8.000 ARS</div><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Camiseta%20%2319%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/qZcqqDE.jpeg" target="_blank">Consultar</a></div>
-
-<div class="card"><img src="https://i.imgur.com/EjlT8jZ.jpeg" data-images="https://i.imgur.com/EjlT8jZ.jpeg" onclick="abrirGaleria(this)" alt="Camiseta #20"><div class="nombre">Camiseta #20</div><div class="precio">$8.000 ARS</div><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Camiseta%20%2320%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/EjlT8jZ.jpeg" target="_blank">Consultar</a></div>
-
-<div class="card"><img src="https://i.imgur.com/u1VvGOU.jpeg" data-images="https://i.imgur.com/u1VvGOU.jpeg" onclick="abrirGaleria(this)" alt="Camiseta #21"><div class="nombre">Camiseta #21</div><div class="precio">$8.000 ARS</div><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Camiseta%20%2321%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/u1VvGOU.jpeg" target="_blank">Consultar</a></div>
-
-<div class="card"><img src="https://i.imgur.com/7SKNEjF.jpeg" data-images="https://i.imgur.com/7SKNEjF.jpeg" onclick="abrirGaleria(this)" alt="Camiseta #22"><div class="nombre">Camiseta #22</div><div class="precio">$8.000 ARS</div><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Camiseta%20%2322%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/7SKNEjF.jpeg" target="_blank">Consultar</a></div>
-
-<div class="card"><img src="https://i.imgur.com/GSeUnCa.jpeg" data-images="https://i.imgur.com/GSeUnCa.jpeg" onclick="abrirGaleria(this)" alt="Camiseta #23"><div class="nombre">Camiseta #23</div><div class="precio">$8.000 ARS</div><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Camiseta%20%2323%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/GSeUnCa.jpeg" target="_blank">Consultar</a></div>
-
-<div class="card"><img src="https://i.imgur.com/Ra0qjTs.jpeg" data-images="https://i.imgur.com/Ra0qjTs.jpeg" onclick="abrirGaleria(this)" alt="Camiseta #24"><div class="nombre">Camiseta #24</div><div class="precio">$8.000 ARS</div><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Camiseta%20%2324%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/Ra0qjTs.jpeg" target="_blank">Consultar</a></div>
-
-<div class="card"><img src="https://i.imgur.com/Laq4amh.jpeg" data-images="https://i.imgur.com/Laq4amh.jpeg" onclick="abrirGaleria(this)" alt="Camiseta #25"><div class="nombre">Camiseta #25</div><div class="precio">$8.000 ARS</div><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Camiseta%20%2325%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/Laq4amh.jpeg" target="_blank">Consultar</a></div>
-
-<div class="card"><img src="https://i.imgur.com/S8gPkqr.jpeg" data-images="https://i.imgur.com/S8gPkqr.jpeg" onclick="abrirGaleria(this)" alt="Camiseta #26"><div class="nombre">Camiseta #26</div><div class="precio">$8.000 ARS</div><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Camiseta%20%2326%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/S8gPkqr.jpeg" target="_blank">Consultar</a></div>
-
-<div class="card"><img src="https://i.imgur.com/KexY4ob.jpeg" data-images="https://i.imgur.com/KexY4ob.jpeg" onclick="abrirGaleria(this)" alt="Camiseta #27"><div class="nombre">Camiseta #27</div><div class="precio">$8.000 ARS</div><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Camiseta%20%2327%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/KexY4ob.jpeg" target="_blank">Consultar</a></div>
-
-<div class="card"><img src="https://i.imgur.com/RpqmUiY.jpeg" data-images="https://i.imgur.com/RpqmUiY.jpeg" onclick="abrirGaleria(this)" alt="Camiseta #28"><div class="nombre">Camiseta #28</div><div class="precio">$8.000 ARS</div><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Camiseta%20%2328%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/RpqmUiY.jpeg" target="_blank">Consultar</a></div>
-
-<div class="card"><img src="https://i.imgur.com/Ae5mlDY.jpeg" data-images="https://i.imgur.com/Ae5mlDY.jpeg" onclick="abrirGaleria(this)" alt="Camiseta #29"><div class="nombre">Camiseta #29</div><div class="precio">$8.000 ARS</div><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Camiseta%20%2329%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/Ae5mlDY.jpeg" target="_blank">Consultar</a></div>
-
-<div class="card"><img src="https://i.imgur.com/WpOMRDO.jpeg" data-images="https://i.imgur.com/WpOMRDO.jpeg" onclick="abrirGaleria(this)" alt="Camiseta #30"><div class="nombre">Camiseta #30</div><div class="precio">$8.000 ARS</div><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Camiseta%20%2330%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/WpOMRDO.jpeg" target="_blank">Consultar</a></div>
-
-<div class="card"><img src="https://i.imgur.com/rIxNgkl.jpeg" data-images="https://i.imgur.com/rIxNgkl.jpeg" onclick="abrirGaleria(this)" alt="Camiseta #31"><div class="nombre">Camiseta #31</div><div class="precio">$8.000 ARS</div><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Camiseta%20%2331%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/rIxNgkl.jpeg" target="_blank">Consultar</a></div>
-
-<div class="card"><img src="https://i.imgur.com/1JQXLcw.jpeg" data-images="https://i.imgur.com/1JQXLcw.jpeg" onclick="abrirGaleria(this)" alt="Camiseta #32"><div class="nombre">Camiseta #32</div><div class="precio">$8.000 ARS</div><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Camiseta%20%2332%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/1JQXLcw.jpeg" target="_blank">Consultar</a></div>
-
-<div class="card"><img src="https://i.imgur.com/t5y21Iv.jpeg" data-images="https://i.imgur.com/t5y21Iv.jpeg" onclick="abrirGaleria(this)" alt="Camiseta #33"><div class="nombre">Camiseta #33</div><div class="precio">$8.000 ARS</div><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Camiseta%20%2333%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/t5y21Iv.jpeg" target="_blank">Consultar</a></div>
-
-<div class="card"><img src="https://i.imgur.com/nsqMiae.jpeg" data-images="https://i.imgur.com/nsqMiae.jpeg" onclick="abrirGaleria(this)" alt="Camiseta #34"><div class="nombre">Camiseta #34</div><div class="precio">$8.000 ARS</div><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Camiseta%20%2334%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/nsqMiae.jpeg" target="_blank">Consultar</a></div>
-
-<div class="card"><img src="https://i.imgur.com/DbXRe2m.jpeg" data-images="https://i.imgur.com/DbXRe2m.jpeg" onclick="abrirGaleria(this)" alt="Camiseta #35"><div class="nombre">Camiseta #35</div><div class="precio">$8.000 ARS</div><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Camiseta%20%2335%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/DbXRe2m.jpeg" target="_blank">Consultar</a></div>
-
-<div class="card"><img src="https://i.imgur.com/wL6v8y8.jpeg" data-images="https://i.imgur.com/wL6v8y8.jpeg" onclick="abrirGaleria(this)" alt="Camiseta #36"><div class="nombre">Camiseta #36</div><div class="precio">$8.000 ARS</div><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Camiseta%20%2336%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/wL6v8y8.jpeg" target="_blank">Consultar</a></div>
-
-<div class="card"><img src="https://i.imgur.com/83qqxWY.jpeg" data-images="https://i.imgur.com/83qqxWY.jpeg" onclick="abrirGaleria(this)" alt="Camiseta #37"><div class="nombre">Camiseta #37</div><div class="precio">$8.000 ARS</div><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Camiseta%20%2337%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/83qqxWY.jpeg" target="_blank">Consultar</a></div>
-
-<div class="card"><img src="https://i.imgur.com/UWkf6lj.jpeg" data-images="https://i.imgur.com/UWkf6lj.jpeg" onclick="abrirGaleria(this)" alt="Camiseta #38"><div class="nombre">Camiseta #38</div><div class="precio">$8.000 ARS</div><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Camiseta%20%2338%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/UWkf6lj.jpeg" target="_blank">Consultar</a></div>
-
-<div class="card"><img src="https://i.imgur.com/45tjZb6.jpeg" data-images="https://i.imgur.com/45tjZb6.jpeg" onclick="abrirGaleria(this)" alt="Camiseta #39"><div class="nombre">Camiseta #39</div><div class="precio">$8.000 ARS</div><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Camiseta%20%2339%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/45tjZb6.jpeg" target="_blank">Consultar</a></div>
-
-<div class="card"><img src="https://i.imgur.com/GpMXt1h.jpeg" data-images="https://i.imgur.com/GpMXt1h.jpeg" onclick="abrirGaleria(this)" alt="Camiseta #40"><div class="nombre">Camiseta #40</div><div class="precio">$8.000 ARS</div><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Camiseta%20%2340%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/GpMXt1h.jpeg" target="_blank">Consultar</a></div>
-
-<div class="card"><img src="https://i.imgur.com/blRQ4fv.jpeg" data-images="https://i.imgur.com/blRQ4fv.jpeg" onclick="abrirGaleria(this)" alt="Camiseta #41"><div class="nombre">Camiseta #41</div><div class="precio">$8.000 ARS</div><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Camiseta%20%2341%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/blRQ4fv.jpeg" target="_blank">Consultar</a></div>
-
-<div class="card"><img src="https://i.imgur.com/bP3Hntl.jpeg" data-images="https://i.imgur.com/bP3Hntl.jpeg" onclick="abrirGaleria(this)" alt="Camiseta #42"><div class="nombre">Camiseta #42</div><div class="precio">$8.000 ARS</div><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Camiseta%20%2342%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/bP3Hntl.jpeg" target="_blank">Consultar</a></div>
-
-<div class="card"><img src="https://i.imgur.com/V7EIDKZ.jpeg" data-images="https://i.imgur.com/V7EIDKZ.jpeg" onclick="abrirGaleria(this)" alt="Camiseta #43"><div class="nombre">Camiseta #43</div><div class="precio">$8.000 ARS</div><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Camiseta%20%2343%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/V7EIDKZ.jpeg" target="_blank">Consultar</a></div>
-
-<div class="card"><img src="https://i.imgur.com/1IZMPjP.jpeg" data-images="https://i.imgur.com/1IZMPjP.jpeg" onclick="abrirGaleria(this)" alt="Camiseta #44"><div class="nombre">Camiseta #44</div><div class="precio">$8.000 ARS</div><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Camiseta%20%2344%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/1IZMPjP.jpeg" target="_blank">Consultar</a></div>
-
-<div class="card"><img src="https://i.imgur.com/VSBOjqZ.jpeg" data-images="https://i.imgur.com/VSBOjqZ.jpeg" onclick="abrirGaleria(this)" alt="Camiseta #45"><div class="nombre">Camiseta #45</div><div class="precio">$8.000 ARS</div><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Camiseta%20%2345%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/VSBOjqZ.jpeg" target="_blank">Consultar</a></div>
-
-<div class="card"><img src="https://i.imgur.com/QkMHClr.jpeg" data-images="https://i.imgur.com/QkMHClr.jpeg" onclick="abrirGaleria(this)" alt="Camiseta #46"><div class="nombre">Camiseta #46</div><div class="precio">$8.000 ARS</div><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Camiseta%20%2346%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/QkMHClr.jpeg" target="_blank">Consultar</a></div>
-
-<div class="card"><img src="https://i.imgur.com/L7wd2gz.jpeg" data-images="https://i.imgur.com/L7wd2gz.jpeg" onclick="abrirGaleria(this)" alt="Camiseta #47"><div class="nombre">Camiseta #47</div><div class="precio">$8.000 ARS</div><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Camiseta%20%2347%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/L7wd2gz.jpeg" target="_blank">Consultar</a></div>
-
-<div class="card"><img src="https://i.imgur.com/bCSyPqr.jpeg" data-images="https://i.imgur.com/bCSyPqr.jpeg" onclick="abrirGaleria(this)" alt="Camiseta #48"><div class="nombre">Camiseta #48</div><div class="precio">$8.000 ARS</div><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Camiseta%20%2348%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/bCSyPqr.jpeg" target="_blank">Consultar</a></div>
-
-
-
+      <div class="camisetas-vacio">
+        <img 
+      src="https://i.imgur.com/wi4NSYX.png"
+      data-images="https://i.imgur.com/wi4NSYX.png"
+      onclick="abrirGaleria(this)"
+      alt="Buzo Jordan #25"
+    >
+    <div class="nombre">Buzo Jordan #25</div>
+    <div class="precio">$14.000 ARS</div>
+    <a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Buzo%20Jordan%20%2324%0APrecio%3A%20%2474.999%0AFoto%20del%20producto%3A%20https%3A//i.imgur.com/wi4NSYX.png" target="_blank">Consultar</a>
+  </div>
 
 </div>
 
@@ -1022,25 +862,7 @@ document.addEventListener("keydown", function(event) {
   if (event.key === "ArrowRight") imagenSiguiente(event);
   if (event.key === "ArrowLeft") imagenAnterior(event);
 });
-
-window.addEventListener("load", function() {
-  setTimeout(function() {
-    const popup = document.getElementById("popup-info");
-    if (!popup) return;
-
-    popup.classList.add("mostrar");
-
-    const sonidoClin = new Audio("https://assets.mixkit.co/active_storage/sfx/2869/2869-preview.mp3");
-    sonidoClin.volume = 0.4;
-    sonidoClin.play().catch(() => {});
-
-    setTimeout(function() {
-      popup.classList.remove("mostrar");
-    }, 3500);
-
-  }, 2000);
-});
 </script>
-<div id="popup-info">👆 Clic en el item para ver más colores</div>
+
 </body>
 </html>
