@@ -26,15 +26,11 @@
 }
 
 body {
-  font-family: 'Montserrat', Arial, sans-serif;
   margin: 0;
+  font-family: 'Montserrat', sans-serif;
+  color: #fff;
+  background: #000000;
   min-height: 100vh;
-  background:
-    radial-gradient(circle at top left, rgba(255, 46, 99, 0.35), transparent 32%),
-    radial-gradient(circle at top right, rgba(0, 212, 255, 0.28), transparent 35%),
-    linear-gradient(135deg, #030303, #111111 45%, #050505);
-  color: var(--text);
-  overflow-x: hidden;
 }
 
 body::before {
@@ -336,6 +332,127 @@ h1 {
   to { opacity: 1; transform: scale(1); }
 }
 
+
+.contenedor-productos {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 34px;
+  padding: 34px;
+  max-width: 1500px;
+  margin: 0 auto;
+}
+
+.seccion {
+  min-width: 0;
+}
+
+.seccion-titulo {
+  position: relative;
+  text-align: center;
+  margin: 34px 0 18px;
+  font-size: clamp(48px, 8vw, 96px);
+  font-weight: 900;
+  font-style: italic;
+  letter-spacing: 5px;
+  line-height: 0.95;
+  text-transform: uppercase;
+
+  background: linear-gradient(90deg,
+    #ffd000 0%,
+    #ff4b00 18%,
+    #ff007a 36%,
+    #8b2cff 54%,
+    #008cff 72%,
+    #00e5ff 100%
+  );
+  background-size: 180% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-stroke: 1.5px rgba(255,255,255,0.55);
+
+  text-shadow:
+    2px 2px 0 rgba(0,0,0,0.9),
+    0 0 8px rgba(255,255,255,0.22),
+    0 0 14px rgba(0,212,255,0.28),
+    0 0 18px rgba(255,0,130,0.22);
+
+  filter: drop-shadow(0 0 8px rgba(247,201,72,0.28));
+  animation: seccionRainbow 7s linear infinite;
+}
+
+.seccion-titulo::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: -12px;
+  width: min(72%, 520px);
+  height: 3px;
+  transform: translateX(-50%);
+  border-radius: 999px;
+  background: linear-gradient(90deg, transparent, #ffd000, #ff007a, #00d4ff, transparent);
+  box-shadow: 0 0 10px rgba(0,212,255,0.35);
+}
+
+@keyframes seccionRainbow {
+  from { background-position: 0% center; }
+  to { background-position: 180% center; }
+}
+
+.seccion .grid {
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  padding: 18px 0 34px;
+  max-width: none;
+}
+
+.camisetas-vacio {
+  padding: 32px 20px;
+  border: 1px dashed rgba(255,255,255,0.28);
+  border-radius: 24px;
+  color: var(--muted);
+  text-align: center;
+  background: rgba(255,255,255,0.05);
+  font-weight: 700;
+  line-height: 1.5;
+}
+
+@media (max-width: 1000px) {
+  .contenedor-productos::before {
+    top: 10px;
+    bottom: 10px;
+  }
+}
+
+  .seccion .grid {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
+  .seccion-titulo {
+    font-size: clamp(38px, 11vw, 62px);
+    letter-spacing: 2px;
+    -webkit-text-stroke: 1px rgba(255,255,255,0.5);
+  }
+
+  .card {
+    padding: 8px;
+    border-radius: 16px;
+  }
+
+  .nombre {
+    font-size: 13px;
+  }
+
+  .precio {
+    font-size: 16px;
+  }
+
+  .btn {
+    font-size: 10px;
+    padding: 9px 11px;
+  }
+}
+
 @media (max-width: 680px) {
   .wa-header-link {
     width: 50px;
@@ -358,6 +475,107 @@ h1 {
   .izquierda { left: 4px; }
   .derecha { right: 4px; }
 }
+.contenedor-productos {
+  position: relative;
+}
+
+.contenedor-productos::before {
+  content: "";
+  position: absolute;
+  top: 20px;
+  bottom: 20px;
+  left: 50%;
+  width: 2px;
+  transform: translateX(-50%);
+
+  background: linear-gradient(
+  to bottom,
+  #f7c948,
+  #ff2e63,
+  #00d4ff,
+  #f7c948
+);
+
+  box-shadow:
+    0 0 10px rgba(255, 46, 99, 0.6),
+    0 0 20px rgba(0, 212, 255, 0.4);
+
+  border-radius: 10px;
+}
+
+#popup-info {
+  position: fixed !important;
+  top: 100px !important;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+
+  background: #111;
+  color: #fff;
+  padding: 16px 24px;
+  border-radius: 999px;
+  font-weight: 900;
+  font-size: 15px;
+  text-align: center;
+
+  z-index: 999999 !important;
+
+  opacity: 0;
+  pointer-events: none;
+
+  border: 1px solid rgba(255,255,255,0.2);
+
+  box-shadow:
+    0 0 20px rgba(255,46,99,0.6),
+    0 0 30px rgba(0,212,255,0.4);
+
+  transition: 0.4s ease;
+}
+
+#popup-info.mostrar {
+  opacity: 1;
+  top: 120px !important;
+  animation: brilloPopup 1.2s ease-in-out infinite;
+}
+
+@keyframes brilloPopup {
+  0%, 100% {
+    box-shadow:
+      0 0 15px rgba(255,46,99,0.5),
+      0 0 25px rgba(0,212,255,0.35);
+  }
+
+  50% {
+    box-shadow:
+      0 0 28px rgba(255,46,99,0.95),
+      0 0 45px rgba(0,212,255,0.75),
+      0 0 65px rgba(247,201,72,0.45);
+  }
+}
+
+
+
+/* ===== CARRITO DE CONSULTA ===== */
+.cart-widget { position: fixed; top: 18px; right: 18px; z-index: 10000; font-family: 'Montserrat', sans-serif; }
+.cart-toggle { border: 0; cursor: pointer; display: inline-flex; align-items: center; gap: 9px; padding: 13px 17px; border-radius: 999px; background: linear-gradient(135deg, var(--gold), var(--red), var(--blue)); color: #fff; font-size: 13px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.7px; box-shadow: 0 12px 32px rgba(0,0,0,0.45), 0 0 25px rgba(0,212,255,0.35); transition: transform 0.25s ease, box-shadow 0.25s ease; }
+.cart-toggle:hover { transform: translateY(-2px) scale(1.03); box-shadow: 0 16px 42px rgba(0,0,0,0.55), 0 0 35px rgba(247,201,72,0.42); }
+.cart-count { min-width: 23px; height: 23px; display: inline-flex; align-items: center; justify-content: center; border-radius: 50%; background: #050505; color: #fff; font-size: 12px; border: 1px solid rgba(255,255,255,0.25); }
+.cart-panel { display: none; position: absolute; top: 58px; right: 0; width: min(360px, calc(100vw - 28px)); max-height: 72vh; overflow: auto; padding: 16px; border-radius: 22px; background: rgba(8,8,8,0.96); border: 1px solid rgba(255,255,255,0.18); box-shadow: 0 22px 70px rgba(0,0,0,0.65), 0 0 35px rgba(0,212,255,0.2); backdrop-filter: blur(18px); }
+.cart-widget.abierto .cart-panel { display: block; animation: aparecer 0.2s ease; }
+.cart-title { margin: 0 0 12px; font-size: 17px; font-weight: 900; color: var(--gold); text-transform: uppercase; }
+.cart-empty { color: var(--muted); font-size: 13px; font-weight: 700; line-height: 1.45; }
+.cart-items { display: grid; gap: 10px; margin-bottom: 14px; }
+.cart-item { display: grid; grid-template-columns: 54px 1fr auto; gap: 10px; align-items: center; padding: 9px; border-radius: 16px; background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.12); }
+.cart-item img { width: 54px; height: 54px; object-fit: cover; border-radius: 12px; background: #111; }
+.cart-item-name { font-size: 12px; font-weight: 900; line-height: 1.25; }
+.cart-item-price { margin-top: 4px; font-size: 12px; color: var(--gold); font-weight: 800; }
+.cart-remove { border: 0; width: 30px; height: 30px; border-radius: 50%; cursor: pointer; background: rgba(255,46,99,0.22); color: #fff; font-weight: 900; }
+.btn-row { display: flex; flex-wrap: wrap; gap: 9px; }
+.btn-cart { border: 0; cursor: pointer; background: var(--gold); color: #050505; }
+.btn-cart.agregado { background: var(--whatsapp); color: #fff; }
+.cart-consultar { width: 100%; justify-content: center; background: var(--whatsapp); color: #fff; border: 0; cursor: pointer; }
+.cart-clear { width: 100%; margin-top: 9px; justify-content: center; background: rgba(255,255,255,0.1); color: #fff; border: 1px solid rgba(255,255,255,0.15); cursor: pointer; }
+@media (max-width: 680px) { .cart-widget { top: 12px; right: 12px; } .cart-toggle { padding: 11px 13px; font-size: 11px; } .cart-panel { top: 52px; } }
+
 </style>
 
 </head>
@@ -367,373 +585,341 @@ h1 {
 <header>
   <h1>Cest Indumentaria</h1>
 </header>
+<div class="cart-widget" id="cartWidget">
+  <button class="cart-toggle" type="button" onclick="toggleCarrito(event)"><i class="fas fa-shopping-cart"></i> Carrito <span class="cart-count" id="cartCount">0</span></button>
+  <div class="cart-panel" onclick="event.stopPropagation()">
+    <h3 class="cart-title">Carrito</h3>
+    <div id="cartItems" class="cart-items"></div>
+    <div id="cartEmpty" class="cart-empty">Todavía no agregaste productos. Tocá “Agregar al carrito” en los items que quieras consultar.</div>
+    <a id="cartConsultar" class="btn cart-consultar" href="#" target="_blank" style="display:none;"><i class="fab fa-whatsapp"></i> Consultar selección</a>
+    <button id="cartClear" class="btn cart-clear" type="button" onclick="vaciarCarrito()" style="display:none;">Vaciar carrito</button>
+  </div>
+</div>
+
 
 <a href="https://wa.me/541170743305?text=Hola, vengo del catálogo y tengo una consulta" class="wa-header-link" target="_blank">
   <i class="fab fa-whatsapp"></i>
 </a>
 
-<div class="grid">
+<div class="contenedor-productos">
+
+  <section class="seccion">
+    <h2 class="seccion-titulo">BUZOS</h2>
+    <div class="grid">
 
   <div class="card">
-    <img 
-      src="https://i.imgur.com/B5hm1IJ.jpeg"
-      data-images="https://i.imgur.com/B5hm1IJ.jpeg,https://i.imgur.com/LPPdold.jpeg,https://i.imgur.com/D25OAUW.jpeg"
-      onclick="abrirGaleria(this)"
-      alt="Buzo Jordan #1"
-    >
+    <img src="https://i.imgur.com/B5hm1IJ.jpeg" data-images="https://i.imgur.com/B5hm1IJ.jpeg,https://i.imgur.com/LPPdold.jpeg,https://i.imgur.com/D25OAUW.jpeg" onclick="abrirGaleria(this)" alt="Buzo Jordan #1">
     <div class="nombre">Buzo Jordan #1</div>
     <div class="precio">$14.000 ARS</div>
-    <a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Buzo%20Jordan%20%231%0APrecio%3A%20%2447.999%0AFoto%20del%20producto%3A%20https%3A//i.imgur.com/B5hm1IJ.jpeg" target="_blank">Consultar</a>
-  </div>
+    <div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Buzo%20Jordan%20%231%0APrecio%3A%20%2414.000%0AFoto%20del%20producto%3A%20https%3A//i.imgur.com/B5hm1IJ.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" type="button" onclick="agregarAlCarrito(this)"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
+</div>
 
-  <div class="card">
-    <img 
-      src="https://i.imgur.com/HO0299s.jpeg"
-      data-images="https://i.imgur.com/HO0299s.jpeg,https://i.imgur.com/fk4zRFn.jpeg,https://i.imgur.com/iYNK6eZ.jpeg,https://i.imgur.com/E1Eo0ak.jpeg,https://i.imgur.com/dA9KbSc.jpeg"
-      onclick="abrirGaleria(this)"
-      alt="Buzo Jordan #2"
-    >
+<div class="card">
+    <img src="https://i.imgur.com/HO0299s.jpeg" data-images="https://i.imgur.com/HO0299s.jpeg,https://i.imgur.com/fk4zRFn.jpeg,https://i.imgur.com/iYNK6eZ.jpeg,https://i.imgur.com/E1Eo0ak.jpeg,https://i.imgur.com/dA9KbSc.jpeg" onclick="abrirGaleria(this)" alt="Buzo Jordan #2">
     <div class="nombre">Buzo Jordan #2</div>
     <div class="precio">$14.000 ARS</div>
-    <a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Buzo%20Jordan%20%232%0APrecio%3A%20%2489.999%0AFoto%20del%20producto%3A%20https%3A//i.imgur.com/HO0299s.jpeg" target="_blank">Consultar</a>
-  </div>
+    <div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Buzo%20Jordan%20%232%0APrecio%3A%20%2414.000%0AFoto%20del%20producto%3A%20https%3A//i.imgur.com/HO0299s.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" type="button" onclick="agregarAlCarrito(this)"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
+</div>
 
-  <div class="card">
-    <img 
-      src="https://i.imgur.com/6Ym5jgy.jpeg"
-      data-images="https://i.imgur.com/6Ym5jgy.jpeg,https://i.imgur.com/8FXlGqs.jpeg,https://i.imgur.com/WywvLx3.jpeg,https://i.imgur.com/Ob7rGIe.jpeg"
-      onclick="abrirGaleria(this)"
-      alt="Buzo Jordan #3"
-    >
+<div class="card">
+    <img src="https://i.imgur.com/6Ym5jgy.jpeg" data-images="https://i.imgur.com/6Ym5jgy.jpeg,https://i.imgur.com/8FXlGqs.jpeg,https://i.imgur.com/WywvLx3.jpeg,https://i.imgur.com/Ob7rGIe.jpeg" onclick="abrirGaleria(this)" alt="Buzo Jordan #3">
     <div class="nombre">Buzo Jordan #3</div>
     <div class="precio">$14.000 ARS</div>
-    <a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Buzo%20Jordan%20%233%0APrecio%3A%20%2439.999%0AFoto%20del%20producto%3A%20https%3A//i.imgur.com/6Ym5jgy.jpeg" target="_blank">Consultar</a>
-  </div>
+    <div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Buzo%20Jordan%20%233%0APrecio%3A%20%2414.000%0AFoto%20del%20producto%3A%20https%3A//i.imgur.com/6Ym5jgy.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" type="button" onclick="agregarAlCarrito(this)"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
+</div>
 
-  <div class="card">
-    <img 
-      src="https://i.imgur.com/AIeVQqJ.jpeg"
-      data-images="https://i.imgur.com/AIeVQqJ.jpeg,https://i.imgur.com/G21bD5w.jpeg,https://i.imgur.com/7uqv41d.jpeg"
-      onclick="abrirGaleria(this)"
-      alt="Buzo Jordan #4"
-    >
+<div class="card">
+    <img src="https://i.imgur.com/AIeVQqJ.jpeg" data-images="https://i.imgur.com/AIeVQqJ.jpeg,https://i.imgur.com/G21bD5w.jpeg,https://i.imgur.com/7uqv41d.jpeg" onclick="abrirGaleria(this)" alt="Buzo Jordan #4">
     <div class="nombre">Buzo Jordan #4</div>
     <div class="precio">$14.000 ARS</div>
-    <a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Buzo%20Jordan%20%235%0APrecio%3A%20%2474.999%0AFoto%20del%20producto%3A%20https%3A//i.imgur.com/AIeVQqJ.jpeg" target="_blank">Consultar</a>
-  </div>
+    <div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Buzo%20Jordan%20%234%0APrecio%3A%20%2414.000%0AFoto%20del%20producto%3A%20https%3A//i.imgur.com/AIeVQqJ.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" type="button" onclick="agregarAlCarrito(this)"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
+</div>
 
-  <div class="card">
-    <img 
-      src="https://i.imgur.com/U4bqyN3.jpeg"
-      data-images="https://i.imgur.com/U4bqyN3.jpeg,https://i.imgur.com/WTuOk8b.jpeg,https://i.imgur.com/n1m4rA7.jpeg,https://i.imgur.com/JORikmC.jpeg"
-      onclick="abrirGaleria(this)"
-      alt="Buzo Jordan #5"
-    >
+<div class="card">
+    <img src="https://i.imgur.com/U4bqyN3.jpeg" data-images="https://i.imgur.com/U4bqyN3.jpeg,https://i.imgur.com/WTuOk8b.jpeg,https://i.imgur.com/n1m4rA7.jpeg,https://i.imgur.com/JORikmC.jpeg" onclick="abrirGaleria(this)" alt="Buzo Jordan #5">
     <div class="nombre">Buzo Jordan #5</div>
     <div class="precio">$14.000 ARS</div>
-    <a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Buzo%20Jordan%20%236%0APrecio%3A%20%2474.999%0AFoto%20del%20producto%3A%20https%3A//i.imgur.com/U4bqyN3.jpeg" target="_blank">Consultar</a>
-  </div>
+    <div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Buzo%20Jordan%20%235%0APrecio%3A%20%2414.000%0AFoto%20del%20producto%3A%20https%3A//i.imgur.com/U4bqyN3.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" type="button" onclick="agregarAlCarrito(this)"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
+</div>
 
-  <div class="card">
-    <img 
-      src="https://i.imgur.com/dKw885W.jpeg"
-      data-images="https://i.imgur.com/dKw885W.jpeg,https://i.imgur.com/ndThI7g.jpeg,https://i.imgur.com/hSFV7Sq.jpeg"
-      onclick="abrirGaleria(this)"
-      alt="Buzo Jordan #6"
-    >
+<div class="card">
+    <img src="https://i.imgur.com/dKw885W.jpeg" data-images="https://i.imgur.com/dKw885W.jpeg,https://i.imgur.com/ndThI7g.jpeg,https://i.imgur.com/hSFV7Sq.jpeg" onclick="abrirGaleria(this)" alt="Buzo Jordan #6">
     <div class="nombre">Buzo Jordan #6</div>
     <div class="precio">$14.000 ARS</div>
-    <a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Buzo%20Jordan%20%237%0APrecio%3A%20%2474.999%0AFoto%20del%20producto%3A%20https%3A//i.imgur.com/dKw885W.jpeg" target="_blank">Consultar</a>
-  </div>
+    <div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Buzo%20Jordan%20%236%0APrecio%3A%20%2414.000%0AFoto%20del%20producto%3A%20https%3A//i.imgur.com/dKw885W.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" type="button" onclick="agregarAlCarrito(this)"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
+</div>
 
-  <div class="card">
-    <img 
-      src="https://i.imgur.com/LelNPjR.jpeg"
-      data-images="https://i.imgur.com/LelNPjR.jpeg"
-      onclick="abrirGaleria(this)"
-      alt="Buzo Jordan #7"
-    >
+<div class="card">
+    <img src="https://i.imgur.com/LelNPjR.jpeg" data-images="https://i.imgur.com/LelNPjR.jpeg" onclick="abrirGaleria(this)" alt="Buzo Jordan #7">
     <div class="nombre">Buzo Jordan #7</div>
     <div class="precio">$14.000 ARS</div>
-    <a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Buzo%20Jordan%20%238%0APrecio%3A%20%2474.999%0AFoto%20del%20producto%3A%20https%3A//i.imgur.com/LelNPjR.jpeg" target="_blank">Consultar</a>
-  </div>
+    <div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Buzo%20Jordan%20%237%0APrecio%3A%20%2414.000%0AFoto%20del%20producto%3A%20https%3A//i.imgur.com/LelNPjR.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" type="button" onclick="agregarAlCarrito(this)"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
+</div>
 
-  <div class="card">
-    <img 
-      src="https://i.imgur.com/skI6RM1.jpeg"
-      data-images="https://i.imgur.com/skI6RM1.jpeg"
-      onclick="abrirGaleria(this)"
-      alt="Buzo Jordan #8"
-    >
+<div class="card">
+    <img src="https://i.imgur.com/skI6RM1.jpeg" data-images="https://i.imgur.com/skI6RM1.jpeg" onclick="abrirGaleria(this)" alt="Buzo Jordan #8">
     <div class="nombre">Buzo Jordan #8</div>
     <div class="precio">$14.000 ARS</div>
-    <a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Buzo%20Jordan%20%239%0APrecio%3A%20%2474.999%0AFoto%20del%20producto%3A%20https%3A//i.imgur.com/skI6RM1.jpeg" target="_blank">Consultar</a>
-  </div>
+    <div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Buzo%20Jordan%20%238%0APrecio%3A%20%2414.000%0AFoto%20del%20producto%3A%20https%3A//i.imgur.com/skI6RM1.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" type="button" onclick="agregarAlCarrito(this)"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
+</div>
 
 <div class="card">
-    <img 
-      src="https://i.imgur.com/6A0iZKr.jpeg"
-      data-images="https://i.imgur.com/6A0iZKr.jpeg,https://i.imgur.com/CeLQu4E.jpeg,https://i.imgur.com/wXS18hz.jpeg,https://i.imgur.com/apTc0dV.jpeg,https://i.imgur.com/5VEtKvJ.jpeg,https://i.imgur.com/I9BJ6D2.jpeg,https://i.imgur.com/ugMuCGd.jpeg,https://i.imgur.com/Sey4x9J.jpeg"
-      onclick="abrirGaleria(this)"
-      alt="Buzo Nike Swoosu"
-    >
+    <img src="https://i.imgur.com/6A0iZKr.jpeg" data-images="https://i.imgur.com/6A0iZKr.jpeg,https://i.imgur.com/CeLQu4E.jpeg,https://i.imgur.com/wXS18hz.jpeg,https://i.imgur.com/apTc0dV.jpeg,https://i.imgur.com/5VEtKvJ.jpeg,https://i.imgur.com/I9BJ6D2.jpeg,https://i.imgur.com/ugMuCGd.jpeg,https://i.imgur.com/Sey4x9J.jpeg" onclick="abrirGaleria(this)" alt="Buzo Nike Swoosu">
     <div class="nombre">Buzo Nike Swoosu</div>
     <div class="precio">$14.000 ARS</div>
-    <a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Buzo%20Nike%20Swoosu%0APrecio%3A%20%2494.999%0AFoto%20del%20producto%3A%20https%3A//i.imgur.com/6A0iZKr.jpeg" target="_blank">Consultar</a>
-  </div>
+    <div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Buzo%20Nike%20Swoosu%0APrecio%3A%20%2414.000%0AFoto%20del%20producto%3A%20https%3A//i.imgur.com/6A0iZKr.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" type="button" onclick="agregarAlCarrito(this)"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
+</div>
 
-  <div class="card">
-    <img 
-      src="https://i.imgur.com/ebWo7V3.jpeg"
-      data-images="https://i.imgur.com/ebWo7V3.jpeg,https://i.imgur.com/KWd6FbA.jpeg,https://i.imgur.com/Z8ifAuI.jpeg,https://i.imgur.com/KKZgNt7.jpeg"
-      onclick="abrirGaleria(this)"
-      alt="Buzo Jordan Flyght"
-    >
+<div class="card">
+    <img src="https://i.imgur.com/ebWo7V3.jpeg" data-images="https://i.imgur.com/ebWo7V3.jpeg,https://i.imgur.com/KWd6FbA.jpeg,https://i.imgur.com/Z8ifAuI.jpeg,https://i.imgur.com/KKZgNt7.jpeg" onclick="abrirGaleria(this)" alt="Buzo Jordan Flyght">
     <div class="nombre">Buzo Jordan Flyght</div>
     <div class="precio">$14.000 ARS</div>
-    <a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Buzo%20Jordan%20Flyght%0APrecio%3A%20%24195.999%0AFoto%20del%20producto%3A%20https%3A//i.imgur.com/ebWo7V3.jpeg" target="_blank">Consultar</a>
-  </div>
+    <div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Buzo%20Jordan%20Flyght%0APrecio%3A%20%2414.000%0AFoto%20del%20producto%3A%20https%3A//i.imgur.com/ebWo7V3.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" type="button" onclick="agregarAlCarrito(this)"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
+</div>
 
-  <div class="card">
-    <img 
-      src="https://i.imgur.com/W3XYCNb.jpeg"
-      data-images="https://i.imgur.com/W3XYCNb.jpeg,https://i.imgur.com/s8LdcxY.jpeg,https://i.imgur.com/mknSf2f.jpeg"
-      onclick="abrirGaleria(this)"
-      alt="Buzo Jordan #9"
-    >
+<div class="card">
+    <img src="https://i.imgur.com/W3XYCNb.jpeg" data-images="https://i.imgur.com/W3XYCNb.jpeg,https://i.imgur.com/s8LdcxY.jpeg,https://i.imgur.com/mknSf2f.jpeg" onclick="abrirGaleria(this)" alt="Buzo Jordan #9">
     <div class="nombre">Buzo Jordan #9</div>
     <div class="precio">$14.000 ARS</div>
-    <a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Buzo%20Jordan%20%234%0APrecio%3A%20%2474.999%0AFoto%20del%20producto%3A%20https%3A//i.imgur.com/W3XYCNb.jpeg" target="_blank">Consultar</a>
-  </div>
+    <div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Buzo%20Jordan%20%239%0APrecio%3A%20%2414.000%0AFoto%20del%20producto%3A%20https%3A//i.imgur.com/W3XYCNb.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" type="button" onclick="agregarAlCarrito(this)"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
+</div>
 
-  <div class="card">
-    <img 
-      src="https://i.imgur.com/FBeY38S.png"
-      data-images="https://i.imgur.com/FBeY38S.png,https://i.imgur.com/sqbf4GL.png,https://i.imgur.com/Bj3Z6md.jpeg"
-      onclick="abrirGaleria(this)"
-      alt="Buzo Jordan #10"
-    >
+<div class="card">
+    <img src="https://i.imgur.com/FBeY38S.png" data-images="https://i.imgur.com/FBeY38S.png,https://i.imgur.com/sqbf4GL.png,https://i.imgur.com/Bj3Z6md.jpeg" onclick="abrirGaleria(this)" alt="Buzo Jordan #10">
     <div class="nombre">Buzo Jordan #10</div>
     <div class="precio">$16.000 ARS</div>
-    <a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Buzo%20Jordan%20%2310%0APrecio%3A%20%2474.999%0AFoto%20del%20producto%3A%20https%3A//i.imgur.com/FBeY38S.png" target="_blank">Consultar</a>
-  </div>
+    <div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Buzo%20Jordan%20%2310%0APrecio%3A%20%2416.000%0AFoto%20del%20producto%3A%20https%3A//i.imgur.com/FBeY38S.png" target="_blank">Consultar</a><button class="btn btn-cart" type="button" onclick="agregarAlCarrito(this)"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
+</div>
 
- <div class="card">
-    <img 
-      src="https://i.imgur.com/WEUSPjc.jpeg"
-      data-images="https://i.imgur.com/WEUSPjc.jpeg"
-      onclick="abrirGaleria(this)"
-      alt="Buzo NIKE #11"
-    >
+<div class="card">
+    <img src="https://i.imgur.com/WEUSPjc.jpeg" data-images="https://i.imgur.com/WEUSPjc.jpeg" onclick="abrirGaleria(this)" alt="Buzo NIKE #11">
     <div class="nombre">Buzo NIKE #11</div>
     <div class="precio">$14.000 ARS</div>
-    <a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Buzo%20NIKE%20%2311%0APrecio%3A%20%2474.999%0AFoto%20del%20producto%3A%20https%3A//i.imgur.com/WEUSPjc.jpeg" target="_blank">Consultar</a>
-  </div>
+    <div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Buzo%20NIKE%20%2311%0APrecio%3A%20%2414.000%0AFoto%20del%20producto%3A%20https%3A//i.imgur.com/WEUSPjc.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" type="button" onclick="agregarAlCarrito(this)"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
+</div>
 
- <div class="card">
-    <img 
-      src="https://i.imgur.com/Qq3PnEt.jpeg"
-      data-images="https://i.imgur.com/Qq3PnEt.jpeg"
-      onclick="abrirGaleria(this)"
-      alt="Buzo Jordan #12"
-    >
+<div class="card">
+    <img src="https://i.imgur.com/Qq3PnEt.jpeg" data-images="https://i.imgur.com/Qq3PnEt.jpeg" onclick="abrirGaleria(this)" alt="Buzo Jordan #12">
     <div class="nombre">Buzo Jordan #12</div>
     <div class="precio">$14.000 ARS</div>
-    <a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Buzo%20Jordan%20%2312%0APrecio%3A%20%2474.999%0AFoto%20del%20producto%3A%20https%3A//i.imgur.com/Qq3PnEt.jpeg" target="_blank">Consultar</a>
-  </div>
+    <div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Buzo%20Jordan%20%2312%0APrecio%3A%20%2414.000%0AFoto%20del%20producto%3A%20https%3A//i.imgur.com/Qq3PnEt.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" type="button" onclick="agregarAlCarrito(this)"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
+</div>
 
 <div class="card">
-    <img 
-      src="https://i.imgur.com/Srra0SX.jpeg"
-      data-images="https://i.imgur.com/Srra0SX.jpeg"
-      onclick="abrirGaleria(this)"
-      alt="Buzo Jordan #13"
-    >
+    <img src="https://i.imgur.com/Srra0SX.jpeg" data-images="https://i.imgur.com/Srra0SX.jpeg" onclick="abrirGaleria(this)" alt="Buzo Jordan #13">
     <div class="nombre">Buzo Jordan #13</div>
     <div class="precio">$14.000 ARS</div>
-    <a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Buzo%20Jordan%20%2313%0APrecio%3A%20%2474.999%0AFoto%20del%20producto%3A%20https%3A//i.imgur.com/Srra0SX.jpeg" target="_blank">Consultar</a>
-  </div>
+    <div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Buzo%20Jordan%20%2313%0APrecio%3A%20%2414.000%0AFoto%20del%20producto%3A%20https%3A//i.imgur.com/Srra0SX.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" type="button" onclick="agregarAlCarrito(this)"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
+</div>
 
 <div class="card">
-    <img 
-      src="https://i.imgur.com/NbyeBry.png"
-      data-images="https://i.imgur.com/NbyeBry.png,https://i.imgur.com/EaimR0t.png"
-      onclick="abrirGaleria(this)"
-      alt="Buzo Jordan #14"
-    >
+    <img src="https://i.imgur.com/NbyeBry.png" data-images="https://i.imgur.com/NbyeBry.png,https://i.imgur.com/EaimR0t.png" onclick="abrirGaleria(this)" alt="Buzo Jordan #14">
     <div class="nombre">Buzo Jordan #14</div>
     <div class="precio">$14.000 ARS</div>
-    <a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Buzo%20Jordan%20%2314%0APrecio%3A%20%2474.999%0AFoto%20del%20producto%3A%20https%3A//i.imgur.com/NbyeBry.png" target="_blank">Consultar</a>
-  </div>
+    <div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Buzo%20Jordan%20%2314%0APrecio%3A%20%2414.000%0AFoto%20del%20producto%3A%20https%3A//i.imgur.com/NbyeBry.png" target="_blank">Consultar</a><button class="btn btn-cart" type="button" onclick="agregarAlCarrito(this)"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
+</div>
 
 <div class="card">
-    <img 
-      src="https://i.imgur.com/b0v8UUR.png"
-      data-images="https://i.imgur.com/b0v8UUR.png,https://i.imgur.com/0oglMXs.png"
-      onclick="abrirGaleria(this)"
-      alt="Buzo Jordan #15"
-    >
+    <img src="https://i.imgur.com/b0v8UUR.png" data-images="https://i.imgur.com/b0v8UUR.png,https://i.imgur.com/0oglMXs.png" onclick="abrirGaleria(this)" alt="Buzo Jordan #15">
     <div class="nombre">Buzo Jordan #15</div>
     <div class="precio">$14.000 ARS</div>
-    <a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Buzo%20Jordan%20%2315%0APrecio%3A%20%2474.999%0AFoto%20del%20producto%3A%20https%3A//i.imgur.com/b0v8UUR.png" target="_blank">Consultar</a>
-  </div>
+    <div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Buzo%20Jordan%20%2315%0APrecio%3A%20%2414.000%0AFoto%20del%20producto%3A%20https%3A//i.imgur.com/b0v8UUR.png" target="_blank">Consultar</a><button class="btn btn-cart" type="button" onclick="agregarAlCarrito(this)"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
+</div>
 
 <div class="card">
-    <img 
-      src="https://i.imgur.com/RAjt4fE.png"
-      data-images="https://i.imgur.com/RAjt4fE.png,https://i.imgur.com/xYdT68S.png"
-      onclick="abrirGaleria(this)"
-      alt="Buzo Jordan #16"
-    >
+    <img src="https://i.imgur.com/RAjt4fE.png" data-images="https://i.imgur.com/RAjt4fE.png,https://i.imgur.com/xYdT68S.png" onclick="abrirGaleria(this)" alt="Buzo Jordan #16">
     <div class="nombre">Buzo Jordan #16</div>
     <div class="precio">$14.000 ARS</div>
-    <a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Buzo%20Jordan%20%2316%0APrecio%3A%20%2474.999%0AFoto%20del%20producto%3A%20https%3A//i.imgur.com/RAjt4fE.png" target="_blank">Consultar</a>
-  </div>
+    <div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Buzo%20Jordan%20%2316%0APrecio%3A%20%2414.000%0AFoto%20del%20producto%3A%20https%3A//i.imgur.com/RAjt4fE.png" target="_blank">Consultar</a><button class="btn btn-cart" type="button" onclick="agregarAlCarrito(this)"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
+</div>
 
 <div class="card">
-    <img 
-      src="https://i.imgur.com/MjSIkel.png"
-      data-images="https://i.imgur.com/MjSIkel.png,https://i.imgur.com/9VKZ1Ko.png"
-      onclick="abrirGaleria(this)"
-      alt="Buzo Jordan #17"
-    >
+    <img src="https://i.imgur.com/MjSIkel.png" data-images="https://i.imgur.com/MjSIkel.png,https://i.imgur.com/9VKZ1Ko.png" onclick="abrirGaleria(this)" alt="Buzo Jordan #17">
     <div class="nombre">Buzo Jordan #17</div>
     <div class="precio">$14.000 ARS</div>
-    <a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Buzo%20Jordan%20%2317%0APrecio%3A%20%2474.999%0AFoto%20del%20producto%3A%20https%3A//i.imgur.com/MjSIkel.png" target="_blank">Consultar</a>
-  </div>
-
+    <div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Buzo%20Jordan%20%2317%0APrecio%3A%20%2414.000%0AFoto%20del%20producto%3A%20https%3A//i.imgur.com/MjSIkel.png" target="_blank">Consultar</a><button class="btn btn-cart" type="button" onclick="agregarAlCarrito(this)"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
+</div>
 
 <div class="card">
-    <img 
-      src="https://i.imgur.com/wQgiHeI.png"
-      data-images="https://i.imgur.com/wQgiHeI.png,https://i.imgur.com/1cHS85H.png"
-      onclick="abrirGaleria(this)"
-      alt="Buzo Hugo Boss"
-    >
+    <img src="https://i.imgur.com/wQgiHeI.png" data-images="https://i.imgur.com/wQgiHeI.png,https://i.imgur.com/1cHS85H.png" onclick="abrirGaleria(this)" alt="Buzo Hugo Boss">
     <div class="nombre">Buzo Hugo Boss</div>
     <div class="precio">$14.000 ARS</div>
-    <a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Buzo%20Hugo%20Boss%0APrecio%3A%20%2474.999%0AFoto%20del%20producto%3A%20https%3A//i.imgur.com/wQgiHeI.png" target="_blank">Consultar</a>
-  </div>
+    <div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Buzo%20Hugo%20Boss%0APrecio%3A%20%2414.000%0AFoto%20del%20producto%3A%20https%3A//i.imgur.com/wQgiHeI.png" target="_blank">Consultar</a><button class="btn btn-cart" type="button" onclick="agregarAlCarrito(this)"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
+</div>
 
 <div class="card">
-    <img 
-      src="https://i.imgur.com/bf4vXmk.png"
-      data-images="https://i.imgur.com/bf4vXmk.png"
-      onclick="abrirGaleria(this)"
-      alt="Buzo Jordan #18"
-    >
+    <img src="https://i.imgur.com/bf4vXmk.png" data-images="https://i.imgur.com/bf4vXmk.png" onclick="abrirGaleria(this)" alt="Buzo Jordan #18">
     <div class="nombre">Buzo Jordan #18</div>
     <div class="precio">$14.000 ARS</div>
-    <a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Buzo%20Jordan%20%2318%0APrecio%3A%20%2474.999%0AFoto%20del%20producto%3A%20https%3A//i.imgur.com/bf4vXmk.png" target="_blank">Consultar</a>
-  </div>
+    <div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Buzo%20Jordan%20%2318%0APrecio%3A%20%2414.000%0AFoto%20del%20producto%3A%20https%3A//i.imgur.com/bf4vXmk.png" target="_blank">Consultar</a><button class="btn btn-cart" type="button" onclick="agregarAlCarrito(this)"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
+</div>
 
 <div class="card">
-    <img 
-      src="https://i.imgur.com/GUa1528.png"
-      data-images="https://i.imgur.com/GUa1528.png"
-      onclick="abrirGaleria(this)"
-      alt="Buzo Hugo Boss #2"
-    >
+    <img src="https://i.imgur.com/GUa1528.png" data-images="https://i.imgur.com/GUa1528.png" onclick="abrirGaleria(this)" alt="Buzo Hugo Boss #2">
     <div class="nombre">Buzo Hugo Boss #2</div>
     <div class="precio">$14.000 ARS</div>
-    <a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Buzo%20Hugo%20Boss%20%232%0APrecio%3A%20%2474.999%0AFoto%20del%20producto%3A%20https%3A//i.imgur.com/GUa1528.png" target="_blank">Consultar</a>
-  </div>
+    <div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Buzo%20Hugo%20Boss%20%232%0APrecio%3A%20%2414.000%0AFoto%20del%20producto%3A%20https%3A//i.imgur.com/GUa1528.png" target="_blank">Consultar</a><button class="btn btn-cart" type="button" onclick="agregarAlCarrito(this)"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
+</div>
 
 <div class="card">
-    <img 
-      src="https://i.imgur.com/SikknUU.png"
-      data-images="https://i.imgur.com/SikknUU.png"
-      onclick="abrirGaleria(this)"
-      alt="Buzo Jordan #19"
-    >
+    <img src="https://i.imgur.com/SikknUU.png" data-images="https://i.imgur.com/SikknUU.png" onclick="abrirGaleria(this)" alt="Buzo Jordan #19">
     <div class="nombre">Buzo Jordan #19</div>
     <div class="precio">$14.000 ARS</div>
-    <a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Buzo%20Jordan%20%2319%0APrecio%3A%20%2474.999%0AFoto%20del%20producto%3A%20https%3A//i.imgur.com/SikknUU.png" target="_blank">Consultar</a>
-  </div>
+    <div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Buzo%20Jordan%20%2319%0APrecio%3A%20%2414.000%0AFoto%20del%20producto%3A%20https%3A//i.imgur.com/SikknUU.png" target="_blank">Consultar</a><button class="btn btn-cart" type="button" onclick="agregarAlCarrito(this)"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
+</div>
 
 <div class="card">
-    <img 
-      src="https://i.imgur.com/koLKaIt.png"
-      data-images="https://i.imgur.com/koLKaIt.png"
-      onclick="abrirGaleria(this)"
-      alt="Buzo Calvin Klein"
-    >
+    <img src="https://i.imgur.com/koLKaIt.png" data-images="https://i.imgur.com/koLKaIt.png" onclick="abrirGaleria(this)" alt="Buzo Calvin Klein">
     <div class="nombre">Buzo Calvin Klein</div>
     <div class="precio">$14.000 ARS</div>
-    <a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Buzo%20Calvin%20Klein%0APrecio%3A%20%2474.999%0AFoto%20del%20producto%3A%20https%3A//i.imgur.com/koLKaIt.png" target="_blank">Consultar</a>
-  </div>
+    <div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Buzo%20Calvin%20Klein%0APrecio%3A%20%2414.000%0AFoto%20del%20producto%3A%20https%3A//i.imgur.com/koLKaIt.png" target="_blank">Consultar</a><button class="btn btn-cart" type="button" onclick="agregarAlCarrito(this)"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
+</div>
 
 <div class="card">
-    <img 
-      src="https://i.imgur.com/wAwbT8X.png"
-      data-images="https://i.imgur.com/wAwbT8X.png"
-      onclick="abrirGaleria(this)"
-      alt="Buzo Jordan #20"
-    >
+    <img src="https://i.imgur.com/wAwbT8X.png" data-images="https://i.imgur.com/wAwbT8X.png" onclick="abrirGaleria(this)" alt="Buzo Jordan #20">
     <div class="nombre">Buzo Jordan #20</div>
     <div class="precio">$14.000 ARS</div>
-    <a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Buzo%20Jordan%20%2320%0APrecio%3A%20%2474.999%0AFoto%20del%20producto%3A%20https%3A//i.imgur.com/wAwbT8X.png" target="_blank">Consultar</a>
-  </div>
+    <div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Buzo%20Jordan%20%2320%0APrecio%3A%20%2414.000%0AFoto%20del%20producto%3A%20https%3A//i.imgur.com/wAwbT8X.png" target="_blank">Consultar</a><button class="btn btn-cart" type="button" onclick="agregarAlCarrito(this)"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
+</div>
 
 <div class="card">
-    <img 
-      src="https://i.imgur.com/SdiBpP5.png"
-      data-images="https://i.imgur.com/SdiBpP5.png"
-      onclick="abrirGaleria(this)"
-      alt="Buzo Jordan #21"
-    >
+    <img src="https://i.imgur.com/SdiBpP5.png" data-images="https://i.imgur.com/SdiBpP5.png" onclick="abrirGaleria(this)" alt="Buzo Jordan #21">
     <div class="nombre">Buzo Jordan #21</div>
     <div class="precio">$14.000 ARS</div>
-    <a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Buzo%20Jordan%20%2321%0APrecio%3A%20%2474.999%0AFoto%20del%20producto%3A%20https%3A//i.imgur.com/SdiBpP5.png" target="_blank">Consultar</a>
-  </div>
+    <div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Buzo%20Jordan%20%2321%0APrecio%3A%20%2414.000%0AFoto%20del%20producto%3A%20https%3A//i.imgur.com/SdiBpP5.png" target="_blank">Consultar</a><button class="btn btn-cart" type="button" onclick="agregarAlCarrito(this)"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
+</div>
 
 <div class="card">
-    <img 
-      src="https://i.imgur.com/QXLboYt.png"
-      data-images="https://i.imgur.com/QXLboYt.png"
-      onclick="abrirGaleria(this)"
-      alt="Buzo Jordan #22"
-    >
+    <img src="https://i.imgur.com/QXLboYt.png" data-images="https://i.imgur.com/QXLboYt.png" onclick="abrirGaleria(this)" alt="Buzo Jordan #22">
     <div class="nombre">Buzo Jordan #22</div>
     <div class="precio">$14.000 ARS</div>
-    <a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Buzo%20Jordan%20%2322%0APrecio%3A%20%2474.999%0AFoto%20del%20producto%3A%20https%3A//i.imgur.com/QXLboYt.png" target="_blank">Consultar</a>
-  </div>
+    <div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Buzo%20Jordan%20%2322%0APrecio%3A%20%2414.000%0AFoto%20del%20producto%3A%20https%3A//i.imgur.com/QXLboYt.png" target="_blank">Consultar</a><button class="btn btn-cart" type="button" onclick="agregarAlCarrito(this)"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
+</div>
 
 <div class="card">
-    <img 
-      src="https://i.imgur.com/xEgZxO2.png"
-      data-images="https://i.imgur.com/xEgZxO2.png"
-      onclick="abrirGaleria(this)"
-      alt="Buzo Jordan #23"
-    >
+    <img src="https://i.imgur.com/xEgZxO2.png" data-images="https://i.imgur.com/xEgZxO2.png" onclick="abrirGaleria(this)" alt="Buzo Jordan #23">
     <div class="nombre">Buzo Jordan #23</div>
     <div class="precio">$14.000 ARS</div>
-    <a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Buzo%20Jordan%20%2323%0APrecio%3A%20%2474.999%0AFoto%20del%20producto%3A%20https%3A//i.imgur.com/xEgZxO2.png" target="_blank">Consultar</a>
-  </div>
+    <div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Buzo%20Jordan%20%2323%0APrecio%3A%20%2414.000%0AFoto%20del%20producto%3A%20https%3A//i.imgur.com/xEgZxO2.png" target="_blank">Consultar</a><button class="btn btn-cart" type="button" onclick="agregarAlCarrito(this)"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
+</div>
 
 <div class="card">
-    <img 
-      src="https://i.imgur.com/1xsRGlC.png"
-      data-images="https://i.imgur.com/1xsRGlC.png"
-      onclick="abrirGaleria(this)"
-      alt="Buzo Jordan #24"
-    >
+    <img src="https://i.imgur.com/1xsRGlC.png" data-images="https://i.imgur.com/1xsRGlC.png" onclick="abrirGaleria(this)" alt="Buzo Jordan #24">
     <div class="nombre">Buzo Jordan #24</div>
     <div class="precio">$14.000 ARS</div>
-    <a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Buzo%20Jordan%20%2324%0APrecio%3A%20%2474.999%0AFoto%20del%20producto%3A%20https%3A//i.imgur.com/1xsRGlC.png" target="_blank">Consultar</a>
-  </div>
+    <div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Buzo%20Jordan%20%2324%0APrecio%3A%20%2414.000%0AFoto%20del%20producto%3A%20https%3A//i.imgur.com/1xsRGlC.png" target="_blank">Consultar</a><button class="btn btn-cart" type="button" onclick="agregarAlCarrito(this)"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
+</div>
 
 <div class="card">
-    <img 
-      src="https://i.imgur.com/wi4NSYX.png"
-      data-images="https://i.imgur.com/wi4NSYX.png"
-      onclick="abrirGaleria(this)"
-      alt="Buzo Jordan #25"
-    >
+    <img src="https://i.imgur.com/wi4NSYX.png" data-images="https://i.imgur.com/wi4NSYX.png" onclick="abrirGaleria(this)" alt="Buzo Jordan #25">
     <div class="nombre">Buzo Jordan #25</div>
     <div class="precio">$14.000 ARS</div>
-    <a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Buzo%20Jordan%20%2324%0APrecio%3A%20%2474.999%0AFoto%20del%20producto%3A%20https%3A//i.imgur.com/wi4NSYX.png" target="_blank">Consultar</a>
-  </div>
+    <div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Buzo%20Jordan%20%2325%0APrecio%3A%20%2414.000%0AFoto%20del%20producto%3A%20https%3A//i.imgur.com/wi4NSYX.png" target="_blank">Consultar</a><button class="btn btn-cart" type="button" onclick="agregarAlCarrito(this)"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
+</div>
+</div>
+  </section>
+
+  <section class="seccion">
+    <h2 class="seccion-titulo">CAMISETAS</h2>
+    <div class="grid">
+<div class="card"><img src="https://i.imgur.com/Q9MsY6J.jpeg" data-images="https://i.imgur.com/Q9MsY6J.jpeg" onclick="abrirGaleria(this)" alt="Camiseta #1"><div class="nombre">Camiseta #1</div><div class="precio">$8.000 ARS</div><div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Camiseta%20%231%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/Q9MsY6J.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" type="button" onclick="agregarAlCarrito(this)"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div></div>
+
+<div class="card"><img src="https://i.imgur.com/pJdN75m.jpeg" data-images="https://i.imgur.com/pJdN75m.jpeg" onclick="abrirGaleria(this)" alt="Camiseta #2"><div class="nombre">Camiseta #2</div><div class="precio">$8.000 ARS</div><div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Camiseta%20%232%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/pJdN75m.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" type="button" onclick="agregarAlCarrito(this)"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div></div>
+
+<div class="card"><img src="https://i.imgur.com/pkDjlqw.jpeg" data-images="https://i.imgur.com/pkDjlqw.jpeg" onclick="abrirGaleria(this)" alt="Camiseta #3"><div class="nombre">Camiseta #3</div><div class="precio">$8.000 ARS</div><div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Camiseta%20%233%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/pkDjlqw.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" type="button" onclick="agregarAlCarrito(this)"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div></div>
+
+<div class="card"><img src="https://i.imgur.com/Hn7bY2m.jpeg" data-images="https://i.imgur.com/Hn7bY2m.jpeg,https://i.imgur.com/pxwVeQP.jpeg" onclick="abrirGaleria(this)" alt="Camiseta #4"><div class="nombre">Camiseta #4</div><div class="precio">$8.000 ARS</div><div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Camiseta%20%234%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/Hn7bY2m.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" type="button" onclick="agregarAlCarrito(this)"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div></div>
+
+<div class="card"><img src="https://i.imgur.com/DACUjwo.jpeg" data-images="https://i.imgur.com/DACUjwo.jpeg,https://i.imgur.com/RvoASgk.jpeg" onclick="abrirGaleria(this)" alt="Camiseta #5"><div class="nombre">Camiseta #5</div><div class="precio">$8.000 ARS</div><div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Camiseta%20%235%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/DACUjwo.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" type="button" onclick="agregarAlCarrito(this)"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div></div>
+
+<div class="card"><img src="https://i.imgur.com/8GWdUlM.jpeg" data-images="https://i.imgur.com/8GWdUlM.jpeg" onclick="abrirGaleria(this)" alt="Camiseta #6"><div class="nombre">Camiseta #6</div><div class="precio">$8.000 ARS</div><div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Camiseta%20%236%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/8GWdUlM.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" type="button" onclick="agregarAlCarrito(this)"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div></div>
+
+<div class="card"><img src="https://i.imgur.com/exNy5BV.jpeg" data-images="https://i.imgur.com/exNy5BV.jpeg" onclick="abrirGaleria(this)" alt="Camiseta #7"><div class="nombre">Camiseta #7</div><div class="precio">$8.000 ARS</div><div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Camiseta%20%237%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/exNy5BV.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" type="button" onclick="agregarAlCarrito(this)"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div></div>
+
+<div class="card"><img src="https://i.imgur.com/vV1DBi0.jpeg" data-images="https://i.imgur.com/vV1DBi0.jpeg" onclick="abrirGaleria(this)" alt="Camiseta #8"><div class="nombre">Camiseta #8</div><div class="precio">$8.000 ARS</div><div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Camiseta%20%238%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/vV1DBi0.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" type="button" onclick="agregarAlCarrito(this)"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div></div>
+
+<div class="card"><img src="https://i.imgur.com/RuHNyPO.jpeg" data-images="https://i.imgur.com/RuHNyPO.jpeg" onclick="abrirGaleria(this)" alt="Camiseta #9"><div class="nombre">Camiseta #9</div><div class="precio">$8.000 ARS</div><div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Camiseta%20%239%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/RuHNyPO.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" type="button" onclick="agregarAlCarrito(this)"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div></div>
+
+<div class="card"><img src="https://i.imgur.com/9IwuQf2.jpeg" data-images="https://i.imgur.com/9IwuQf2.jpeg" onclick="abrirGaleria(this)" alt="Camiseta #10"><div class="nombre">Camiseta #10</div><div class="precio">$8.000 ARS</div><div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Camiseta%20%2310%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/9IwuQf2.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" type="button" onclick="agregarAlCarrito(this)"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div></div>
+
+<div class="card"><img src="https://i.imgur.com/FbHkPQt.jpeg" data-images="https://i.imgur.com/FbHkPQt.jpeg" onclick="abrirGaleria(this)" alt="Camiseta #11"><div class="nombre">Camiseta #11</div><div class="precio">$8.000 ARS</div><div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Camiseta%20%2311%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/FbHkPQt.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" type="button" onclick="agregarAlCarrito(this)"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div></div>
+
+<div class="card"><img src="https://i.imgur.com/02OZlHQ.jpeg" data-images="https://i.imgur.com/02OZlHQ.jpeg" onclick="abrirGaleria(this)" alt="Camiseta #12"><div class="nombre">Camiseta #12</div><div class="precio">$8.000 ARS</div><div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Camiseta%20%2312%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/02OZlHQ.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" type="button" onclick="agregarAlCarrito(this)"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div></div>
+
+<div class="card"><img src="https://i.imgur.com/SzjmcaW.jpeg" data-images="https://i.imgur.com/SzjmcaW.jpeg" onclick="abrirGaleria(this)" alt="Camiseta #13"><div class="nombre">Camiseta #13</div><div class="precio">$8.000 ARS</div><div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Camiseta%20%2313%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/SzjmcaW.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" type="button" onclick="agregarAlCarrito(this)"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div></div>
+
+<div class="card"><img src="https://i.imgur.com/Mv0QKSO.jpeg" data-images="https://i.imgur.com/Mv0QKSO.jpeg" onclick="abrirGaleria(this)" alt="Camiseta #14"><div class="nombre">Camiseta #14</div><div class="precio">$8.000 ARS</div><div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Camiseta%20%2314%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/Mv0QKSO.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" type="button" onclick="agregarAlCarrito(this)"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div></div>
+
+<div class="card"><img src="https://i.imgur.com/00COTIs.jpeg" data-images="https://i.imgur.com/00COTIs.jpeg" onclick="abrirGaleria(this)" alt="Camiseta #15"><div class="nombre">Camiseta #15</div><div class="precio">$8.000 ARS</div><div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Camiseta%20%2315%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/00COTIs.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" type="button" onclick="agregarAlCarrito(this)"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div></div>
+
+<div class="card"><img src="https://i.imgur.com/dsa9rIc.jpeg" data-images="https://i.imgur.com/dsa9rIc.jpeg" onclick="abrirGaleria(this)" alt="Camiseta #16"><div class="nombre">Camiseta #16</div><div class="precio">$8.000 ARS</div><div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Camiseta%20%2316%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/dsa9rIc.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" type="button" onclick="agregarAlCarrito(this)"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div></div>
+
+<div class="card"><img src="https://i.imgur.com/hMKEZjs.jpeg" data-images="https://i.imgur.com/hMKEZjs.jpeg" onclick="abrirGaleria(this)" alt="Camiseta #17"><div class="nombre">Camiseta #17</div><div class="precio">$8.000 ARS</div><div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Camiseta%20%2317%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/hMKEZjs.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" type="button" onclick="agregarAlCarrito(this)"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div></div>
+
+<div class="card"><img src="https://i.imgur.com/NfCfZU6.jpeg" data-images="https://i.imgur.com/NfCfZU6.jpeg" onclick="abrirGaleria(this)" alt="Camiseta #18"><div class="nombre">Camiseta #18</div><div class="precio">$8.000 ARS</div><div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Camiseta%20%2318%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/NfCfZU6.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" type="button" onclick="agregarAlCarrito(this)"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div></div>
+
+<div class="card"><img src="https://i.imgur.com/qZcqqDE.jpeg" data-images="https://i.imgur.com/qZcqqDE.jpeg" onclick="abrirGaleria(this)" alt="Camiseta #19"><div class="nombre">Camiseta #19</div><div class="precio">$8.000 ARS</div><div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Camiseta%20%2319%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/qZcqqDE.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" type="button" onclick="agregarAlCarrito(this)"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div></div>
+
+<div class="card"><img src="https://i.imgur.com/EjlT8jZ.jpeg" data-images="https://i.imgur.com/EjlT8jZ.jpeg" onclick="abrirGaleria(this)" alt="Camiseta #20"><div class="nombre">Camiseta #20</div><div class="precio">$8.000 ARS</div><div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Camiseta%20%2320%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/EjlT8jZ.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" type="button" onclick="agregarAlCarrito(this)"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div></div>
+
+<div class="card"><img src="https://i.imgur.com/u1VvGOU.jpeg" data-images="https://i.imgur.com/u1VvGOU.jpeg" onclick="abrirGaleria(this)" alt="Camiseta #21"><div class="nombre">Camiseta #21</div><div class="precio">$8.000 ARS</div><div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Camiseta%20%2321%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/u1VvGOU.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" type="button" onclick="agregarAlCarrito(this)"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div></div>
+
+<div class="card"><img src="https://i.imgur.com/7SKNEjF.jpeg" data-images="https://i.imgur.com/7SKNEjF.jpeg" onclick="abrirGaleria(this)" alt="Camiseta #22"><div class="nombre">Camiseta #22</div><div class="precio">$8.000 ARS</div><div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Camiseta%20%2322%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/7SKNEjF.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" type="button" onclick="agregarAlCarrito(this)"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div></div>
+
+<div class="card"><img src="https://i.imgur.com/GSeUnCa.jpeg" data-images="https://i.imgur.com/GSeUnCa.jpeg" onclick="abrirGaleria(this)" alt="Camiseta #23"><div class="nombre">Camiseta #23</div><div class="precio">$8.000 ARS</div><div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Camiseta%20%2323%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/GSeUnCa.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" type="button" onclick="agregarAlCarrito(this)"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div></div>
+
+<div class="card"><img src="https://i.imgur.com/Ra0qjTs.jpeg" data-images="https://i.imgur.com/Ra0qjTs.jpeg" onclick="abrirGaleria(this)" alt="Camiseta #24"><div class="nombre">Camiseta #24</div><div class="precio">$8.000 ARS</div><div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Camiseta%20%2324%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/Ra0qjTs.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" type="button" onclick="agregarAlCarrito(this)"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div></div>
+
+<div class="card"><img src="https://i.imgur.com/Laq4amh.jpeg" data-images="https://i.imgur.com/Laq4amh.jpeg" onclick="abrirGaleria(this)" alt="Camiseta #25"><div class="nombre">Camiseta #25</div><div class="precio">$8.000 ARS</div><div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Camiseta%20%2325%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/Laq4amh.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" type="button" onclick="agregarAlCarrito(this)"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div></div>
+
+<div class="card"><img src="https://i.imgur.com/S8gPkqr.jpeg" data-images="https://i.imgur.com/S8gPkqr.jpeg" onclick="abrirGaleria(this)" alt="Camiseta #26"><div class="nombre">Camiseta #26</div><div class="precio">$8.000 ARS</div><div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Camiseta%20%2326%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/S8gPkqr.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" type="button" onclick="agregarAlCarrito(this)"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div></div>
+
+<div class="card"><img src="https://i.imgur.com/KexY4ob.jpeg" data-images="https://i.imgur.com/KexY4ob.jpeg" onclick="abrirGaleria(this)" alt="Camiseta #27"><div class="nombre">Camiseta #27</div><div class="precio">$8.000 ARS</div><div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Camiseta%20%2327%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/KexY4ob.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" type="button" onclick="agregarAlCarrito(this)"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div></div>
+
+<div class="card"><img src="https://i.imgur.com/RpqmUiY.jpeg" data-images="https://i.imgur.com/RpqmUiY.jpeg" onclick="abrirGaleria(this)" alt="Camiseta #28"><div class="nombre">Camiseta #28</div><div class="precio">$8.000 ARS</div><div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Camiseta%20%2328%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/RpqmUiY.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" type="button" onclick="agregarAlCarrito(this)"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div></div>
+
+<div class="card"><img src="https://i.imgur.com/Ae5mlDY.jpeg" data-images="https://i.imgur.com/Ae5mlDY.jpeg" onclick="abrirGaleria(this)" alt="Camiseta #29"><div class="nombre">Camiseta #29</div><div class="precio">$8.000 ARS</div><div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Camiseta%20%2329%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/Ae5mlDY.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" type="button" onclick="agregarAlCarrito(this)"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div></div>
+
+<div class="card"><img src="https://i.imgur.com/WpOMRDO.jpeg" data-images="https://i.imgur.com/WpOMRDO.jpeg" onclick="abrirGaleria(this)" alt="Camiseta #30"><div class="nombre">Camiseta #30</div><div class="precio">$8.000 ARS</div><div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Camiseta%20%2330%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/WpOMRDO.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" type="button" onclick="agregarAlCarrito(this)"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div></div>
+
+<div class="card"><img src="https://i.imgur.com/rIxNgkl.jpeg" data-images="https://i.imgur.com/rIxNgkl.jpeg" onclick="abrirGaleria(this)" alt="Camiseta #31"><div class="nombre">Camiseta #31</div><div class="precio">$8.000 ARS</div><div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Camiseta%20%2331%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/rIxNgkl.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" type="button" onclick="agregarAlCarrito(this)"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div></div>
+
+<div class="card"><img src="https://i.imgur.com/1JQXLcw.jpeg" data-images="https://i.imgur.com/1JQXLcw.jpeg" onclick="abrirGaleria(this)" alt="Camiseta #32"><div class="nombre">Camiseta #32</div><div class="precio">$8.000 ARS</div><div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Camiseta%20%2332%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/1JQXLcw.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" type="button" onclick="agregarAlCarrito(this)"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div></div>
+
+<div class="card"><img src="https://i.imgur.com/t5y21Iv.jpeg" data-images="https://i.imgur.com/t5y21Iv.jpeg" onclick="abrirGaleria(this)" alt="Camiseta #33"><div class="nombre">Camiseta #33</div><div class="precio">$8.000 ARS</div><div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Camiseta%20%2333%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/t5y21Iv.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" type="button" onclick="agregarAlCarrito(this)"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div></div>
+
+<div class="card"><img src="https://i.imgur.com/nsqMiae.jpeg" data-images="https://i.imgur.com/nsqMiae.jpeg" onclick="abrirGaleria(this)" alt="Camiseta #34"><div class="nombre">Camiseta #34</div><div class="precio">$8.000 ARS</div><div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Camiseta%20%2334%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/nsqMiae.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" type="button" onclick="agregarAlCarrito(this)"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div></div>
+
+<div class="card"><img src="https://i.imgur.com/DbXRe2m.jpeg" data-images="https://i.imgur.com/DbXRe2m.jpeg" onclick="abrirGaleria(this)" alt="Camiseta #35"><div class="nombre">Camiseta #35</div><div class="precio">$8.000 ARS</div><div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Camiseta%20%2335%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/DbXRe2m.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" type="button" onclick="agregarAlCarrito(this)"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div></div>
+
+<div class="card"><img src="https://i.imgur.com/wL6v8y8.jpeg" data-images="https://i.imgur.com/wL6v8y8.jpeg" onclick="abrirGaleria(this)" alt="Camiseta #36"><div class="nombre">Camiseta #36</div><div class="precio">$8.000 ARS</div><div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Camiseta%20%2336%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/wL6v8y8.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" type="button" onclick="agregarAlCarrito(this)"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div></div>
+
+<div class="card"><img src="https://i.imgur.com/83qqxWY.jpeg" data-images="https://i.imgur.com/83qqxWY.jpeg" onclick="abrirGaleria(this)" alt="Camiseta #37"><div class="nombre">Camiseta #37</div><div class="precio">$8.000 ARS</div><div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Camiseta%20%2337%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/83qqxWY.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" type="button" onclick="agregarAlCarrito(this)"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div></div>
+
+<div class="card"><img src="https://i.imgur.com/UWkf6lj.jpeg" data-images="https://i.imgur.com/UWkf6lj.jpeg" onclick="abrirGaleria(this)" alt="Camiseta #38"><div class="nombre">Camiseta #38</div><div class="precio">$8.000 ARS</div><div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Camiseta%20%2338%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/UWkf6lj.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" type="button" onclick="agregarAlCarrito(this)"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div></div>
+
+<div class="card"><img src="https://i.imgur.com/45tjZb6.jpeg" data-images="https://i.imgur.com/45tjZb6.jpeg" onclick="abrirGaleria(this)" alt="Camiseta #39"><div class="nombre">Camiseta #39</div><div class="precio">$8.000 ARS</div><div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Camiseta%20%2339%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/45tjZb6.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" type="button" onclick="agregarAlCarrito(this)"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div></div>
+
+<div class="card"><img src="https://i.imgur.com/GpMXt1h.jpeg" data-images="https://i.imgur.com/GpMXt1h.jpeg" onclick="abrirGaleria(this)" alt="Camiseta #40"><div class="nombre">Camiseta #40</div><div class="precio">$8.000 ARS</div><div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Camiseta%20%2340%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/GpMXt1h.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" type="button" onclick="agregarAlCarrito(this)"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div></div>
+
+<div class="card"><img src="https://i.imgur.com/blRQ4fv.jpeg" data-images="https://i.imgur.com/blRQ4fv.jpeg" onclick="abrirGaleria(this)" alt="Camiseta #41"><div class="nombre">Camiseta #41</div><div class="precio">$8.000 ARS</div><div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Camiseta%20%2341%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/blRQ4fv.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" type="button" onclick="agregarAlCarrito(this)"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div></div>
+
+<div class="card"><img src="https://i.imgur.com/bP3Hntl.jpeg" data-images="https://i.imgur.com/bP3Hntl.jpeg" onclick="abrirGaleria(this)" alt="Camiseta #42"><div class="nombre">Camiseta #42</div><div class="precio">$8.000 ARS</div><div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Camiseta%20%2342%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/bP3Hntl.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" type="button" onclick="agregarAlCarrito(this)"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div></div>
+
+<div class="card"><img src="https://i.imgur.com/V7EIDKZ.jpeg" data-images="https://i.imgur.com/V7EIDKZ.jpeg" onclick="abrirGaleria(this)" alt="Camiseta #43"><div class="nombre">Camiseta #43</div><div class="precio">$8.000 ARS</div><div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Camiseta%20%2343%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/V7EIDKZ.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" type="button" onclick="agregarAlCarrito(this)"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div></div>
+
+<div class="card"><img src="https://i.imgur.com/1IZMPjP.jpeg" data-images="https://i.imgur.com/1IZMPjP.jpeg" onclick="abrirGaleria(this)" alt="Camiseta #44"><div class="nombre">Camiseta #44</div><div class="precio">$8.000 ARS</div><div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Camiseta%20%2344%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/1IZMPjP.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" type="button" onclick="agregarAlCarrito(this)"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div></div>
+
+<div class="card"><img src="https://i.imgur.com/VSBOjqZ.jpeg" data-images="https://i.imgur.com/VSBOjqZ.jpeg" onclick="abrirGaleria(this)" alt="Camiseta #45"><div class="nombre">Camiseta #45</div><div class="precio">$8.000 ARS</div><div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Camiseta%20%2345%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/VSBOjqZ.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" type="button" onclick="agregarAlCarrito(this)"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div></div>
+
+<div class="card"><img src="https://i.imgur.com/QkMHClr.jpeg" data-images="https://i.imgur.com/QkMHClr.jpeg" onclick="abrirGaleria(this)" alt="Camiseta #46"><div class="nombre">Camiseta #46</div><div class="precio">$8.000 ARS</div><div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Camiseta%20%2346%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/QkMHClr.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" type="button" onclick="agregarAlCarrito(this)"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div></div>
+
+<div class="card"><img src="https://i.imgur.com/L7wd2gz.jpeg" data-images="https://i.imgur.com/L7wd2gz.jpeg" onclick="abrirGaleria(this)" alt="Camiseta #47"><div class="nombre">Camiseta #47</div><div class="precio">$8.000 ARS</div><div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Camiseta%20%2347%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/L7wd2gz.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" type="button" onclick="agregarAlCarrito(this)"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div></div>
+
+<div class="card"><img src="https://i.imgur.com/bCSyPqr.jpeg" data-images="https://i.imgur.com/bCSyPqr.jpeg" onclick="abrirGaleria(this)" alt="Camiseta #48"><div class="nombre">Camiseta #48</div><div class="precio">$8.000 ARS</div><div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Camiseta%20%2348%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/bCSyPqr.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" type="button" onclick="agregarAlCarrito(this)"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div></div>
+
+
+
 
 </div>
 
@@ -791,7 +977,37 @@ document.addEventListener("keydown", function(event) {
   if (event.key === "ArrowRight") imagenSiguiente(event);
   if (event.key === "ArrowLeft") imagenAnterior(event);
 });
-</script>
 
+window.addEventListener("load", function() {
+  setTimeout(function() {
+    const popup = document.getElementById("popup-info");
+    if (!popup) return;
+
+    popup.classList.add("mostrar");
+
+    const sonidoClin = new Audio("https://assets.mixkit.co/active_storage/sfx/2869/2869-preview.mp3");
+    sonidoClin.volume = 0.4;
+    sonidoClin.play().catch(() => {});
+
+    setTimeout(function() {
+      popup.classList.remove("mostrar");
+    }, 3500);
+
+  }, 2000);
+});
+
+
+const WHATSAPP_NUMERO = "541170743305";
+let carrito = [];
+function obtenerProductoDesdeBoton(boton) { const card = boton.closest(".card"); const img = card.querySelector("img"); const nombre = card.querySelector(".nombre").textContent.trim(); const precio = card.querySelector(".precio").textContent.trim(); const foto = img.getAttribute("src"); return { id: nombre + "|" + foto, nombre, precio, foto }; }
+function agregarAlCarrito(boton) { const producto = obtenerProductoDesdeBoton(boton); const existe = carrito.some(item => item.id === producto.id); if (!existe) { carrito.push(producto); boton.classList.add("agregado"); boton.innerHTML = '<i class="fas fa-check"></i> Agregado'; } else { carrito = carrito.filter(item => item.id !== producto.id); boton.classList.remove("agregado"); boton.innerHTML = '<i class="fas fa-cart-plus"></i> Agregar al carrito'; } actualizarCarrito(); }
+function actualizarCarrito() { const cartCount = document.getElementById("cartCount"); const cartItems = document.getElementById("cartItems"); const cartEmpty = document.getElementById("cartEmpty"); const cartConsultar = document.getElementById("cartConsultar"); const cartClear = document.getElementById("cartClear"); cartCount.textContent = carrito.length; cartItems.innerHTML = ""; carrito.forEach((item, index) => { const div = document.createElement("div"); div.className = "cart-item"; div.innerHTML = '<img src="' + item.foto + '" alt="' + item.nombre + '"><div><div class="cart-item-name">' + item.nombre + '</div><div class="cart-item-price">' + item.precio + '</div></div><button class="cart-remove" type="button" onclick="quitarDelCarrito(' + index + ')">×</button>'; cartItems.appendChild(div); }); const hayItems = carrito.length > 0; cartEmpty.style.display = hayItems ? "none" : "block"; cartConsultar.style.display = hayItems ? "inline-flex" : "none"; cartClear.style.display = hayItems ? "inline-flex" : "none"; if (hayItems) { const lineas = carrito.map((item, index) => (index + 1) + '. ' + item.nombre + '\nPrecio: ' + item.precio + '\nFoto del producto: ' + item.foto); const mensaje = 'Hola, quiero consultar por estos productos del catálogo:\n\n' + lineas.join('\n\n'); cartConsultar.href = 'https://wa.me/' + WHATSAPP_NUMERO + '?text=' + encodeURIComponent(mensaje); } else { cartConsultar.href = "#"; } }
+function quitarDelCarrito(index) { const quitado = carrito[index]; carrito.splice(index, 1); document.querySelectorAll(".card").forEach(card => { const nombre = card.querySelector(".nombre")?.textContent.trim(); const foto = card.querySelector("img")?.getAttribute("src"); const boton = card.querySelector(".btn-cart"); if (boton && quitado && quitado.id === nombre + "|" + foto) { boton.classList.remove("agregado"); boton.innerHTML = '<i class="fas fa-cart-plus"></i> Agregar al carrito'; } }); actualizarCarrito(); }
+function vaciarCarrito() { carrito = []; document.querySelectorAll(".btn-cart").forEach(boton => { boton.classList.remove("agregado"); boton.innerHTML = '<i class="fas fa-cart-plus"></i> Agregar al carrito'; }); actualizarCarrito(); }
+function toggleCarrito(event) { event.stopPropagation(); document.getElementById("cartWidget").classList.toggle("abierto"); }
+document.addEventListener("click", function() { const cartWidget = document.getElementById("cartWidget"); if (cartWidget) cartWidget.classList.remove("abierto"); });
+
+</script>
+<div id="popup-info">👆 Clic en el item para ver más colores</div>
 </body>
 </html>
