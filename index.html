@@ -1018,6 +1018,27 @@
   }
 }
 
+
+/* ===== HINT MOBILE: deslizar productos ===== */
+.scroll-products-hint { display: none; }
+@media (max-width: 768px) {
+  .catalogo-doble { position: relative; }
+  .scroll-products-hint {
+    position: absolute; left: 50%; top: 58px;
+    transform: translateX(-50%) translateY(-8px);
+    z-index: 80; display: flex; flex-direction: column; align-items: center; gap: .35rem;
+    min-width: 168px; padding: .65rem .85rem; border-radius: 999px;
+    color: #fff; background: rgba(5,5,8,.88); border: 1px solid rgba(255,45,85,.45);
+    box-shadow: 0 0 18px rgba(255,45,85,.45), 0 0 26px rgba(0,229,255,.22), 0 16px 40px rgba(0,0,0,.45);
+    backdrop-filter: blur(12px); opacity: 0; pointer-events: none;
+  }
+  .scroll-products-hint.show { animation: hintEntrada .35s ease forwards, hintSalida .45s ease forwards 4.2s; }
+  .scroll-products-hint .hint-icon { font-size: 1.35rem; line-height: 1; animation: hintFlecha 1s ease-in-out infinite; color: var(--accent3); text-shadow: 0 0 14px rgba(0,229,255,.75); }
+  .scroll-products-hint .hint-text { font-size: .62rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; text-align: center; white-space: nowrap; }
+}
+@keyframes hintEntrada { from { opacity: 0; transform: translateX(-50%) translateY(-10px) scale(.94); } to { opacity: 1; transform: translateX(-50%) translateY(0) scale(1); } }
+@keyframes hintSalida { to { opacity: 0; transform: translateX(-50%) translateY(10px) scale(.96); } }
+@keyframes hintFlecha { 0%, 100% { transform: translateY(-3px); } 50% { transform: translateY(5px); } }
 </style>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet"/></head>
 <body>
@@ -1119,6 +1140,10 @@
 </div>
 <!-- CATEGORIAS EN DOS COLUMNAS -->
 <div class="catalogo-doble">
+<div class="scroll-products-hint" id="scrollProductsHint" aria-hidden="true">
+  <div class="hint-icon"><i class="fas fa-chevron-down"></i></div>
+  <div class="hint-text">Desliza hacia abajo</div>
+</div>
 <!-- CATEGORIA 1 -->
 <div class="category-section" id="buzos">
 <div class="category-header">
@@ -2160,6 +2185,27 @@ document.addEventListener("click", function() {
   const cartWidget = document.getElementById("cartWidget");
   if (cartWidget) cartWidget.classList.remove("abierto");
 });
+
+// HINT MOBILE: aparece al llegar a Buzos/Remeras y se oculta solo
+(function() {
+  const hint = document.getElementById('scrollProductsHint');
+  const catalogo = document.querySelector('.catalogo-doble');
+  if (!hint || !catalogo) return;
+  let yaMostrado = false;
+  const mostrarHint = () => {
+    if (yaMostrado || window.innerWidth > 768) return;
+    yaMostrado = true;
+    hint.classList.add('show');
+    setTimeout(() => hint.classList.remove('show'), 5000);
+  };
+  const observerHint = new IntersectionObserver((entries) => {
+    entries.forEach(entry => { if (entry.isIntersecting) mostrarHint(); });
+  }, { threshold: 0.25 });
+  observerHint.observe(catalogo);
+  document.querySelectorAll('.catalogo-doble .product-grid').forEach(grid => {
+    grid.addEventListener('scroll', () => hint.classList.remove('show'), { once: true, passive: true });
+  });
+})();
 </script>
 </body>
 </html>
