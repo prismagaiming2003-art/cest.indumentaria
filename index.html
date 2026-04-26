@@ -5,6 +5,23 @@
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>CEST INDUMENTARIA</title>
+<meta content="Catalogo oficial de CEST INDUMENTARIA: buzos, remeras y moda urbana. Consulta directo por WhatsApp." name="description"/>
+<meta content="website" property="og:type"/>
+<meta content="CEST INDUMENTARIA" property="og:site_name"/>
+<meta content="CEST INDUMENTARIA | Catalogo oficial" property="og:title"/>
+<meta content="Buzos, remeras y moda urbana. Consulta directo por WhatsApp." property="og:description"/>
+<meta content="https://i.imgur.com/jy0zq9a.png" property="og:image"/>
+<meta content="https://i.imgur.com/jy0zq9a.png" property="og:image:secure_url"/>
+<meta content="image/png" property="og:image:type"/>
+<meta content="1200" property="og:image:width"/>
+<meta content="630" property="og:image:height"/>
+<meta content="CEST INDUMENTARIA catalogo urbano" property="og:image:alt"/>
+<meta content="summary_large_image" name="twitter:card"/>
+<meta content="CEST INDUMENTARIA | Catalogo oficial" name="twitter:title"/>
+<meta content="Buzos, remeras y moda urbana. Consulta directo por WhatsApp." name="twitter:description"/>
+<meta content="https://i.imgur.com/jy0zq9a.png" name="twitter:image"/>
+<link href="https://i.imgur.com/dNG6xPr.jpeg" rel="icon" type="image/jpeg"/>
+<link href="https://i.imgur.com/dNG6xPr.jpeg" rel="apple-touch-icon"/>
 <link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&amp;family=Bebas+Neue&amp;family=Rajdhani:wght@300;400;600;700&amp;display=swap" rel="stylesheet"/>
 <style>
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
@@ -1439,6 +1456,31 @@ footer {
   .cart-toggle,
   .cart-remove {
     clip-path: polygon(7px 0, 100% 0, calc(100% - 7px) 100%, 0 100%);
+  }
+}
+
+/* ===== FIX CURSOR EN GALERIA ===== */
+.cursor {
+  z-index: 1000002;
+  background: #ffffff;
+  box-shadow: 0 0 18px rgba(255,255,255,.75), 0 0 34px rgba(255,23,61,.55);
+}
+
+.cursor-ring {
+  z-index: 1000001;
+  border-color: rgba(255,255,255,.78);
+  box-shadow: 0 0 22px rgba(255,23,61,.45);
+}
+
+.modal,
+.modal * {
+  cursor: none !important;
+}
+
+@media (max-width: 768px) {
+  .modal,
+  .modal * {
+    cursor: auto !important;
   }
 }
 </style>
