@@ -1,278 +1,785 @@
 <!DOCTYPE html>
+
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Cest Indumentaria | Catálogo</title>
-
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800;900&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>CEST INDUMENTARIA</title>
+<link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&amp;family=Bebas+Neue&amp;family=Rajdhani:wght@300;400;600;700&amp;display=swap" rel="stylesheet"/>
 <style>
-:root {
-  --bg: #050505;
-  --card: rgba(255, 255, 255, 0.08);
-  --card-border: rgba(255, 255, 255, 0.18);
-  --text: #ffffff;
-  --muted: #bdbdbd;
-  --gold: #f7c948;
-  --red: #ff2e63;
-  --blue: #00d4ff;
-  --whatsapp: #25d366;
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --bg: #050508;
+      --surface: #0d0d14;
+      --accent1: #ff2d55;
+      --accent2: #ff6a00;
+      --accent3: #00e5ff;
+      --gold: #ffd700;
+      --text: #f0f0f5;
+      --muted: #6a6a8a;
+      --card-bg: #10101a;
+      --border: rgba(255,255,255,0.06);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Rajdhani', sans-serif;
+      overflow-x: hidden;
+      cursor: none;
+    }
+
+    /* CUSTOM CURSOR */
+    .cursor {
+      width: 12px; height: 12px;
+      background: var(--accent1);
+      border-radius: 50%;
+      position: fixed; top: 0; left: 0;
+      pointer-events: none; z-index: 9999;
+      transform: translate(-50%, -50%);
+      transition: transform 0.1s ease, background 0.3s;
+      box-shadow: 0 0 20px var(--accent1);
+    }
+    .cursor-ring {
+      width: 36px; height: 36px;
+      border: 1.5px solid rgba(255,45,85,0.5);
+      border-radius: 50%;
+      position: fixed; top: 0; left: 0;
+      pointer-events: none; z-index: 9998;
+      transform: translate(-50%, -50%);
+      transition: transform 0.18s ease, width 0.3s, height 0.3s, border-color 0.3s;
+    }
+    body:hover .cursor-ring { border-color: var(--accent1); }
+
+    /* NOISE OVERLAY */
+    body::before {
+      content: '';
+      position: fixed; inset: 0; z-index: 1;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none; opacity: 0.5;
+    }
+
+    /* ===================== HERO ===================== */
+    #hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex; align-items: center; justify-content: center;
+      overflow: hidden;
+      background: radial-gradient(ellipse 80% 60% at 50% 30%, #1a0028 0%, #050508 70%);
+    }
+
+    /* GRID LINES */
+    #hero::after {
+      content: '';
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(rgba(255,45,85,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,45,85,0.04) 1px, transparent 1px);
+      background-size: 60px 60px;
+      animation: gridMove 20s linear infinite;
+    }
+    @keyframes gridMove {
+      from { transform: translateY(0); }
+      to { transform: translateY(60px); }
+    }
+
+    /* GLOWING ORBS */
+    .orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(80px);
+      animation: orbFloat 8s ease-in-out infinite;
+    }
+    .orb1 { width: 500px; height: 500px; background: rgba(255,45,85,0.18); top: -100px; left: -100px; animation-delay: 0s; }
+    .orb2 { width: 400px; height: 400px; background: rgba(0,229,255,0.12); bottom: -80px; right: -80px; animation-delay: -3s; }
+    .orb3 { width: 300px; height: 300px; background: rgba(255,106,0,0.15); top: 50%; left: 60%; animation-delay: -5s; }
+    @keyframes orbFloat {
+      0%, 100% { transform: translate(0,0) scale(1); }
+      50% { transform: translate(30px, -40px) scale(1.1); }
+    }
+
+    /* HERO CONTENT */
+    .hero-inner {
+      position: relative; z-index: 2;
+      text-align: center;
+      padding: 2rem;
+    }
+
+    .hero-eyebrow {
+      display: inline-block;
+      font-family: 'Rajdhani', sans-serif;
+      font-weight: 600;
+      font-size: 0.8rem;
+      letter-spacing: 0.5em;
+      text-transform: uppercase;
+      color: var(--accent1);
+      border: 1px solid rgba(255,45,85,0.3);
+      padding: 0.4rem 1.5rem;
+      margin-bottom: 2rem;
+      animation: fadeSlideDown 0.8s ease both;
+      position: relative;
+    }
+    .hero-eyebrow::before,
+    .hero-eyebrow::after {
+      content: '';
+      position: absolute; top: 50%; width: 30px; height: 1px;
+      background: var(--accent1);
+    }
+    .hero-eyebrow::before { right: calc(100% + 10px); }
+    .hero-eyebrow::after { left: calc(100% + 10px); }
+
+    .hero-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(5rem, 15vw, 13rem);
+      line-height: 0.88;
+      letter-spacing: -0.01em;
+      animation: fadeSlideUp 1s ease 0.2s both;
+      position: relative;
+    }
+    .hero-title .line1 { color: var(--text); display: block; }
+    .hero-title .line2 {
+      display: block;
+      -webkit-text-stroke: 2px var(--accent1);
+      color: transparent;
+      position: relative;
+    }
+    .hero-title .line2::after {
+      content: attr(data-text);
+      position: absolute; left: 0; top: 0;
+      color: var(--accent1);
+      clip-path: polygon(0 0, 100% 0, 100% 50%, 0 50%);
+      opacity: 0.25;
+    }
+
+    .hero-subtitle {
+      font-size: clamp(1rem, 2vw, 1.3rem);
+      color: var(--muted);
+      font-weight: 300;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin: 2rem auto 3.5rem;
+      max-width: 500px;
+      animation: fadeSlideUp 1s ease 0.4s both;
+    }
+    .hero-subtitle span { color: var(--accent3); font-weight: 600; }
+
+    /* ENTER BUTTON */
+    .btn-enter {
+      position: relative;
+      display: inline-block;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.4rem;
+      letter-spacing: 0.2em;
+      color: var(--bg);
+      background: var(--accent1);
+      border: none;
+      padding: 1.1rem 4rem;
+      cursor: none;
+      overflow: hidden;
+      clip-path: polygon(12px 0%, 100% 0%, calc(100% - 12px) 100%, 0% 100%);
+      animation: fadeSlideUp 1s ease 0.6s both;
+      transition: transform 0.2s, box-shadow 0.3s;
+      text-decoration: none;
+    }
+    .btn-enter::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(135deg, var(--accent2), var(--accent1));
+      transform: translateX(-100%);
+      transition: transform 0.4s ease;
+    }
+    .btn-enter:hover::before { transform: translateX(0); }
+    .btn-enter:hover {
+      transform: translateY(-3px) scale(1.03);
+      box-shadow: 0 0 60px rgba(255,45,85,0.6), 0 20px 40px rgba(0,0,0,0.4);
+    }
+    .btn-enter span { position: relative; z-index: 1; }
+
+    /* SCROLL INDICATOR */
+    .scroll-hint {
+      position: absolute; bottom: 2rem; left: 50%;
+      transform: translateX(-50%);
+      display: flex; flex-direction: column; align-items: center; gap: 0.5rem;
+      color: var(--muted); font-size: 0.7rem; letter-spacing: 0.3em;
+      text-transform: uppercase; z-index: 2;
+      animation: fadeSlideUp 1s ease 1.2s both;
+    }
+    .scroll-line {
+      width: 1px; height: 50px;
+      background: linear-gradient(to bottom, var(--accent1), transparent);
+      animation: scrollPulse 2s ease-in-out infinite;
+    }
+    @keyframes scrollPulse {
+      0%, 100% { opacity: 0.3; transform: scaleY(1); }
+      50% { opacity: 1; transform: scaleY(1.1); }
+    }
+
+    /* STATS BAR */
+    .stats-bar {
+      position: absolute; bottom: 0; left: 0; right: 0; z-index: 2;
+      display: flex; justify-content: center;
+      border-top: 1px solid var(--border);
+      backdrop-filter: blur(10px);
+      background: rgba(5,5,8,0.6);
+    }
+    .stat-item {
+      padding: 1.2rem 3rem;
+      border-right: 1px solid var(--border);
+      text-align: center;
+      animation: fadeSlideUp 1s ease 0.8s both;
+    }
+    .stat-item:last-child { border-right: none; }
+    .stat-num {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 2rem;
+      color: var(--accent1);
+      line-height: 1;
+    }
+    .stat-label {
+      font-size: 0.65rem; letter-spacing: 0.3em;
+      text-transform: uppercase; color: var(--muted);
+      margin-top: 0.3rem;
+    }
+
+    /* ===================== PRODUCTS SECTION ===================== */
+    #productos {
+      position: relative;
+      background: var(--bg);
+      padding: 8rem 2rem 6rem;
+      min-height: 100vh;
+    }
+
+    /* DIAGONAL DIVIDER */
+    #productos::before {
+      content: '';
+      position: absolute; top: -4px; left: 0; right: 0;
+      height: 80px;
+      background: var(--bg);
+      clip-path: polygon(0 100%, 100% 0, 100% 100%);
+      z-index: 1;
+    }
+
+    .products-header {
+      text-align: center;
+      margin-bottom: 6rem;
+      position: relative;
+    }
+
+    .products-tag {
+      font-size: 0.7rem; letter-spacing: 0.5em;
+      text-transform: uppercase; color: var(--accent3);
+      margin-bottom: 1rem; display: block;
+    }
+
+    .products-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(4rem, 10vw, 9rem);
+      line-height: 1;
+      position: relative; display: inline-block;
+    }
+    .products-title::after {
+      content: 'PRODUCTOS';
+      position: absolute; left: 4px; top: 4px;
+      -webkit-text-stroke: 1px rgba(255,45,85,0.2);
+      color: transparent;
+      z-index: -1;
+    }
+    .products-title .t-white { color: var(--text); }
+    .products-title .t-red { color: var(--accent1); }
+
+    .products-divider {
+      display: flex; align-items: center; gap: 1.5rem;
+      justify-content: center; margin-top: 1.5rem;
+    }
+    .divider-line {
+      height: 1px; width: 80px;
+      background: linear-gradient(to right, transparent, var(--accent1));
+    }
+    .divider-line.rev { background: linear-gradient(to left, transparent, var(--accent1)); }
+    .divider-diamond {
+      width: 8px; height: 8px;
+      background: var(--accent1);
+      transform: rotate(45deg);
+      box-shadow: 0 0 10px var(--accent1);
+    }
+
+    /* CATEGORY SECTIONS */
+    .category-section {
+      max-width: 1400px; margin: 0 auto 6rem;
+    }
+
+    .category-header {
+      display: flex; align-items: center; gap: 1.5rem;
+      margin-bottom: 2rem; padding-bottom: 1rem;
+      border-bottom: 1px solid var(--border);
+      position: relative;
+    }
+    .category-header::after {
+      content: '';
+      position: absolute; bottom: -1px; left: 0;
+      width: 60px; height: 2px;
+      background: var(--accent1);
+    }
+
+    .category-num {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1rem;
+      color: var(--accent1);
+      opacity: 0.6;
+      min-width: 30px;
+    }
+
+    .category-name {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 2rem;
+      letter-spacing: 0.08em;
+      color: var(--text);
+    }
+
+    .category-badge {
+      margin-left: auto;
+      font-size: 0.65rem; letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--accent3);
+      border: 1px solid rgba(0,229,255,0.3);
+      padding: 0.3rem 0.8rem;
+    }
+
+
+
+    /* CATEGORIAS VISIBLES EN PARALELO */
+    .catalogo-doble {
+      position: relative;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      gap: 3rem;
+      max-width: 1600px;
+      margin: 0 auto 6rem;
+      align-items: start;
+    }
+
+    .catalogo-doble::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 50%;
+      width: 1px;
+      transform: translateX(-50%);
+      background: linear-gradient(to bottom, transparent, var(--accent1), var(--accent3), var(--accent1), transparent);
+      box-shadow: 0 0 18px rgba(255,45,85,0.55), 0 0 26px rgba(0,229,255,0.28);
+      pointer-events: none;
+    }
+
+    .catalogo-doble .category-section {
+      width: 100%;
+      max-width: none;
+      margin: 0;
+      min-width: 0;
+    }
+
+    .catalogo-doble .product-grid {
+      grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+    }
+
+    .catalogo-doble .category-header {
+      position: sticky;
+      top: 76px;
+      z-index: 20;
+      background: linear-gradient(to bottom, rgba(5,5,8,0.98), rgba(5,5,8,0.82));
+      backdrop-filter: blur(10px);
+      padding-top: .7rem;
+    }
+
+    /* PRODUCT GRID */
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 1.5px;
+      background: var(--border);
+    }
+
+    /* EMPTY PRODUCT SLOT */
+    .product-slot {
+      background: var(--card-bg);
+      aspect-ratio: 3/4;
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.4s cubic-bezier(0.23,1,0.32,1);
+    }
+    .product-slot:hover { z-index: 2; transform: scale(1.03); }
+
+    .slot-inner {
+      position: absolute; inset: 0;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      gap: 1rem;
+      border: 1px solid transparent;
+      transition: border-color 0.3s;
+    }
+    .product-slot:hover .slot-inner {
+      border-color: rgba(255,45,85,0.2);
+    }
+
+    /* CORNER ACCENTS */
+    .slot-corner {
+      position: absolute; width: 20px; height: 20px;
+      opacity: 0.2; transition: opacity 0.3s;
+    }
+    .product-slot:hover .slot-corner { opacity: 1; }
+    .slot-corner.tl { top: 12px; left: 12px; border-top: 1.5px solid var(--accent1); border-left: 1.5px solid var(--accent1); }
+    .slot-corner.tr { top: 12px; right: 12px; border-top: 1.5px solid var(--accent1); border-right: 1.5px solid var(--accent1); }
+    .slot-corner.bl { bottom: 12px; left: 12px; border-bottom: 1.5px solid var(--accent1); border-left: 1.5px solid var(--accent1); }
+    .slot-corner.br { bottom: 12px; right: 12px; border-bottom: 1.5px solid var(--accent1); border-right: 1.5px solid var(--accent1); }
+
+    .slot-icon {
+      width: 60px; height: 60px;
+      border: 1.5px solid rgba(255,255,255,0.08);
+      display: flex; align-items: center; justify-content: center;
+      position: relative;
+    }
+    .slot-icon svg { opacity: 0.15; }
+    .product-slot:hover .slot-icon svg { opacity: 0.4; }
+
+    .slot-text {
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 0.7rem; letter-spacing: 0.3em;
+      text-transform: uppercase; color: var(--muted);
+    }
+
+    /* SCAN LINE EFFECT */
+    .product-slot::after {
+      content: '';
+      position: absolute; left: 0; right: 0; top: -100%;
+      height: 2px;
+      background: linear-gradient(to right, transparent, var(--accent1), transparent);
+      opacity: 0;
+      transition: none;
+    }
+    .product-slot:hover::after {
+      animation: scanLine 1s linear forwards;
+    }
+    @keyframes scanLine {
+      from { top: -2px; opacity: 0.6; }
+      to { top: 100%; opacity: 0; }
+    }
+
+    /* GLOW SECTION HEADER */
+    .section-glow {
+      position: absolute; top: 0; left: 0;
+      width: 200px; height: 1px;
+      background: linear-gradient(to right, var(--accent1), transparent);
+      box-shadow: 0 0 20px var(--accent1);
+    }
+
+    /* MARQUEE */
+    .marquee-wrap {
+      overflow: hidden;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 1rem 0;
+      margin: 4rem 0;
+      background: rgba(255,45,85,0.02);
+    }
+    .marquee-track {
+      display: flex; gap: 4rem; width: max-content;
+      animation: marqueeRoll 20s linear infinite;
+    }
+    .marquee-item {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.2rem; letter-spacing: 0.2em;
+      color: var(--muted); white-space: nowrap;
+      display: flex; align-items: center; gap: 1.5rem;
+    }
+    .marquee-dot {
+      width: 6px; height: 6px; background: var(--accent1);
+      transform: rotate(45deg); display: inline-block;
+    }
+    @keyframes marqueeRoll {
+      from { transform: translateX(0); }
+      to { transform: translateX(-50%); }
+    }
+
+    /* ANIMATIONS */
+    @keyframes fadeSlideDown {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeSlideUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* NAV */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.5rem 3rem;
+      background: linear-gradient(to bottom, rgba(5,5,8,0.9), transparent);
+      backdrop-filter: blur(2px);
+    }
+    .nav-logo {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.8rem; letter-spacing: 0.1em;
+      color: var(--text);
+    }
+    .nav-logo span { color: var(--accent1); }
+    .nav-links {
+      display: flex; gap: 2.5rem;
+      list-style: none;
+    }
+    .nav-links a {
+      font-size: 0.75rem; letter-spacing: 0.25em;
+      text-transform: uppercase; color: var(--muted);
+      text-decoration: none;
+      transition: color 0.3s;
+      position: relative;
+    }
+    .nav-links a::after {
+      content: '';
+      position: absolute; bottom: -4px; left: 0;
+      width: 0; height: 1px; background: var(--accent1);
+      transition: width 0.3s;
+    }
+    .nav-links a:hover { color: var(--text); }
+    .nav-links a:hover::after { width: 100%; }
+
+    /* RESPONSIVE */
+    
+@media (max-width: 980px) {
+  .catalogo-doble { gap: 1.2rem; padding: 0 .2rem; }
+  .catalogo-doble .product-grid { grid-template-columns: 1fr; }
+  .catalogo-doble .category-header { gap: .55rem; }
+  .category-name { font-size: 1.45rem; }
+  .category-badge { display: none; }
 }
 
-* {
-  box-sizing: border-box;
+@media (max-width: 520px) {
+  .catalogo-doble { gap: .65rem; }
+  .catalogo-doble::before { box-shadow: 0 0 10px rgba(255,45,85,.5); }
+  .catalogo-doble .category-header { top: 58px; padding-bottom: .6rem; margin-bottom: .7rem; }
+  .category-num { display: none; }
+  .category-name { font-size: 1.15rem; letter-spacing: .05em; }
+  .catalogo-doble .product-slot.card { min-height: 330px; }
+  .catalogo-doble .slot-inner { gap: .45rem; }
 }
 
-body {
-  margin: 0;
-  font-family: 'Montserrat', sans-serif;
-  color: #fff;
-  background: #000000;
-  min-height: 100vh;
+@media (max-width: 768px) {
+      .stats-bar { display: none; }
+      nav { padding: 1rem 1.5rem; }
+      .nav-links { display: none; }
+      .hero-title { font-size: clamp(4rem, 18vw, 7rem); }
+      .stat-item { padding: 1rem 1.5rem; }
+      #productos { padding: 5rem 1rem 4rem; }
+    }
+
+    /* FOOTER */
+    footer {
+      text-align: center;
+      padding: 3rem 2rem;
+      border-top: 1px solid var(--border);
+      color: var(--muted);
+      font-size: 0.7rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+    }
+    footer span { color: var(--accent1); }
+  
+
+/* ===== PRODUCTOS INTEGRADOS DESDE CATALOGO ===== */
+.product-slot.card {
+  min-height: 470px;
+  aspect-ratio: auto;
+  padding: 1rem;
 }
-
-body::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  background-image:
-    linear-gradient(rgba(255,255,255,0.035) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255,255,255,0.035) 1px, transparent 1px);
-  background-size: 42px 42px;
-  mask-image: linear-gradient(to bottom, rgba(0,0,0,0.9), transparent 80%);
-  pointer-events: none;
-  z-index: -1;
+.slot-inner {
+  padding: 1.1rem;
+  justify-content: flex-start;
+  text-align: left;
+  gap: 0.85rem;
 }
-
-header {
-  position: relative;
-  padding: 60px 20px 40px;
-  text-align: center;
-  border-bottom: 1px solid rgba(255,255,255,0.12);
-}
-
-header::after {
-  content: "";
-  position: absolute;
-  left: 50%;
-  bottom: 0;
-  width: 70%;
-  height: 2px;
-  transform: translateX(-50%);
-  background: linear-gradient(
-    90deg,
-    transparent,
-    #ff2e63 18%,
-    #ff2e63 42%,
-    #c2185b 62%,
-    #6a0dad 78%,
-    #001f4d 92%,
-    transparent
-  );
-  box-shadow:
-    0 0 14px rgba(255, 46, 99, 0.85),
-    0 0 24px rgba(194, 24, 91, 0.55),
-    0 0 34px rgba(106, 13, 173, 0.45),
-    0 0 42px rgba(0, 31, 77, 0.35);
-}
-
-h1 {
-  margin: 0;
-
-  font-size: clamp(34px, 7vw, 70px);
-  font-weight: 900;
-  font-style: italic;
-  text-transform: uppercase;
-  letter-spacing: 2px;
-
-  color: #000;
-
- -webkit-text-stroke: 2px #ff2e63;
-
-text-shadow:
-  0 0 5px rgba(255, 46, 99, 0.65),
-  0 0 10px rgba(255, 46, 99, 0.55),
-  0 0 18px rgba(255, 0, 80, 0.45);
-
-  animation: neonFlicker 3s infinite;
-}
-
-.wa-header-link {
-  position: fixed;
-  right: 30px;
-  bottom: 30px;
-  background: var(--whatsapp);
-  color: white;
-  width: 60px;
-  height: 60px;
-  border-radius: 50%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 32px;
-  text-decoration: none;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3), 0 0 20px rgba(37, 211, 102, 0.4);
-  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-  animation: flotar 3s ease-in-out infinite;
-  z-index: 999;
-}
-
-.wa-header-link:hover {
-  transform: scale(1.1) rotate(10deg);
-  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4), 0 0 30px rgba(37, 211, 102, 0.6);
-  background: #20ba5a;
-}
-
-.grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-  gap: 28px;
-  padding: 34px;
-  max-width: 1300px;
-  margin: 0 auto;
-}
-
-.card {
-  position: relative;
-  padding: 14px;
-  border-radius: 24px;
-  background: var(--card);
-  border: 1px solid var(--card-border);
-  box-shadow: 0 20px 60px rgba(0,0,0,0.45);
-  backdrop-filter: blur(18px);
-  overflow: hidden;
-  transform: translateY(28px) scale(0.96);
-  opacity: 0;
-  animation: cardEntrada 0.8s ease forwards;
-}
-
-.card:nth-child(1) { animation-delay: 0.08s; }
-.card:nth-child(2) { animation-delay: 0.16s; }
-.card:nth-child(3) { animation-delay: 0.24s; }
-.card:nth-child(4) { animation-delay: 0.32s; }
-.card:nth-child(5) { animation-delay: 0.40s; }
-.card:nth-child(6) { animation-delay: 0.48s; }
-
-.card::before {
-  content: "";
-  position: absolute;
-  inset: -2px;
-  background: linear-gradient(120deg, transparent 20%, rgba(247,201,72,0.45), rgba(255,46,99,0.35), rgba(0,212,255,0.4), transparent 80%);
-  opacity: 0;
-  transition: 0.35s ease;
-  z-index: -1;
-}
-
-.card:hover {
-  transform: translateY(-10px) scale(1.025);
-  box-shadow: 0 26px 80px rgba(0,0,0,0.7), 0 0 38px rgba(0,212,255,0.15);
-}
-
-.card:hover::before {
-  opacity: 1;
-  filter: blur(16px);
-}
-
-.card img {
+.product-img-box {
   width: 100%;
-  height: auto;
-  aspect-ratio: 4 / 3;
-  border-radius: 18px;
-  object-fit: contain;
-  background: radial-gradient(circle at center, #202020 0%, #0b0b0b 68%);
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+  background: radial-gradient(circle at center, #222 0%, #0b0b10 70%);
+  border: 1px solid rgba(255,255,255,0.06);
+  display: flex;
+  align-items: center;
+  justify-content: center;
   cursor: pointer;
+}
+.slot-product-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
   display: block;
-  transition: transform 0.45s ease, filter 0.45s ease;
-  filter: drop-shadow(0 20px 30px rgba(0,0,0,0.55));
+  transition: transform .35s ease, filter .35s ease;
 }
-
-.card:hover img {
-  transform: scale(1.055) rotate(-1deg);
-  filter: drop-shadow(0 28px 38px rgba(0,0,0,0.75));
+.product-slot:hover .slot-product-img {
+  transform: scale(1.06);
+  filter: drop-shadow(0 18px 24px rgba(0,0,0,.65));
 }
-
 .nombre {
-  font-weight: 800;
-  margin-top: 16px;
-  font-size: 17px;
-  letter-spacing: 0.3px;
+  width: 100%;
+  font-family: 'Rajdhani', sans-serif;
+  font-weight: 700;
+  color: var(--text);
+  font-size: 1.08rem;
+  line-height: 1.15;
+  letter-spacing: .03em;
 }
-
 .precio {
-  font-size: 22px;
-  margin-top: 7px;
-  font-weight: 900;
+  width: 100%;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.55rem;
   color: var(--gold);
-  text-shadow: 0 0 20px rgba(247,201,72,0.22);
+  letter-spacing: .06em;
+  text-shadow: 0 0 18px rgba(255,215,0,.22);
 }
-
+.btn-row {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: .65rem;
+  margin-top: auto;
+}
 .btn {
-  position: relative;
   display: inline-flex;
   align-items: center;
-  gap: 8px;
-  margin-top: 14px;
-  padding: 12px 18px;
-  background: #ffffff;
-  color: #050505;
+  justify-content: center;
+  gap: .45rem;
+  min-height: 42px;
+  padding: .75rem 1rem;
+  border: 1px solid rgba(255,45,85,.4);
+  background: rgba(255,45,85,.12);
+  color: var(--text);
   text-decoration: none;
-  border-radius: 999px;
-  font-size: 13px;
-  font-weight: 900;
-  letter-spacing: 0.7px;
   text-transform: uppercase;
-  overflow: hidden;
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  font-size: .72rem;
+  font-weight: 700;
+  letter-spacing: .14em;
+  cursor: pointer;
+  transition: transform .25s ease, background .25s ease, box-shadow .25s ease;
 }
-
-.btn::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.75), transparent);
-  transform: translateX(-120%);
-  transition: transform 0.55s ease;
-}
-
 .btn:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 12px 30px rgba(255,255,255,0.22);
+  transform: translateY(-2px);
+  background: var(--accent1);
+  color: var(--bg);
+  box-shadow: 0 0 28px rgba(255,45,85,.35);
 }
-
-.btn:hover::before {
-  transform: translateX(120%);
+.btn-cart.agregado {
+  background: #25d366;
+  border-color: #25d366;
+  color: #050508;
 }
-
+.wa-header-link {
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  background: #25d366;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 30px;
+  text-decoration: none;
+  z-index: 1000;
+  box-shadow: 0 0 24px rgba(37,211,102,.45), 0 14px 34px rgba(0,0,0,.45);
+}
+.cart-widget { position: fixed; top: 82px; right: 22px; z-index: 1000; font-family: 'Rajdhani', sans-serif; }
+.cart-toggle {
+  border: 1px solid rgba(255,45,85,.55);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 16px;
+  background: rgba(13,13,20,.88);
+  color: var(--text);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .12em;
+  box-shadow: 0 0 22px rgba(255,45,85,.18);
+}
+.cart-count {
+  min-width: 23px;
+  height: 23px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: var(--accent1);
+  color: #fff;
+}
+.cart-panel {
+  display: none;
+  position: absolute;
+  top: 54px;
+  right: 0;
+  width: min(380px, calc(100vw - 24px));
+  max-height: 72vh;
+  overflow: auto;
+  padding: 16px;
+  background: rgba(10,10,16,.97);
+  border: 1px solid rgba(255,45,85,.38);
+  box-shadow: 0 22px 70px rgba(0,0,0,.75), 0 0 32px rgba(255,45,85,.22);
+  backdrop-filter: blur(16px);
+}
+.cart-widget.abierto .cart-panel { display: block; }
+.cart-title {
+  margin-bottom: 12px;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.5rem;
+  letter-spacing: .1em;
+}
+.cart-empty { color: var(--muted); font-weight: 600; line-height: 1.35; }
+.cart-items { display: grid; gap: 10px; margin-bottom: 14px; }
+.cart-item {
+  display: grid;
+  grid-template-columns: 56px 1fr auto;
+  gap: 10px;
+  align-items: center;
+  padding: 9px;
+  background: rgba(255,255,255,.05);
+  border: 1px solid rgba(255,45,85,.18);
+}
+.cart-item img { width: 56px; height: 56px; object-fit: cover; background: #111; }
+.cart-item-name { font-size: .9rem; font-weight: 700; line-height: 1.1; }
+.cart-item-price { margin-top: 3px; color: var(--gold); font-weight: 700; }
+.cart-remove {
+  border: 0;
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+  background: var(--accent1);
+  color: #fff;
+  font-weight: 900;
+}
+.cart-consultar, .cart-clear { width: 100%; margin-top: 8px; }
 .modal {
   display: none;
   position: fixed;
-  z-index: 9999;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  background:
-    radial-gradient(circle at center, rgba(255,46,99,0.22), transparent 40%),
-    rgba(0, 0, 0, 0.94);
+  z-index: 99999;
+  inset: 0;
+  background: radial-gradient(circle at center, rgba(255,45,85,.20), transparent 42%), rgba(0,0,0,.94);
   justify-content: center;
   align-items: center;
   padding: 20px;
-  box-sizing: border-box;
-  animation: aparecer 0.25s ease;
 }
-
 .modal img {
   max-width: 88%;
   max-height: 84%;
-  border-radius: 22px;
   object-fit: contain;
-  background: rgba(255,255,255,0.04);
-  box-shadow: 0 0 70px rgba(255,255,255,0.14), 0 0 120px rgba(0,212,255,0.12);
-  animation: zoomModal 0.35s ease;
+  background: rgba(255,255,255,.04);
+  box-shadow: 0 0 80px rgba(255,255,255,.12), 0 0 120px rgba(0,229,255,.12);
 }
-
 .cerrar {
   position: absolute;
   top: 18px;
@@ -280,14 +787,7 @@ text-shadow:
   color: white;
   font-size: 42px;
   cursor: pointer;
-  transition: transform 0.2s ease, color 0.2s ease;
 }
-
-.cerrar:hover {
-  transform: rotate(90deg) scale(1.12);
-  color: var(--red);
-}
-
 .flecha {
   position: absolute;
   top: 50%;
@@ -297,993 +797,1036 @@ text-shadow:
   cursor: pointer;
   user-select: none;
   padding: 15px;
-  transition: transform 0.2s ease, text-shadow 0.2s ease;
 }
-
-.flecha:hover {
-  transform: translateY(-50%) scale(1.18);
-  text-shadow: 0 0 25px var(--blue);
-}
-
 .izquierda { left: 15px; }
 .derecha { right: 15px; }
-
 .contador {
   position: absolute;
   bottom: 25px;
   color: white;
-  font-size: 14px;
-  font-weight: 800;
-  background: rgba(255,255,255,0.12);
-  border: 1px solid rgba(255,255,255,0.18);
-  backdrop-filter: blur(10px);
-  padding: 9px 16px;
-  border-radius: 30px;
-}
-
-@keyframes tituloBrillo {
-  from { background-position: 0% center; }
-  to { background-position: 260% center; }
-}
-
-@keyframes entradaTitulo {
-  from { opacity: 0; transform: translateY(-22px) scale(0.96); }
-  to { opacity: 1; transform: translateY(0) scale(1); }
-}
-
-@keyframes aparecer { from { opacity: 0; } to { opacity: 1; } }
-
-@keyframes flotar {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-10px); }
-}
-
-@keyframes cardEntrada {
-  to {
-    transform: translateY(0) scale(1);
-    opacity: 1;
-  }
-}
-
-@keyframes zoomModal {
-  from { opacity: 0; transform: scale(0.85); }
-  to { opacity: 1; transform: scale(1); }
-}
-
-
-.contenedor-productos {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-  gap: 34px;
-  padding: 34px;
-  max-width: 1500px;
-  margin: 0 auto;
-}
-
-.seccion {
-  min-width: 0;
-}
-
-.seccion-titulo {
-  text-align: center;
-  margin: 28px 0 10px;
-
-  font-size: clamp(20px, 6vw, 42px);
-  font-weight: 900;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-
-  color: #ff2e63;
-
-  /* GLOW ROJO */
-  text-shadow:
-    0 0 5px rgba(255,46,99,0.6),
-    0 0 10px rgba(255,46,99,0.6),
-    0 0 20px rgba(255,0,80,0.5),
-    0 0 30px rgba(255,0,80,0.4);
-
-  animation: glowRojo 1.8s ease-in-out infinite;
-}
-
-.seccion-titulo {
-  text-align: center;
-  margin: 28px 0 10px;
-
-  font-size: clamp(20px, 6vw, 42px);
-  font-weight: 900;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-
-  color: #000;
-
-  -webkit-text-stroke: 1.5px #ff2e63;
-
-  text-shadow:
-    0 0 5px rgba(255,46,99,0.7),
-    0 0 10px rgba(255,46,99,0.6),
-    0 0 20px rgba(255,0,80,0.5);
-
-  animation: glowRojo 1.8s ease-in-out infinite;
-}
-
-@keyframes glowRojo {
-  0%, 100% {
-    text-shadow:
-      0 0 5px rgba(255,46,99,0.7),
-      0 0 10px rgba(255,46,99,0.6),
-      0 0 20px rgba(255,0,80,0.5);
-  }
-
-  50% {
-    text-shadow:
-      0 0 2px rgba(255,46,99,0.3),
-      0 0 6px rgba(255,46,99,0.3);
-  }
-}
-
-.remeras-vacio {
-  padding: 32px 20px;
-  border: 1px dashed rgba(255,255,255,0.28);
-  border-radius: 24px;
-  color: var(--muted);
-  text-align: center;
-  background: rgba(255,255,255,0.05);
   font-weight: 700;
-  line-height: 1.5;
+  background: rgba(255,255,255,.1);
+  border: 1px solid rgba(255,255,255,.16);
+  padding: 8px 15px;
 }
-
-@media (max-width: 1000px) {
-  .contenedor-productos::before {
-    top: 10px;
-    bottom: 10px;
-  }
-}
-
-  .seccion .grid {
-    grid-template-columns: 1fr;
-    gap: 14px;
-  }
-
-  .seccion-titulo {
-    font-size: clamp(28px, 7vw, 60px);
-    letter-spacing: 2px;
-    -webkit-text-stroke: 1px rgba(255,255,255,0.5);
-  }
-
-  .card {
-    padding: 8px;
-    border-radius: 16px;
-  }
-
-  .nombre {
-    font-size: 13px;
-  }
-
-  .precio {
-    font-size: 16px;
-  }
-
-  .btn {
-    font-size: 10px;
-    padding: 9px 11px;
-  }
-}
-
-@media (max-width: 680px) {
-  .wa-header-link {
-    width: 50px;
-    height: 50px;
-    font-size: 26px;
-    right: 20px;
-    bottom: 20px;
-  }
-
-  .grid {
-    padding: 18px;
-    gap: 22px;
-  }
-
-  .flecha {
-    font-size: 42px;
-    padding: 8px;
-  }
-
-  .izquierda { left: 4px; }
-  .derecha { right: 4px; }
-}
-.contenedor-productos {
-  position: relative;
-}
-
-.contenedor-productos::before {
-  content: "";
-  position: absolute;
-  top: 20px;
-  bottom: 20px;
-  left: 50%;
-  width: 2px;
-  transform: translateX(-50%);
-
-  background: linear-gradient(
-    to bottom,
-    #ff2e63 0%,
-    #ff2e63 38%,
-    #c2185b 58%,
-    #6a0dad 78%,
-    #001f4d 92%,
-    #ff2e63 100%
-  );
-
-  box-shadow:
-    0 0 12px rgba(255, 46, 99, 0.85),
-    0 0 22px rgba(194, 24, 91, 0.6),
-    0 0 32px rgba(106, 13, 173, 0.5),
-    0 0 42px rgba(0, 31, 77, 0.35);
-
-  border-radius: 10px;
-}
-
 #popup-info {
-  position: fixed !important;
-  top: 100px !important;
-  left: 50% !important;
-  transform: translateX(-50%) !important;
-
+  position: fixed;
+  top: 100px;
+  left: 50%;
+  transform: translateX(-50%);
   background: #111;
   color: #fff;
-  padding: 16px 24px;
+  padding: 14px 22px;
   border-radius: 999px;
-  font-weight: 900;
-  font-size: 15px;
-  text-align: center;
-
-  z-index: 999999 !important;
-
+  font-weight: 700;
+  z-index: 999999;
   opacity: 0;
   pointer-events: none;
-
-  border: 1px solid rgba(255,255,255,0.2);
-
-  box-shadow:
-    0 0 20px rgba(255,46,99,0.6),
-    0 0 30px rgba(0,212,255,0.4);
-
-  transition: 0.4s ease;
+  border: 1px solid rgba(255,255,255,.18);
+  box-shadow: 0 0 20px rgba(255,45,85,.45);
+  transition: .35s ease;
 }
-
-#popup-info.mostrar {
-  opacity: 1;
-  top: 120px !important;
-  animation: brilloPopup 1.2s ease-in-out infinite;
+#popup-info.mostrar { opacity: 1; top: 116px; }
+@media (max-width: 768px) {
+  body { cursor: auto; }
+  .cursor, .cursor-ring { display: none; }
+  .product-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1px; }
+  .product-slot.card { min-height: 360px; padding: .55rem; }
+  .slot-inner { padding: .65rem; gap: .55rem; }
+  .nombre { font-size: .92rem; }
+  .precio { font-size: 1.25rem; }
+  .btn { font-size: .58rem; min-height: 38px; padding: .55rem .45rem; letter-spacing: .08em; }
+  .cart-widget { top: 62px; right: 12px; }
+  .cart-toggle { padding: 9px 11px; font-size: .75rem; }
+  .wa-header-link { width: 50px; height: 50px; right: 16px; bottom: 16px; font-size: 25px; }
 }
-
-@keyframes brilloPopup {
-  0%, 100% {
-    box-shadow:
-      0 0 15px rgba(255,46,99,0.5),
-      0 0 25px rgba(0,212,255,0.35);
-  }
-
-  50% {
-    box-shadow:
-      0 0 28px rgba(255,46,99,0.95),
-      0 0 45px rgba(0,212,255,0.75),
-      0 0 65px rgba(247,201,72,0.45);
-  }
-}
-
-
-
-/* ===== CARRITO DE CONSULTA ===== */
-.cart-widget { position: fixed; top: 18px; right: 18px; z-index: 10000; font-family: 'Montserrat', sans-serif; }
-.cart-toggle {
-  border: 2px solid #ff2e63;
-  cursor: pointer;
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  padding: 13px 18px;
-  border-radius: 999px;
-  background: linear-gradient(145deg, #050505 0%, #151515 55%, #250008 100%);
-  color: #ffffff;
-  font-size: 13px;
-  font-weight: 900;
-  text-transform: uppercase;
-  letter-spacing: 0.8px;
-  box-shadow:
-    0 0 0 1px rgba(255,255,255,0.08) inset,
-    0 10px 28px rgba(0,0,0,0.55),
-    0 0 12px rgba(255,46,99,0.55),
-    0 0 24px rgba(255,0,80,0.25);
-  transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
-}
-.cart-toggle:hover {
-  transform: translateY(-2px) scale(1.06);
-  background: linear-gradient(145deg, #111111 0%, #2b0009 45%, #ff2e63 120%);
-  box-shadow:
-    0 0 0 1px rgba(255,255,255,0.18) inset,
-    0 14px 36px rgba(0,0,0,0.65),
-    0 0 18px rgba(255,46,99,0.9),
-    0 0 38px rgba(255,0,80,0.55);
-}
-.cart-count {
-  min-width: 24px;
-  height: 24px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 50%;
-  background: #ff2e63;
-  color: #ffffff;
-  font-size: 12px;
-  font-weight: 900;
-  border: 1px solid rgba(255,255,255,0.45);
-  box-shadow:
-    0 0 8px rgba(255,46,99,0.9),
-    0 0 16px rgba(255,0,80,0.55);
-}
-.cart-panel {
-  display: none;
-  position: absolute;
-  top: 60px;
-  right: 0;
-  width: min(370px, calc(100vw - 28px));
-  max-height: 72vh;
-  overflow: auto;
-  padding: 16px;
-  border-radius: 22px;
-  background: linear-gradient(145deg, rgba(5,5,5,0.98), rgba(22,0,7,0.96));
-  border: 1px solid rgba(255,46,99,0.45);
-  box-shadow:
-    0 22px 70px rgba(0,0,0,0.75),
-    0 0 25px rgba(255,46,99,0.28),
-    0 0 45px rgba(255,0,80,0.16);
-  backdrop-filter: blur(18px);
-}
-.cart-widget.abierto .cart-panel { display: block; animation: aparecer 0.2s ease; }
-.cart-title {
-  margin: 0 0 12px;
-  font-size: 17px;
-  font-weight: 900;
-  color: #ffffff;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  text-shadow: 0 0 10px rgba(255,46,99,0.75);
-}
-.cart-empty { color: var(--muted); font-size: 13px; font-weight: 700; line-height: 1.45; }
-.cart-items { display: grid; gap: 10px; margin-bottom: 14px; }
-.cart-item {
-  display: grid;
-  grid-template-columns: 54px 1fr auto;
-  gap: 10px;
-  align-items: center;
-  padding: 9px;
-  border-radius: 16px;
-  background: rgba(255,255,255,0.07);
-  border: 1px solid rgba(255,46,99,0.22);
-}
-.cart-item img { width: 54px; height: 54px; object-fit: cover; border-radius: 12px; background: #111; }
-.cart-item-name { font-size: 12px; font-weight: 900; line-height: 1.25; }
-.cart-item-price { margin-top: 4px; font-size: 12px; color: var(--gold); font-weight: 800; }
-.cart-remove {
-  border: 0;
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
-  cursor: pointer;
-  background: #ff2e63;
-  color: #fff;
-  font-weight: 900;
-  box-shadow: 0 0 10px rgba(255,46,99,0.55);
-}
-.btn-row { display: flex; flex-wrap: wrap; gap: 9px; }
-.btn-cart { border: 0; cursor: pointer; background: var(--gold); color: #050505; }
-.btn-cart.agregado { background: var(--whatsapp); color: #fff; }
-.cart-consultar {
-  width: 100%;
-  justify-content: center;
-  background: #ff2e63;
-  color: #fff;
-  border: 0;
-  cursor: pointer;
-  box-shadow: 0 0 14px rgba(255,46,99,0.45);
-}
-.cart-clear {
-  width: 100%;
-  margin-top: 9px;
-  justify-content: center;
-  background: rgba(0,0,0,0.55);
-  color: #fff;
-  border: 1px solid rgba(255,46,99,0.35);
-  cursor: pointer;
-}
-
-.cart-toggle i {
-  color: #ffffff;
-  text-shadow:
-    0 0 8px rgba(255,46,99,0.9),
-    0 0 16px rgba(255,0,80,0.45);
-}
-
-.cart-toggle:hover i {
-  transform: rotate(-8deg) scale(1.1);
-}
-
-@media (max-width: 680px) { .cart-widget { top: 12px; right: 12px; } .cart-toggle { padding: 11px 13px; font-size: 11px; } .cart-panel { top: 52px; } }
-
-@keyframes neonFlicker {
-  0%, 18%, 22%, 25%, 53%, 57%, 100% {
- text-shadow:
-  0 0 5px rgba(255, 46, 99, 0.65),
-  0 0 10px rgba(255, 46, 99, 0.55),
-  0 0 18px rgba(255, 0, 80, 0.45);
-  }
-
-  20%, 24%, 55% {
-    text-shadow:
-      0 0 2px rgba(255, 50, 50, 0.2),
-      0 0 6px rgba(255, 30, 30, 0.2);
-  }
-}
-  50% {
-    text-shadow:
-      0 0 3px rgba(255,0,0,0.4),
-      0 0 8px rgba(255,0,0,0.5);
-  }
-}
-h1 span:nth-child(1) {
-  animation: neonFlicker 2.5s infinite;
-}
-
-h1 span:nth-child(2) {
-  animation: neonFlicker 3.5s infinite;
-}
-
-
-/* ===== AJUSTE RESPONSIVE MOBILE - 2 COLUMNAS EN CELULAR ===== */
-@media (max-width: 780px) {
-  header {
-    padding: 92px 10px 28px;
-  }
-
-  h1 {
-    font-size: clamp(26px, 10vw, 44px);
-    line-height: 1.02;
-    letter-spacing: 1px;
-    -webkit-text-stroke: 1.3px #ff2e63;
-  }
-
-  h1 span {
-    display: block;
-  }
-
-  header::after {
-    width: 86%;
-  }
-
-  .cart-widget {
-    top: 12px;
-    right: 10px;
-  }
-
-  .cart-toggle {
-    padding: 10px 13px;
-    font-size: 11px;
-    gap: 7px;
-    border-width: 1.5px;
-  }
-
-  .cart-count {
-    min-width: 21px;
-    height: 21px;
-    font-size: 11px;
-  }
-
-  .cart-panel {
-    top: 50px;
-    right: 0;
-    width: min(340px, calc(100vw - 20px));
-  }
-
-  .contenedor-productos {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-    gap: 14px;
-    padding: 14px 10px;
-    max-width: 100%;
-  }
-
-  .contenedor-productos::before {
-    display: block;
-    top: 64px;
-    bottom: 10px;
-    width: 2px;
-  }
-
-  .seccion {
-    width: 100%;
-    min-width: 0;
-  }
-
-  .seccion + .seccion {
-    border-top: none;
-    padding-top: 0;
-  }
-
-  .seccion-titulo {
-    font-size: clamp(22px, 7.5vw, 34px) !important;
-    letter-spacing: 1px !important;
-    margin: 18px 0 16px;
-    -webkit-text-stroke: 1px #ff2e63 !important;
-    white-space: nowrap;
-  }
-
-  .seccion .grid,
-  .grid {
-    grid-template-columns: 1fr !important;
-    gap: 18px;
-    padding: 0;
-    max-width: 100%;
-    margin: 0;
-  }
-
-  .card {
-    width: 100%;
-    padding: 10px;
-    border-radius: 18px;
-    overflow: hidden;
-  }
-
-  .card img {
-    width: 100%;
-    aspect-ratio: 1 / 1;
-    object-fit: contain;
-    border-radius: 14px;
-  }
-
-  .nombre {
-    font-size: 15px;
-    line-height: 1.2;
-    margin-top: 12px;
-    word-break: normal;
-    overflow-wrap: anywhere;
-  }
-
-  .precio {
-    font-size: 19px;
-    line-height: 1.12;
-    margin-top: 7px;
-  }
-
-  .btn-row {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 9px;
-  }
-
-  .btn {
-    width: 100%;
-    justify-content: center;
-    font-size: 10px;
-    padding: 11px 8px;
-    white-space: normal;
-    text-align: center;
-    line-height: 1.15;
-    border-radius: 999px;
-  }
-
-  .btn-cart {
-    min-height: 48px;
-  }
-
-  .wa-header-link {
-    width: 52px;
-    height: 52px;
-    font-size: 26px;
-    right: 18px;
-    bottom: 18px;
-  }
-}
-
 @media (max-width: 390px) {
-  h1 {
-    font-size: clamp(24px, 9.5vw, 38px);
-  }
-
-  .contenedor-productos {
-    gap: 10px;
-    padding: 12px 7px;
-  }
-
-  .seccion-titulo {
-    font-size: clamp(20px, 7vw, 30px) !important;
-    letter-spacing: 0.5px !important;
-  }
-
-  .card {
-    padding: 8px;
-    border-radius: 16px;
-  }
-
-  .nombre {
-    font-size: 13px;
-  }
-
-  .precio {
-    font-size: 17px;
-  }
-
-  .btn {
-    font-size: 9px;
-    padding: 10px 6px;
-  }
-
-  .cart-toggle {
-    padding: 9px 11px;
-    font-size: 10px;
-  }
+  .product-grid { grid-template-columns: 1fr; }
 }
-
 </style>
-
-</head>
-
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet"/></head>
 <body>
-
-<header>
-  <h1><span>CEST</span> <span>INDUMENTARIA</span></h1>
-</header>
+<!-- CUSTOM CURSOR -->
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
 <div class="cart-widget" id="cartWidget">
-  <button class="cart-toggle" type="button" onclick="toggleCarrito(event)"><i class="fas fa-shopping-cart"></i> Carrito <span class="cart-count" id="cartCount">0</span></button>
-  <div class="cart-panel" onclick="event.stopPropagation()">
-    <h3 class="cart-title">Carrito</h3>
-    <div id="cartItems" class="cart-items"></div>
-    <div id="cartEmpty" class="cart-empty">Todavía no agregaste productos. Tocá “Agregar al carrito” en los items que quieras consultar.</div>
-    <a id="cartConsultar" class="btn cart-consultar" href="#" target="_blank" style="display:none;"><i class="fab fa-whatsapp"></i> Consultar selección</a>
-    <button id="cartClear" class="btn cart-clear" type="button" onclick="vaciarCarrito()" style="display:none;">Vaciar carrito</button>
-  </div>
+<button class="cart-toggle" onclick="toggleCarrito(event)" type="button"><i class="fas fa-shopping-cart"></i> Carrito <span class="cart-count" id="cartCount">0</span></button>
+<div class="cart-panel" onclick="event.stopPropagation()">
+<h3 class="cart-title">Carrito</h3>
+<div class="cart-items" id="cartItems"></div>
+<div class="cart-empty" id="cartEmpty">Todavía no agregaste productos. Tocá “Agregar al carrito” en los items que quieras consultar.</div>
+<a class="btn cart-consultar" href="#" id="cartConsultar" style="display:none;" target="_blank"><i class="fab fa-whatsapp"></i> Consultar selección</a>
+<button class="btn cart-clear" id="cartClear" onclick="vaciarCarrito()" style="display:none;" type="button">Vaciar carrito</button>
 </div>
-
-
-<a href="https://wa.me/541170743305?text=Hola, vengo del catálogo y tengo una consulta" class="wa-header-link" target="_blank">
-  <i class="fab fa-whatsapp"></i>
+</div>
+<a class="wa-header-link" href="https://wa.me/541170743305?text=Hola, vengo del catálogo y tengo una consulta" target="_blank">
+<i class="fab fa-whatsapp"></i>
 </a>
 
-<div class="contenedor-productos">
-
-  <section class="seccion">
-    <h2 class="seccion-titulo">BUZOS</h2>
-    <div class="grid">
-
-  <div class="card">
-    <img src="https://i.imgur.com/B5hm1IJ.jpeg" data-images="https://i.imgur.com/B5hm1IJ.jpeg,https://i.imgur.com/LPPdold.jpeg,https://i.imgur.com/D25OAUW.jpeg" onclick="abrirGaleria(this)" alt="Buzo Jordan #1">
-    <div class="nombre">Buzo Jordan #1</div>
-    <div class="precio">$14.000 ARS</div>
-    <div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Buzo%20Jordan%20%231%0APrecio%3A%20%2414.000%0AFoto%20del%20producto%3A%20https%3A//i.imgur.com/B5hm1IJ.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" type="button" onclick="agregarAlCarrito(this)"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
+<!-- NAV -->
+<nav>
+<div class="nav-logo">CEST<span>INDUMENTARIA</span></div>
+<ul class="nav-links">
+<li><a href="#hero">Inicio</a></li>
+<li><a href="#productos">Productos</a></li>
+<li><a href="#">Contacto</a></li>
+</ul>
+</nav>
+<!-- ====== HERO ====== -->
+<section id="hero">
+<div class="orb orb1"></div>
+<div class="orb orb2"></div>
+<div class="orb orb3"></div>
+<div class="hero-inner">
+<div class="hero-eyebrow">Coleccion Exclusiva 2026</div>
+<h1 class="hero-title">
+<span class="line1">CEST</span>
+<span class="line2" data-text="INDUMENTARIA">INDUMENTARIA</span>
+</h1>
+<p class="hero-subtitle">
+        Lo mejor de cada mundo.<br/>
+<span>Seleccionado para los que exigen calidad.</span>
+</p>
+<a class="btn-enter" href="#productos">
+<span>Entrar al catálogo</span>
+</a>
 </div>
-
-<div class="card">
-    <img src="https://i.imgur.com/HO0299s.jpeg" data-images="https://i.imgur.com/HO0299s.jpeg,https://i.imgur.com/fk4zRFn.jpeg,https://i.imgur.com/iYNK6eZ.jpeg,https://i.imgur.com/E1Eo0ak.jpeg,https://i.imgur.com/dA9KbSc.jpeg" onclick="abrirGaleria(this)" alt="Buzo Jordan #2">
-    <div class="nombre">Buzo Jordan #2</div>
-    <div class="precio">$14.000 ARS</div>
-    <div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Buzo%20Jordan%20%232%0APrecio%3A%20%2414.000%0AFoto%20del%20producto%3A%20https%3A//i.imgur.com/HO0299s.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" type="button" onclick="agregarAlCarrito(this)"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
+<div class="scroll-hint">
+<div class="scroll-line"></div>
+      Scroll
+    </div>
+<div class="stats-bar">
+<div class="stat-item">
+<div class="stat-num">500+</div>
+<div class="stat-label">Productos</div>
 </div>
-
-<div class="card">
-    <img src="https://i.imgur.com/6Ym5jgy.jpeg" data-images="https://i.imgur.com/6Ym5jgy.jpeg,https://i.imgur.com/8FXlGqs.jpeg,https://i.imgur.com/WywvLx3.jpeg,https://i.imgur.com/Ob7rGIe.jpeg" onclick="abrirGaleria(this)" alt="Buzo Jordan #3">
-    <div class="nombre">Buzo Jordan #3</div>
-    <div class="precio">$14.000 ARS</div>
-    <div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Buzo%20Jordan%20%233%0APrecio%3A%20%2414.000%0AFoto%20del%20producto%3A%20https%3A//i.imgur.com/6Ym5jgy.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" type="button" onclick="agregarAlCarrito(this)"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
+<div class="stat-item">
+<div class="stat-num">99%</div>
+<div class="stat-label">Satisfaccion</div>
 </div>
-
-<div class="card">
-    <img src="https://i.imgur.com/AIeVQqJ.jpeg" data-images="https://i.imgur.com/AIeVQqJ.jpeg,https://i.imgur.com/G21bD5w.jpeg,https://i.imgur.com/7uqv41d.jpeg" onclick="abrirGaleria(this)" alt="Buzo Jordan #4">
-    <div class="nombre">Buzo Jordan #4</div>
-    <div class="precio">$14.000 ARS</div>
-    <div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Buzo%20Jordan%20%234%0APrecio%3A%20%2414.000%0AFoto%20del%20producto%3A%20https%3A//i.imgur.com/AIeVQqJ.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" type="button" onclick="agregarAlCarrito(this)"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
+<div class="stat-item">
+<div class="stat-num">24h</div>
+<div class="stat-label">Envio</div>
 </div>
-
-<div class="card">
-    <img src="https://i.imgur.com/U4bqyN3.jpeg" data-images="https://i.imgur.com/U4bqyN3.jpeg,https://i.imgur.com/WTuOk8b.jpeg,https://i.imgur.com/n1m4rA7.jpeg,https://i.imgur.com/JORikmC.jpeg" onclick="abrirGaleria(this)" alt="Buzo Jordan #5">
-    <div class="nombre">Buzo Jordan #5</div>
-    <div class="precio">$14.000 ARS</div>
-    <div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Buzo%20Jordan%20%235%0APrecio%3A%20%2414.000%0AFoto%20del%20producto%3A%20https%3A//i.imgur.com/U4bqyN3.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" type="button" onclick="agregarAlCarrito(this)"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
-</div>
-
-<div class="card">
-    <img src="https://i.imgur.com/dKw885W.jpeg" data-images="https://i.imgur.com/dKw885W.jpeg,https://i.imgur.com/ndThI7g.jpeg,https://i.imgur.com/hSFV7Sq.jpeg" onclick="abrirGaleria(this)" alt="Buzo Jordan #6">
-    <div class="nombre">Buzo Jordan #6</div>
-    <div class="precio">$14.000 ARS</div>
-    <div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Buzo%20Jordan%20%236%0APrecio%3A%20%2414.000%0AFoto%20del%20producto%3A%20https%3A//i.imgur.com/dKw885W.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" type="button" onclick="agregarAlCarrito(this)"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
-</div>
-
-<div class="card">
-    <img src="https://i.imgur.com/LelNPjR.jpeg" data-images="https://i.imgur.com/LelNPjR.jpeg" onclick="abrirGaleria(this)" alt="Buzo Jordan #7">
-    <div class="nombre">Buzo Jordan #7</div>
-    <div class="precio">$14.000 ARS</div>
-    <div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Buzo%20Jordan%20%237%0APrecio%3A%20%2414.000%0AFoto%20del%20producto%3A%20https%3A//i.imgur.com/LelNPjR.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" type="button" onclick="agregarAlCarrito(this)"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
-</div>
-
-<div class="card">
-    <img src="https://i.imgur.com/skI6RM1.jpeg" data-images="https://i.imgur.com/skI6RM1.jpeg" onclick="abrirGaleria(this)" alt="Buzo Jordan #8">
-    <div class="nombre">Buzo Jordan #8</div>
-    <div class="precio">$14.000 ARS</div>
-    <div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Buzo%20Jordan%20%238%0APrecio%3A%20%2414.000%0AFoto%20del%20producto%3A%20https%3A//i.imgur.com/skI6RM1.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" type="button" onclick="agregarAlCarrito(this)"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
-</div>
-
-<div class="card">
-    <img src="https://i.imgur.com/6A0iZKr.jpeg" data-images="https://i.imgur.com/6A0iZKr.jpeg,https://i.imgur.com/CeLQu4E.jpeg,https://i.imgur.com/wXS18hz.jpeg,https://i.imgur.com/apTc0dV.jpeg,https://i.imgur.com/5VEtKvJ.jpeg,https://i.imgur.com/I9BJ6D2.jpeg,https://i.imgur.com/ugMuCGd.jpeg,https://i.imgur.com/Sey4x9J.jpeg" onclick="abrirGaleria(this)" alt="Buzo Nike Swoosu">
-    <div class="nombre">Buzo Nike Swoosu</div>
-    <div class="precio">$14.000 ARS</div>
-    <div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Buzo%20Nike%20Swoosu%0APrecio%3A%20%2414.000%0AFoto%20del%20producto%3A%20https%3A//i.imgur.com/6A0iZKr.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" type="button" onclick="agregarAlCarrito(this)"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
-</div>
-
-<div class="card">
-    <img src="https://i.imgur.com/ebWo7V3.jpeg" data-images="https://i.imgur.com/ebWo7V3.jpeg,https://i.imgur.com/KWd6FbA.jpeg,https://i.imgur.com/Z8ifAuI.jpeg,https://i.imgur.com/KKZgNt7.jpeg" onclick="abrirGaleria(this)" alt="Buzo Jordan Flyght">
-    <div class="nombre">Buzo Jordan Flyght</div>
-    <div class="precio">$14.000 ARS</div>
-    <div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Buzo%20Jordan%20Flyght%0APrecio%3A%20%2414.000%0AFoto%20del%20producto%3A%20https%3A//i.imgur.com/ebWo7V3.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" type="button" onclick="agregarAlCarrito(this)"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
-</div>
-
-<div class="card">
-    <img src="https://i.imgur.com/W3XYCNb.jpeg" data-images="https://i.imgur.com/W3XYCNb.jpeg,https://i.imgur.com/s8LdcxY.jpeg,https://i.imgur.com/mknSf2f.jpeg" onclick="abrirGaleria(this)" alt="Buzo Jordan #9">
-    <div class="nombre">Buzo Jordan #9</div>
-    <div class="precio">$14.000 ARS</div>
-    <div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Buzo%20Jordan%20%239%0APrecio%3A%20%2414.000%0AFoto%20del%20producto%3A%20https%3A//i.imgur.com/W3XYCNb.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" type="button" onclick="agregarAlCarrito(this)"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
-</div>
-
-<div class="card">
-    <img src="https://i.imgur.com/FBeY38S.png" data-images="https://i.imgur.com/FBeY38S.png,https://i.imgur.com/sqbf4GL.png,https://i.imgur.com/Bj3Z6md.jpeg" onclick="abrirGaleria(this)" alt="Buzo Jordan #10">
-    <div class="nombre">Buzo Jordan #10</div>
-    <div class="precio">$16.000 ARS</div>
-    <div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Buzo%20Jordan%20%2310%0APrecio%3A%20%2416.000%0AFoto%20del%20producto%3A%20https%3A//i.imgur.com/FBeY38S.png" target="_blank">Consultar</a><button class="btn btn-cart" type="button" onclick="agregarAlCarrito(this)"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
-</div>
-
-<div class="card">
-    <img src="https://i.imgur.com/WEUSPjc.jpeg" data-images="https://i.imgur.com/WEUSPjc.jpeg" onclick="abrirGaleria(this)" alt="Buzo NIKE #11">
-    <div class="nombre">Buzo NIKE #11</div>
-    <div class="precio">$14.000 ARS</div>
-    <div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Buzo%20NIKE%20%2311%0APrecio%3A%20%2414.000%0AFoto%20del%20producto%3A%20https%3A//i.imgur.com/WEUSPjc.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" type="button" onclick="agregarAlCarrito(this)"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
-</div>
-
-<div class="card">
-    <img src="https://i.imgur.com/Qq3PnEt.jpeg" data-images="https://i.imgur.com/Qq3PnEt.jpeg" onclick="abrirGaleria(this)" alt="Buzo Jordan #12">
-    <div class="nombre">Buzo Jordan #12</div>
-    <div class="precio">$14.000 ARS</div>
-    <div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Buzo%20Jordan%20%2312%0APrecio%3A%20%2414.000%0AFoto%20del%20producto%3A%20https%3A//i.imgur.com/Qq3PnEt.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" type="button" onclick="agregarAlCarrito(this)"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
-</div>
-
-<div class="card">
-    <img src="https://i.imgur.com/Srra0SX.jpeg" data-images="https://i.imgur.com/Srra0SX.jpeg" onclick="abrirGaleria(this)" alt="Buzo Jordan #13">
-    <div class="nombre">Buzo Jordan #13</div>
-    <div class="precio">$14.000 ARS</div>
-    <div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Buzo%20Jordan%20%2313%0APrecio%3A%20%2414.000%0AFoto%20del%20producto%3A%20https%3A//i.imgur.com/Srra0SX.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" type="button" onclick="agregarAlCarrito(this)"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
-</div>
-
-<div class="card">
-    <img src="https://i.imgur.com/NbyeBry.png" data-images="https://i.imgur.com/NbyeBry.png,https://i.imgur.com/EaimR0t.png" onclick="abrirGaleria(this)" alt="Buzo Jordan #14">
-    <div class="nombre">Buzo Jordan #14</div>
-    <div class="precio">$14.000 ARS</div>
-    <div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Buzo%20Jordan%20%2314%0APrecio%3A%20%2414.000%0AFoto%20del%20producto%3A%20https%3A//i.imgur.com/NbyeBry.png" target="_blank">Consultar</a><button class="btn btn-cart" type="button" onclick="agregarAlCarrito(this)"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
-</div>
-
-<div class="card">
-    <img src="https://i.imgur.com/b0v8UUR.png" data-images="https://i.imgur.com/b0v8UUR.png,https://i.imgur.com/0oglMXs.png" onclick="abrirGaleria(this)" alt="Buzo Jordan #15">
-    <div class="nombre">Buzo Jordan #15</div>
-    <div class="precio">$14.000 ARS</div>
-    <div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Buzo%20Jordan%20%2315%0APrecio%3A%20%2414.000%0AFoto%20del%20producto%3A%20https%3A//i.imgur.com/b0v8UUR.png" target="_blank">Consultar</a><button class="btn btn-cart" type="button" onclick="agregarAlCarrito(this)"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
-</div>
-
-<div class="card">
-    <img src="https://i.imgur.com/RAjt4fE.png" data-images="https://i.imgur.com/RAjt4fE.png,https://i.imgur.com/xYdT68S.png" onclick="abrirGaleria(this)" alt="Buzo Jordan #16">
-    <div class="nombre">Buzo Jordan #16</div>
-    <div class="precio">$14.000 ARS</div>
-    <div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Buzo%20Jordan%20%2316%0APrecio%3A%20%2414.000%0AFoto%20del%20producto%3A%20https%3A//i.imgur.com/RAjt4fE.png" target="_blank">Consultar</a><button class="btn btn-cart" type="button" onclick="agregarAlCarrito(this)"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
-</div>
-
-<div class="card">
-    <img src="https://i.imgur.com/MjSIkel.png" data-images="https://i.imgur.com/MjSIkel.png,https://i.imgur.com/9VKZ1Ko.png" onclick="abrirGaleria(this)" alt="Buzo Jordan #17">
-    <div class="nombre">Buzo Jordan #17</div>
-    <div class="precio">$14.000 ARS</div>
-    <div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Buzo%20Jordan%20%2317%0APrecio%3A%20%2414.000%0AFoto%20del%20producto%3A%20https%3A//i.imgur.com/MjSIkel.png" target="_blank">Consultar</a><button class="btn btn-cart" type="button" onclick="agregarAlCarrito(this)"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
-</div>
-
-<div class="card">
-    <img src="https://i.imgur.com/wQgiHeI.png" data-images="https://i.imgur.com/wQgiHeI.png,https://i.imgur.com/1cHS85H.png" onclick="abrirGaleria(this)" alt="Buzo Hugo Boss">
-    <div class="nombre">Buzo Hugo Boss</div>
-    <div class="precio">$14.000 ARS</div>
-    <div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Buzo%20Hugo%20Boss%0APrecio%3A%20%2414.000%0AFoto%20del%20producto%3A%20https%3A//i.imgur.com/wQgiHeI.png" target="_blank">Consultar</a><button class="btn btn-cart" type="button" onclick="agregarAlCarrito(this)"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
-</div>
-
-<div class="card">
-    <img src="https://i.imgur.com/bf4vXmk.png" data-images="https://i.imgur.com/bf4vXmk.png" onclick="abrirGaleria(this)" alt="Buzo Jordan #18">
-    <div class="nombre">Buzo Jordan #18</div>
-    <div class="precio">$14.000 ARS</div>
-    <div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Buzo%20Jordan%20%2318%0APrecio%3A%20%2414.000%0AFoto%20del%20producto%3A%20https%3A//i.imgur.com/bf4vXmk.png" target="_blank">Consultar</a><button class="btn btn-cart" type="button" onclick="agregarAlCarrito(this)"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
-</div>
-
-<div class="card">
-    <img src="https://i.imgur.com/GUa1528.png" data-images="https://i.imgur.com/GUa1528.png" onclick="abrirGaleria(this)" alt="Buzo Hugo Boss #2">
-    <div class="nombre">Buzo Hugo Boss #2</div>
-    <div class="precio">$14.000 ARS</div>
-    <div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Buzo%20Hugo%20Boss%20%232%0APrecio%3A%20%2414.000%0AFoto%20del%20producto%3A%20https%3A//i.imgur.com/GUa1528.png" target="_blank">Consultar</a><button class="btn btn-cart" type="button" onclick="agregarAlCarrito(this)"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
-</div>
-
-<div class="card">
-    <img src="https://i.imgur.com/SikknUU.png" data-images="https://i.imgur.com/SikknUU.png" onclick="abrirGaleria(this)" alt="Buzo Jordan #19">
-    <div class="nombre">Buzo Jordan #19</div>
-    <div class="precio">$14.000 ARS</div>
-    <div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Buzo%20Jordan%20%2319%0APrecio%3A%20%2414.000%0AFoto%20del%20producto%3A%20https%3A//i.imgur.com/SikknUU.png" target="_blank">Consultar</a><button class="btn btn-cart" type="button" onclick="agregarAlCarrito(this)"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
-</div>
-
-<div class="card">
-    <img src="https://i.imgur.com/koLKaIt.png" data-images="https://i.imgur.com/koLKaIt.png" onclick="abrirGaleria(this)" alt="Buzo Calvin Klein">
-    <div class="nombre">Buzo Calvin Klein</div>
-    <div class="precio">$14.000 ARS</div>
-    <div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Buzo%20Calvin%20Klein%0APrecio%3A%20%2414.000%0AFoto%20del%20producto%3A%20https%3A//i.imgur.com/koLKaIt.png" target="_blank">Consultar</a><button class="btn btn-cart" type="button" onclick="agregarAlCarrito(this)"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
-</div>
-
-<div class="card">
-    <img src="https://i.imgur.com/wAwbT8X.png" data-images="https://i.imgur.com/wAwbT8X.png" onclick="abrirGaleria(this)" alt="Buzo Jordan #20">
-    <div class="nombre">Buzo Jordan #20</div>
-    <div class="precio">$14.000 ARS</div>
-    <div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Buzo%20Jordan%20%2320%0APrecio%3A%20%2414.000%0AFoto%20del%20producto%3A%20https%3A//i.imgur.com/wAwbT8X.png" target="_blank">Consultar</a><button class="btn btn-cart" type="button" onclick="agregarAlCarrito(this)"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
-</div>
-
-<div class="card">
-    <img src="https://i.imgur.com/SdiBpP5.png" data-images="https://i.imgur.com/SdiBpP5.png" onclick="abrirGaleria(this)" alt="Buzo Jordan #21">
-    <div class="nombre">Buzo Jordan #21</div>
-    <div class="precio">$14.000 ARS</div>
-    <div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Buzo%20Jordan%20%2321%0APrecio%3A%20%2414.000%0AFoto%20del%20producto%3A%20https%3A//i.imgur.com/SdiBpP5.png" target="_blank">Consultar</a><button class="btn btn-cart" type="button" onclick="agregarAlCarrito(this)"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
-</div>
-
-<div class="card">
-    <img src="https://i.imgur.com/QXLboYt.png" data-images="https://i.imgur.com/QXLboYt.png" onclick="abrirGaleria(this)" alt="Buzo Jordan #22">
-    <div class="nombre">Buzo Jordan #22</div>
-    <div class="precio">$14.000 ARS</div>
-    <div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Buzo%20Jordan%20%2322%0APrecio%3A%20%2414.000%0AFoto%20del%20producto%3A%20https%3A//i.imgur.com/QXLboYt.png" target="_blank">Consultar</a><button class="btn btn-cart" type="button" onclick="agregarAlCarrito(this)"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
-</div>
-
-<div class="card">
-    <img src="https://i.imgur.com/xEgZxO2.png" data-images="https://i.imgur.com/xEgZxO2.png" onclick="abrirGaleria(this)" alt="Buzo Jordan #23">
-    <div class="nombre">Buzo Jordan #23</div>
-    <div class="precio">$14.000 ARS</div>
-    <div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Buzo%20Jordan%20%2323%0APrecio%3A%20%2414.000%0AFoto%20del%20producto%3A%20https%3A//i.imgur.com/xEgZxO2.png" target="_blank">Consultar</a><button class="btn btn-cart" type="button" onclick="agregarAlCarrito(this)"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
-</div>
-
-<div class="card">
-    <img src="https://i.imgur.com/1xsRGlC.png" data-images="https://i.imgur.com/1xsRGlC.png" onclick="abrirGaleria(this)" alt="Buzo Jordan #24">
-    <div class="nombre">Buzo Jordan #24</div>
-    <div class="precio">$14.000 ARS</div>
-    <div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Buzo%20Jordan%20%2324%0APrecio%3A%20%2414.000%0AFoto%20del%20producto%3A%20https%3A//i.imgur.com/1xsRGlC.png" target="_blank">Consultar</a><button class="btn btn-cart" type="button" onclick="agregarAlCarrito(this)"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
-</div>
-
-<div class="card">
-    <img src="https://i.imgur.com/wi4NSYX.png" data-images="https://i.imgur.com/wi4NSYX.png" onclick="abrirGaleria(this)" alt="Buzo Jordan #25">
-    <div class="nombre">Buzo Jordan #25</div>
-    <div class="precio">$14.000 ARS</div>
-    <div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Buzo%20Jordan%20%2325%0APrecio%3A%20%2414.000%0AFoto%20del%20producto%3A%20https%3A//i.imgur.com/wi4NSYX.png" target="_blank">Consultar</a><button class="btn btn-cart" type="button" onclick="agregarAlCarrito(this)"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
+<div class="stat-item">
+<div class="stat-num">10K+</div>
+<div class="stat-label">Clientes</div>
 </div>
 </div>
-  </section>
-
-  <section class="seccion">
-    <h2 class="seccion-titulo">REMERAS</h2>
-    <div class="grid">
-<div class="card"><img src="https://i.imgur.com/Q9MsY6J.jpeg" data-images="https://i.imgur.com/Q9MsY6J.jpeg" onclick="abrirGaleria(this)" alt="Camiseta #1"><div class="nombre">Camiseta #1</div><div class="precio">$8.000 ARS</div><div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Camiseta%20%231%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/Q9MsY6J.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" type="button" onclick="agregarAlCarrito(this)"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div></div>
-
-<div class="card"><img src="https://i.imgur.com/pJdN75m.jpeg" data-images="https://i.imgur.com/pJdN75m.jpeg" onclick="abrirGaleria(this)" alt="Camiseta #2"><div class="nombre">Camiseta #2</div><div class="precio">$8.000 ARS</div><div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Camiseta%20%232%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/pJdN75m.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" type="button" onclick="agregarAlCarrito(this)"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div></div>
-
-<div class="card"><img src="https://i.imgur.com/pkDjlqw.jpeg" data-images="https://i.imgur.com/pkDjlqw.jpeg" onclick="abrirGaleria(this)" alt="Camiseta #3"><div class="nombre">Camiseta #3</div><div class="precio">$8.000 ARS</div><div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Camiseta%20%233%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/pkDjlqw.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" type="button" onclick="agregarAlCarrito(this)"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div></div>
-
-<div class="card"><img src="https://i.imgur.com/Hn7bY2m.jpeg" data-images="https://i.imgur.com/Hn7bY2m.jpeg,https://i.imgur.com/pxwVeQP.jpeg" onclick="abrirGaleria(this)" alt="Camiseta #4"><div class="nombre">Camiseta #4</div><div class="precio">$8.000 ARS</div><div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Camiseta%20%234%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/Hn7bY2m.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" type="button" onclick="agregarAlCarrito(this)"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div></div>
-
-<div class="card"><img src="https://i.imgur.com/DACUjwo.jpeg" data-images="https://i.imgur.com/DACUjwo.jpeg,https://i.imgur.com/RvoASgk.jpeg" onclick="abrirGaleria(this)" alt="Camiseta #5"><div class="nombre">Camiseta #5</div><div class="precio">$8.000 ARS</div><div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Camiseta%20%235%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/DACUjwo.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" type="button" onclick="agregarAlCarrito(this)"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div></div>
-
-<div class="card"><img src="https://i.imgur.com/8GWdUlM.jpeg" data-images="https://i.imgur.com/8GWdUlM.jpeg" onclick="abrirGaleria(this)" alt="Camiseta #6"><div class="nombre">Camiseta #6</div><div class="precio">$8.000 ARS</div><div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Camiseta%20%236%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/8GWdUlM.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" type="button" onclick="agregarAlCarrito(this)"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div></div>
-
-<div class="card"><img src="https://i.imgur.com/exNy5BV.jpeg" data-images="https://i.imgur.com/exNy5BV.jpeg" onclick="abrirGaleria(this)" alt="Camiseta #7"><div class="nombre">Camiseta #7</div><div class="precio">$8.000 ARS</div><div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Camiseta%20%237%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/exNy5BV.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" type="button" onclick="agregarAlCarrito(this)"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div></div>
-
-<div class="card"><img src="https://i.imgur.com/vV1DBi0.jpeg" data-images="https://i.imgur.com/vV1DBi0.jpeg" onclick="abrirGaleria(this)" alt="Camiseta #8"><div class="nombre">Camiseta #8</div><div class="precio">$8.000 ARS</div><div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Camiseta%20%238%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/vV1DBi0.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" type="button" onclick="agregarAlCarrito(this)"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div></div>
-
-<div class="card"><img src="https://i.imgur.com/RuHNyPO.jpeg" data-images="https://i.imgur.com/RuHNyPO.jpeg" onclick="abrirGaleria(this)" alt="Camiseta #9"><div class="nombre">Camiseta #9</div><div class="precio">$8.000 ARS</div><div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Camiseta%20%239%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/RuHNyPO.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" type="button" onclick="agregarAlCarrito(this)"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div></div>
-
-<div class="card"><img src="https://i.imgur.com/9IwuQf2.jpeg" data-images="https://i.imgur.com/9IwuQf2.jpeg" onclick="abrirGaleria(this)" alt="Camiseta #10"><div class="nombre">Camiseta #10</div><div class="precio">$8.000 ARS</div><div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Camiseta%20%2310%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/9IwuQf2.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" type="button" onclick="agregarAlCarrito(this)"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div></div>
-
-<div class="card"><img src="https://i.imgur.com/FbHkPQt.jpeg" data-images="https://i.imgur.com/FbHkPQt.jpeg" onclick="abrirGaleria(this)" alt="Camiseta #11"><div class="nombre">Camiseta #11</div><div class="precio">$8.000 ARS</div><div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Camiseta%20%2311%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/FbHkPQt.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" type="button" onclick="agregarAlCarrito(this)"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div></div>
-
-<div class="card"><img src="https://i.imgur.com/02OZlHQ.jpeg" data-images="https://i.imgur.com/02OZlHQ.jpeg" onclick="abrirGaleria(this)" alt="Camiseta #12"><div class="nombre">Camiseta #12</div><div class="precio">$8.000 ARS</div><div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Camiseta%20%2312%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/02OZlHQ.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" type="button" onclick="agregarAlCarrito(this)"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div></div>
-
-<div class="card"><img src="https://i.imgur.com/SzjmcaW.jpeg" data-images="https://i.imgur.com/SzjmcaW.jpeg" onclick="abrirGaleria(this)" alt="Camiseta #13"><div class="nombre">Camiseta #13</div><div class="precio">$8.000 ARS</div><div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Camiseta%20%2313%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/SzjmcaW.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" type="button" onclick="agregarAlCarrito(this)"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div></div>
-
-<div class="card"><img src="https://i.imgur.com/Mv0QKSO.jpeg" data-images="https://i.imgur.com/Mv0QKSO.jpeg" onclick="abrirGaleria(this)" alt="Camiseta #14"><div class="nombre">Camiseta #14</div><div class="precio">$8.000 ARS</div><div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Camiseta%20%2314%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/Mv0QKSO.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" type="button" onclick="agregarAlCarrito(this)"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div></div>
-
-<div class="card"><img src="https://i.imgur.com/00COTIs.jpeg" data-images="https://i.imgur.com/00COTIs.jpeg" onclick="abrirGaleria(this)" alt="Camiseta #15"><div class="nombre">Camiseta #15</div><div class="precio">$8.000 ARS</div><div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Camiseta%20%2315%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/00COTIs.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" type="button" onclick="agregarAlCarrito(this)"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div></div>
-
-<div class="card"><img src="https://i.imgur.com/dsa9rIc.jpeg" data-images="https://i.imgur.com/dsa9rIc.jpeg" onclick="abrirGaleria(this)" alt="Camiseta #16"><div class="nombre">Camiseta #16</div><div class="precio">$8.000 ARS</div><div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Camiseta%20%2316%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/dsa9rIc.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" type="button" onclick="agregarAlCarrito(this)"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div></div>
-
-<div class="card"><img src="https://i.imgur.com/hMKEZjs.jpeg" data-images="https://i.imgur.com/hMKEZjs.jpeg" onclick="abrirGaleria(this)" alt="Camiseta #17"><div class="nombre">Camiseta #17</div><div class="precio">$8.000 ARS</div><div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Camiseta%20%2317%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/hMKEZjs.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" type="button" onclick="agregarAlCarrito(this)"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div></div>
-
-<div class="card"><img src="https://i.imgur.com/NfCfZU6.jpeg" data-images="https://i.imgur.com/NfCfZU6.jpeg" onclick="abrirGaleria(this)" alt="Camiseta #18"><div class="nombre">Camiseta #18</div><div class="precio">$8.000 ARS</div><div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Camiseta%20%2318%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/NfCfZU6.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" type="button" onclick="agregarAlCarrito(this)"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div></div>
-
-<div class="card"><img src="https://i.imgur.com/qZcqqDE.jpeg" data-images="https://i.imgur.com/qZcqqDE.jpeg" onclick="abrirGaleria(this)" alt="Camiseta #19"><div class="nombre">Camiseta #19</div><div class="precio">$8.000 ARS</div><div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Camiseta%20%2319%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/qZcqqDE.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" type="button" onclick="agregarAlCarrito(this)"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div></div>
-
-<div class="card"><img src="https://i.imgur.com/EjlT8jZ.jpeg" data-images="https://i.imgur.com/EjlT8jZ.jpeg" onclick="abrirGaleria(this)" alt="Camiseta #20"><div class="nombre">Camiseta #20</div><div class="precio">$8.000 ARS</div><div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Camiseta%20%2320%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/EjlT8jZ.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" type="button" onclick="agregarAlCarrito(this)"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div></div>
-
-<div class="card"><img src="https://i.imgur.com/u1VvGOU.jpeg" data-images="https://i.imgur.com/u1VvGOU.jpeg" onclick="abrirGaleria(this)" alt="Camiseta #21"><div class="nombre">Camiseta #21</div><div class="precio">$8.000 ARS</div><div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Camiseta%20%2321%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/u1VvGOU.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" type="button" onclick="agregarAlCarrito(this)"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div></div>
-
-<div class="card"><img src="https://i.imgur.com/7SKNEjF.jpeg" data-images="https://i.imgur.com/7SKNEjF.jpeg" onclick="abrirGaleria(this)" alt="Camiseta #22"><div class="nombre">Camiseta #22</div><div class="precio">$8.000 ARS</div><div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Camiseta%20%2322%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/7SKNEjF.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" type="button" onclick="agregarAlCarrito(this)"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div></div>
-
-<div class="card"><img src="https://i.imgur.com/GSeUnCa.jpeg" data-images="https://i.imgur.com/GSeUnCa.jpeg" onclick="abrirGaleria(this)" alt="Camiseta #23"><div class="nombre">Camiseta #23</div><div class="precio">$8.000 ARS</div><div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Camiseta%20%2323%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/GSeUnCa.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" type="button" onclick="agregarAlCarrito(this)"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div></div>
-
-<div class="card"><img src="https://i.imgur.com/Ra0qjTs.jpeg" data-images="https://i.imgur.com/Ra0qjTs.jpeg" onclick="abrirGaleria(this)" alt="Camiseta #24"><div class="nombre">Camiseta #24</div><div class="precio">$8.000 ARS</div><div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Camiseta%20%2324%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/Ra0qjTs.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" type="button" onclick="agregarAlCarrito(this)"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div></div>
-
-<div class="card"><img src="https://i.imgur.com/Laq4amh.jpeg" data-images="https://i.imgur.com/Laq4amh.jpeg" onclick="abrirGaleria(this)" alt="Camiseta #25"><div class="nombre">Camiseta #25</div><div class="precio">$8.000 ARS</div><div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Camiseta%20%2325%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/Laq4amh.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" type="button" onclick="agregarAlCarrito(this)"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div></div>
-
-<div class="card"><img src="https://i.imgur.com/S8gPkqr.jpeg" data-images="https://i.imgur.com/S8gPkqr.jpeg" onclick="abrirGaleria(this)" alt="Camiseta #26"><div class="nombre">Camiseta #26</div><div class="precio">$8.000 ARS</div><div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Camiseta%20%2326%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/S8gPkqr.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" type="button" onclick="agregarAlCarrito(this)"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div></div>
-
-<div class="card"><img src="https://i.imgur.com/KexY4ob.jpeg" data-images="https://i.imgur.com/KexY4ob.jpeg" onclick="abrirGaleria(this)" alt="Camiseta #27"><div class="nombre">Camiseta #27</div><div class="precio">$8.000 ARS</div><div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Camiseta%20%2327%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/KexY4ob.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" type="button" onclick="agregarAlCarrito(this)"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div></div>
-
-<div class="card"><img src="https://i.imgur.com/RpqmUiY.jpeg" data-images="https://i.imgur.com/RpqmUiY.jpeg" onclick="abrirGaleria(this)" alt="Camiseta #28"><div class="nombre">Camiseta #28</div><div class="precio">$8.000 ARS</div><div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Camiseta%20%2328%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/RpqmUiY.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" type="button" onclick="agregarAlCarrito(this)"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div></div>
-
-<div class="card"><img src="https://i.imgur.com/Ae5mlDY.jpeg" data-images="https://i.imgur.com/Ae5mlDY.jpeg" onclick="abrirGaleria(this)" alt="Camiseta #29"><div class="nombre">Camiseta #29</div><div class="precio">$8.000 ARS</div><div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Camiseta%20%2329%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/Ae5mlDY.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" type="button" onclick="agregarAlCarrito(this)"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div></div>
-
-<div class="card"><img src="https://i.imgur.com/WpOMRDO.jpeg" data-images="https://i.imgur.com/WpOMRDO.jpeg" onclick="abrirGaleria(this)" alt="Camiseta #30"><div class="nombre">Camiseta #30</div><div class="precio">$8.000 ARS</div><div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Camiseta%20%2330%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/WpOMRDO.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" type="button" onclick="agregarAlCarrito(this)"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div></div>
-
-<div class="card"><img src="https://i.imgur.com/rIxNgkl.jpeg" data-images="https://i.imgur.com/rIxNgkl.jpeg" onclick="abrirGaleria(this)" alt="Camiseta #31"><div class="nombre">Camiseta #31</div><div class="precio">$8.000 ARS</div><div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Camiseta%20%2331%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/rIxNgkl.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" type="button" onclick="agregarAlCarrito(this)"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div></div>
-
-<div class="card"><img src="https://i.imgur.com/1JQXLcw.jpeg" data-images="https://i.imgur.com/1JQXLcw.jpeg" onclick="abrirGaleria(this)" alt="Camiseta #32"><div class="nombre">Camiseta #32</div><div class="precio">$8.000 ARS</div><div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Camiseta%20%2332%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/1JQXLcw.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" type="button" onclick="agregarAlCarrito(this)"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div></div>
-
-<div class="card"><img src="https://i.imgur.com/t5y21Iv.jpeg" data-images="https://i.imgur.com/t5y21Iv.jpeg" onclick="abrirGaleria(this)" alt="Camiseta #33"><div class="nombre">Camiseta #33</div><div class="precio">$8.000 ARS</div><div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Camiseta%20%2333%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/t5y21Iv.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" type="button" onclick="agregarAlCarrito(this)"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div></div>
-
-<div class="card"><img src="https://i.imgur.com/nsqMiae.jpeg" data-images="https://i.imgur.com/nsqMiae.jpeg" onclick="abrirGaleria(this)" alt="Camiseta #34"><div class="nombre">Camiseta #34</div><div class="precio">$8.000 ARS</div><div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Camiseta%20%2334%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/nsqMiae.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" type="button" onclick="agregarAlCarrito(this)"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div></div>
-
-<div class="card"><img src="https://i.imgur.com/DbXRe2m.jpeg" data-images="https://i.imgur.com/DbXRe2m.jpeg" onclick="abrirGaleria(this)" alt="Camiseta #35"><div class="nombre">Camiseta #35</div><div class="precio">$8.000 ARS</div><div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Camiseta%20%2335%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/DbXRe2m.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" type="button" onclick="agregarAlCarrito(this)"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div></div>
-
-<div class="card"><img src="https://i.imgur.com/wL6v8y8.jpeg" data-images="https://i.imgur.com/wL6v8y8.jpeg" onclick="abrirGaleria(this)" alt="Camiseta #36"><div class="nombre">Camiseta #36</div><div class="precio">$8.000 ARS</div><div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Camiseta%20%2336%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/wL6v8y8.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" type="button" onclick="agregarAlCarrito(this)"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div></div>
-
-<div class="card"><img src="https://i.imgur.com/83qqxWY.jpeg" data-images="https://i.imgur.com/83qqxWY.jpeg" onclick="abrirGaleria(this)" alt="Camiseta #37"><div class="nombre">Camiseta #37</div><div class="precio">$8.000 ARS</div><div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Camiseta%20%2337%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/83qqxWY.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" type="button" onclick="agregarAlCarrito(this)"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div></div>
-
-<div class="card"><img src="https://i.imgur.com/UWkf6lj.jpeg" data-images="https://i.imgur.com/UWkf6lj.jpeg" onclick="abrirGaleria(this)" alt="Camiseta #38"><div class="nombre">Camiseta #38</div><div class="precio">$8.000 ARS</div><div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Camiseta%20%2338%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/UWkf6lj.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" type="button" onclick="agregarAlCarrito(this)"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div></div>
-
-<div class="card"><img src="https://i.imgur.com/45tjZb6.jpeg" data-images="https://i.imgur.com/45tjZb6.jpeg" onclick="abrirGaleria(this)" alt="Camiseta #39"><div class="nombre">Camiseta #39</div><div class="precio">$8.000 ARS</div><div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Camiseta%20%2339%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/45tjZb6.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" type="button" onclick="agregarAlCarrito(this)"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div></div>
-
-<div class="card"><img src="https://i.imgur.com/GpMXt1h.jpeg" data-images="https://i.imgur.com/GpMXt1h.jpeg" onclick="abrirGaleria(this)" alt="Camiseta #40"><div class="nombre">Camiseta #40</div><div class="precio">$8.000 ARS</div><div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Camiseta%20%2340%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/GpMXt1h.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" type="button" onclick="agregarAlCarrito(this)"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div></div>
-
-<div class="card"><img src="https://i.imgur.com/blRQ4fv.jpeg" data-images="https://i.imgur.com/blRQ4fv.jpeg" onclick="abrirGaleria(this)" alt="Camiseta #41"><div class="nombre">Camiseta #41</div><div class="precio">$8.000 ARS</div><div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Camiseta%20%2341%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/blRQ4fv.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" type="button" onclick="agregarAlCarrito(this)"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div></div>
-
-<div class="card"><img src="https://i.imgur.com/bP3Hntl.jpeg" data-images="https://i.imgur.com/bP3Hntl.jpeg" onclick="abrirGaleria(this)" alt="Camiseta #42"><div class="nombre">Camiseta #42</div><div class="precio">$8.000 ARS</div><div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Camiseta%20%2342%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/bP3Hntl.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" type="button" onclick="agregarAlCarrito(this)"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div></div>
-
-<div class="card"><img src="https://i.imgur.com/V7EIDKZ.jpeg" data-images="https://i.imgur.com/V7EIDKZ.jpeg" onclick="abrirGaleria(this)" alt="Camiseta #43"><div class="nombre">Camiseta #43</div><div class="precio">$8.000 ARS</div><div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Camiseta%20%2343%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/V7EIDKZ.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" type="button" onclick="agregarAlCarrito(this)"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div></div>
-
-<div class="card"><img src="https://i.imgur.com/1IZMPjP.jpeg" data-images="https://i.imgur.com/1IZMPjP.jpeg" onclick="abrirGaleria(this)" alt="Camiseta #44"><div class="nombre">Camiseta #44</div><div class="precio">$8.000 ARS</div><div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Camiseta%20%2344%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/1IZMPjP.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" type="button" onclick="agregarAlCarrito(this)"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div></div>
-
-<div class="card"><img src="https://i.imgur.com/VSBOjqZ.jpeg" data-images="https://i.imgur.com/VSBOjqZ.jpeg" onclick="abrirGaleria(this)" alt="Camiseta #45"><div class="nombre">Camiseta #45</div><div class="precio">$8.000 ARS</div><div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Camiseta%20%2345%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/VSBOjqZ.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" type="button" onclick="agregarAlCarrito(this)"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div></div>
-
-<div class="card"><img src="https://i.imgur.com/QkMHClr.jpeg" data-images="https://i.imgur.com/QkMHClr.jpeg" onclick="abrirGaleria(this)" alt="Camiseta #46"><div class="nombre">Camiseta #46</div><div class="precio">$8.000 ARS</div><div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Camiseta%20%2346%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/QkMHClr.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" type="button" onclick="agregarAlCarrito(this)"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div></div>
-
-<div class="card"><img src="https://i.imgur.com/L7wd2gz.jpeg" data-images="https://i.imgur.com/L7wd2gz.jpeg" onclick="abrirGaleria(this)" alt="Camiseta #47"><div class="nombre">Camiseta #47</div><div class="precio">$8.000 ARS</div><div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Camiseta%20%2347%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/L7wd2gz.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" type="button" onclick="agregarAlCarrito(this)"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div></div>
-
-<div class="card"><img src="https://i.imgur.com/bCSyPqr.jpeg" data-images="https://i.imgur.com/bCSyPqr.jpeg" onclick="abrirGaleria(this)" alt="Camiseta #48"><div class="nombre">Camiseta #48</div><div class="precio">$8.000 ARS</div><div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Camiseta%20%2348%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/bCSyPqr.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" type="button" onclick="agregarAlCarrito(this)"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div></div>
-
-
-
-
+</section>
+<!-- ====== PRODUCTS SECTION ====== -->
+<section id="productos">
+<div class="products-header">
+<span class="products-tag">Catalogo oficial / Temporada 2026</span>
+<h2 class="products-title">
+<span class="t-white">PRO</span><span class="t-red">DUCTOS</span>
+</h2>
+<div class="products-divider">
+<div class="divider-line rev"></div>
+<div class="divider-diamond"></div>
+<div class="divider-line"></div>
 </div>
+</div>
+<!-- MARQUEE -->
+<div class="marquee-wrap">
+<div class="marquee-track">
+<span class="marquee-item">Nuevos arrivals <span class="marquee-dot"></span></span>
+<span class="marquee-item">Edicion limitada <span class="marquee-dot"></span></span>
+<span class="marquee-item">Exclusivos <span class="marquee-dot"></span></span>
+<span class="marquee-item">Envio 24h <span class="marquee-dot"></span></span>
+<span class="marquee-item">Calidad premium <span class="marquee-dot"></span></span>
+<span class="marquee-item">Nuevos arrivals <span class="marquee-dot"></span></span>
+<span class="marquee-item">Edicion limitada <span class="marquee-dot"></span></span>
+<span class="marquee-item">Exclusivos <span class="marquee-dot"></span></span>
+<span class="marquee-item">Envio 24h <span class="marquee-dot"></span></span>
+<span class="marquee-item">Calidad premium <span class="marquee-dot"></span></span>
+</div>
+</div>
+<!-- CATEGORIAS EN DOS COLUMNAS -->
+<div class="catalogo-doble">
+<!-- CATEGORIA 1 -->
+<div class="category-section" id="buzos">
+<div class="category-header">
+<div class="section-glow"></div>
+<span class="category-num">01</span>
+<h3 class="category-name">BUZOS</h3>
+<span class="category-badge">30 productos</span>
+</div>
+<div class="product-grid">
+<div class="product-slot card">
+<div class="slot-corner tl"></div><div class="slot-corner tr"></div>
+<div class="slot-corner bl"></div><div class="slot-corner br"></div>
+<div class="slot-inner">
+<div class="product-img-box"><img alt="Buzo Jordan #1" class="slot-product-img" data-images="https://i.imgur.com/B5hm1IJ.jpeg,https://i.imgur.com/LPPdold.jpeg,https://i.imgur.com/D25OAUW.jpeg" onclick="abrirGaleria(this)" src="https://i.imgur.com/B5hm1IJ.jpeg"/></div>
+<div class="nombre">Buzo Jordan #1</div>
+<div class="precio">$14.000 ARS</div>
+<div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Buzo%20Jordan%20%231%0APrecio%3A%20%2414.000%0AFoto%20del%20producto%3A%20https%3A//i.imgur.com/B5hm1IJ.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
+</div>
+</div>
+<div class="product-slot card">
+<div class="slot-corner tl"></div><div class="slot-corner tr"></div>
+<div class="slot-corner bl"></div><div class="slot-corner br"></div>
+<div class="slot-inner">
+<div class="product-img-box"><img alt="Buzo Jordan #2" class="slot-product-img" data-images="https://i.imgur.com/HO0299s.jpeg,https://i.imgur.com/fk4zRFn.jpeg,https://i.imgur.com/iYNK6eZ.jpeg,https://i.imgur.com/E1Eo0ak.jpeg,https://i.imgur.com/dA9KbSc.jpeg" onclick="abrirGaleria(this)" src="https://i.imgur.com/HO0299s.jpeg"/></div>
+<div class="nombre">Buzo Jordan #2</div>
+<div class="precio">$14.000 ARS</div>
+<div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Buzo%20Jordan%20%232%0APrecio%3A%20%2414.000%0AFoto%20del%20producto%3A%20https%3A//i.imgur.com/HO0299s.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
+</div>
+</div>
+<div class="product-slot card">
+<div class="slot-corner tl"></div><div class="slot-corner tr"></div>
+<div class="slot-corner bl"></div><div class="slot-corner br"></div>
+<div class="slot-inner">
+<div class="product-img-box"><img alt="Buzo Jordan #3" class="slot-product-img" data-images="https://i.imgur.com/6Ym5jgy.jpeg,https://i.imgur.com/8FXlGqs.jpeg,https://i.imgur.com/WywvLx3.jpeg,https://i.imgur.com/Ob7rGIe.jpeg" onclick="abrirGaleria(this)" src="https://i.imgur.com/6Ym5jgy.jpeg"/></div>
+<div class="nombre">Buzo Jordan #3</div>
+<div class="precio">$14.000 ARS</div>
+<div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Buzo%20Jordan%20%233%0APrecio%3A%20%2414.000%0AFoto%20del%20producto%3A%20https%3A//i.imgur.com/6Ym5jgy.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
+</div>
+</div>
+<div class="product-slot card">
+<div class="slot-corner tl"></div><div class="slot-corner tr"></div>
+<div class="slot-corner bl"></div><div class="slot-corner br"></div>
+<div class="slot-inner">
+<div class="product-img-box"><img alt="Buzo Jordan #4" class="slot-product-img" data-images="https://i.imgur.com/AIeVQqJ.jpeg,https://i.imgur.com/G21bD5w.jpeg,https://i.imgur.com/7uqv41d.jpeg" onclick="abrirGaleria(this)" src="https://i.imgur.com/AIeVQqJ.jpeg"/></div>
+<div class="nombre">Buzo Jordan #4</div>
+<div class="precio">$14.000 ARS</div>
+<div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Buzo%20Jordan%20%234%0APrecio%3A%20%2414.000%0AFoto%20del%20producto%3A%20https%3A//i.imgur.com/AIeVQqJ.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
+</div>
+</div>
+<div class="product-slot card">
+<div class="slot-corner tl"></div><div class="slot-corner tr"></div>
+<div class="slot-corner bl"></div><div class="slot-corner br"></div>
+<div class="slot-inner">
+<div class="product-img-box"><img alt="Buzo Jordan #5" class="slot-product-img" data-images="https://i.imgur.com/U4bqyN3.jpeg,https://i.imgur.com/WTuOk8b.jpeg,https://i.imgur.com/n1m4rA7.jpeg,https://i.imgur.com/JORikmC.jpeg" onclick="abrirGaleria(this)" src="https://i.imgur.com/U4bqyN3.jpeg"/></div>
+<div class="nombre">Buzo Jordan #5</div>
+<div class="precio">$14.000 ARS</div>
+<div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Buzo%20Jordan%20%235%0APrecio%3A%20%2414.000%0AFoto%20del%20producto%3A%20https%3A//i.imgur.com/U4bqyN3.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
+</div>
+</div>
+<div class="product-slot card">
+<div class="slot-corner tl"></div><div class="slot-corner tr"></div>
+<div class="slot-corner bl"></div><div class="slot-corner br"></div>
+<div class="slot-inner">
+<div class="product-img-box"><img alt="Buzo Jordan #6" class="slot-product-img" data-images="https://i.imgur.com/dKw885W.jpeg,https://i.imgur.com/ndThI7g.jpeg,https://i.imgur.com/hSFV7Sq.jpeg" onclick="abrirGaleria(this)" src="https://i.imgur.com/dKw885W.jpeg"/></div>
+<div class="nombre">Buzo Jordan #6</div>
+<div class="precio">$14.000 ARS</div>
+<div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Buzo%20Jordan%20%236%0APrecio%3A%20%2414.000%0AFoto%20del%20producto%3A%20https%3A//i.imgur.com/dKw885W.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
+</div>
+</div>
+<div class="product-slot card">
+<div class="slot-corner tl"></div><div class="slot-corner tr"></div>
+<div class="slot-corner bl"></div><div class="slot-corner br"></div>
+<div class="slot-inner">
+<div class="product-img-box"><img alt="Buzo Jordan #7" class="slot-product-img" data-images="https://i.imgur.com/LelNPjR.jpeg" onclick="abrirGaleria(this)" src="https://i.imgur.com/LelNPjR.jpeg"/></div>
+<div class="nombre">Buzo Jordan #7</div>
+<div class="precio">$14.000 ARS</div>
+<div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Buzo%20Jordan%20%237%0APrecio%3A%20%2414.000%0AFoto%20del%20producto%3A%20https%3A//i.imgur.com/LelNPjR.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
+</div>
+</div>
+<div class="product-slot card">
+<div class="slot-corner tl"></div><div class="slot-corner tr"></div>
+<div class="slot-corner bl"></div><div class="slot-corner br"></div>
+<div class="slot-inner">
+<div class="product-img-box"><img alt="Buzo Jordan #8" class="slot-product-img" data-images="https://i.imgur.com/skI6RM1.jpeg" onclick="abrirGaleria(this)" src="https://i.imgur.com/skI6RM1.jpeg"/></div>
+<div class="nombre">Buzo Jordan #8</div>
+<div class="precio">$14.000 ARS</div>
+<div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Buzo%20Jordan%20%238%0APrecio%3A%20%2414.000%0AFoto%20del%20producto%3A%20https%3A//i.imgur.com/skI6RM1.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
+</div>
+</div>
+<div class="product-slot card">
+<div class="slot-corner tl"></div><div class="slot-corner tr"></div>
+<div class="slot-corner bl"></div><div class="slot-corner br"></div>
+<div class="slot-inner">
+<div class="product-img-box"><img alt="Buzo Nike Swoosu" class="slot-product-img" data-images="https://i.imgur.com/6A0iZKr.jpeg,https://i.imgur.com/CeLQu4E.jpeg,https://i.imgur.com/wXS18hz.jpeg,https://i.imgur.com/apTc0dV.jpeg,https://i.imgur.com/5VEtKvJ.jpeg,https://i.imgur.com/I9BJ6D2.jpeg,https://i.imgur.com/ugMuCGd.jpeg,https://i.imgur.com/Sey4x9J.jpeg" onclick="abrirGaleria(this)" src="https://i.imgur.com/6A0iZKr.jpeg"/></div>
+<div class="nombre">Buzo Nike Swoosu</div>
+<div class="precio">$14.000 ARS</div>
+<div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Buzo%20Nike%20Swoosu%0APrecio%3A%20%2414.000%0AFoto%20del%20producto%3A%20https%3A//i.imgur.com/6A0iZKr.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
+</div>
+</div>
+<div class="product-slot card">
+<div class="slot-corner tl"></div><div class="slot-corner tr"></div>
+<div class="slot-corner bl"></div><div class="slot-corner br"></div>
+<div class="slot-inner">
+<div class="product-img-box"><img alt="Buzo Jordan Flyght" class="slot-product-img" data-images="https://i.imgur.com/ebWo7V3.jpeg,https://i.imgur.com/KWd6FbA.jpeg,https://i.imgur.com/Z8ifAuI.jpeg,https://i.imgur.com/KKZgNt7.jpeg" onclick="abrirGaleria(this)" src="https://i.imgur.com/ebWo7V3.jpeg"/></div>
+<div class="nombre">Buzo Jordan Flyght</div>
+<div class="precio">$14.000 ARS</div>
+<div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Buzo%20Jordan%20Flyght%0APrecio%3A%20%2414.000%0AFoto%20del%20producto%3A%20https%3A//i.imgur.com/ebWo7V3.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
+</div>
+</div>
+<div class="product-slot card">
+<div class="slot-corner tl"></div><div class="slot-corner tr"></div>
+<div class="slot-corner bl"></div><div class="slot-corner br"></div>
+<div class="slot-inner">
+<div class="product-img-box"><img alt="Buzo Jordan #9" class="slot-product-img" data-images="https://i.imgur.com/W3XYCNb.jpeg,https://i.imgur.com/s8LdcxY.jpeg,https://i.imgur.com/mknSf2f.jpeg" onclick="abrirGaleria(this)" src="https://i.imgur.com/W3XYCNb.jpeg"/></div>
+<div class="nombre">Buzo Jordan #9</div>
+<div class="precio">$14.000 ARS</div>
+<div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Buzo%20Jordan%20%239%0APrecio%3A%20%2414.000%0AFoto%20del%20producto%3A%20https%3A//i.imgur.com/W3XYCNb.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
+</div>
+</div>
+<div class="product-slot card">
+<div class="slot-corner tl"></div><div class="slot-corner tr"></div>
+<div class="slot-corner bl"></div><div class="slot-corner br"></div>
+<div class="slot-inner">
+<div class="product-img-box"><img alt="Buzo Jordan #10" class="slot-product-img" data-images="https://i.imgur.com/FBeY38S.png,https://i.imgur.com/sqbf4GL.png,https://i.imgur.com/Bj3Z6md.jpeg" onclick="abrirGaleria(this)" src="https://i.imgur.com/FBeY38S.png"/></div>
+<div class="nombre">Buzo Jordan #10</div>
+<div class="precio">$16.000 ARS</div>
+<div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Buzo%20Jordan%20%2310%0APrecio%3A%20%2416.000%0AFoto%20del%20producto%3A%20https%3A//i.imgur.com/FBeY38S.png" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
+</div>
+</div>
+<div class="product-slot card">
+<div class="slot-corner tl"></div><div class="slot-corner tr"></div>
+<div class="slot-corner bl"></div><div class="slot-corner br"></div>
+<div class="slot-inner">
+<div class="product-img-box"><img alt="Buzo NIKE #11" class="slot-product-img" data-images="https://i.imgur.com/WEUSPjc.jpeg" onclick="abrirGaleria(this)" src="https://i.imgur.com/WEUSPjc.jpeg"/></div>
+<div class="nombre">Buzo NIKE #11</div>
+<div class="precio">$14.000 ARS</div>
+<div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Buzo%20NIKE%20%2311%0APrecio%3A%20%2414.000%0AFoto%20del%20producto%3A%20https%3A//i.imgur.com/WEUSPjc.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
+</div>
+</div>
+<div class="product-slot card">
+<div class="slot-corner tl"></div><div class="slot-corner tr"></div>
+<div class="slot-corner bl"></div><div class="slot-corner br"></div>
+<div class="slot-inner">
+<div class="product-img-box"><img alt="Buzo Jordan #12" class="slot-product-img" data-images="https://i.imgur.com/Qq3PnEt.jpeg" onclick="abrirGaleria(this)" src="https://i.imgur.com/Qq3PnEt.jpeg"/></div>
+<div class="nombre">Buzo Jordan #12</div>
+<div class="precio">$14.000 ARS</div>
+<div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Buzo%20Jordan%20%2312%0APrecio%3A%20%2414.000%0AFoto%20del%20producto%3A%20https%3A//i.imgur.com/Qq3PnEt.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
+</div>
+</div>
+<div class="product-slot card">
+<div class="slot-corner tl"></div><div class="slot-corner tr"></div>
+<div class="slot-corner bl"></div><div class="slot-corner br"></div>
+<div class="slot-inner">
+<div class="product-img-box"><img alt="Buzo Jordan #13" class="slot-product-img" data-images="https://i.imgur.com/Srra0SX.jpeg" onclick="abrirGaleria(this)" src="https://i.imgur.com/Srra0SX.jpeg"/></div>
+<div class="nombre">Buzo Jordan #13</div>
+<div class="precio">$14.000 ARS</div>
+<div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Buzo%20Jordan%20%2313%0APrecio%3A%20%2414.000%0AFoto%20del%20producto%3A%20https%3A//i.imgur.com/Srra0SX.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
+</div>
+</div>
+<div class="product-slot card">
+<div class="slot-corner tl"></div><div class="slot-corner tr"></div>
+<div class="slot-corner bl"></div><div class="slot-corner br"></div>
+<div class="slot-inner">
+<div class="product-img-box"><img alt="Buzo Jordan #14" class="slot-product-img" data-images="https://i.imgur.com/NbyeBry.png,https://i.imgur.com/EaimR0t.png" onclick="abrirGaleria(this)" src="https://i.imgur.com/NbyeBry.png"/></div>
+<div class="nombre">Buzo Jordan #14</div>
+<div class="precio">$14.000 ARS</div>
+<div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Buzo%20Jordan%20%2314%0APrecio%3A%20%2414.000%0AFoto%20del%20producto%3A%20https%3A//i.imgur.com/NbyeBry.png" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
+</div>
+</div>
+<div class="product-slot card">
+<div class="slot-corner tl"></div><div class="slot-corner tr"></div>
+<div class="slot-corner bl"></div><div class="slot-corner br"></div>
+<div class="slot-inner">
+<div class="product-img-box"><img alt="Buzo Jordan #15" class="slot-product-img" data-images="https://i.imgur.com/b0v8UUR.png,https://i.imgur.com/0oglMXs.png" onclick="abrirGaleria(this)" src="https://i.imgur.com/b0v8UUR.png"/></div>
+<div class="nombre">Buzo Jordan #15</div>
+<div class="precio">$14.000 ARS</div>
+<div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Buzo%20Jordan%20%2315%0APrecio%3A%20%2414.000%0AFoto%20del%20producto%3A%20https%3A//i.imgur.com/b0v8UUR.png" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
+</div>
+</div>
+<div class="product-slot card">
+<div class="slot-corner tl"></div><div class="slot-corner tr"></div>
+<div class="slot-corner bl"></div><div class="slot-corner br"></div>
+<div class="slot-inner">
+<div class="product-img-box"><img alt="Buzo Jordan #16" class="slot-product-img" data-images="https://i.imgur.com/RAjt4fE.png,https://i.imgur.com/xYdT68S.png" onclick="abrirGaleria(this)" src="https://i.imgur.com/RAjt4fE.png"/></div>
+<div class="nombre">Buzo Jordan #16</div>
+<div class="precio">$14.000 ARS</div>
+<div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Buzo%20Jordan%20%2316%0APrecio%3A%20%2414.000%0AFoto%20del%20producto%3A%20https%3A//i.imgur.com/RAjt4fE.png" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
+</div>
+</div>
+<div class="product-slot card">
+<div class="slot-corner tl"></div><div class="slot-corner tr"></div>
+<div class="slot-corner bl"></div><div class="slot-corner br"></div>
+<div class="slot-inner">
+<div class="product-img-box"><img alt="Buzo Jordan #17" class="slot-product-img" data-images="https://i.imgur.com/MjSIkel.png,https://i.imgur.com/9VKZ1Ko.png" onclick="abrirGaleria(this)" src="https://i.imgur.com/MjSIkel.png"/></div>
+<div class="nombre">Buzo Jordan #17</div>
+<div class="precio">$14.000 ARS</div>
+<div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Buzo%20Jordan%20%2317%0APrecio%3A%20%2414.000%0AFoto%20del%20producto%3A%20https%3A//i.imgur.com/MjSIkel.png" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
+</div>
+</div>
+<div class="product-slot card">
+<div class="slot-corner tl"></div><div class="slot-corner tr"></div>
+<div class="slot-corner bl"></div><div class="slot-corner br"></div>
+<div class="slot-inner">
+<div class="product-img-box"><img alt="Buzo Hugo Boss" class="slot-product-img" data-images="https://i.imgur.com/wQgiHeI.png,https://i.imgur.com/1cHS85H.png" onclick="abrirGaleria(this)" src="https://i.imgur.com/wQgiHeI.png"/></div>
+<div class="nombre">Buzo Hugo Boss</div>
+<div class="precio">$14.000 ARS</div>
+<div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Buzo%20Hugo%20Boss%0APrecio%3A%20%2414.000%0AFoto%20del%20producto%3A%20https%3A//i.imgur.com/wQgiHeI.png" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
+</div>
+</div>
+<div class="product-slot card">
+<div class="slot-corner tl"></div><div class="slot-corner tr"></div>
+<div class="slot-corner bl"></div><div class="slot-corner br"></div>
+<div class="slot-inner">
+<div class="product-img-box"><img alt="Buzo Jordan #18" class="slot-product-img" data-images="https://i.imgur.com/bf4vXmk.png" onclick="abrirGaleria(this)" src="https://i.imgur.com/bf4vXmk.png"/></div>
+<div class="nombre">Buzo Jordan #18</div>
+<div class="precio">$14.000 ARS</div>
+<div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Buzo%20Jordan%20%2318%0APrecio%3A%20%2414.000%0AFoto%20del%20producto%3A%20https%3A//i.imgur.com/bf4vXmk.png" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
+</div>
+</div>
+<div class="product-slot card">
+<div class="slot-corner tl"></div><div class="slot-corner tr"></div>
+<div class="slot-corner bl"></div><div class="slot-corner br"></div>
+<div class="slot-inner">
+<div class="product-img-box"><img alt="Buzo Hugo Boss #2" class="slot-product-img" data-images="https://i.imgur.com/GUa1528.png" onclick="abrirGaleria(this)" src="https://i.imgur.com/GUa1528.png"/></div>
+<div class="nombre">Buzo Hugo Boss #2</div>
+<div class="precio">$14.000 ARS</div>
+<div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Buzo%20Hugo%20Boss%20%232%0APrecio%3A%20%2414.000%0AFoto%20del%20producto%3A%20https%3A//i.imgur.com/GUa1528.png" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
+</div>
+</div>
+<div class="product-slot card">
+<div class="slot-corner tl"></div><div class="slot-corner tr"></div>
+<div class="slot-corner bl"></div><div class="slot-corner br"></div>
+<div class="slot-inner">
+<div class="product-img-box"><img alt="Buzo Jordan #19" class="slot-product-img" data-images="https://i.imgur.com/SikknUU.png" onclick="abrirGaleria(this)" src="https://i.imgur.com/SikknUU.png"/></div>
+<div class="nombre">Buzo Jordan #19</div>
+<div class="precio">$14.000 ARS</div>
+<div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Buzo%20Jordan%20%2319%0APrecio%3A%20%2414.000%0AFoto%20del%20producto%3A%20https%3A//i.imgur.com/SikknUU.png" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
+</div>
+</div>
+<div class="product-slot card">
+<div class="slot-corner tl"></div><div class="slot-corner tr"></div>
+<div class="slot-corner bl"></div><div class="slot-corner br"></div>
+<div class="slot-inner">
+<div class="product-img-box"><img alt="Buzo Calvin Klein" class="slot-product-img" data-images="https://i.imgur.com/koLKaIt.png" onclick="abrirGaleria(this)" src="https://i.imgur.com/koLKaIt.png"/></div>
+<div class="nombre">Buzo Calvin Klein</div>
+<div class="precio">$14.000 ARS</div>
+<div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Buzo%20Calvin%20Klein%0APrecio%3A%20%2414.000%0AFoto%20del%20producto%3A%20https%3A//i.imgur.com/koLKaIt.png" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
+</div>
+</div>
+<div class="product-slot card">
+<div class="slot-corner tl"></div><div class="slot-corner tr"></div>
+<div class="slot-corner bl"></div><div class="slot-corner br"></div>
+<div class="slot-inner">
+<div class="product-img-box"><img alt="Buzo Jordan #20" class="slot-product-img" data-images="https://i.imgur.com/wAwbT8X.png" onclick="abrirGaleria(this)" src="https://i.imgur.com/wAwbT8X.png"/></div>
+<div class="nombre">Buzo Jordan #20</div>
+<div class="precio">$14.000 ARS</div>
+<div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Buzo%20Jordan%20%2320%0APrecio%3A%20%2414.000%0AFoto%20del%20producto%3A%20https%3A//i.imgur.com/wAwbT8X.png" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
+</div>
+</div>
+<div class="product-slot card">
+<div class="slot-corner tl"></div><div class="slot-corner tr"></div>
+<div class="slot-corner bl"></div><div class="slot-corner br"></div>
+<div class="slot-inner">
+<div class="product-img-box"><img alt="Buzo Jordan #21" class="slot-product-img" data-images="https://i.imgur.com/SdiBpP5.png" onclick="abrirGaleria(this)" src="https://i.imgur.com/SdiBpP5.png"/></div>
+<div class="nombre">Buzo Jordan #21</div>
+<div class="precio">$14.000 ARS</div>
+<div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Buzo%20Jordan%20%2321%0APrecio%3A%20%2414.000%0AFoto%20del%20producto%3A%20https%3A//i.imgur.com/SdiBpP5.png" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
+</div>
+</div>
+<div class="product-slot card">
+<div class="slot-corner tl"></div><div class="slot-corner tr"></div>
+<div class="slot-corner bl"></div><div class="slot-corner br"></div>
+<div class="slot-inner">
+<div class="product-img-box"><img alt="Buzo Jordan #22" class="slot-product-img" data-images="https://i.imgur.com/QXLboYt.png" onclick="abrirGaleria(this)" src="https://i.imgur.com/QXLboYt.png"/></div>
+<div class="nombre">Buzo Jordan #22</div>
+<div class="precio">$14.000 ARS</div>
+<div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Buzo%20Jordan%20%2322%0APrecio%3A%20%2414.000%0AFoto%20del%20producto%3A%20https%3A//i.imgur.com/QXLboYt.png" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
+</div>
+</div>
+<div class="product-slot card">
+<div class="slot-corner tl"></div><div class="slot-corner tr"></div>
+<div class="slot-corner bl"></div><div class="slot-corner br"></div>
+<div class="slot-inner">
+<div class="product-img-box"><img alt="Buzo Jordan #23" class="slot-product-img" data-images="https://i.imgur.com/xEgZxO2.png" onclick="abrirGaleria(this)" src="https://i.imgur.com/xEgZxO2.png"/></div>
+<div class="nombre">Buzo Jordan #23</div>
+<div class="precio">$14.000 ARS</div>
+<div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Buzo%20Jordan%20%2323%0APrecio%3A%20%2414.000%0AFoto%20del%20producto%3A%20https%3A//i.imgur.com/xEgZxO2.png" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
+</div>
+</div>
+<div class="product-slot card">
+<div class="slot-corner tl"></div><div class="slot-corner tr"></div>
+<div class="slot-corner bl"></div><div class="slot-corner br"></div>
+<div class="slot-inner">
+<div class="product-img-box"><img alt="Buzo Jordan #24" class="slot-product-img" data-images="https://i.imgur.com/1xsRGlC.png" onclick="abrirGaleria(this)" src="https://i.imgur.com/1xsRGlC.png"/></div>
+<div class="nombre">Buzo Jordan #24</div>
+<div class="precio">$14.000 ARS</div>
+<div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Buzo%20Jordan%20%2324%0APrecio%3A%20%2414.000%0AFoto%20del%20producto%3A%20https%3A//i.imgur.com/1xsRGlC.png" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
+</div>
+</div>
+<div class="product-slot card">
+<div class="slot-corner tl"></div><div class="slot-corner tr"></div>
+<div class="slot-corner bl"></div><div class="slot-corner br"></div>
+<div class="slot-inner">
+<div class="product-img-box"><img alt="Buzo Jordan #25" class="slot-product-img" data-images="https://i.imgur.com/wi4NSYX.png" onclick="abrirGaleria(this)" src="https://i.imgur.com/wi4NSYX.png"/></div>
+<div class="nombre">Buzo Jordan #25</div>
+<div class="precio">$14.000 ARS</div>
+<div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Buzo%20Jordan%20%2325%0APrecio%3A%20%2414.000%0AFoto%20del%20producto%3A%20https%3A//i.imgur.com/wi4NSYX.png" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
+</div>
+</div>
+</div>
+</div>
+<!-- CATEGORIA 2 -->
+<div class="category-section" id="remeras">
+<div class="category-header">
+<div class="section-glow"></div>
+<span class="category-num">02</span>
+<h3 class="category-name">REMERAS</h3>
+<span class="category-badge">48 productos</span>
+</div>
+<div class="product-grid">
+<div class="product-slot card">
+<div class="slot-corner tl"></div><div class="slot-corner tr"></div>
+<div class="slot-corner bl"></div><div class="slot-corner br"></div>
+<div class="slot-inner">
+<div class="product-img-box"><img alt="Camiseta #1" class="slot-product-img" data-images="https://i.imgur.com/Q9MsY6J.jpeg" onclick="abrirGaleria(this)" src="https://i.imgur.com/Q9MsY6J.jpeg"/></div>
+<div class="nombre">Camiseta #1</div>
+<div class="precio">$8.000 ARS</div>
+<div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Camiseta%20%231%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/Q9MsY6J.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
+</div>
+</div>
+<div class="product-slot card">
+<div class="slot-corner tl"></div><div class="slot-corner tr"></div>
+<div class="slot-corner bl"></div><div class="slot-corner br"></div>
+<div class="slot-inner">
+<div class="product-img-box"><img alt="Camiseta #2" class="slot-product-img" data-images="https://i.imgur.com/pJdN75m.jpeg" onclick="abrirGaleria(this)" src="https://i.imgur.com/pJdN75m.jpeg"/></div>
+<div class="nombre">Camiseta #2</div>
+<div class="precio">$8.000 ARS</div>
+<div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Camiseta%20%232%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/pJdN75m.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
+</div>
+</div>
+<div class="product-slot card">
+<div class="slot-corner tl"></div><div class="slot-corner tr"></div>
+<div class="slot-corner bl"></div><div class="slot-corner br"></div>
+<div class="slot-inner">
+<div class="product-img-box"><img alt="Camiseta #3" class="slot-product-img" data-images="https://i.imgur.com/pkDjlqw.jpeg" onclick="abrirGaleria(this)" src="https://i.imgur.com/pkDjlqw.jpeg"/></div>
+<div class="nombre">Camiseta #3</div>
+<div class="precio">$8.000 ARS</div>
+<div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Camiseta%20%233%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/pkDjlqw.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
+</div>
+</div>
+<div class="product-slot card">
+<div class="slot-corner tl"></div><div class="slot-corner tr"></div>
+<div class="slot-corner bl"></div><div class="slot-corner br"></div>
+<div class="slot-inner">
+<div class="product-img-box"><img alt="Camiseta #4" class="slot-product-img" data-images="https://i.imgur.com/Hn7bY2m.jpeg,https://i.imgur.com/pxwVeQP.jpeg" onclick="abrirGaleria(this)" src="https://i.imgur.com/Hn7bY2m.jpeg"/></div>
+<div class="nombre">Camiseta #4</div>
+<div class="precio">$8.000 ARS</div>
+<div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Camiseta%20%234%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/Hn7bY2m.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
+</div>
+</div>
+<div class="product-slot card">
+<div class="slot-corner tl"></div><div class="slot-corner tr"></div>
+<div class="slot-corner bl"></div><div class="slot-corner br"></div>
+<div class="slot-inner">
+<div class="product-img-box"><img alt="Camiseta #5" class="slot-product-img" data-images="https://i.imgur.com/DACUjwo.jpeg,https://i.imgur.com/RvoASgk.jpeg" onclick="abrirGaleria(this)" src="https://i.imgur.com/DACUjwo.jpeg"/></div>
+<div class="nombre">Camiseta #5</div>
+<div class="precio">$8.000 ARS</div>
+<div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Camiseta%20%235%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/DACUjwo.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
+</div>
+</div>
+<div class="product-slot card">
+<div class="slot-corner tl"></div><div class="slot-corner tr"></div>
+<div class="slot-corner bl"></div><div class="slot-corner br"></div>
+<div class="slot-inner">
+<div class="product-img-box"><img alt="Camiseta #6" class="slot-product-img" data-images="https://i.imgur.com/8GWdUlM.jpeg" onclick="abrirGaleria(this)" src="https://i.imgur.com/8GWdUlM.jpeg"/></div>
+<div class="nombre">Camiseta #6</div>
+<div class="precio">$8.000 ARS</div>
+<div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Camiseta%20%236%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/8GWdUlM.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
+</div>
+</div>
+<div class="product-slot card">
+<div class="slot-corner tl"></div><div class="slot-corner tr"></div>
+<div class="slot-corner bl"></div><div class="slot-corner br"></div>
+<div class="slot-inner">
+<div class="product-img-box"><img alt="Camiseta #7" class="slot-product-img" data-images="https://i.imgur.com/exNy5BV.jpeg" onclick="abrirGaleria(this)" src="https://i.imgur.com/exNy5BV.jpeg"/></div>
+<div class="nombre">Camiseta #7</div>
+<div class="precio">$8.000 ARS</div>
+<div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Camiseta%20%237%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/exNy5BV.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
+</div>
+</div>
+<div class="product-slot card">
+<div class="slot-corner tl"></div><div class="slot-corner tr"></div>
+<div class="slot-corner bl"></div><div class="slot-corner br"></div>
+<div class="slot-inner">
+<div class="product-img-box"><img alt="Camiseta #8" class="slot-product-img" data-images="https://i.imgur.com/vV1DBi0.jpeg" onclick="abrirGaleria(this)" src="https://i.imgur.com/vV1DBi0.jpeg"/></div>
+<div class="nombre">Camiseta #8</div>
+<div class="precio">$8.000 ARS</div>
+<div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Camiseta%20%238%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/vV1DBi0.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
+</div>
+</div>
+<div class="product-slot card">
+<div class="slot-corner tl"></div><div class="slot-corner tr"></div>
+<div class="slot-corner bl"></div><div class="slot-corner br"></div>
+<div class="slot-inner">
+<div class="product-img-box"><img alt="Camiseta #9" class="slot-product-img" data-images="https://i.imgur.com/RuHNyPO.jpeg" onclick="abrirGaleria(this)" src="https://i.imgur.com/RuHNyPO.jpeg"/></div>
+<div class="nombre">Camiseta #9</div>
+<div class="precio">$8.000 ARS</div>
+<div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Camiseta%20%239%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/RuHNyPO.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
+</div>
+</div>
+<div class="product-slot card">
+<div class="slot-corner tl"></div><div class="slot-corner tr"></div>
+<div class="slot-corner bl"></div><div class="slot-corner br"></div>
+<div class="slot-inner">
+<div class="product-img-box"><img alt="Camiseta #10" class="slot-product-img" data-images="https://i.imgur.com/9IwuQf2.jpeg" onclick="abrirGaleria(this)" src="https://i.imgur.com/9IwuQf2.jpeg"/></div>
+<div class="nombre">Camiseta #10</div>
+<div class="precio">$8.000 ARS</div>
+<div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Camiseta%20%2310%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/9IwuQf2.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
+</div>
+</div>
+<div class="product-slot card">
+<div class="slot-corner tl"></div><div class="slot-corner tr"></div>
+<div class="slot-corner bl"></div><div class="slot-corner br"></div>
+<div class="slot-inner">
+<div class="product-img-box"><img alt="Camiseta #11" class="slot-product-img" data-images="https://i.imgur.com/FbHkPQt.jpeg" onclick="abrirGaleria(this)" src="https://i.imgur.com/FbHkPQt.jpeg"/></div>
+<div class="nombre">Camiseta #11</div>
+<div class="precio">$8.000 ARS</div>
+<div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Camiseta%20%2311%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/FbHkPQt.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
+</div>
+</div>
+<div class="product-slot card">
+<div class="slot-corner tl"></div><div class="slot-corner tr"></div>
+<div class="slot-corner bl"></div><div class="slot-corner br"></div>
+<div class="slot-inner">
+<div class="product-img-box"><img alt="Camiseta #12" class="slot-product-img" data-images="https://i.imgur.com/02OZlHQ.jpeg" onclick="abrirGaleria(this)" src="https://i.imgur.com/02OZlHQ.jpeg"/></div>
+<div class="nombre">Camiseta #12</div>
+<div class="precio">$8.000 ARS</div>
+<div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Camiseta%20%2312%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/02OZlHQ.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
+</div>
+</div>
+<div class="product-slot card">
+<div class="slot-corner tl"></div><div class="slot-corner tr"></div>
+<div class="slot-corner bl"></div><div class="slot-corner br"></div>
+<div class="slot-inner">
+<div class="product-img-box"><img alt="Camiseta #13" class="slot-product-img" data-images="https://i.imgur.com/SzjmcaW.jpeg" onclick="abrirGaleria(this)" src="https://i.imgur.com/SzjmcaW.jpeg"/></div>
+<div class="nombre">Camiseta #13</div>
+<div class="precio">$8.000 ARS</div>
+<div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Camiseta%20%2313%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/SzjmcaW.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
+</div>
+</div>
+<div class="product-slot card">
+<div class="slot-corner tl"></div><div class="slot-corner tr"></div>
+<div class="slot-corner bl"></div><div class="slot-corner br"></div>
+<div class="slot-inner">
+<div class="product-img-box"><img alt="Camiseta #14" class="slot-product-img" data-images="https://i.imgur.com/Mv0QKSO.jpeg" onclick="abrirGaleria(this)" src="https://i.imgur.com/Mv0QKSO.jpeg"/></div>
+<div class="nombre">Camiseta #14</div>
+<div class="precio">$8.000 ARS</div>
+<div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Camiseta%20%2314%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/Mv0QKSO.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
+</div>
+</div>
+<div class="product-slot card">
+<div class="slot-corner tl"></div><div class="slot-corner tr"></div>
+<div class="slot-corner bl"></div><div class="slot-corner br"></div>
+<div class="slot-inner">
+<div class="product-img-box"><img alt="Camiseta #15" class="slot-product-img" data-images="https://i.imgur.com/00COTIs.jpeg" onclick="abrirGaleria(this)" src="https://i.imgur.com/00COTIs.jpeg"/></div>
+<div class="nombre">Camiseta #15</div>
+<div class="precio">$8.000 ARS</div>
+<div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Camiseta%20%2315%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/00COTIs.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
+</div>
+</div>
+<div class="product-slot card">
+<div class="slot-corner tl"></div><div class="slot-corner tr"></div>
+<div class="slot-corner bl"></div><div class="slot-corner br"></div>
+<div class="slot-inner">
+<div class="product-img-box"><img alt="Camiseta #16" class="slot-product-img" data-images="https://i.imgur.com/dsa9rIc.jpeg" onclick="abrirGaleria(this)" src="https://i.imgur.com/dsa9rIc.jpeg"/></div>
+<div class="nombre">Camiseta #16</div>
+<div class="precio">$8.000 ARS</div>
+<div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Camiseta%20%2316%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/dsa9rIc.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
+</div>
+</div>
+<div class="product-slot card">
+<div class="slot-corner tl"></div><div class="slot-corner tr"></div>
+<div class="slot-corner bl"></div><div class="slot-corner br"></div>
+<div class="slot-inner">
+<div class="product-img-box"><img alt="Camiseta #17" class="slot-product-img" data-images="https://i.imgur.com/hMKEZjs.jpeg" onclick="abrirGaleria(this)" src="https://i.imgur.com/hMKEZjs.jpeg"/></div>
+<div class="nombre">Camiseta #17</div>
+<div class="precio">$8.000 ARS</div>
+<div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Camiseta%20%2317%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/hMKEZjs.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
+</div>
+</div>
+<div class="product-slot card">
+<div class="slot-corner tl"></div><div class="slot-corner tr"></div>
+<div class="slot-corner bl"></div><div class="slot-corner br"></div>
+<div class="slot-inner">
+<div class="product-img-box"><img alt="Camiseta #18" class="slot-product-img" data-images="https://i.imgur.com/NfCfZU6.jpeg" onclick="abrirGaleria(this)" src="https://i.imgur.com/NfCfZU6.jpeg"/></div>
+<div class="nombre">Camiseta #18</div>
+<div class="precio">$8.000 ARS</div>
+<div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Camiseta%20%2318%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/NfCfZU6.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
+</div>
+</div>
+<div class="product-slot card">
+<div class="slot-corner tl"></div><div class="slot-corner tr"></div>
+<div class="slot-corner bl"></div><div class="slot-corner br"></div>
+<div class="slot-inner">
+<div class="product-img-box"><img alt="Camiseta #19" class="slot-product-img" data-images="https://i.imgur.com/qZcqqDE.jpeg" onclick="abrirGaleria(this)" src="https://i.imgur.com/qZcqqDE.jpeg"/></div>
+<div class="nombre">Camiseta #19</div>
+<div class="precio">$8.000 ARS</div>
+<div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Camiseta%20%2319%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/qZcqqDE.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
+</div>
+</div>
+<div class="product-slot card">
+<div class="slot-corner tl"></div><div class="slot-corner tr"></div>
+<div class="slot-corner bl"></div><div class="slot-corner br"></div>
+<div class="slot-inner">
+<div class="product-img-box"><img alt="Camiseta #20" class="slot-product-img" data-images="https://i.imgur.com/EjlT8jZ.jpeg" onclick="abrirGaleria(this)" src="https://i.imgur.com/EjlT8jZ.jpeg"/></div>
+<div class="nombre">Camiseta #20</div>
+<div class="precio">$8.000 ARS</div>
+<div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Camiseta%20%2320%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/EjlT8jZ.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
+</div>
+</div>
+<div class="product-slot card">
+<div class="slot-corner tl"></div><div class="slot-corner tr"></div>
+<div class="slot-corner bl"></div><div class="slot-corner br"></div>
+<div class="slot-inner">
+<div class="product-img-box"><img alt="Camiseta #21" class="slot-product-img" data-images="https://i.imgur.com/u1VvGOU.jpeg" onclick="abrirGaleria(this)" src="https://i.imgur.com/u1VvGOU.jpeg"/></div>
+<div class="nombre">Camiseta #21</div>
+<div class="precio">$8.000 ARS</div>
+<div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Camiseta%20%2321%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/u1VvGOU.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
+</div>
+</div>
+<div class="product-slot card">
+<div class="slot-corner tl"></div><div class="slot-corner tr"></div>
+<div class="slot-corner bl"></div><div class="slot-corner br"></div>
+<div class="slot-inner">
+<div class="product-img-box"><img alt="Camiseta #22" class="slot-product-img" data-images="https://i.imgur.com/7SKNEjF.jpeg" onclick="abrirGaleria(this)" src="https://i.imgur.com/7SKNEjF.jpeg"/></div>
+<div class="nombre">Camiseta #22</div>
+<div class="precio">$8.000 ARS</div>
+<div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Camiseta%20%2322%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/7SKNEjF.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
+</div>
+</div>
+<div class="product-slot card">
+<div class="slot-corner tl"></div><div class="slot-corner tr"></div>
+<div class="slot-corner bl"></div><div class="slot-corner br"></div>
+<div class="slot-inner">
+<div class="product-img-box"><img alt="Camiseta #23" class="slot-product-img" data-images="https://i.imgur.com/GSeUnCa.jpeg" onclick="abrirGaleria(this)" src="https://i.imgur.com/GSeUnCa.jpeg"/></div>
+<div class="nombre">Camiseta #23</div>
+<div class="precio">$8.000 ARS</div>
+<div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Camiseta%20%2323%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/GSeUnCa.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
+</div>
+</div>
+<div class="product-slot card">
+<div class="slot-corner tl"></div><div class="slot-corner tr"></div>
+<div class="slot-corner bl"></div><div class="slot-corner br"></div>
+<div class="slot-inner">
+<div class="product-img-box"><img alt="Camiseta #24" class="slot-product-img" data-images="https://i.imgur.com/Ra0qjTs.jpeg" onclick="abrirGaleria(this)" src="https://i.imgur.com/Ra0qjTs.jpeg"/></div>
+<div class="nombre">Camiseta #24</div>
+<div class="precio">$8.000 ARS</div>
+<div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Camiseta%20%2324%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/Ra0qjTs.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
+</div>
+</div>
+<div class="product-slot card">
+<div class="slot-corner tl"></div><div class="slot-corner tr"></div>
+<div class="slot-corner bl"></div><div class="slot-corner br"></div>
+<div class="slot-inner">
+<div class="product-img-box"><img alt="Camiseta #25" class="slot-product-img" data-images="https://i.imgur.com/Laq4amh.jpeg" onclick="abrirGaleria(this)" src="https://i.imgur.com/Laq4amh.jpeg"/></div>
+<div class="nombre">Camiseta #25</div>
+<div class="precio">$8.000 ARS</div>
+<div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Camiseta%20%2325%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/Laq4amh.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
+</div>
+</div>
+<div class="product-slot card">
+<div class="slot-corner tl"></div><div class="slot-corner tr"></div>
+<div class="slot-corner bl"></div><div class="slot-corner br"></div>
+<div class="slot-inner">
+<div class="product-img-box"><img alt="Camiseta #26" class="slot-product-img" data-images="https://i.imgur.com/S8gPkqr.jpeg" onclick="abrirGaleria(this)" src="https://i.imgur.com/S8gPkqr.jpeg"/></div>
+<div class="nombre">Camiseta #26</div>
+<div class="precio">$8.000 ARS</div>
+<div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Camiseta%20%2326%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/S8gPkqr.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
+</div>
+</div>
+<div class="product-slot card">
+<div class="slot-corner tl"></div><div class="slot-corner tr"></div>
+<div class="slot-corner bl"></div><div class="slot-corner br"></div>
+<div class="slot-inner">
+<div class="product-img-box"><img alt="Camiseta #27" class="slot-product-img" data-images="https://i.imgur.com/KexY4ob.jpeg" onclick="abrirGaleria(this)" src="https://i.imgur.com/KexY4ob.jpeg"/></div>
+<div class="nombre">Camiseta #27</div>
+<div class="precio">$8.000 ARS</div>
+<div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Camiseta%20%2327%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/KexY4ob.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
+</div>
+</div>
+<div class="product-slot card">
+<div class="slot-corner tl"></div><div class="slot-corner tr"></div>
+<div class="slot-corner bl"></div><div class="slot-corner br"></div>
+<div class="slot-inner">
+<div class="product-img-box"><img alt="Camiseta #28" class="slot-product-img" data-images="https://i.imgur.com/RpqmUiY.jpeg" onclick="abrirGaleria(this)" src="https://i.imgur.com/RpqmUiY.jpeg"/></div>
+<div class="nombre">Camiseta #28</div>
+<div class="precio">$8.000 ARS</div>
+<div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Camiseta%20%2328%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/RpqmUiY.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
+</div>
+</div>
+<div class="product-slot card">
+<div class="slot-corner tl"></div><div class="slot-corner tr"></div>
+<div class="slot-corner bl"></div><div class="slot-corner br"></div>
+<div class="slot-inner">
+<div class="product-img-box"><img alt="Camiseta #29" class="slot-product-img" data-images="https://i.imgur.com/Ae5mlDY.jpeg" onclick="abrirGaleria(this)" src="https://i.imgur.com/Ae5mlDY.jpeg"/></div>
+<div class="nombre">Camiseta #29</div>
+<div class="precio">$8.000 ARS</div>
+<div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Camiseta%20%2329%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/Ae5mlDY.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
+</div>
+</div>
+<div class="product-slot card">
+<div class="slot-corner tl"></div><div class="slot-corner tr"></div>
+<div class="slot-corner bl"></div><div class="slot-corner br"></div>
+<div class="slot-inner">
+<div class="product-img-box"><img alt="Camiseta #30" class="slot-product-img" data-images="https://i.imgur.com/WpOMRDO.jpeg" onclick="abrirGaleria(this)" src="https://i.imgur.com/WpOMRDO.jpeg"/></div>
+<div class="nombre">Camiseta #30</div>
+<div class="precio">$8.000 ARS</div>
+<div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Camiseta%20%2330%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/WpOMRDO.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
+</div>
+</div>
+<div class="product-slot card">
+<div class="slot-corner tl"></div><div class="slot-corner tr"></div>
+<div class="slot-corner bl"></div><div class="slot-corner br"></div>
+<div class="slot-inner">
+<div class="product-img-box"><img alt="Camiseta #31" class="slot-product-img" data-images="https://i.imgur.com/rIxNgkl.jpeg" onclick="abrirGaleria(this)" src="https://i.imgur.com/rIxNgkl.jpeg"/></div>
+<div class="nombre">Camiseta #31</div>
+<div class="precio">$8.000 ARS</div>
+<div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Camiseta%20%2331%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/rIxNgkl.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
+</div>
+</div>
+<div class="product-slot card">
+<div class="slot-corner tl"></div><div class="slot-corner tr"></div>
+<div class="slot-corner bl"></div><div class="slot-corner br"></div>
+<div class="slot-inner">
+<div class="product-img-box"><img alt="Camiseta #32" class="slot-product-img" data-images="https://i.imgur.com/1JQXLcw.jpeg" onclick="abrirGaleria(this)" src="https://i.imgur.com/1JQXLcw.jpeg"/></div>
+<div class="nombre">Camiseta #32</div>
+<div class="precio">$8.000 ARS</div>
+<div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Camiseta%20%2332%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/1JQXLcw.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
+</div>
+</div>
+<div class="product-slot card">
+<div class="slot-corner tl"></div><div class="slot-corner tr"></div>
+<div class="slot-corner bl"></div><div class="slot-corner br"></div>
+<div class="slot-inner">
+<div class="product-img-box"><img alt="Camiseta #33" class="slot-product-img" data-images="https://i.imgur.com/t5y21Iv.jpeg" onclick="abrirGaleria(this)" src="https://i.imgur.com/t5y21Iv.jpeg"/></div>
+<div class="nombre">Camiseta #33</div>
+<div class="precio">$8.000 ARS</div>
+<div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Camiseta%20%2333%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/t5y21Iv.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
+</div>
+</div>
+<div class="product-slot card">
+<div class="slot-corner tl"></div><div class="slot-corner tr"></div>
+<div class="slot-corner bl"></div><div class="slot-corner br"></div>
+<div class="slot-inner">
+<div class="product-img-box"><img alt="Camiseta #34" class="slot-product-img" data-images="https://i.imgur.com/nsqMiae.jpeg" onclick="abrirGaleria(this)" src="https://i.imgur.com/nsqMiae.jpeg"/></div>
+<div class="nombre">Camiseta #34</div>
+<div class="precio">$8.000 ARS</div>
+<div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Camiseta%20%2334%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/nsqMiae.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
+</div>
+</div>
+<div class="product-slot card">
+<div class="slot-corner tl"></div><div class="slot-corner tr"></div>
+<div class="slot-corner bl"></div><div class="slot-corner br"></div>
+<div class="slot-inner">
+<div class="product-img-box"><img alt="Camiseta #35" class="slot-product-img" data-images="https://i.imgur.com/DbXRe2m.jpeg" onclick="abrirGaleria(this)" src="https://i.imgur.com/DbXRe2m.jpeg"/></div>
+<div class="nombre">Camiseta #35</div>
+<div class="precio">$8.000 ARS</div>
+<div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Camiseta%20%2335%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/DbXRe2m.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
+</div>
+</div>
+<div class="product-slot card">
+<div class="slot-corner tl"></div><div class="slot-corner tr"></div>
+<div class="slot-corner bl"></div><div class="slot-corner br"></div>
+<div class="slot-inner">
+<div class="product-img-box"><img alt="Camiseta #36" class="slot-product-img" data-images="https://i.imgur.com/wL6v8y8.jpeg" onclick="abrirGaleria(this)" src="https://i.imgur.com/wL6v8y8.jpeg"/></div>
+<div class="nombre">Camiseta #36</div>
+<div class="precio">$8.000 ARS</div>
+<div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Camiseta%20%2336%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/wL6v8y8.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
+</div>
+</div>
+<div class="product-slot card">
+<div class="slot-corner tl"></div><div class="slot-corner tr"></div>
+<div class="slot-corner bl"></div><div class="slot-corner br"></div>
+<div class="slot-inner">
+<div class="product-img-box"><img alt="Camiseta #37" class="slot-product-img" data-images="https://i.imgur.com/83qqxWY.jpeg" onclick="abrirGaleria(this)" src="https://i.imgur.com/83qqxWY.jpeg"/></div>
+<div class="nombre">Camiseta #37</div>
+<div class="precio">$8.000 ARS</div>
+<div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Camiseta%20%2337%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/83qqxWY.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
+</div>
+</div>
+<div class="product-slot card">
+<div class="slot-corner tl"></div><div class="slot-corner tr"></div>
+<div class="slot-corner bl"></div><div class="slot-corner br"></div>
+<div class="slot-inner">
+<div class="product-img-box"><img alt="Camiseta #38" class="slot-product-img" data-images="https://i.imgur.com/UWkf6lj.jpeg" onclick="abrirGaleria(this)" src="https://i.imgur.com/UWkf6lj.jpeg"/></div>
+<div class="nombre">Camiseta #38</div>
+<div class="precio">$8.000 ARS</div>
+<div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Camiseta%20%2338%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/UWkf6lj.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
+</div>
+</div>
+<div class="product-slot card">
+<div class="slot-corner tl"></div><div class="slot-corner tr"></div>
+<div class="slot-corner bl"></div><div class="slot-corner br"></div>
+<div class="slot-inner">
+<div class="product-img-box"><img alt="Camiseta #39" class="slot-product-img" data-images="https://i.imgur.com/45tjZb6.jpeg" onclick="abrirGaleria(this)" src="https://i.imgur.com/45tjZb6.jpeg"/></div>
+<div class="nombre">Camiseta #39</div>
+<div class="precio">$8.000 ARS</div>
+<div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Camiseta%20%2339%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/45tjZb6.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
+</div>
+</div>
+<div class="product-slot card">
+<div class="slot-corner tl"></div><div class="slot-corner tr"></div>
+<div class="slot-corner bl"></div><div class="slot-corner br"></div>
+<div class="slot-inner">
+<div class="product-img-box"><img alt="Camiseta #40" class="slot-product-img" data-images="https://i.imgur.com/GpMXt1h.jpeg" onclick="abrirGaleria(this)" src="https://i.imgur.com/GpMXt1h.jpeg"/></div>
+<div class="nombre">Camiseta #40</div>
+<div class="precio">$8.000 ARS</div>
+<div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Camiseta%20%2340%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/GpMXt1h.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
+</div>
+</div>
+<div class="product-slot card">
+<div class="slot-corner tl"></div><div class="slot-corner tr"></div>
+<div class="slot-corner bl"></div><div class="slot-corner br"></div>
+<div class="slot-inner">
+<div class="product-img-box"><img alt="Camiseta #41" class="slot-product-img" data-images="https://i.imgur.com/blRQ4fv.jpeg" onclick="abrirGaleria(this)" src="https://i.imgur.com/blRQ4fv.jpeg"/></div>
+<div class="nombre">Camiseta #41</div>
+<div class="precio">$8.000 ARS</div>
+<div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Camiseta%20%2341%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/blRQ4fv.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
+</div>
+</div>
+<div class="product-slot card">
+<div class="slot-corner tl"></div><div class="slot-corner tr"></div>
+<div class="slot-corner bl"></div><div class="slot-corner br"></div>
+<div class="slot-inner">
+<div class="product-img-box"><img alt="Camiseta #42" class="slot-product-img" data-images="https://i.imgur.com/bP3Hntl.jpeg" onclick="abrirGaleria(this)" src="https://i.imgur.com/bP3Hntl.jpeg"/></div>
+<div class="nombre">Camiseta #42</div>
+<div class="precio">$8.000 ARS</div>
+<div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Camiseta%20%2342%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/bP3Hntl.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
+</div>
+</div>
+<div class="product-slot card">
+<div class="slot-corner tl"></div><div class="slot-corner tr"></div>
+<div class="slot-corner bl"></div><div class="slot-corner br"></div>
+<div class="slot-inner">
+<div class="product-img-box"><img alt="Camiseta #43" class="slot-product-img" data-images="https://i.imgur.com/V7EIDKZ.jpeg" onclick="abrirGaleria(this)" src="https://i.imgur.com/V7EIDKZ.jpeg"/></div>
+<div class="nombre">Camiseta #43</div>
+<div class="precio">$8.000 ARS</div>
+<div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Camiseta%20%2343%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/V7EIDKZ.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
+</div>
+</div>
+<div class="product-slot card">
+<div class="slot-corner tl"></div><div class="slot-corner tr"></div>
+<div class="slot-corner bl"></div><div class="slot-corner br"></div>
+<div class="slot-inner">
+<div class="product-img-box"><img alt="Camiseta #44" class="slot-product-img" data-images="https://i.imgur.com/1IZMPjP.jpeg" onclick="abrirGaleria(this)" src="https://i.imgur.com/1IZMPjP.jpeg"/></div>
+<div class="nombre">Camiseta #44</div>
+<div class="precio">$8.000 ARS</div>
+<div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Camiseta%20%2344%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/1IZMPjP.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
+</div>
+</div>
+<div class="product-slot card">
+<div class="slot-corner tl"></div><div class="slot-corner tr"></div>
+<div class="slot-corner bl"></div><div class="slot-corner br"></div>
+<div class="slot-inner">
+<div class="product-img-box"><img alt="Camiseta #45" class="slot-product-img" data-images="https://i.imgur.com/VSBOjqZ.jpeg" onclick="abrirGaleria(this)" src="https://i.imgur.com/VSBOjqZ.jpeg"/></div>
+<div class="nombre">Camiseta #45</div>
+<div class="precio">$8.000 ARS</div>
+<div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Camiseta%20%2345%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/VSBOjqZ.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
+</div>
+</div>
+<div class="product-slot card">
+<div class="slot-corner tl"></div><div class="slot-corner tr"></div>
+<div class="slot-corner bl"></div><div class="slot-corner br"></div>
+<div class="slot-inner">
+<div class="product-img-box"><img alt="Camiseta #46" class="slot-product-img" data-images="https://i.imgur.com/QkMHClr.jpeg" onclick="abrirGaleria(this)" src="https://i.imgur.com/QkMHClr.jpeg"/></div>
+<div class="nombre">Camiseta #46</div>
+<div class="precio">$8.000 ARS</div>
+<div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Camiseta%20%2346%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/QkMHClr.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
+</div>
+</div>
+<div class="product-slot card">
+<div class="slot-corner tl"></div><div class="slot-corner tr"></div>
+<div class="slot-corner bl"></div><div class="slot-corner br"></div>
+<div class="slot-inner">
+<div class="product-img-box"><img alt="Camiseta #47" class="slot-product-img" data-images="https://i.imgur.com/L7wd2gz.jpeg" onclick="abrirGaleria(this)" src="https://i.imgur.com/L7wd2gz.jpeg"/></div>
+<div class="nombre">Camiseta #47</div>
+<div class="precio">$8.000 ARS</div>
+<div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Camiseta%20%2347%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/L7wd2gz.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
+</div>
+</div>
+<div class="product-slot card">
+<div class="slot-corner tl"></div><div class="slot-corner tr"></div>
+<div class="slot-corner bl"></div><div class="slot-corner br"></div>
+<div class="slot-inner">
+<div class="product-img-box"><img alt="Camiseta #48" class="slot-product-img" data-images="https://i.imgur.com/bCSyPqr.jpeg" onclick="abrirGaleria(this)" src="https://i.imgur.com/bCSyPqr.jpeg"/></div>
+<div class="nombre">Camiseta #48</div>
+<div class="precio">$8.000 ARS</div>
+<div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Camiseta%20%2348%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/bCSyPqr.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
 
+<!-- MODAL DE GALERIA + POPUP INFO -->
 <div id="modal" class="modal" onclick="cerrarImagen()">
-  <span class="cerrar">&times;</span>
-  <span class="flecha izquierda" onclick="imagenAnterior(event)">❮</span>
+  <span class="cerrar" onclick="cerrarImagen()">&times;</span>
+  <span class="flecha izquierda" onclick="imagenAnterior(event)">&#10094;</span>
   <img id="imgGrande" alt="Imagen ampliada">
-  <span class="flecha derecha" onclick="imagenSiguiente(event)">❯</span>
-  <div id="contador" class="contador"></div>
+  <span class="flecha derecha" onclick="imagenSiguiente(event)">&#10095;</span>
+  <div id="contador" class="contador">1 / 1</div>
 </div>
+
+<div id="popup-info">👆 Clic en el item para ver más colores</div>
+
+<footer>
+    Todos los derechos reservados — <span>CEST INDUMENTARIA</span> — 2026
+  </footer>
+
+
 
 <script>
+    // CURSOR
+    const cursor = document.getElementById('cursor');
+    const ring = document.getElementById('cursorRing');
+    let mx = 0, my = 0, rx = 0, ry = 0;
+    document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
+    function animCursor() {
+      cursor.style.left = mx + 'px'; cursor.style.top = my + 'px';
+      rx += (mx - rx) * 0.12;
+      ry += (my - ry) * 0.12;
+      ring.style.left = rx + 'px'; ring.style.top = ry + 'px';
+      requestAnimationFrame(animCursor);
+    }
+    animCursor();
+
+    // HOVER CURSOR SCALE
+    document.querySelectorAll('a, button, .product-slot, .btn-enter').forEach(el => {
+      el.addEventListener('mouseenter', () => {
+        cursor.style.transform = 'translate(-50%,-50%) scale(2.5)';
+        ring.style.width = '60px'; ring.style.height = '60px';
+      });
+      el.addEventListener('mouseleave', () => {
+        cursor.style.transform = 'translate(-50%,-50%) scale(1)';
+        ring.style.width = '36px'; ring.style.height = '36px';
+      });
+    });
+
+    // SMOOTH SCROLL with offset for fixed nav
+    document.querySelector('.btn-enter').addEventListener('click', function(e) {
+      e.preventDefault();
+      const target = document.querySelector('#productos');
+      const offset = 0;
+      const top = target.getBoundingClientRect().top + window.pageYOffset - offset;
+      window.scrollTo({ top, behavior: 'smooth' });
+    });
+
+    // INTERSECTION OBSERVER - fade in categories
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = '1';
+          entry.target.style.transform = 'translateY(0)';
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.category-section').forEach(el => {
+      el.style.opacity = '0';
+      el.style.transform = 'translateY(50px)';
+      el.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+      observer.observe(el);
+    });
+  
+
+
+// GALERIA + CARRITO DEL CATALOGO ORIGINAL
 let imagenesActuales = [];
 let indiceActual = 0;
 
 function abrirGaleria(elemento) {
+  if (!elemento || !elemento.dataset.images) return;
   imagenesActuales = elemento.dataset.images.split(",");
   indiceActual = 0;
   document.getElementById("imgGrande").src = imagenesActuales[indiceActual];
@@ -1315,9 +1858,12 @@ function actualizarContador() {
   document.getElementById("contador").textContent = (indiceActual + 1) + " / " + imagenesActuales.length;
 }
 
-document.getElementById("imgGrande").addEventListener("click", function(event) {
-  event.stopPropagation();
-});
+const imgGrandeEl = document.getElementById("imgGrande");
+if (imgGrandeEl) {
+  imgGrandeEl.addEventListener("click", function(event) {
+    event.stopPropagation();
+  });
+}
 
 document.addEventListener("keydown", function(event) {
   if (document.getElementById("modal").style.display !== "flex") return;
@@ -1330,32 +1876,106 @@ window.addEventListener("load", function() {
   setTimeout(function() {
     const popup = document.getElementById("popup-info");
     if (!popup) return;
-
     popup.classList.add("mostrar");
-
     const sonidoClin = new Audio("https://assets.mixkit.co/active_storage/sfx/2869/2869-preview.mp3");
     sonidoClin.volume = 0.4;
     sonidoClin.play().catch(() => {});
-
-    setTimeout(function() {
-      popup.classList.remove("mostrar");
-    }, 3500);
-
+    setTimeout(function() { popup.classList.remove("mostrar"); }, 3500);
   }, 2000);
 });
 
-
 const WHATSAPP_NUMERO = "541170743305";
 let carrito = [];
-function obtenerProductoDesdeBoton(boton) { const card = boton.closest(".card"); const img = card.querySelector("img"); const nombre = card.querySelector(".nombre").textContent.trim(); const precio = card.querySelector(".precio").textContent.trim(); const foto = img.getAttribute("src"); return { id: nombre + "|" + foto, nombre, precio, foto }; }
-function agregarAlCarrito(boton) { const producto = obtenerProductoDesdeBoton(boton); const existe = carrito.some(item => item.id === producto.id); if (!existe) { carrito.push(producto); boton.classList.add("agregado"); boton.innerHTML = '<i class="fas fa-check"></i> Agregado'; } else { carrito = carrito.filter(item => item.id !== producto.id); boton.classList.remove("agregado"); boton.innerHTML = '<i class="fas fa-cart-plus"></i> Agregar al carrito'; } actualizarCarrito(); }
-function actualizarCarrito() { const cartCount = document.getElementById("cartCount"); const cartItems = document.getElementById("cartItems"); const cartEmpty = document.getElementById("cartEmpty"); const cartConsultar = document.getElementById("cartConsultar"); const cartClear = document.getElementById("cartClear"); cartCount.textContent = carrito.length; cartItems.innerHTML = ""; carrito.forEach((item, index) => { const div = document.createElement("div"); div.className = "cart-item"; div.innerHTML = '<img src="' + item.foto + '" alt="' + item.nombre + '"><div><div class="cart-item-name">' + item.nombre + '</div><div class="cart-item-price">' + item.precio + '</div></div><button class="cart-remove" type="button" onclick="quitarDelCarrito(' + index + ')">×</button>'; cartItems.appendChild(div); }); const hayItems = carrito.length > 0; cartEmpty.style.display = hayItems ? "none" : "block"; cartConsultar.style.display = hayItems ? "inline-flex" : "none"; cartClear.style.display = hayItems ? "inline-flex" : "none"; if (hayItems) { const lineas = carrito.map((item, index) => (index + 1) + '. ' + item.nombre + '\nPrecio: ' + item.precio + '\nFoto del producto: ' + item.foto); const mensaje = 'Hola, quiero consultar por estos productos del catálogo:\n\n' + lineas.join('\n\n'); cartConsultar.href = 'https://wa.me/' + WHATSAPP_NUMERO + '?text=' + encodeURIComponent(mensaje); } else { cartConsultar.href = "#"; } }
-function quitarDelCarrito(index) { const quitado = carrito[index]; carrito.splice(index, 1); document.querySelectorAll(".card").forEach(card => { const nombre = card.querySelector(".nombre")?.textContent.trim(); const foto = card.querySelector("img")?.getAttribute("src"); const boton = card.querySelector(".btn-cart"); if (boton && quitado && quitado.id === nombre + "|" + foto) { boton.classList.remove("agregado"); boton.innerHTML = '<i class="fas fa-cart-plus"></i> Agregar al carrito'; } }); actualizarCarrito(); }
-function vaciarCarrito() { carrito = []; document.querySelectorAll(".btn-cart").forEach(boton => { boton.classList.remove("agregado"); boton.innerHTML = '<i class="fas fa-cart-plus"></i> Agregar al carrito'; }); actualizarCarrito(); }
-function toggleCarrito(event) { event.stopPropagation(); document.getElementById("cartWidget").classList.toggle("abierto"); }
-document.addEventListener("click", function() { const cartWidget = document.getElementById("cartWidget"); if (cartWidget) cartWidget.classList.remove("abierto"); });
 
+function obtenerProductoDesdeBoton(boton) {
+  const card = boton.closest(".card") || boton.closest(".product-slot");
+  if (!card) return null;
+  const img = card.querySelector("img");
+  const nombreEl = card.querySelector(".nombre");
+  const precioEl = card.querySelector(".precio");
+  if (!img || !nombreEl || !precioEl) return null;
+  const nombre = nombreEl.textContent.trim();
+  const precio = precioEl.textContent.trim();
+  const foto = img.getAttribute("src");
+  return { id: nombre + "|" + foto, nombre, precio, foto };
+}
+
+function agregarAlCarrito(boton) {
+  const producto = obtenerProductoDesdeBoton(boton);
+  if (!producto) return;
+  const existe = carrito.some(item => item.id === producto.id);
+  if (!existe) {
+    carrito.push(producto);
+    boton.classList.add("agregado");
+    boton.innerHTML = '<i class="fas fa-check"></i> Agregado';
+  } else {
+    carrito = carrito.filter(item => item.id !== producto.id);
+    boton.classList.remove("agregado");
+    boton.innerHTML = '<i class="fas fa-cart-plus"></i> Agregar al carrito';
+  }
+  actualizarCarrito();
+}
+
+function actualizarCarrito() {
+  const cartCount = document.getElementById("cartCount");
+  const cartItems = document.getElementById("cartItems");
+  const cartEmpty = document.getElementById("cartEmpty");
+  const cartConsultar = document.getElementById("cartConsultar");
+  const cartClear = document.getElementById("cartClear");
+  cartCount.textContent = carrito.length;
+  cartItems.innerHTML = "";
+  carrito.forEach((item, index) => {
+    const div = document.createElement("div");
+    div.className = "cart-item";
+    div.innerHTML = '<img src="' + item.foto + '" alt="' + item.nombre + '"><div><div class="cart-item-name">' + item.nombre + '</div><div class="cart-item-price">' + item.precio + '</div></div><button class="cart-remove" type="button" onclick="quitarDelCarrito(' + index + ')">×</button>';
+    cartItems.appendChild(div);
+  });
+  const hayItems = carrito.length > 0;
+  cartEmpty.style.display = hayItems ? "none" : "block";
+  cartConsultar.style.display = hayItems ? "inline-flex" : "none";
+  cartClear.style.display = hayItems ? "inline-flex" : "none";
+  if (hayItems) {
+    const lineas = carrito.map((item, index) => (index + 1) + '. ' + item.nombre + '\nPrecio: ' + item.precio + '\nFoto del producto: ' + item.foto);
+    const mensaje = 'Hola, quiero consultar por estos productos del catálogo:\n\n' + lineas.join('\n\n');
+    cartConsultar.href = 'https://wa.me/' + WHATSAPP_NUMERO + '?text=' + encodeURIComponent(mensaje);
+  } else {
+    cartConsultar.href = "#";
+  }
+}
+
+function quitarDelCarrito(index) {
+  const quitado = carrito[index];
+  carrito.splice(index, 1);
+  document.querySelectorAll(".card").forEach(card => {
+    const nombre = card.querySelector(".nombre")?.textContent.trim();
+    const foto = card.querySelector("img")?.getAttribute("src");
+    const boton = card.querySelector(".btn-cart");
+    if (boton && quitado && quitado.id === nombre + "|" + foto) {
+      boton.classList.remove("agregado");
+      boton.innerHTML = '<i class="fas fa-cart-plus"></i> Agregar al carrito';
+    }
+  });
+  actualizarCarrito();
+}
+
+function vaciarCarrito() {
+  carrito = [];
+  document.querySelectorAll(".btn-cart").forEach(boton => {
+    boton.classList.remove("agregado");
+    boton.innerHTML = '<i class="fas fa-cart-plus"></i> Agregar al carrito';
+  });
+  actualizarCarrito();
+}
+
+function toggleCarrito(event) {
+  event.stopPropagation();
+  document.getElementById("cartWidget").classList.toggle("abierto");
+}
+
+document.addEventListener("click", function() {
+  const cartWidget = document.getElementById("cartWidget");
+  if (cartWidget) cartWidget.classList.remove("abierto");
+});
 </script>
-<div id="popup-info">👆 Clic en el item para ver más colores</div>
 </body>
 </html>
