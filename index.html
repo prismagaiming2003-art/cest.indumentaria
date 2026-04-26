@@ -1039,6 +1039,408 @@
 @keyframes hintEntrada { from { opacity: 0; transform: translateX(-50%) translateY(-10px) scale(.94); } to { opacity: 1; transform: translateX(-50%) translateY(0) scale(1); } }
 @keyframes hintSalida { to { opacity: 0; transform: translateX(-50%) translateY(10px) scale(.96); } }
 @keyframes hintFlecha { 0%, 100% { transform: translateY(-3px); } 50% { transform: translateY(5px); } }
+
+/* ===== FIX MOBILE: scroll normal de la pagina, sin cuadros internos ===== */
+@media (max-width: 768px) {
+  .catalogo-doble {
+    height: auto !important;
+    min-height: 0 !important;
+    overflow: visible !important;
+    align-items: start !important;
+    margin-bottom: 2.5rem !important;
+  }
+
+  .catalogo-doble .category-section {
+    display: block !important;
+    height: auto !important;
+    min-height: 0 !important;
+    overflow: visible !important;
+  }
+
+  .catalogo-doble .category-header {
+    position: sticky !important;
+    top: 48px !important;
+  }
+
+  .catalogo-doble .product-grid {
+    display: grid !important;
+    height: auto !important;
+    max-height: none !important;
+    overflow: visible !important;
+    padding-bottom: 0 !important;
+    -webkit-overflow-scrolling: auto !important;
+  }
+
+  .scroll-products-hint {
+    position: fixed !important;
+    top: 120px !important;
+  }
+}
+
+@media (max-width: 390px) {
+  .catalogo-doble {
+    height: auto !important;
+    min-height: 0 !important;
+  }
+}
+
+
+/* ===== FIX PC: 2 BUZOS + 2 REMERAS VISIBLES POR FILA ===== */
+@media (min-width: 769px) {
+  .catalogo-doble {
+    display: grid !important;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) !important;
+    gap: 2.5rem !important;
+    max-width: 1500px !important;
+    width: calc(100% - 3rem) !important;
+    align-items: start !important;
+    overflow: visible !important;
+  }
+
+  #buzos,
+  #remeras {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    transform: none !important;
+    min-width: 0 !important;
+    width: 100% !important;
+    max-width: none !important;
+    overflow: visible !important;
+  }
+
+  #buzos { grid-column: 1 !important; grid-row: 1 !important; }
+  #remeras { grid-column: 2 !important; grid-row: 1 !important; }
+
+  #buzos .product-grid,
+  #remeras .product-grid {
+    display: grid !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 1.5px !important;
+    height: auto !important;
+    max-height: none !important;
+    overflow: visible !important;
+    align-content: start !important;
+  }
+
+  #buzos .product-slot.card,
+  #remeras .product-slot.card {
+    min-width: 0 !important;
+    min-height: 420px !important;
+  }
+}
+
+@media (min-width: 769px) and (max-width: 980px) {
+  #buzos .product-grid,
+  #remeras .product-grid {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+/* ===== FIX CARRITO: productos con scroll, botones fijos abajo ===== */
+.cart-panel {
+  max-height: 76vh !important;
+  overflow: hidden !important;
+}
+
+.cart-widget.abierto .cart-panel {
+  display: flex !important;
+  flex-direction: column !important;
+}
+
+.cart-title,
+.cart-empty,
+.cart-consultar,
+.cart-clear {
+  flex: 0 0 auto !important;
+}
+
+.cart-items {
+  flex: 1 1 auto !important;
+  max-height: min(48vh, 430px) !important;
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+  padding-right: 5px !important;
+  margin-bottom: 12px !important;
+}
+
+.cart-items::-webkit-scrollbar { width: 5px; }
+.cart-items::-webkit-scrollbar-thumb {
+  background: rgba(255,45,85,.65);
+  border-radius: 999px;
+}
+
+.cart-consultar,
+.cart-clear {
+  position: sticky !important;
+  bottom: 0 !important;
+  z-index: 5 !important;
+}
+
+@media (max-width: 768px) {
+  .cart-items { max-height: 46vh !important; }
+}
+
+/* ===== ESTILO URBANO ROJO / SPORT HYPE ===== */
+:root {
+  --bg: #020202;
+  --surface: #080608;
+  --accent1: #ff173d;
+  --accent2: #8f0714;
+  --accent3: #f4f4f4;
+  --gold: #ff314f;
+  --text: #f7f7f4;
+  --muted: #9a9498;
+  --card-bg: #09090c;
+  --border: rgba(255,23,61,0.16);
+}
+
+body {
+  background:
+    radial-gradient(circle at 14% 10%, rgba(255,23,61,.18), transparent 30%),
+    radial-gradient(circle at 86% 2%, rgba(143,7,20,.22), transparent 34%),
+    linear-gradient(135deg, rgba(255,255,255,.025) 0 8%, transparent 8% 16%, rgba(255,23,61,.035) 16% 17%, transparent 17% 100%),
+    var(--bg);
+}
+
+body::before {
+  opacity: .72;
+  mix-blend-mode: screen;
+}
+
+#hero {
+  background:
+    linear-gradient(118deg, rgba(255,23,61,.16) 0 12%, transparent 12% 29%, rgba(255,23,61,.08) 29% 31%, transparent 31% 100%),
+    radial-gradient(circle at 50% 24%, rgba(255,23,61,.26), rgba(10,2,4,.94) 42%, #020202 78%);
+}
+
+#hero::after {
+  background-image:
+    linear-gradient(rgba(255,23,61,.075) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,23,61,.075) 1px, transparent 1px),
+    linear-gradient(115deg, transparent 0 47%, rgba(255,255,255,.08) 47% 48%, transparent 48% 100%);
+  background-size: 54px 54px, 54px 54px, 260px 260px;
+  opacity: .7;
+}
+
+.orb1 { background: rgba(255,23,61,.24); }
+.orb2 { background: rgba(255,255,255,.08); }
+.orb3 { background: rgba(143,7,20,.22); }
+
+nav {
+  background: linear-gradient(to bottom, rgba(2,2,2,.96), rgba(2,2,2,.68), transparent);
+  border-bottom: 1px solid rgba(255,23,61,.16);
+  box-shadow: 0 12px 40px rgba(0,0,0,.38);
+}
+
+.nav-logo {
+  text-shadow: 0 0 22px rgba(255,23,61,.24);
+}
+
+.nav-links a {
+  color: #c7c0c3;
+}
+
+.hero-eyebrow,
+.products-tag,
+.category-badge {
+  color: #ffffff;
+  background: rgba(255,23,61,.10);
+  border-color: rgba(255,23,61,.52);
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,.04), 0 0 28px rgba(255,23,61,.16);
+}
+
+.hero-title .line1,
+.products-title .t-white,
+.category-name,
+.contact-title {
+  text-shadow: 0 0 30px rgba(255,23,61,.18);
+}
+
+.hero-title .line2 {
+  -webkit-text-stroke-color: var(--accent1);
+  filter: drop-shadow(0 0 22px rgba(255,23,61,.34));
+}
+
+.hero-subtitle {
+  color: #c9c3c5;
+}
+
+.hero-subtitle span,
+.products-tag,
+.category-badge,
+.scroll-products-hint .hint-icon {
+  color: #ffffff;
+}
+
+.btn-enter,
+.btn,
+.cart-toggle,
+.cart-remove {
+  clip-path: polygon(10px 0, 100% 0, calc(100% - 10px) 100%, 0 100%);
+}
+
+.btn-enter {
+  background: linear-gradient(135deg, #ff173d, #b80518 58%, #ffffff 59%, #ff173d 63%);
+  color: #050505;
+  box-shadow: 0 0 36px rgba(255,23,61,.34), 0 18px 42px rgba(0,0,0,.42);
+}
+
+.btn-enter::before {
+  background: linear-gradient(135deg, #ffffff, #ff173d 42%, #73040f);
+}
+
+.stats-bar {
+  background: rgba(2,2,2,.74);
+  border-top-color: rgba(255,23,61,.22);
+}
+
+.stat-num,
+.products-title .t-red,
+.category-num,
+footer span,
+.contact-title span {
+  color: var(--accent1);
+  text-shadow: 0 0 18px rgba(255,23,61,.42);
+}
+
+#productos {
+  background:
+    linear-gradient(116deg, transparent 0 13%, rgba(255,23,61,.045) 13% 14%, transparent 14% 44%, rgba(255,255,255,.028) 44% 45%, transparent 45% 100%),
+    radial-gradient(circle at 78% 8%, rgba(255,23,61,.14), transparent 34%),
+    #020202;
+}
+
+#productos::before {
+  background: #020202;
+}
+
+.products-divider .divider-line,
+.products-divider .divider-line.rev,
+.category-header::after,
+.section-glow,
+.scroll-line {
+  background: linear-gradient(to right, transparent, var(--accent1), #ffffff, var(--accent1), transparent);
+}
+
+.catalogo-doble::before {
+  background: linear-gradient(to bottom, transparent, rgba(255,23,61,.9), rgba(255,255,255,.65), rgba(255,23,61,.9), transparent);
+  box-shadow: 0 0 22px rgba(255,23,61,.56);
+}
+
+.catalogo-doble .category-header {
+  background: linear-gradient(to bottom, rgba(2,2,2,.98), rgba(18,4,7,.88));
+}
+
+.product-grid {
+  background: rgba(255,23,61,.22);
+}
+
+.product-slot.card {
+  background:
+    linear-gradient(145deg, rgba(255,23,61,.075), transparent 42%),
+    linear-gradient(0deg, rgba(255,255,255,.026), transparent),
+    #08080b;
+}
+
+.product-slot.card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(120deg, transparent 0 58%, rgba(255,23,61,.10) 58% 60%, transparent 60%),
+    repeating-linear-gradient(135deg, rgba(255,255,255,.035) 0 1px, transparent 1px 14px);
+  opacity: .42;
+  pointer-events: none;
+}
+
+.product-slot:hover {
+  box-shadow: 0 20px 48px rgba(0,0,0,.62), 0 0 30px rgba(255,23,61,.24);
+}
+
+.product-slot:hover .slot-inner {
+  border-color: rgba(255,23,61,.46);
+}
+
+.product-img-box {
+  background:
+    radial-gradient(circle at 50% 42%, rgba(255,255,255,.10), transparent 34%),
+    linear-gradient(145deg, #171216, #050506 70%);
+  border-color: rgba(255,23,61,.24);
+  box-shadow: inset 0 0 34px rgba(0,0,0,.68);
+}
+
+.nombre {
+  color: #ffffff;
+}
+
+.precio,
+.cart-item-price {
+  color: #ff314f;
+  text-shadow: 0 0 20px rgba(255,23,61,.34);
+}
+
+.btn {
+  background: linear-gradient(135deg, rgba(255,23,61,.18), rgba(10,10,12,.96));
+  border-color: rgba(255,23,61,.58);
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,.035);
+}
+
+.btn:hover {
+  background: linear-gradient(135deg, #ff173d, #8f0714);
+  color: #ffffff;
+  box-shadow: 0 0 28px rgba(255,23,61,.44), 0 14px 28px rgba(0,0,0,.42);
+}
+
+.btn-cart.agregado,
+.wa-header-link,
+.contact-wa {
+  background: linear-gradient(135deg, #25d366, #128c47);
+}
+
+.cart-toggle,
+.cart-panel,
+.contador,
+#popup-info {
+  background: rgba(6,6,8,.96);
+  border-color: rgba(255,23,61,.46);
+  box-shadow: 0 18px 52px rgba(0,0,0,.62), 0 0 28px rgba(255,23,61,.22);
+}
+
+.cart-item {
+  background: linear-gradient(135deg, rgba(255,23,61,.08), rgba(255,255,255,.035));
+  border-color: rgba(255,23,61,.24);
+}
+
+.modal {
+  background: radial-gradient(circle at center, rgba(255,23,61,.24), transparent 40%), rgba(0,0,0,.96);
+}
+
+.modal img {
+  box-shadow: 0 0 70px rgba(255,23,61,.20), 0 22px 80px rgba(0,0,0,.76);
+}
+
+.marquee-wrap,
+.contact-section,
+footer {
+  background:
+    linear-gradient(112deg, transparent 0 48%, rgba(255,23,61,.06) 48% 49%, transparent 49% 100%),
+    rgba(255,23,61,.028);
+}
+
+@media (max-width: 768px) {
+  nav,
+  .catalogo-doble .category-header {
+    background: rgba(2,2,2,.96) !important;
+  }
+
+  .btn-enter,
+  .btn,
+  .cart-toggle,
+  .cart-remove {
+    clip-path: polygon(7px 0, 100% 0, calc(100% - 7px) 100%, 0 100%);
+  }
+}
 </style>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet"/></head>
 <body>
