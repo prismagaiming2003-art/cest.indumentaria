@@ -930,6 +930,94 @@
   .btn { min-height: 30px !important; font-size: .46rem !important; }
 }
 
+
+
+/* ===== FIX MOBILE: mostrar BUZOS y REMERAS a la vez ===== */
+@media (max-width: 768px) {
+  .catalogo-doble {
+    display: grid !important;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) !important;
+    gap: .5rem !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    height: calc(100vh - 92px) !important;
+    min-height: 560px !important;
+    overflow: hidden !important;
+    margin-bottom: 2.5rem !important;
+  }
+
+  .catalogo-doble::before {
+    display: block !important;
+    left: 50% !important;
+    top: 0 !important;
+    bottom: 0 !important;
+    width: 1px !important;
+  }
+
+  .catalogo-doble .category-section {
+    display: flex !important;
+    flex-direction: column !important;
+    min-width: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    height: 100% !important;
+    overflow: hidden !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  .catalogo-doble .category-header {
+    position: sticky !important;
+    top: 0 !important;
+    flex: 0 0 auto !important;
+    z-index: 40 !important;
+    margin: 0 !important;
+    padding: .55rem .15rem !important;
+    min-height: 44px !important;
+    background: rgba(5,5,8,.98) !important;
+  }
+
+  .catalogo-doble .product-grid {
+    flex: 1 1 auto !important;
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+    -webkit-overflow-scrolling: touch !important;
+    grid-template-columns: 1fr !important;
+    align-content: start !important;
+    padding-bottom: 5.5rem !important;
+  }
+
+  .catalogo-doble .product-grid::-webkit-scrollbar {
+    width: 4px;
+  }
+
+  .catalogo-doble .product-grid::-webkit-scrollbar-thumb {
+    background: rgba(255,45,85,.55);
+    border-radius: 999px;
+  }
+
+  .category-name {
+    font-size: 1.08rem !important;
+    white-space: nowrap !important;
+  }
+
+  .product-slot.card {
+    min-height: 250px !important;
+  }
+}
+
+@media (max-width: 390px) {
+  .catalogo-doble {
+    gap: .38rem !important;
+    height: calc(100vh - 88px) !important;
+    min-height: 520px !important;
+  }
+
+  .category-name {
+    font-size: .95rem !important;
+  }
+}
+
 </style>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet"/></head>
 <body>
