@@ -1226,9 +1226,28 @@ body::before {
 }
 
 #hero {
+  isolation: isolate;
   background:
     linear-gradient(118deg, rgba(255,23,61,.16) 0 12%, transparent 12% 29%, rgba(255,23,61,.08) 29% 31%, transparent 31% 100%),
     radial-gradient(circle at 50% 24%, rgba(255,23,61,.26), rgba(10,2,4,.94) 42%, #020202 78%);
+  animation: heroWorldPulse 7s ease-in-out infinite;
+}
+
+#hero::before {
+  content: '';
+  position: absolute;
+  inset: -18%;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 50% 42%, rgba(255,255,255,.18), transparent 7%),
+    radial-gradient(circle at 50% 42%, rgba(255,23,61,.42), transparent 18%),
+    conic-gradient(from 225deg at 50% 42%, transparent 0 10%, rgba(255,23,61,.16) 11% 12%, transparent 13% 38%, rgba(255,255,255,.11) 39% 40%, transparent 41% 100%),
+    repeating-linear-gradient(118deg, transparent 0 70px, rgba(255,23,61,.055) 71px 72px, transparent 73px 140px);
+  mix-blend-mode: screen;
+  opacity: 0;
+  transform: scale(1.06) rotate(-3deg);
+  animation: heroIntroBlast 1.65s cubic-bezier(.16,.84,.26,1) .1s forwards, heroEnergySweep 8s linear 1.75s infinite;
 }
 
 #hero::after {
@@ -1238,11 +1257,328 @@ body::before {
     linear-gradient(115deg, transparent 0 47%, rgba(255,255,255,.08) 47% 48%, transparent 48% 100%);
   background-size: 54px 54px, 54px 54px, 260px 260px;
   opacity: .7;
+  z-index: 0;
+  animation: heroGridDrift 13s linear infinite, heroGridFlicker 3.6s steps(4, end) infinite;
 }
 
-.orb1 { background: rgba(255,23,61,.24); }
-.orb2 { background: rgba(255,255,255,.08); }
-.orb3 { background: rgba(143,7,20,.22); }
+.orb {
+  z-index: 0;
+  animation: heroOrbFloat 9s ease-in-out infinite;
+}
+
+.orb1 { background: rgba(255,23,61,.24); animation-delay: 0s; }
+.orb2 { background: rgba(255,255,255,.08); animation-delay: -3s; }
+.orb3 { background: rgba(143,7,20,.22); animation-delay: -5s; }
+
+.hero-energy {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.hero-energy span {
+  position: absolute;
+  width: min(26vw, 290px);
+  height: 2px;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,.9), rgba(255,23,61,.95), transparent);
+  box-shadow: 0 0 16px rgba(255,23,61,.72), 0 0 28px rgba(255,255,255,.22);
+  opacity: 0;
+  transform: rotate(-17deg) translateX(-120vw);
+  animation: heroStreak 3.4s cubic-bezier(.45,0,.2,1) infinite;
+}
+
+.hero-energy .streak-1 { top: 15%; left: -16%; animation-delay: .35s; }
+.hero-energy .streak-2 { top: 29%; left: -22%; width: min(34vw, 380px); animation-delay: 1.2s; }
+.hero-energy .streak-3 { top: 52%; left: -18%; animation-delay: 2.05s; }
+.hero-energy .streak-4 { top: 70%; left: -24%; width: min(30vw, 330px); animation-delay: 2.75s; }
+.hero-energy .streak-5 { top: 40%; left: -20%; width: min(18vw, 210px); animation-delay: 3.3s; }
+
+.hero-energy::before,
+.hero-energy::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(90deg, transparent, rgba(255,23,61,.28), transparent),
+    repeating-linear-gradient(0deg, transparent 0 11px, rgba(255,255,255,.035) 12px 13px);
+  opacity: 0;
+  mix-blend-mode: screen;
+  animation: heroScanFlash 4.6s ease-in-out infinite;
+}
+
+.hero-energy::after {
+  background: linear-gradient(180deg, transparent 0 38%, rgba(255,255,255,.12) 39%, rgba(255,23,61,.24) 40%, transparent 43% 100%);
+  animation: heroVerticalHit 5.8s ease-in-out infinite;
+}
+
+.hero-inner {
+  z-index: 2;
+  animation: heroInnerLift 1.2s cubic-bezier(.16,.84,.26,1) both;
+}
+
+.hero-eyebrow {
+  animation: fadeSlideDown .8s ease both, heroEyebrowCharge 2.8s ease-in-out .85s infinite;
+}
+
+.hero-eyebrow::before,
+.hero-eyebrow::after {
+  animation: heroEyebrowLines 2.8s ease-in-out .85s infinite;
+}
+
+.hero-title {
+  letter-spacing: 0;
+  animation: heroTitleDrop 1.15s cubic-bezier(.16,.84,.26,1) .08s both, heroTitlePulse 4.8s ease-in-out 1.2s infinite;
+  text-shadow: 0 0 22px rgba(255,23,61,.18), 0 0 54px rgba(255,23,61,.12);
+}
+
+.hero-title .line1,
+.hero-title .line2 {
+  position: relative;
+  letter-spacing: 0;
+  will-change: filter, transform;
+}
+
+.hero-title .line1 {
+  color: #ffffff;
+  filter: drop-shadow(0 0 22px rgba(255,23,61,.34));
+}
+
+.hero-title .line1::before,
+.hero-title .line1::after,
+.hero-title .line2::before,
+.hero-title .line2::after {
+  content: attr(data-text);
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0;
+}
+
+.hero-title .line1::before {
+  color: #ffffff;
+  clip-path: polygon(0 0, 100% 0, 100% 34%, 0 34%);
+  transform: translate(4px, -2px);
+  text-shadow: -5px 0 rgba(255,23,61,.72);
+  animation: heroGlitchTop 3.9s steps(1, end) 1.15s infinite;
+}
+
+.hero-title .line1::after {
+  color: var(--accent1);
+  clip-path: polygon(0 64%, 100% 64%, 100% 100%, 0 100%);
+  transform: translate(-4px, 2px);
+  text-shadow: 5px 0 rgba(255,255,255,.58);
+  animation: heroGlitchBottom 4.4s steps(1, end) 1.45s infinite;
+}
+
+.hero-title .line2 {
+  -webkit-text-stroke-color: var(--accent1);
+  filter: drop-shadow(0 0 26px rgba(255,23,61,.48));
+  animation: heroOutlineCharge 3.6s ease-in-out 1.05s infinite;
+}
+
+.hero-title .line2::before {
+  color: transparent;
+  -webkit-text-stroke: 2px rgba(255,255,255,.92);
+  clip-path: polygon(0 12%, 100% 4%, 100% 43%, 0 52%);
+  transform: translate(5px, -1px);
+  animation: heroGlitchTop 4.1s steps(1, end) 1.25s infinite;
+}
+
+.hero-title .line2::after {
+  color: var(--accent1);
+  clip-path: polygon(0 0, 100% 0, 100% 54%, 0 46%);
+  opacity: .3;
+  transform: translate(-2px, 0);
+  animation: heroLine2Burn 3.4s ease-in-out 1.1s infinite, heroGlitchBottom 4.7s steps(1, end) 1.65s infinite;
+}
+
+.hero-subtitle {
+  animation: fadeSlideUp 1s ease .4s both, heroSubtitleGlow 3.6s ease-in-out 1.15s infinite;
+}
+
+.btn-enter {
+  animation: fadeSlideUp 1s ease .6s both, heroButtonCharge 2.7s ease-in-out 1.25s infinite;
+}
+
+.btn-enter::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(115deg, transparent 0 34%, rgba(255,255,255,.75) 45%, transparent 56% 100%);
+  transform: translateX(-130%);
+  animation: heroButtonSweep 3.2s ease-in-out 1.4s infinite;
+}
+
+@keyframes heroWorldPulse {
+  0%, 100% { filter: saturate(1) contrast(1); }
+  50% { filter: saturate(1.18) contrast(1.08); }
+}
+
+@keyframes heroIntroBlast {
+  0% { opacity: 0; transform: scale(1.24) rotate(-8deg); filter: blur(10px); }
+  42% { opacity: .92; transform: scale(1.02) rotate(-2deg); filter: blur(0); }
+  100% { opacity: .48; transform: scale(1) rotate(0); filter: blur(0); }
+}
+
+@keyframes heroEnergySweep {
+  from { background-position: 0 0, 0 0, 0 0, 0 0; }
+  to { background-position: 0 0, 0 0, 360px 260px, 420px 0; }
+}
+
+@keyframes heroGridDrift {
+  from { background-position: 0 0, 0 0, 0 0; }
+  to { background-position: 54px 54px, 54px 54px, 260px 260px; }
+}
+
+@keyframes heroGridFlicker {
+  0%, 100% { opacity: .55; filter: brightness(1); }
+  24% { opacity: .86; filter: brightness(1.24); }
+  26% { opacity: .38; filter: brightness(.82); }
+  28%, 74% { opacity: .72; filter: brightness(1.08); }
+  76% { opacity: .48; }
+}
+
+@keyframes heroOrbFloat {
+  0%, 100% { transform: translate(0,0) scale(1); filter: blur(76px); }
+  38% { transform: translate(36px,-54px) scale(1.16); filter: blur(90px); }
+  68% { transform: translate(-22px,24px) scale(.94); filter: blur(72px); }
+}
+
+@keyframes heroStreak {
+  0% { opacity: 0; transform: rotate(-17deg) translateX(-120vw); }
+  12% { opacity: .9; }
+  44%, 100% { opacity: 0; transform: rotate(-17deg) translateX(145vw); }
+}
+
+@keyframes heroScanFlash {
+  0%, 88%, 100% { opacity: 0; transform: translateX(-18%); }
+  91% { opacity: .46; }
+  96% { opacity: 0; transform: translateX(18%); }
+}
+
+@keyframes heroVerticalHit {
+  0%, 68%, 100% { opacity: 0; transform: translateY(-22%); }
+  72% { opacity: .45; }
+  78% { opacity: 0; transform: translateY(22%); }
+}
+
+@keyframes heroInnerLift {
+  0% { opacity: 0; transform: translateY(34px) scale(.96); filter: blur(10px); }
+  100% { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); }
+}
+
+@keyframes heroTitleDrop {
+  0% { opacity: 0; transform: scale(1.12) translateY(22px); filter: blur(13px); clip-path: polygon(0 46%, 100% 46%, 100% 56%, 0 56%); }
+  55% { opacity: 1; filter: blur(0); clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%); }
+  72% { transform: scale(.985) translateY(0); }
+  100% { opacity: 1; transform: scale(1) translateY(0); filter: blur(0); clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%); }
+}
+
+@keyframes heroTitlePulse {
+  0%, 100% { text-shadow: 0 0 22px rgba(255,23,61,.18), 0 0 54px rgba(255,23,61,.12); }
+  50% { text-shadow: 0 0 30px rgba(255,255,255,.14), 0 0 78px rgba(255,23,61,.32); }
+}
+
+@keyframes heroGlitchTop {
+  0%, 78%, 83%, 100% { opacity: 0; transform: translate(0,0); }
+  79% { opacity: .8; transform: translate(7px,-3px); }
+  80% { opacity: .15; transform: translate(-5px,2px); }
+  81% { opacity: .7; transform: translate(3px,-1px); }
+}
+
+@keyframes heroGlitchBottom {
+  0%, 60%, 65%, 100% { opacity: 0; transform: translate(0,0); }
+  61% { opacity: .65; transform: translate(-8px,3px); }
+  62% { opacity: .18; transform: translate(5px,-2px); }
+  63% { opacity: .75; transform: translate(-3px,1px); }
+}
+
+@keyframes heroOutlineCharge {
+  0%, 100% { filter: drop-shadow(0 0 22px rgba(255,23,61,.34)); }
+  50% { filter: drop-shadow(0 0 38px rgba(255,23,61,.72)); }
+}
+
+@keyframes heroLine2Burn {
+  0%, 100% { opacity: .22; }
+  50% { opacity: .62; }
+}
+
+@keyframes heroEyebrowCharge {
+  0%, 100% { box-shadow: inset 0 0 0 1px rgba(255,255,255,.04), 0 0 24px rgba(255,23,61,.16); }
+  50% { box-shadow: inset 0 0 0 1px rgba(255,255,255,.1), 0 0 38px rgba(255,23,61,.42); }
+}
+
+@keyframes heroEyebrowLines {
+  0%, 100% { width: 30px; opacity: .68; }
+  50% { width: 54px; opacity: 1; }
+}
+
+@keyframes heroSubtitleGlow {
+  0%, 100% { text-shadow: 0 0 0 rgba(255,23,61,0); }
+  50% { text-shadow: 0 0 22px rgba(255,23,61,.28); }
+}
+
+@keyframes heroButtonCharge {
+  0%, 100% { box-shadow: 0 0 36px rgba(255,23,61,.34), 0 18px 42px rgba(0,0,0,.42); }
+  50% { box-shadow: 0 0 54px rgba(255,23,61,.58), 0 18px 48px rgba(0,0,0,.52); }
+}
+
+@keyframes heroButtonSweep {
+  0%, 45% { transform: translateX(-130%); opacity: 0; }
+  56% { opacity: .9; }
+  72%, 100% { transform: translateX(130%); opacity: 0; }
+}
+
+@media (max-width: 768px) {
+  #hero::before {
+    inset: -28%;
+    opacity: .38;
+  }
+
+  .hero-energy span {
+    width: min(54vw, 250px);
+    height: 1px;
+  }
+
+  .hero-energy .streak-2,
+  .hero-energy .streak-4 {
+    width: min(64vw, 310px);
+  }
+
+  .hero-title .line1::before,
+  .hero-title .line1::after,
+  .hero-title .line2::before,
+  .hero-title .line2::after {
+    animation-duration: 5.2s;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #hero,
+  #hero::before,
+  #hero::after,
+  .orb,
+  .hero-energy,
+  .hero-energy *,
+  .hero-inner,
+  .hero-eyebrow,
+  .hero-eyebrow::before,
+  .hero-eyebrow::after,
+  .hero-title,
+  .hero-title *,
+  .hero-subtitle,
+  .btn-enter,
+  .btn-enter::after {
+    animation: none !important;
+  }
+
+  #hero::before {
+    opacity: .35;
+    transform: none;
+  }
+}
 
 nav {
   background: linear-gradient(to bottom, rgba(2,2,2,.96), rgba(2,2,2,.68), transparent);
@@ -1424,6 +1760,69 @@ footer span,
   box-shadow: 0 18px 52px rgba(0,0,0,.62), 0 0 28px rgba(255,23,61,.22);
 }
 
+.cart-widget::before {
+  content: '';
+  position: absolute;
+  top: -7px;
+  right: -7px;
+  width: calc(100% + 14px);
+  height: calc(100% + 14px);
+  pointer-events: none;
+  border: 1px solid rgba(255,23,61,.58);
+  clip-path: polygon(12px 0, 100% 0, calc(100% - 12px) 100%, 0 100%);
+  opacity: .72;
+  filter: drop-shadow(0 0 14px rgba(255,23,61,.55));
+  animation: cartHaloPulse 2.6s ease-in-out infinite;
+}
+
+.cart-toggle {
+  position: relative;
+  z-index: 1;
+  border-color: rgba(255,23,61,.76);
+  box-shadow: 0 18px 52px rgba(0,0,0,.62), 0 0 34px rgba(255,23,61,.36), inset 0 0 0 1px rgba(255,255,255,.055);
+  filter: drop-shadow(0 0 10px rgba(255,23,61,.34));
+  animation: cartToggleGlow 2.6s ease-in-out infinite;
+}
+
+.cart-toggle i {
+  color: #ffffff;
+  text-shadow: 0 0 9px rgba(255,255,255,.82), 0 0 22px rgba(255,23,61,.9);
+  animation: cartIconGlow 1.9s ease-in-out infinite;
+}
+
+.cart-count {
+  box-shadow: 0 0 14px rgba(255,23,61,.58);
+}
+
+.cart-widget.has-items::before {
+  border-color: rgba(255,255,255,.72);
+  filter: drop-shadow(0 0 20px rgba(255,23,61,.8));
+}
+
+.cart-widget.has-items .cart-count {
+  animation: cartCountPulse 1.25s ease-in-out infinite;
+}
+
+@keyframes cartHaloPulse {
+  0%, 100% { opacity: .46; transform: scale(.985); }
+  50% { opacity: .9; transform: scale(1.035); }
+}
+
+@keyframes cartToggleGlow {
+  0%, 100% { filter: drop-shadow(0 0 8px rgba(255,23,61,.34)); }
+  50% { filter: drop-shadow(0 0 18px rgba(255,23,61,.68)); }
+}
+
+@keyframes cartIconGlow {
+  0%, 100% { transform: scale(1); text-shadow: 0 0 8px rgba(255,255,255,.72), 0 0 18px rgba(255,23,61,.72); }
+  50% { transform: scale(1.12); text-shadow: 0 0 13px rgba(255,255,255,.94), 0 0 30px rgba(255,23,61,.96); }
+}
+
+@keyframes cartCountPulse {
+  0%, 100% { transform: scale(1); box-shadow: 0 0 14px rgba(255,23,61,.58); }
+  50% { transform: scale(1.12); box-shadow: 0 0 22px rgba(255,23,61,.86); }
+}
+
 .cart-item {
   background: linear-gradient(135deg, rgba(255,23,61,.08), rgba(255,255,255,.035));
   border-color: rgba(255,23,61,.24);
@@ -1517,10 +1916,17 @@ footer {
 <div class="orb orb1"></div>
 <div class="orb orb2"></div>
 <div class="orb orb3"></div>
+<div aria-hidden="true" class="hero-energy">
+<span class="streak-1"></span>
+<span class="streak-2"></span>
+<span class="streak-3"></span>
+<span class="streak-4"></span>
+<span class="streak-5"></span>
+</div>
 <div class="hero-inner">
 <div class="hero-eyebrow">Coleccion Exclusiva 2026</div>
 <h1 class="hero-title">
-<span class="line1">CEST</span>
+<span class="line1" data-text="CEST">CEST</span>
 <span class="line2" data-text="INDUMENTARIA">INDUMENTARIA</span>
 </h1>
 <p class="hero-subtitle">
@@ -2534,11 +2940,36 @@ window.addEventListener("load", function() {
     sonidoClin.volume = 0.4;
     sonidoClin.play().catch(() => {});
     setTimeout(function() { popup.classList.remove("mostrar"); }, 3500);
-  }, 2000);
+  }, 5200);
 });
 
 const WHATSAPP_NUMERO = "541170743305";
-let carrito = [];
+const CARRITO_STORAGE_KEY = "cestIndumentariaCarritoV1";
+let carrito = cargarCarritoGuardado();
+
+function cargarCarritoGuardado() {
+  try {
+    const guardado = localStorage.getItem(CARRITO_STORAGE_KEY);
+    if (!guardado) return [];
+    const datos = JSON.parse(guardado);
+    if (!Array.isArray(datos)) return [];
+    return datos.filter(item =>
+      item &&
+      typeof item.id === "string" &&
+      typeof item.nombre === "string" &&
+      typeof item.precio === "string" &&
+      typeof item.foto === "string"
+    );
+  } catch (error) {
+    return [];
+  }
+}
+
+function guardarCarrito() {
+  try {
+    localStorage.setItem(CARRITO_STORAGE_KEY, JSON.stringify(carrito));
+  } catch (error) {}
+}
 
 function obtenerProductoDesdeBoton(boton) {
   const card = boton.closest(".card") || boton.closest(".product-slot");
@@ -2553,18 +2984,36 @@ function obtenerProductoDesdeBoton(boton) {
   return { id: nombre + "|" + foto, nombre, precio, foto };
 }
 
+function marcarBotonAgregado(boton) {
+  boton.classList.add("agregado");
+  boton.innerHTML = '<i class="fas fa-check"></i> Agregado';
+}
+
+function marcarBotonDisponible(boton) {
+  boton.classList.remove("agregado");
+  boton.innerHTML = '<i class="fas fa-cart-plus"></i> Agregar al carrito';
+}
+
+function sincronizarBotonesCarrito() {
+  const idsGuardados = new Set(carrito.map(item => item.id));
+  document.querySelectorAll(".btn-cart").forEach(boton => {
+    const producto = obtenerProductoDesdeBoton(boton);
+    if (producto && idsGuardados.has(producto.id)) {
+      marcarBotonAgregado(boton);
+    } else {
+      marcarBotonDisponible(boton);
+    }
+  });
+}
+
 function agregarAlCarrito(boton) {
   const producto = obtenerProductoDesdeBoton(boton);
   if (!producto) return;
   const existe = carrito.some(item => item.id === producto.id);
   if (!existe) {
     carrito.push(producto);
-    boton.classList.add("agregado");
-    boton.innerHTML = '<i class="fas fa-check"></i> Agregado';
   } else {
     carrito = carrito.filter(item => item.id !== producto.id);
-    boton.classList.remove("agregado");
-    boton.innerHTML = '<i class="fas fa-cart-plus"></i> Agregar al carrito';
   }
   actualizarCarrito();
 }
@@ -2575,6 +3024,8 @@ function actualizarCarrito() {
   const cartEmpty = document.getElementById("cartEmpty");
   const cartConsultar = document.getElementById("cartConsultar");
   const cartClear = document.getElementById("cartClear");
+  const cartWidget = document.getElementById("cartWidget");
+  if (!cartCount || !cartItems || !cartEmpty || !cartConsultar || !cartClear) return;
   cartCount.textContent = carrito.length;
   cartItems.innerHTML = "";
   carrito.forEach((item, index) => {
@@ -2584,6 +3035,7 @@ function actualizarCarrito() {
     cartItems.appendChild(div);
   });
   const hayItems = carrito.length > 0;
+  if (cartWidget) cartWidget.classList.toggle("has-items", hayItems);
   cartEmpty.style.display = hayItems ? "none" : "block";
   cartConsultar.style.display = hayItems ? "inline-flex" : "none";
   cartClear.style.display = hayItems ? "inline-flex" : "none";
@@ -2594,31 +3046,22 @@ function actualizarCarrito() {
   } else {
     cartConsultar.href = "#";
   }
+  guardarCarrito();
+  sincronizarBotonesCarrito();
 }
 
 function quitarDelCarrito(index) {
-  const quitado = carrito[index];
+  if (index < 0 || index >= carrito.length) return;
   carrito.splice(index, 1);
-  document.querySelectorAll(".card").forEach(card => {
-    const nombre = card.querySelector(".nombre")?.textContent.trim();
-    const foto = card.querySelector("img")?.getAttribute("src");
-    const boton = card.querySelector(".btn-cart");
-    if (boton && quitado && quitado.id === nombre + "|" + foto) {
-      boton.classList.remove("agregado");
-      boton.innerHTML = '<i class="fas fa-cart-plus"></i> Agregar al carrito';
-    }
-  });
   actualizarCarrito();
 }
 
 function vaciarCarrito() {
   carrito = [];
-  document.querySelectorAll(".btn-cart").forEach(boton => {
-    boton.classList.remove("agregado");
-    boton.innerHTML = '<i class="fas fa-cart-plus"></i> Agregar al carrito';
-  });
   actualizarCarrito();
 }
+
+actualizarCarrito();
 
 function toggleCarrito(event) {
   event.stopPropagation();
