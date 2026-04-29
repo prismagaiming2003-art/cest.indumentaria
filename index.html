@@ -2409,6 +2409,100 @@ footer {
     cursor: auto !important;
   }
 }
+
+/* ===== AJUSTES SOLICITADOS: MOBILE HERO + BOTON CONSULTAR SELECCION ===== */
+@media (max-width: 768px) {
+  #hero .scroll-hint {
+    position: absolute !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: calc(1.15rem + env(safe-area-inset-bottom)) !important;
+    width: 100% !important;
+    transform: none !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    text-align: center !important;
+    margin: 0 auto !important;
+    z-index: 5 !important;
+    pointer-events: none !important;
+  }
+
+  #hero .scroll-hint .scroll-word,
+  #hero .scroll-hint .scroll-arrow {
+    width: 100% !important;
+    text-align: center !important;
+  }
+}
+
+.cart-consultar {
+  position: relative !important;
+  overflow: hidden !important;
+  isolation: isolate !important;
+  min-height: 48px !important;
+  margin-top: 12px !important;
+  border-color: rgba(255,255,255,.72) !important;
+  background:
+    linear-gradient(135deg, #ffffff 0 8%, #ff314f 9% 42%, #ff173d 43% 68%, #8f0714 69% 100%) !important;
+  color: #050505 !important;
+  font-weight: 900 !important;
+  letter-spacing: .16em !important;
+  box-shadow:
+    0 0 30px rgba(255,23,61,.62),
+    0 14px 34px rgba(0,0,0,.55),
+    inset 0 0 0 1px rgba(255,255,255,.28) !important;
+  text-shadow: 0 0 12px rgba(255,255,255,.45) !important;
+  animation: consultarSeleccionPulse 1.65s ease-in-out infinite !important;
+}
+
+.cart-consultar i {
+  color: #050505 !important;
+  filter: drop-shadow(0 0 8px rgba(255,255,255,.72));
+  animation: consultarSeleccionIcon 1.15s ease-in-out infinite !important;
+}
+
+.cart-consultar::before {
+  content: '' !important;
+  position: absolute !important;
+  inset: 0 !important;
+  z-index: -1 !important;
+  background: linear-gradient(115deg, transparent 0 34%, rgba(255,255,255,.92) 45%, transparent 56% 100%) !important;
+  transform: translateX(-135%) skewX(-12deg) !important;
+  animation: consultarSeleccionShine 2.15s ease-in-out infinite !important;
+}
+
+.cart-consultar:hover {
+  transform: translateY(-3px) scale(1.025) !important;
+  color: #050505 !important;
+  box-shadow:
+    0 0 44px rgba(255,23,61,.86),
+    0 18px 42px rgba(0,0,0,.65),
+    inset 0 0 0 1px rgba(255,255,255,.42) !important;
+}
+
+.cart-clear {
+  opacity: .82 !important;
+  background: linear-gradient(135deg, rgba(255,23,61,.12), rgba(10,10,12,.96)) !important;
+  border-color: rgba(255,23,61,.34) !important;
+  box-shadow: none !important;
+}
+
+@keyframes consultarSeleccionPulse {
+  0%, 100% { filter: brightness(1); transform: translateY(0) scale(1); }
+  50% { filter: brightness(1.2); transform: translateY(-1px) scale(1.012); }
+}
+
+@keyframes consultarSeleccionIcon {
+  0%, 100% { transform: scale(1) rotate(0deg); }
+  50% { transform: scale(1.16) rotate(-5deg); }
+}
+
+@keyframes consultarSeleccionShine {
+  0%, 42% { transform: translateX(-135%) skewX(-12deg); opacity: 0; }
+  55% { opacity: .95; }
+  78%, 100% { transform: translateX(135%) skewX(-12deg); opacity: 0; }
+}
 </style>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet"/></head>
 <body>
