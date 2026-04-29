@@ -22,6 +22,13 @@
 <meta content="https://i.imgur.com/jy0zq9a.png" name="twitter:image"/>
 <link href="https://i.imgur.com/dNG6xPr.jpeg" rel="icon" type="image/jpeg"/>
 <link href="https://i.imgur.com/dNG6xPr.jpeg" rel="apple-touch-icon"/>
+<script>
+  (function () {
+    if (/Android/i.test(navigator.userAgent || '')) {
+      document.documentElement.classList.add('android-device');
+    }
+  }());
+</script>
 <link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&amp;family=Bebas+Neue&amp;family=Rajdhani:wght@300;400;600;700&amp;display=swap" rel="stylesheet"/>
 <style>
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
@@ -1575,6 +1582,97 @@ body::before {
   }
 }
 
+@media (max-width: 768px) {
+  html.android-device #hero,
+  html.android-device #hero::before,
+  html.android-device #hero::after,
+  html.android-device #hero .orb,
+  html.android-device #hero .hero-energy,
+  html.android-device #hero .hero-energy *,
+  html.android-device #hero .hero-energy::before,
+  html.android-device #hero .hero-energy::after,
+  html.android-device #hero .hero-inner,
+  html.android-device #hero .hero-eyebrow,
+  html.android-device #hero .hero-eyebrow::before,
+  html.android-device #hero .hero-eyebrow::after,
+  html.android-device #hero .hero-title,
+  html.android-device #hero .hero-title .line1,
+  html.android-device #hero .hero-title .line1::before,
+  html.android-device #hero .hero-title .line1::after,
+  html.android-device #hero .hero-title .line2,
+  html.android-device #hero .hero-title .line2::before,
+  html.android-device #hero .hero-title .line2::after,
+  html.android-device #hero .hero-subtitle,
+  html.android-device #hero .btn-enter,
+  html.android-device #hero .btn-enter::after {
+    animation: none !important;
+    transition: none !important;
+  }
+
+  html.android-device #hero {
+    filter: none !important;
+    background:
+      linear-gradient(118deg, rgba(255,23,61,.12) 0 12%, transparent 12% 100%),
+      radial-gradient(circle at 50% 24%, rgba(255,23,61,.18), rgba(10,2,4,.96) 42%, #020202 78%);
+  }
+
+  html.android-device #hero::before {
+    opacity: .24 !important;
+    transform: none !important;
+    filter: none !important;
+    mix-blend-mode: normal;
+    background:
+      radial-gradient(circle at 50% 42%, rgba(255,23,61,.22), transparent 18%),
+      repeating-linear-gradient(118deg, transparent 0 88px, rgba(255,23,61,.045) 89px 90px, transparent 91px 176px);
+  }
+
+  html.android-device #hero::after {
+    opacity: .28 !important;
+    filter: none !important;
+  }
+
+  html.android-device #hero .hero-energy {
+    display: none !important;
+  }
+
+  html.android-device #hero .orb {
+    opacity: .28 !important;
+    transform: none !important;
+    filter: blur(58px) !important;
+  }
+
+  html.android-device #hero .hero-title,
+  html.android-device #hero .hero-title .line1,
+  html.android-device #hero .hero-title .line2 {
+    filter: none !important;
+    will-change: auto !important;
+  }
+
+  html.android-device #hero .hero-title {
+    text-shadow: 0 0 18px rgba(255,23,61,.16) !important;
+  }
+
+  html.android-device #hero .hero-title .line1::before,
+  html.android-device #hero .hero-title .line1::after,
+  html.android-device #hero .hero-title .line2::before,
+  html.android-device #hero .hero-title .line2::after {
+    display: none !important;
+  }
+
+  html.android-device #hero .hero-title .line2 {
+    -webkit-text-stroke-width: 1.2px;
+    text-shadow: 0 0 6px rgba(255,23,61,.2) !important;
+  }
+
+  html.android-device #hero .btn-enter {
+    box-shadow: 0 0 28px rgba(255,23,61,.28), 0 14px 34px rgba(0,0,0,.38) !important;
+  }
+
+  html.android-device #hero .btn-enter::after {
+    display: none !important;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   #hero,
   #hero::before,
@@ -2258,7 +2356,7 @@ footer {
 <div class="section-glow"></div>
 <span class="category-num">01</span>
 <h3 class="category-name">BUZOS</h3>
-<span class="category-badge">30 productos</span>
+<span class="category-badge">36 productos</span>
 </div>
 <div class="product-grid">
 <div class="product-slot card">
@@ -2559,6 +2657,66 @@ footer {
 <div class="nombre">Buzo Jordan #25</div>
 <div class="precio">$14.000 ARS</div>
 <div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Buzo%20Jordan%20%2325%0APrecio%3A%20%2414.000%0AFoto%20del%20producto%3A%20https%3A//i.imgur.com/wi4NSYX.png" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
+</div>
+</div>
+<div class="product-slot card">
+<div class="slot-corner tl"></div><div class="slot-corner tr"></div>
+<div class="slot-corner bl"></div><div class="slot-corner br"></div>
+<div class="slot-inner">
+<div class="product-img-box"><img alt="Buzo jordan #26" class="slot-product-img" data-images="https://i.imgur.com/QbXVUju.jpeg" onclick="abrirGaleria(this)" src="https://i.imgur.com/QbXVUju.jpeg"/></div>
+<div class="nombre">Buzo jordan #26</div>
+<div class="precio">$14.000 ARS</div>
+<div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Buzo%20jordan%20%2326%0APrecio%3A%20%2414.000%0AFoto%20del%20producto%3A%20https%3A//i.imgur.com/QbXVUju.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
+</div>
+</div>
+<div class="product-slot card">
+<div class="slot-corner tl"></div><div class="slot-corner tr"></div>
+<div class="slot-corner bl"></div><div class="slot-corner br"></div>
+<div class="slot-inner">
+<div class="product-img-box"><img alt="Buzo Calvin Klein" class="slot-product-img" data-images="https://i.imgur.com/TmbpoyK.jpeg" onclick="abrirGaleria(this)" src="https://i.imgur.com/TmbpoyK.jpeg"/></div>
+<div class="nombre">Buzo Calvin Klein</div>
+<div class="precio">$14.000 ARS</div>
+<div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Buzo%20Calvin%20Klein%0APrecio%3A%20%2414.000%0AFoto%20del%20producto%3A%20https%3A//i.imgur.com/TmbpoyK.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
+</div>
+</div>
+<div class="product-slot card">
+<div class="slot-corner tl"></div><div class="slot-corner tr"></div>
+<div class="slot-corner bl"></div><div class="slot-corner br"></div>
+<div class="slot-inner">
+<div class="product-img-box"><img alt="Buzo jordan #27" class="slot-product-img" data-images="https://i.imgur.com/Tir8mF5.jpeg" onclick="abrirGaleria(this)" src="https://i.imgur.com/Tir8mF5.jpeg"/></div>
+<div class="nombre">Buzo jordan #27</div>
+<div class="precio">$14.000 ARS</div>
+<div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Buzo%20jordan%20%2327%0APrecio%3A%20%2414.000%0AFoto%20del%20producto%3A%20https%3A//i.imgur.com/Tir8mF5.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
+</div>
+</div>
+<div class="product-slot card">
+<div class="slot-corner tl"></div><div class="slot-corner tr"></div>
+<div class="slot-corner bl"></div><div class="slot-corner br"></div>
+<div class="slot-inner">
+<div class="product-img-box"><img alt="Buzo Diesel" class="slot-product-img" data-images="https://i.imgur.com/oZkyb3R.jpeg" onclick="abrirGaleria(this)" src="https://i.imgur.com/oZkyb3R.jpeg"/></div>
+<div class="nombre">Buzo Diesel</div>
+<div class="precio">$14.000 ARS</div>
+<div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Buzo%20Diesel%0APrecio%3A%20%2414.000%0AFoto%20del%20producto%3A%20https%3A//i.imgur.com/oZkyb3R.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
+</div>
+</div>
+<div class="product-slot card">
+<div class="slot-corner tl"></div><div class="slot-corner tr"></div>
+<div class="slot-corner bl"></div><div class="slot-corner br"></div>
+<div class="slot-inner">
+<div class="product-img-box"><img alt="Buzo Jordan #28" class="slot-product-img" data-images="https://i.imgur.com/qHml1Oz.jpeg" onclick="abrirGaleria(this)" src="https://i.imgur.com/qHml1Oz.jpeg"/></div>
+<div class="nombre">Buzo Jordan #28</div>
+<div class="precio">$14.000 ARS</div>
+<div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Buzo%20Jordan%20%2328%0APrecio%3A%20%2414.000%0AFoto%20del%20producto%3A%20https%3A//i.imgur.com/qHml1Oz.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
+</div>
+</div>
+<div class="product-slot card">
+<div class="slot-corner tl"></div><div class="slot-corner tr"></div>
+<div class="slot-corner bl"></div><div class="slot-corner br"></div>
+<div class="slot-inner">
+<div class="product-img-box"><img alt="Buzo Puma" class="slot-product-img" data-images="https://i.imgur.com/uYnFN3S.jpeg" onclick="abrirGaleria(this)" src="https://i.imgur.com/uYnFN3S.jpeg"/></div>
+<div class="nombre">Buzo Puma</div>
+<div class="precio">$14.000 ARS</div>
+<div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Buzo%20Puma%0APrecio%3A%20%2414.000%0AFoto%20del%20producto%3A%20https%3A//i.imgur.com/uYnFN3S.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
 </div>
 </div>
 </div>
