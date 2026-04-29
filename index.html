@@ -2412,25 +2412,42 @@ footer {
 
 /* ===== AJUSTES SOLICITADOS: MOBILE HERO + BOTON CONSULTAR SELECCION ===== */
 @media (max-width: 768px) {
+  #hero .hero-inner {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+  }
+
   #hero .scroll-hint {
-    position: absolute !important;
-    left: 0 !important;
-    right: 0 !important;
-    bottom: calc(1.15rem + env(safe-area-inset-bottom)) !important;
-    width: 100% !important;
+    position: relative !important;
+    left: auto !important;
+    right: auto !important;
+    bottom: auto !important;
+    width: auto !important;
     transform: none !important;
     display: flex !important;
     flex-direction: column !important;
     align-items: center !important;
     justify-content: center !important;
     text-align: center !important;
-    margin: 0 auto !important;
+    margin: 1.05rem auto 0 !important;
     z-index: 5 !important;
     pointer-events: none !important;
   }
 
-  #hero .scroll-hint .scroll-word,
+  #hero .scroll-hint .scroll-line {
+    order: 2 !important;
+    height: 24px !important;
+  }
+
+  #hero .scroll-hint .scroll-word {
+    order: 1 !important;
+    width: 100% !important;
+    text-align: center !important;
+  }
+
   #hero .scroll-hint .scroll-arrow {
+    order: 3 !important;
     width: 100% !important;
     text-align: center !important;
   }
@@ -2503,6 +2520,16 @@ footer {
   55% { opacity: .95; }
   78%, 100% { transform: translateX(135%) skewX(-12deg); opacity: 0; }
 }
+/* ===== FIX: ocultar "Deslizar" en PC ===== */
+.scroll-hint {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .scroll-hint {
+    display: flex !important;
+  }
+}
 </style>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet"/></head>
 <body>
@@ -2557,12 +2584,12 @@ footer {
 <a class="btn-enter" href="#productos">
 <span>Entrar al catálogo</span>
 </a>
-</div>
 <div class="scroll-hint">
 <div class="scroll-line"></div>
       <span class="scroll-word">Deslizar</span>
       <span class="scroll-arrow" aria-hidden="true"><i class="fas fa-chevron-down"></i></span>
     </div>
+</div>
 <div class="stats-bar">
 <div class="stat-item">
 <div class="stat-num">500+</div>
