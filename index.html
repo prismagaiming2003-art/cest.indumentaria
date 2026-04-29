@@ -240,6 +240,18 @@
       0%, 100% { opacity: 0.3; transform: scaleY(1); }
       50% { opacity: 1; transform: scaleY(1.1); }
     }
+    .scroll-word { display: inline-block; }
+    .scroll-arrow {
+      display: none;
+      font-size: .85rem;
+      color: var(--accent1);
+      text-shadow: 0 0 14px rgba(255,23,61,.75);
+      animation: scrollArrowBounce 1.05s ease-in-out infinite;
+    }
+    @keyframes scrollArrowBounce {
+      0%, 100% { transform: translateY(-2px); opacity: .72; }
+      50% { transform: translateY(6px); opacity: 1; }
+    }
 
     /* STATS BAR */
     .stats-bar {
@@ -664,6 +676,80 @@
   letter-spacing: .06em;
   text-shadow: 0 0 18px rgba(255,215,0,.22);
 }
+.price-details-row {
+  width: 100%;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: .75rem;
+  flex: 0 0 auto;
+}
+.price-details-row .precio {
+  width: auto;
+  flex: 1 1 auto;
+  min-width: 0;
+}
+.details-toggle {
+  flex: 0 0 auto;
+  border: 0;
+  border-left: 1px solid rgba(255,255,255,.18);
+  background: transparent;
+  color: #ffffff;
+  padding: .18rem 0 .16rem .62rem;
+  font-family: 'Rajdhani', sans-serif;
+  font-size: .78rem;
+  font-weight: 900;
+  line-height: 1;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  cursor: pointer;
+  text-shadow: 0 0 12px rgba(255,255,255,.32), 0 0 16px rgba(255,23,61,.32);
+  transition: color .22s ease, text-shadow .22s ease, transform .22s ease;
+}
+.details-toggle::after {
+  content: '+';
+  display: inline-block;
+  margin-left: .35rem;
+  color: #ff314f;
+}
+.details-toggle:hover {
+  color: #ff314f;
+  text-shadow: 0 0 16px rgba(255,23,61,.62);
+  transform: translateY(-1px);
+}
+.product-details-panel {
+  width: 100%;
+  box-sizing: border-box;
+  flex: 0 0 auto;
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  margin-top: -.25rem;
+  padding: 0 .75rem;
+  border: 1px solid transparent;
+  background: rgba(255,255,255,.035);
+  color: rgba(255,255,255,.86);
+  font-size: .78rem;
+  font-weight: 600;
+  line-height: 1.35;
+  transform: translateY(-4px);
+  transition: max-height .32s ease, opacity .25s ease, padding .32s ease, border-color .32s ease, transform .32s ease, margin-top .32s ease;
+}
+.product-slot.detalles-abierto .details-toggle::after {
+  content: '-';
+}
+.product-slot.card.detalles-abierto {
+  min-height: 545px;
+}
+.product-slot.detalles-abierto .product-details-panel {
+  max-height: none;
+  opacity: 1;
+  overflow: visible;
+  margin-top: .05rem;
+  padding: .68rem .75rem .85rem;
+  border-color: rgba(255,23,61,.24);
+  transform: translateY(0);
+}
 .btn-row {
   width: 100%;
   display: grid;
@@ -803,6 +889,9 @@
   object-fit: contain;
   background: rgba(255,255,255,.04);
   box-shadow: 0 0 80px rgba(255,255,255,.12), 0 0 120px rgba(0,229,255,.12);
+  transform: translateZ(0);
+  will-change: opacity, transform;
+  contain: paint;
 }
 .cerrar {
   position: absolute;
@@ -835,22 +924,57 @@
 }
 #popup-info {
   position: fixed;
-  top: 100px;
+  top: 92px;
   left: 50%;
-  transform: translateX(-50%);
-  background: #111;
-  color: #fff;
-  padding: 14px 22px;
-  border-radius: 999px;
-  font-weight: 700;
+  transform: translate(-50%, -12px) scale(.96);
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  max-width: min(560px, calc(100vw - 24px));
+  background:
+    linear-gradient(135deg, rgba(255,23,61,.22), rgba(255,255,255,.055) 34%, rgba(9,9,12,.98) 35% 100%),
+    rgba(8,8,11,.98);
+  color: #ffffff;
+  padding: 18px 26px;
+  border-radius: 18px;
+  font-weight: 900;
+  font-size: clamp(1rem, 2.4vw, 1.28rem);
+  line-height: 1.18;
+  letter-spacing: .045em;
+  text-transform: uppercase;
   z-index: 999999;
   opacity: 0;
   pointer-events: none;
-  border: 1px solid rgba(255,255,255,.18);
-  box-shadow: 0 0 20px rgba(255,45,85,.45);
-  transition: .35s ease;
+  border: 1px solid rgba(255,255,255,.24);
+  box-shadow: 0 24px 70px rgba(0,0,0,.68), 0 0 38px rgba(255,23,61,.44), inset 0 0 0 1px rgba(255,255,255,.08);
+  backdrop-filter: blur(14px);
+  transition: opacity .32s ease, transform .32s ease, top .32s ease;
 }
-#popup-info.mostrar { opacity: 1; top: 116px; }
+#popup-info::before {
+  content: '!';
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  flex: 0 0 auto;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #ffffff, #ff173d 42%, #8f0714);
+  color: #050505;
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 1.35rem;
+  font-weight: 900;
+  box-shadow: 0 0 24px rgba(255,23,61,.9), inset 0 0 0 1px rgba(255,255,255,.7);
+}
+#popup-info.mostrar {
+  opacity: 1;
+  top: 112px;
+  transform: translate(-50%, 0) scale(1);
+  animation: popupAlertaPulso 1.7s ease-in-out 2;
+}
+@keyframes popupAlertaPulso {
+  0%, 100% { box-shadow: 0 24px 70px rgba(0,0,0,.68), 0 0 38px rgba(255,23,61,.44), inset 0 0 0 1px rgba(255,255,255,.08); }
+  50% { box-shadow: 0 28px 82px rgba(0,0,0,.78), 0 0 58px rgba(255,23,61,.72), inset 0 0 0 1px rgba(255,255,255,.18); }
+}
 @media (max-width: 768px) {
   body { cursor: auto; }
   .cursor, .cursor-ring { display: none; }
@@ -933,6 +1057,11 @@
   .slot-product-img { max-width: 100%; max-height: 108px !important; object-fit: contain !important; }
   .nombre { font-size: .78rem !important; line-height: 1.05 !important; min-height: 1.7em; text-align: center; }
   .precio { font-size: .95rem !important; line-height: 1 !important; }
+  .price-details-row { align-items: center; gap: .38rem; }
+  .details-toggle { font-size: .55rem !important; letter-spacing: .035em !important; padding-left: .35rem !important; }
+  .product-details-panel { font-size: .58rem !important; line-height: 1.24 !important; padding-left: .42rem; padding-right: .42rem; }
+  .product-slot.card.detalles-abierto { min-height: 315px !important; }
+  .product-slot.detalles-abierto .product-details-panel { padding-top: .45rem; padding-bottom: .45rem; }
   .btn-row { width: 100%; display: grid !important; grid-template-columns: 1fr !important; gap: .28rem !important; margin-top: auto; }
   .btn { width: 100%; min-height: 32px !important; padding: .42rem .22rem !important; font-size: .5rem !important; letter-spacing: .04em !important; line-height: 1.05 !important; justify-content: center; text-align: center; }
   .cart-widget { top: 54px !important; right: 8px !important; }
@@ -1151,6 +1280,11 @@
   #remeras .product-slot.card {
     min-width: 0 !important;
     min-height: 420px !important;
+  }
+
+  #buzos .product-slot.card.detalles-abierto,
+  #remeras .product-slot.card.detalles-abierto {
+    min-height: 500px !important;
   }
 }
 
@@ -2018,8 +2152,7 @@ footer span,
 
 .cart-toggle,
 .cart-panel,
-.contador,
-#popup-info {
+.contador {
   background: rgba(6,6,8,.96);
   border-color: rgba(255,23,61,.46);
   box-shadow: 0 18px 52px rgba(0,0,0,.62), 0 0 28px rgba(255,23,61,.22);
@@ -2214,6 +2347,44 @@ footer {
   }
 }
 
+/* ===== AJUSTE MOBILE: texto, objetos y detalles centrados ===== */
+@media (max-width: 768px) {
+  .scroll-hint {
+    gap: .28rem !important;
+    text-align: center !important;
+    letter-spacing: .18em !important;
+  }
+  .scroll-hint .scroll-line { height: 34px !important; }
+  .scroll-hint .scroll-arrow { display: inline-flex !important; align-items: center; justify-content: center; }
+
+  .product-slot.card,
+  .slot-inner { text-align: center !important; }
+  .slot-inner {
+    align-items: center !important;
+    justify-content: flex-start !important;
+  }
+  .product-img-box {
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+  .price-details-row {
+    justify-content: center !important;
+    align-items: center !important;
+    text-align: center !important;
+  }
+  .price-details-row .precio {
+    flex: 0 1 auto !important;
+    text-align: center !important;
+  }
+  .details-toggle,
+  .product-details-panel { text-align: center !important; }
+  .product-details-panel {
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+  .btn-row { justify-items: center !important; }
+}
+
 /* ===== FIX CURSOR EN GALERIA ===== */
 .cursor {
   z-index: 1000002;
@@ -2295,7 +2466,8 @@ footer {
 </div>
 <div class="scroll-hint">
 <div class="scroll-line"></div>
-      Scroll
+      <span class="scroll-word">Deslizar</span>
+      <span class="scroll-arrow" aria-hidden="true"><i class="fas fa-chevron-down"></i></span>
     </div>
 <div class="stats-bar">
 <div class="stat-item">
@@ -2348,7 +2520,7 @@ footer {
 <div class="catalogo-doble">
 <div class="scroll-products-hint" id="scrollProductsHint" aria-hidden="true">
   <div class="hint-icon"><i class="fas fa-chevron-down"></i></div>
-  <div class="hint-text">Desliza hacia abajo</div>
+  <div class="hint-text">Deslizar hacia abajo</div>
 </div>
 <!-- CATEGORIA 1 -->
 <div class="category-section" id="buzos">
@@ -2734,480 +2906,480 @@ footer {
 <div class="slot-corner tl"></div><div class="slot-corner tr"></div>
 <div class="slot-corner bl"></div><div class="slot-corner br"></div>
 <div class="slot-inner">
-<div class="product-img-box"><img alt="Camiseta #1" class="slot-product-img" data-images="https://i.imgur.com/Q9MsY6J.jpeg" onclick="abrirGaleria(this)" src="https://i.imgur.com/Q9MsY6J.jpeg"/></div>
-<div class="nombre">Camiseta #1</div>
+<div class="product-img-box"><img alt="Remera #1" class="slot-product-img" data-images="https://i.imgur.com/Q9MsY6J.jpeg" onclick="abrirGaleria(this)" src="https://i.imgur.com/Q9MsY6J.jpeg"/></div>
+<div class="nombre">Remera #1</div>
 <div class="precio">$8.000 ARS</div>
-<div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Camiseta%20%231%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/Q9MsY6J.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
+<div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Remera%20%231%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/Q9MsY6J.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
 </div>
 </div>
 <div class="product-slot card">
 <div class="slot-corner tl"></div><div class="slot-corner tr"></div>
 <div class="slot-corner bl"></div><div class="slot-corner br"></div>
 <div class="slot-inner">
-<div class="product-img-box"><img alt="Camiseta #2" class="slot-product-img" data-images="https://i.imgur.com/pJdN75m.jpeg" onclick="abrirGaleria(this)" src="https://i.imgur.com/pJdN75m.jpeg"/></div>
-<div class="nombre">Camiseta #2</div>
+<div class="product-img-box"><img alt="Remera #2" class="slot-product-img" data-images="https://i.imgur.com/pJdN75m.jpeg" onclick="abrirGaleria(this)" src="https://i.imgur.com/pJdN75m.jpeg"/></div>
+<div class="nombre">Remera #2</div>
 <div class="precio">$8.000 ARS</div>
-<div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Camiseta%20%232%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/pJdN75m.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
+<div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Remera%20%232%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/pJdN75m.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
 </div>
 </div>
 <div class="product-slot card">
 <div class="slot-corner tl"></div><div class="slot-corner tr"></div>
 <div class="slot-corner bl"></div><div class="slot-corner br"></div>
 <div class="slot-inner">
-<div class="product-img-box"><img alt="Camiseta #3" class="slot-product-img" data-images="https://i.imgur.com/pkDjlqw.jpeg" onclick="abrirGaleria(this)" src="https://i.imgur.com/pkDjlqw.jpeg"/></div>
-<div class="nombre">Camiseta #3</div>
+<div class="product-img-box"><img alt="Remera #3" class="slot-product-img" data-images="https://i.imgur.com/pkDjlqw.jpeg" onclick="abrirGaleria(this)" src="https://i.imgur.com/pkDjlqw.jpeg"/></div>
+<div class="nombre">Remera #3</div>
 <div class="precio">$8.000 ARS</div>
-<div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Camiseta%20%233%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/pkDjlqw.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
+<div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Remera%20%233%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/pkDjlqw.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
 </div>
 </div>
 <div class="product-slot card">
 <div class="slot-corner tl"></div><div class="slot-corner tr"></div>
 <div class="slot-corner bl"></div><div class="slot-corner br"></div>
 <div class="slot-inner">
-<div class="product-img-box"><img alt="Camiseta #4" class="slot-product-img" data-images="https://i.imgur.com/Hn7bY2m.jpeg,https://i.imgur.com/pxwVeQP.jpeg" onclick="abrirGaleria(this)" src="https://i.imgur.com/Hn7bY2m.jpeg"/></div>
-<div class="nombre">Camiseta #4</div>
+<div class="product-img-box"><img alt="Remera #4" class="slot-product-img" data-images="https://i.imgur.com/Hn7bY2m.jpeg,https://i.imgur.com/pxwVeQP.jpeg" onclick="abrirGaleria(this)" src="https://i.imgur.com/Hn7bY2m.jpeg"/></div>
+<div class="nombre">Remera #4</div>
 <div class="precio">$8.000 ARS</div>
-<div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Camiseta%20%234%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/Hn7bY2m.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
+<div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Remera%20%234%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/Hn7bY2m.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
 </div>
 </div>
 <div class="product-slot card">
 <div class="slot-corner tl"></div><div class="slot-corner tr"></div>
 <div class="slot-corner bl"></div><div class="slot-corner br"></div>
 <div class="slot-inner">
-<div class="product-img-box"><img alt="Camiseta #5" class="slot-product-img" data-images="https://i.imgur.com/DACUjwo.jpeg,https://i.imgur.com/RvoASgk.jpeg" onclick="abrirGaleria(this)" src="https://i.imgur.com/DACUjwo.jpeg"/></div>
-<div class="nombre">Camiseta #5</div>
+<div class="product-img-box"><img alt="Remera #5" class="slot-product-img" data-images="https://i.imgur.com/DACUjwo.jpeg,https://i.imgur.com/RvoASgk.jpeg" onclick="abrirGaleria(this)" src="https://i.imgur.com/DACUjwo.jpeg"/></div>
+<div class="nombre">Remera #5</div>
 <div class="precio">$8.000 ARS</div>
-<div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Camiseta%20%235%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/DACUjwo.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
+<div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Remera%20%235%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/DACUjwo.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
 </div>
 </div>
 <div class="product-slot card">
 <div class="slot-corner tl"></div><div class="slot-corner tr"></div>
 <div class="slot-corner bl"></div><div class="slot-corner br"></div>
 <div class="slot-inner">
-<div class="product-img-box"><img alt="Camiseta #6" class="slot-product-img" data-images="https://i.imgur.com/8GWdUlM.jpeg" onclick="abrirGaleria(this)" src="https://i.imgur.com/8GWdUlM.jpeg"/></div>
-<div class="nombre">Camiseta #6</div>
+<div class="product-img-box"><img alt="Remera #6" class="slot-product-img" data-images="https://i.imgur.com/8GWdUlM.jpeg" onclick="abrirGaleria(this)" src="https://i.imgur.com/8GWdUlM.jpeg"/></div>
+<div class="nombre">Remera #6</div>
 <div class="precio">$8.000 ARS</div>
-<div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Camiseta%20%236%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/8GWdUlM.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
+<div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Remera%20%236%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/8GWdUlM.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
 </div>
 </div>
 <div class="product-slot card">
 <div class="slot-corner tl"></div><div class="slot-corner tr"></div>
 <div class="slot-corner bl"></div><div class="slot-corner br"></div>
 <div class="slot-inner">
-<div class="product-img-box"><img alt="Camiseta #7" class="slot-product-img" data-images="https://i.imgur.com/exNy5BV.jpeg" onclick="abrirGaleria(this)" src="https://i.imgur.com/exNy5BV.jpeg"/></div>
-<div class="nombre">Camiseta #7</div>
+<div class="product-img-box"><img alt="Remera #7" class="slot-product-img" data-images="https://i.imgur.com/exNy5BV.jpeg" onclick="abrirGaleria(this)" src="https://i.imgur.com/exNy5BV.jpeg"/></div>
+<div class="nombre">Remera #7</div>
 <div class="precio">$8.000 ARS</div>
-<div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Camiseta%20%237%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/exNy5BV.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
+<div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Remera%20%237%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/exNy5BV.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
 </div>
 </div>
 <div class="product-slot card">
 <div class="slot-corner tl"></div><div class="slot-corner tr"></div>
 <div class="slot-corner bl"></div><div class="slot-corner br"></div>
 <div class="slot-inner">
-<div class="product-img-box"><img alt="Camiseta #8" class="slot-product-img" data-images="https://i.imgur.com/vV1DBi0.jpeg" onclick="abrirGaleria(this)" src="https://i.imgur.com/vV1DBi0.jpeg"/></div>
-<div class="nombre">Camiseta #8</div>
+<div class="product-img-box"><img alt="Remera #8" class="slot-product-img" data-images="https://i.imgur.com/vV1DBi0.jpeg" onclick="abrirGaleria(this)" src="https://i.imgur.com/vV1DBi0.jpeg"/></div>
+<div class="nombre">Remera #8</div>
 <div class="precio">$8.000 ARS</div>
-<div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Camiseta%20%238%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/vV1DBi0.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
+<div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Remera%20%238%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/vV1DBi0.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
 </div>
 </div>
 <div class="product-slot card">
 <div class="slot-corner tl"></div><div class="slot-corner tr"></div>
 <div class="slot-corner bl"></div><div class="slot-corner br"></div>
 <div class="slot-inner">
-<div class="product-img-box"><img alt="Camiseta #9" class="slot-product-img" data-images="https://i.imgur.com/RuHNyPO.jpeg" onclick="abrirGaleria(this)" src="https://i.imgur.com/RuHNyPO.jpeg"/></div>
-<div class="nombre">Camiseta #9</div>
+<div class="product-img-box"><img alt="Remera #9" class="slot-product-img" data-images="https://i.imgur.com/RuHNyPO.jpeg" onclick="abrirGaleria(this)" src="https://i.imgur.com/RuHNyPO.jpeg"/></div>
+<div class="nombre">Remera #9</div>
 <div class="precio">$8.000 ARS</div>
-<div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Camiseta%20%239%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/RuHNyPO.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
+<div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Remera%20%239%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/RuHNyPO.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
 </div>
 </div>
 <div class="product-slot card">
 <div class="slot-corner tl"></div><div class="slot-corner tr"></div>
 <div class="slot-corner bl"></div><div class="slot-corner br"></div>
 <div class="slot-inner">
-<div class="product-img-box"><img alt="Camiseta #10" class="slot-product-img" data-images="https://i.imgur.com/9IwuQf2.jpeg" onclick="abrirGaleria(this)" src="https://i.imgur.com/9IwuQf2.jpeg"/></div>
-<div class="nombre">Camiseta #10</div>
+<div class="product-img-box"><img alt="Remera #10" class="slot-product-img" data-images="https://i.imgur.com/9IwuQf2.jpeg" onclick="abrirGaleria(this)" src="https://i.imgur.com/9IwuQf2.jpeg"/></div>
+<div class="nombre">Remera #10</div>
 <div class="precio">$8.000 ARS</div>
-<div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Camiseta%20%2310%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/9IwuQf2.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
+<div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Remera%20%2310%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/9IwuQf2.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
 </div>
 </div>
 <div class="product-slot card">
 <div class="slot-corner tl"></div><div class="slot-corner tr"></div>
 <div class="slot-corner bl"></div><div class="slot-corner br"></div>
 <div class="slot-inner">
-<div class="product-img-box"><img alt="Camiseta #11" class="slot-product-img" data-images="https://i.imgur.com/FbHkPQt.jpeg" onclick="abrirGaleria(this)" src="https://i.imgur.com/FbHkPQt.jpeg"/></div>
-<div class="nombre">Camiseta #11</div>
+<div class="product-img-box"><img alt="Remera #11" class="slot-product-img" data-images="https://i.imgur.com/FbHkPQt.jpeg" onclick="abrirGaleria(this)" src="https://i.imgur.com/FbHkPQt.jpeg"/></div>
+<div class="nombre">Remera #11</div>
 <div class="precio">$8.000 ARS</div>
-<div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Camiseta%20%2311%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/FbHkPQt.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
+<div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Remera%20%2311%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/FbHkPQt.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
 </div>
 </div>
 <div class="product-slot card">
 <div class="slot-corner tl"></div><div class="slot-corner tr"></div>
 <div class="slot-corner bl"></div><div class="slot-corner br"></div>
 <div class="slot-inner">
-<div class="product-img-box"><img alt="Camiseta #12" class="slot-product-img" data-images="https://i.imgur.com/02OZlHQ.jpeg" onclick="abrirGaleria(this)" src="https://i.imgur.com/02OZlHQ.jpeg"/></div>
-<div class="nombre">Camiseta #12</div>
+<div class="product-img-box"><img alt="Remera #12" class="slot-product-img" data-images="https://i.imgur.com/02OZlHQ.jpeg" onclick="abrirGaleria(this)" src="https://i.imgur.com/02OZlHQ.jpeg"/></div>
+<div class="nombre">Remera #12</div>
 <div class="precio">$8.000 ARS</div>
-<div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Camiseta%20%2312%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/02OZlHQ.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
+<div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Remera%20%2312%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/02OZlHQ.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
 </div>
 </div>
 <div class="product-slot card">
 <div class="slot-corner tl"></div><div class="slot-corner tr"></div>
 <div class="slot-corner bl"></div><div class="slot-corner br"></div>
 <div class="slot-inner">
-<div class="product-img-box"><img alt="Camiseta #13" class="slot-product-img" data-images="https://i.imgur.com/SzjmcaW.jpeg" onclick="abrirGaleria(this)" src="https://i.imgur.com/SzjmcaW.jpeg"/></div>
-<div class="nombre">Camiseta #13</div>
+<div class="product-img-box"><img alt="Remera #13" class="slot-product-img" data-images="https://i.imgur.com/SzjmcaW.jpeg" onclick="abrirGaleria(this)" src="https://i.imgur.com/SzjmcaW.jpeg"/></div>
+<div class="nombre">Remera #13</div>
 <div class="precio">$8.000 ARS</div>
-<div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Camiseta%20%2313%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/SzjmcaW.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
+<div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Remera%20%2313%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/SzjmcaW.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
 </div>
 </div>
 <div class="product-slot card">
 <div class="slot-corner tl"></div><div class="slot-corner tr"></div>
 <div class="slot-corner bl"></div><div class="slot-corner br"></div>
 <div class="slot-inner">
-<div class="product-img-box"><img alt="Camiseta #14" class="slot-product-img" data-images="https://i.imgur.com/Mv0QKSO.jpeg" onclick="abrirGaleria(this)" src="https://i.imgur.com/Mv0QKSO.jpeg"/></div>
-<div class="nombre">Camiseta #14</div>
+<div class="product-img-box"><img alt="Remera #14" class="slot-product-img" data-images="https://i.imgur.com/Mv0QKSO.jpeg" onclick="abrirGaleria(this)" src="https://i.imgur.com/Mv0QKSO.jpeg"/></div>
+<div class="nombre">Remera #14</div>
 <div class="precio">$8.000 ARS</div>
-<div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Camiseta%20%2314%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/Mv0QKSO.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
+<div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Remera%20%2314%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/Mv0QKSO.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
 </div>
 </div>
 <div class="product-slot card">
 <div class="slot-corner tl"></div><div class="slot-corner tr"></div>
 <div class="slot-corner bl"></div><div class="slot-corner br"></div>
 <div class="slot-inner">
-<div class="product-img-box"><img alt="Camiseta #15" class="slot-product-img" data-images="https://i.imgur.com/00COTIs.jpeg" onclick="abrirGaleria(this)" src="https://i.imgur.com/00COTIs.jpeg"/></div>
-<div class="nombre">Camiseta #15</div>
+<div class="product-img-box"><img alt="Remera #15" class="slot-product-img" data-images="https://i.imgur.com/00COTIs.jpeg" onclick="abrirGaleria(this)" src="https://i.imgur.com/00COTIs.jpeg"/></div>
+<div class="nombre">Remera #15</div>
 <div class="precio">$8.000 ARS</div>
-<div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Camiseta%20%2315%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/00COTIs.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
+<div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Remera%20%2315%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/00COTIs.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
 </div>
 </div>
 <div class="product-slot card">
 <div class="slot-corner tl"></div><div class="slot-corner tr"></div>
 <div class="slot-corner bl"></div><div class="slot-corner br"></div>
 <div class="slot-inner">
-<div class="product-img-box"><img alt="Camiseta #16" class="slot-product-img" data-images="https://i.imgur.com/dsa9rIc.jpeg" onclick="abrirGaleria(this)" src="https://i.imgur.com/dsa9rIc.jpeg"/></div>
-<div class="nombre">Camiseta #16</div>
+<div class="product-img-box"><img alt="Remera #16" class="slot-product-img" data-images="https://i.imgur.com/dsa9rIc.jpeg" onclick="abrirGaleria(this)" src="https://i.imgur.com/dsa9rIc.jpeg"/></div>
+<div class="nombre">Remera #16</div>
 <div class="precio">$8.000 ARS</div>
-<div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Camiseta%20%2316%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/dsa9rIc.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
+<div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Remera%20%2316%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/dsa9rIc.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
 </div>
 </div>
 <div class="product-slot card">
 <div class="slot-corner tl"></div><div class="slot-corner tr"></div>
 <div class="slot-corner bl"></div><div class="slot-corner br"></div>
 <div class="slot-inner">
-<div class="product-img-box"><img alt="Camiseta #17" class="slot-product-img" data-images="https://i.imgur.com/hMKEZjs.jpeg" onclick="abrirGaleria(this)" src="https://i.imgur.com/hMKEZjs.jpeg"/></div>
-<div class="nombre">Camiseta #17</div>
+<div class="product-img-box"><img alt="Remera #17" class="slot-product-img" data-images="https://i.imgur.com/hMKEZjs.jpeg" onclick="abrirGaleria(this)" src="https://i.imgur.com/hMKEZjs.jpeg"/></div>
+<div class="nombre">Remera #17</div>
 <div class="precio">$8.000 ARS</div>
-<div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Camiseta%20%2317%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/hMKEZjs.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
+<div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Remera%20%2317%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/hMKEZjs.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
 </div>
 </div>
 <div class="product-slot card">
 <div class="slot-corner tl"></div><div class="slot-corner tr"></div>
 <div class="slot-corner bl"></div><div class="slot-corner br"></div>
 <div class="slot-inner">
-<div class="product-img-box"><img alt="Camiseta #18" class="slot-product-img" data-images="https://i.imgur.com/NfCfZU6.jpeg" onclick="abrirGaleria(this)" src="https://i.imgur.com/NfCfZU6.jpeg"/></div>
-<div class="nombre">Camiseta #18</div>
+<div class="product-img-box"><img alt="Remera #18" class="slot-product-img" data-images="https://i.imgur.com/NfCfZU6.jpeg" onclick="abrirGaleria(this)" src="https://i.imgur.com/NfCfZU6.jpeg"/></div>
+<div class="nombre">Remera #18</div>
 <div class="precio">$8.000 ARS</div>
-<div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Camiseta%20%2318%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/NfCfZU6.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
+<div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Remera%20%2318%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/NfCfZU6.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
 </div>
 </div>
 <div class="product-slot card">
 <div class="slot-corner tl"></div><div class="slot-corner tr"></div>
 <div class="slot-corner bl"></div><div class="slot-corner br"></div>
 <div class="slot-inner">
-<div class="product-img-box"><img alt="Camiseta #19" class="slot-product-img" data-images="https://i.imgur.com/qZcqqDE.jpeg" onclick="abrirGaleria(this)" src="https://i.imgur.com/qZcqqDE.jpeg"/></div>
-<div class="nombre">Camiseta #19</div>
+<div class="product-img-box"><img alt="Remera #19" class="slot-product-img" data-images="https://i.imgur.com/qZcqqDE.jpeg" onclick="abrirGaleria(this)" src="https://i.imgur.com/qZcqqDE.jpeg"/></div>
+<div class="nombre">Remera #19</div>
 <div class="precio">$8.000 ARS</div>
-<div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Camiseta%20%2319%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/qZcqqDE.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
+<div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Remera%20%2319%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/qZcqqDE.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
 </div>
 </div>
 <div class="product-slot card">
 <div class="slot-corner tl"></div><div class="slot-corner tr"></div>
 <div class="slot-corner bl"></div><div class="slot-corner br"></div>
 <div class="slot-inner">
-<div class="product-img-box"><img alt="Camiseta #20" class="slot-product-img" data-images="https://i.imgur.com/EjlT8jZ.jpeg" onclick="abrirGaleria(this)" src="https://i.imgur.com/EjlT8jZ.jpeg"/></div>
-<div class="nombre">Camiseta #20</div>
+<div class="product-img-box"><img alt="Remera #20" class="slot-product-img" data-images="https://i.imgur.com/EjlT8jZ.jpeg" onclick="abrirGaleria(this)" src="https://i.imgur.com/EjlT8jZ.jpeg"/></div>
+<div class="nombre">Remera #20</div>
 <div class="precio">$8.000 ARS</div>
-<div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Camiseta%20%2320%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/EjlT8jZ.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
+<div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Remera%20%2320%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/EjlT8jZ.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
 </div>
 </div>
 <div class="product-slot card">
 <div class="slot-corner tl"></div><div class="slot-corner tr"></div>
 <div class="slot-corner bl"></div><div class="slot-corner br"></div>
 <div class="slot-inner">
-<div class="product-img-box"><img alt="Camiseta #21" class="slot-product-img" data-images="https://i.imgur.com/u1VvGOU.jpeg" onclick="abrirGaleria(this)" src="https://i.imgur.com/u1VvGOU.jpeg"/></div>
-<div class="nombre">Camiseta #21</div>
+<div class="product-img-box"><img alt="Remera #21" class="slot-product-img" data-images="https://i.imgur.com/u1VvGOU.jpeg" onclick="abrirGaleria(this)" src="https://i.imgur.com/u1VvGOU.jpeg"/></div>
+<div class="nombre">Remera #21</div>
 <div class="precio">$8.000 ARS</div>
-<div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Camiseta%20%2321%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/u1VvGOU.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
+<div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Remera%20%2321%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/u1VvGOU.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
 </div>
 </div>
 <div class="product-slot card">
 <div class="slot-corner tl"></div><div class="slot-corner tr"></div>
 <div class="slot-corner bl"></div><div class="slot-corner br"></div>
 <div class="slot-inner">
-<div class="product-img-box"><img alt="Camiseta #22" class="slot-product-img" data-images="https://i.imgur.com/7SKNEjF.jpeg" onclick="abrirGaleria(this)" src="https://i.imgur.com/7SKNEjF.jpeg"/></div>
-<div class="nombre">Camiseta #22</div>
+<div class="product-img-box"><img alt="Remera #22" class="slot-product-img" data-images="https://i.imgur.com/7SKNEjF.jpeg" onclick="abrirGaleria(this)" src="https://i.imgur.com/7SKNEjF.jpeg"/></div>
+<div class="nombre">Remera #22</div>
 <div class="precio">$8.000 ARS</div>
-<div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Camiseta%20%2322%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/7SKNEjF.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
+<div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Remera%20%2322%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/7SKNEjF.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
 </div>
 </div>
 <div class="product-slot card">
 <div class="slot-corner tl"></div><div class="slot-corner tr"></div>
 <div class="slot-corner bl"></div><div class="slot-corner br"></div>
 <div class="slot-inner">
-<div class="product-img-box"><img alt="Camiseta #23" class="slot-product-img" data-images="https://i.imgur.com/GSeUnCa.jpeg" onclick="abrirGaleria(this)" src="https://i.imgur.com/GSeUnCa.jpeg"/></div>
-<div class="nombre">Camiseta #23</div>
+<div class="product-img-box"><img alt="Remera #23" class="slot-product-img" data-images="https://i.imgur.com/GSeUnCa.jpeg" onclick="abrirGaleria(this)" src="https://i.imgur.com/GSeUnCa.jpeg"/></div>
+<div class="nombre">Remera #23</div>
 <div class="precio">$8.000 ARS</div>
-<div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Camiseta%20%2323%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/GSeUnCa.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
+<div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Remera%20%2323%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/GSeUnCa.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
 </div>
 </div>
 <div class="product-slot card">
 <div class="slot-corner tl"></div><div class="slot-corner tr"></div>
 <div class="slot-corner bl"></div><div class="slot-corner br"></div>
 <div class="slot-inner">
-<div class="product-img-box"><img alt="Camiseta #24" class="slot-product-img" data-images="https://i.imgur.com/Ra0qjTs.jpeg" onclick="abrirGaleria(this)" src="https://i.imgur.com/Ra0qjTs.jpeg"/></div>
-<div class="nombre">Camiseta #24</div>
+<div class="product-img-box"><img alt="Remera #24" class="slot-product-img" data-images="https://i.imgur.com/Ra0qjTs.jpeg" onclick="abrirGaleria(this)" src="https://i.imgur.com/Ra0qjTs.jpeg"/></div>
+<div class="nombre">Remera #24</div>
 <div class="precio">$8.000 ARS</div>
-<div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Camiseta%20%2324%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/Ra0qjTs.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
+<div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Remera%20%2324%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/Ra0qjTs.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
 </div>
 </div>
 <div class="product-slot card">
 <div class="slot-corner tl"></div><div class="slot-corner tr"></div>
 <div class="slot-corner bl"></div><div class="slot-corner br"></div>
 <div class="slot-inner">
-<div class="product-img-box"><img alt="Camiseta #25" class="slot-product-img" data-images="https://i.imgur.com/Laq4amh.jpeg" onclick="abrirGaleria(this)" src="https://i.imgur.com/Laq4amh.jpeg"/></div>
-<div class="nombre">Camiseta #25</div>
+<div class="product-img-box"><img alt="Remera #25" class="slot-product-img" data-images="https://i.imgur.com/Laq4amh.jpeg" onclick="abrirGaleria(this)" src="https://i.imgur.com/Laq4amh.jpeg"/></div>
+<div class="nombre">Remera #25</div>
 <div class="precio">$8.000 ARS</div>
-<div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Camiseta%20%2325%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/Laq4amh.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
+<div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Remera%20%2325%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/Laq4amh.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
 </div>
 </div>
 <div class="product-slot card">
 <div class="slot-corner tl"></div><div class="slot-corner tr"></div>
 <div class="slot-corner bl"></div><div class="slot-corner br"></div>
 <div class="slot-inner">
-<div class="product-img-box"><img alt="Camiseta #26" class="slot-product-img" data-images="https://i.imgur.com/S8gPkqr.jpeg" onclick="abrirGaleria(this)" src="https://i.imgur.com/S8gPkqr.jpeg"/></div>
-<div class="nombre">Camiseta #26</div>
+<div class="product-img-box"><img alt="Remera #26" class="slot-product-img" data-images="https://i.imgur.com/S8gPkqr.jpeg" onclick="abrirGaleria(this)" src="https://i.imgur.com/S8gPkqr.jpeg"/></div>
+<div class="nombre">Remera #26</div>
 <div class="precio">$8.000 ARS</div>
-<div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Camiseta%20%2326%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/S8gPkqr.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
+<div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Remera%20%2326%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/S8gPkqr.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
 </div>
 </div>
 <div class="product-slot card">
 <div class="slot-corner tl"></div><div class="slot-corner tr"></div>
 <div class="slot-corner bl"></div><div class="slot-corner br"></div>
 <div class="slot-inner">
-<div class="product-img-box"><img alt="Camiseta #27" class="slot-product-img" data-images="https://i.imgur.com/KexY4ob.jpeg" onclick="abrirGaleria(this)" src="https://i.imgur.com/KexY4ob.jpeg"/></div>
-<div class="nombre">Camiseta #27</div>
+<div class="product-img-box"><img alt="Remera #27" class="slot-product-img" data-images="https://i.imgur.com/KexY4ob.jpeg" onclick="abrirGaleria(this)" src="https://i.imgur.com/KexY4ob.jpeg"/></div>
+<div class="nombre">Remera #27</div>
 <div class="precio">$8.000 ARS</div>
-<div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Camiseta%20%2327%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/KexY4ob.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
+<div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Remera%20%2327%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/KexY4ob.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
 </div>
 </div>
 <div class="product-slot card">
 <div class="slot-corner tl"></div><div class="slot-corner tr"></div>
 <div class="slot-corner bl"></div><div class="slot-corner br"></div>
 <div class="slot-inner">
-<div class="product-img-box"><img alt="Camiseta #28" class="slot-product-img" data-images="https://i.imgur.com/RpqmUiY.jpeg" onclick="abrirGaleria(this)" src="https://i.imgur.com/RpqmUiY.jpeg"/></div>
-<div class="nombre">Camiseta #28</div>
+<div class="product-img-box"><img alt="Remera #28" class="slot-product-img" data-images="https://i.imgur.com/RpqmUiY.jpeg" onclick="abrirGaleria(this)" src="https://i.imgur.com/RpqmUiY.jpeg"/></div>
+<div class="nombre">Remera #28</div>
 <div class="precio">$8.000 ARS</div>
-<div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Camiseta%20%2328%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/RpqmUiY.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
+<div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Remera%20%2328%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/RpqmUiY.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
 </div>
 </div>
 <div class="product-slot card">
 <div class="slot-corner tl"></div><div class="slot-corner tr"></div>
 <div class="slot-corner bl"></div><div class="slot-corner br"></div>
 <div class="slot-inner">
-<div class="product-img-box"><img alt="Camiseta #29" class="slot-product-img" data-images="https://i.imgur.com/Ae5mlDY.jpeg" onclick="abrirGaleria(this)" src="https://i.imgur.com/Ae5mlDY.jpeg"/></div>
-<div class="nombre">Camiseta #29</div>
+<div class="product-img-box"><img alt="Remera #29" class="slot-product-img" data-images="https://i.imgur.com/Ae5mlDY.jpeg" onclick="abrirGaleria(this)" src="https://i.imgur.com/Ae5mlDY.jpeg"/></div>
+<div class="nombre">Remera #29</div>
 <div class="precio">$8.000 ARS</div>
-<div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Camiseta%20%2329%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/Ae5mlDY.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
+<div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Remera%20%2329%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/Ae5mlDY.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
 </div>
 </div>
 <div class="product-slot card">
 <div class="slot-corner tl"></div><div class="slot-corner tr"></div>
 <div class="slot-corner bl"></div><div class="slot-corner br"></div>
 <div class="slot-inner">
-<div class="product-img-box"><img alt="Camiseta #30" class="slot-product-img" data-images="https://i.imgur.com/WpOMRDO.jpeg" onclick="abrirGaleria(this)" src="https://i.imgur.com/WpOMRDO.jpeg"/></div>
-<div class="nombre">Camiseta #30</div>
+<div class="product-img-box"><img alt="Remera #30" class="slot-product-img" data-images="https://i.imgur.com/WpOMRDO.jpeg" onclick="abrirGaleria(this)" src="https://i.imgur.com/WpOMRDO.jpeg"/></div>
+<div class="nombre">Remera #30</div>
 <div class="precio">$8.000 ARS</div>
-<div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Camiseta%20%2330%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/WpOMRDO.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
+<div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Remera%20%2330%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/WpOMRDO.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
 </div>
 </div>
 <div class="product-slot card">
 <div class="slot-corner tl"></div><div class="slot-corner tr"></div>
 <div class="slot-corner bl"></div><div class="slot-corner br"></div>
 <div class="slot-inner">
-<div class="product-img-box"><img alt="Camiseta #31" class="slot-product-img" data-images="https://i.imgur.com/rIxNgkl.jpeg" onclick="abrirGaleria(this)" src="https://i.imgur.com/rIxNgkl.jpeg"/></div>
-<div class="nombre">Camiseta #31</div>
+<div class="product-img-box"><img alt="Remera #31" class="slot-product-img" data-images="https://i.imgur.com/rIxNgkl.jpeg" onclick="abrirGaleria(this)" src="https://i.imgur.com/rIxNgkl.jpeg"/></div>
+<div class="nombre">Remera #31</div>
 <div class="precio">$8.000 ARS</div>
-<div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Camiseta%20%2331%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/rIxNgkl.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
+<div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Remera%20%2331%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/rIxNgkl.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
 </div>
 </div>
 <div class="product-slot card">
 <div class="slot-corner tl"></div><div class="slot-corner tr"></div>
 <div class="slot-corner bl"></div><div class="slot-corner br"></div>
 <div class="slot-inner">
-<div class="product-img-box"><img alt="Camiseta #32" class="slot-product-img" data-images="https://i.imgur.com/1JQXLcw.jpeg" onclick="abrirGaleria(this)" src="https://i.imgur.com/1JQXLcw.jpeg"/></div>
-<div class="nombre">Camiseta #32</div>
+<div class="product-img-box"><img alt="Remera #32" class="slot-product-img" data-images="https://i.imgur.com/1JQXLcw.jpeg" onclick="abrirGaleria(this)" src="https://i.imgur.com/1JQXLcw.jpeg"/></div>
+<div class="nombre">Remera #32</div>
 <div class="precio">$8.000 ARS</div>
-<div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Camiseta%20%2332%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/1JQXLcw.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
+<div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Remera%20%2332%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/1JQXLcw.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
 </div>
 </div>
 <div class="product-slot card">
 <div class="slot-corner tl"></div><div class="slot-corner tr"></div>
 <div class="slot-corner bl"></div><div class="slot-corner br"></div>
 <div class="slot-inner">
-<div class="product-img-box"><img alt="Camiseta #33" class="slot-product-img" data-images="https://i.imgur.com/t5y21Iv.jpeg" onclick="abrirGaleria(this)" src="https://i.imgur.com/t5y21Iv.jpeg"/></div>
-<div class="nombre">Camiseta #33</div>
+<div class="product-img-box"><img alt="Remera #33" class="slot-product-img" data-images="https://i.imgur.com/t5y21Iv.jpeg" onclick="abrirGaleria(this)" src="https://i.imgur.com/t5y21Iv.jpeg"/></div>
+<div class="nombre">Remera #33</div>
 <div class="precio">$8.000 ARS</div>
-<div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Camiseta%20%2333%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/t5y21Iv.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
+<div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Remera%20%2333%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/t5y21Iv.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
 </div>
 </div>
 <div class="product-slot card">
 <div class="slot-corner tl"></div><div class="slot-corner tr"></div>
 <div class="slot-corner bl"></div><div class="slot-corner br"></div>
 <div class="slot-inner">
-<div class="product-img-box"><img alt="Camiseta #34" class="slot-product-img" data-images="https://i.imgur.com/nsqMiae.jpeg" onclick="abrirGaleria(this)" src="https://i.imgur.com/nsqMiae.jpeg"/></div>
-<div class="nombre">Camiseta #34</div>
+<div class="product-img-box"><img alt="Remera #34" class="slot-product-img" data-images="https://i.imgur.com/nsqMiae.jpeg" onclick="abrirGaleria(this)" src="https://i.imgur.com/nsqMiae.jpeg"/></div>
+<div class="nombre">Remera #34</div>
 <div class="precio">$8.000 ARS</div>
-<div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Camiseta%20%2334%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/nsqMiae.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
+<div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Remera%20%2334%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/nsqMiae.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
 </div>
 </div>
 <div class="product-slot card">
 <div class="slot-corner tl"></div><div class="slot-corner tr"></div>
 <div class="slot-corner bl"></div><div class="slot-corner br"></div>
 <div class="slot-inner">
-<div class="product-img-box"><img alt="Camiseta #35" class="slot-product-img" data-images="https://i.imgur.com/DbXRe2m.jpeg" onclick="abrirGaleria(this)" src="https://i.imgur.com/DbXRe2m.jpeg"/></div>
-<div class="nombre">Camiseta #35</div>
+<div class="product-img-box"><img alt="Remera #35" class="slot-product-img" data-images="https://i.imgur.com/DbXRe2m.jpeg" onclick="abrirGaleria(this)" src="https://i.imgur.com/DbXRe2m.jpeg"/></div>
+<div class="nombre">Remera #35</div>
 <div class="precio">$8.000 ARS</div>
-<div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Camiseta%20%2335%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/DbXRe2m.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
+<div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Remera%20%2335%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/DbXRe2m.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
 </div>
 </div>
 <div class="product-slot card">
 <div class="slot-corner tl"></div><div class="slot-corner tr"></div>
 <div class="slot-corner bl"></div><div class="slot-corner br"></div>
 <div class="slot-inner">
-<div class="product-img-box"><img alt="Camiseta #36" class="slot-product-img" data-images="https://i.imgur.com/wL6v8y8.jpeg" onclick="abrirGaleria(this)" src="https://i.imgur.com/wL6v8y8.jpeg"/></div>
-<div class="nombre">Camiseta #36</div>
+<div class="product-img-box"><img alt="Remera #36" class="slot-product-img" data-images="https://i.imgur.com/wL6v8y8.jpeg" onclick="abrirGaleria(this)" src="https://i.imgur.com/wL6v8y8.jpeg"/></div>
+<div class="nombre">Remera #36</div>
 <div class="precio">$8.000 ARS</div>
-<div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Camiseta%20%2336%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/wL6v8y8.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
+<div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Remera%20%2336%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/wL6v8y8.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
 </div>
 </div>
 <div class="product-slot card">
 <div class="slot-corner tl"></div><div class="slot-corner tr"></div>
 <div class="slot-corner bl"></div><div class="slot-corner br"></div>
 <div class="slot-inner">
-<div class="product-img-box"><img alt="Camiseta #37" class="slot-product-img" data-images="https://i.imgur.com/83qqxWY.jpeg" onclick="abrirGaleria(this)" src="https://i.imgur.com/83qqxWY.jpeg"/></div>
-<div class="nombre">Camiseta #37</div>
+<div class="product-img-box"><img alt="Remera #37" class="slot-product-img" data-images="https://i.imgur.com/83qqxWY.jpeg" onclick="abrirGaleria(this)" src="https://i.imgur.com/83qqxWY.jpeg"/></div>
+<div class="nombre">Remera #37</div>
 <div class="precio">$8.000 ARS</div>
-<div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Camiseta%20%2337%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/83qqxWY.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
+<div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Remera%20%2337%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/83qqxWY.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
 </div>
 </div>
 <div class="product-slot card">
 <div class="slot-corner tl"></div><div class="slot-corner tr"></div>
 <div class="slot-corner bl"></div><div class="slot-corner br"></div>
 <div class="slot-inner">
-<div class="product-img-box"><img alt="Camiseta #38" class="slot-product-img" data-images="https://i.imgur.com/UWkf6lj.jpeg" onclick="abrirGaleria(this)" src="https://i.imgur.com/UWkf6lj.jpeg"/></div>
-<div class="nombre">Camiseta #38</div>
+<div class="product-img-box"><img alt="Remera #38" class="slot-product-img" data-images="https://i.imgur.com/UWkf6lj.jpeg" onclick="abrirGaleria(this)" src="https://i.imgur.com/UWkf6lj.jpeg"/></div>
+<div class="nombre">Remera #38</div>
 <div class="precio">$8.000 ARS</div>
-<div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Camiseta%20%2338%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/UWkf6lj.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
+<div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Remera%20%2338%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/UWkf6lj.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
 </div>
 </div>
 <div class="product-slot card">
 <div class="slot-corner tl"></div><div class="slot-corner tr"></div>
 <div class="slot-corner bl"></div><div class="slot-corner br"></div>
 <div class="slot-inner">
-<div class="product-img-box"><img alt="Camiseta #39" class="slot-product-img" data-images="https://i.imgur.com/45tjZb6.jpeg" onclick="abrirGaleria(this)" src="https://i.imgur.com/45tjZb6.jpeg"/></div>
-<div class="nombre">Camiseta #39</div>
+<div class="product-img-box"><img alt="Remera #39" class="slot-product-img" data-images="https://i.imgur.com/45tjZb6.jpeg" onclick="abrirGaleria(this)" src="https://i.imgur.com/45tjZb6.jpeg"/></div>
+<div class="nombre">Remera #39</div>
 <div class="precio">$8.000 ARS</div>
-<div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Camiseta%20%2339%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/45tjZb6.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
+<div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Remera%20%2339%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/45tjZb6.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
 </div>
 </div>
 <div class="product-slot card">
 <div class="slot-corner tl"></div><div class="slot-corner tr"></div>
 <div class="slot-corner bl"></div><div class="slot-corner br"></div>
 <div class="slot-inner">
-<div class="product-img-box"><img alt="Camiseta #40" class="slot-product-img" data-images="https://i.imgur.com/GpMXt1h.jpeg" onclick="abrirGaleria(this)" src="https://i.imgur.com/GpMXt1h.jpeg"/></div>
-<div class="nombre">Camiseta #40</div>
+<div class="product-img-box"><img alt="Remera #40" class="slot-product-img" data-images="https://i.imgur.com/GpMXt1h.jpeg" onclick="abrirGaleria(this)" src="https://i.imgur.com/GpMXt1h.jpeg"/></div>
+<div class="nombre">Remera #40</div>
 <div class="precio">$8.000 ARS</div>
-<div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Camiseta%20%2340%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/GpMXt1h.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
+<div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Remera%20%2340%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/GpMXt1h.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
 </div>
 </div>
 <div class="product-slot card">
 <div class="slot-corner tl"></div><div class="slot-corner tr"></div>
 <div class="slot-corner bl"></div><div class="slot-corner br"></div>
 <div class="slot-inner">
-<div class="product-img-box"><img alt="Camiseta #41" class="slot-product-img" data-images="https://i.imgur.com/blRQ4fv.jpeg" onclick="abrirGaleria(this)" src="https://i.imgur.com/blRQ4fv.jpeg"/></div>
-<div class="nombre">Camiseta #41</div>
+<div class="product-img-box"><img alt="Remera #41" class="slot-product-img" data-images="https://i.imgur.com/blRQ4fv.jpeg" onclick="abrirGaleria(this)" src="https://i.imgur.com/blRQ4fv.jpeg"/></div>
+<div class="nombre">Remera #41</div>
 <div class="precio">$8.000 ARS</div>
-<div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Camiseta%20%2341%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/blRQ4fv.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
+<div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Remera%20%2341%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/blRQ4fv.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
 </div>
 </div>
 <div class="product-slot card">
 <div class="slot-corner tl"></div><div class="slot-corner tr"></div>
 <div class="slot-corner bl"></div><div class="slot-corner br"></div>
 <div class="slot-inner">
-<div class="product-img-box"><img alt="Camiseta #42" class="slot-product-img" data-images="https://i.imgur.com/bP3Hntl.jpeg" onclick="abrirGaleria(this)" src="https://i.imgur.com/bP3Hntl.jpeg"/></div>
-<div class="nombre">Camiseta #42</div>
+<div class="product-img-box"><img alt="Remera #42" class="slot-product-img" data-images="https://i.imgur.com/bP3Hntl.jpeg" onclick="abrirGaleria(this)" src="https://i.imgur.com/bP3Hntl.jpeg"/></div>
+<div class="nombre">Remera #42</div>
 <div class="precio">$8.000 ARS</div>
-<div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Camiseta%20%2342%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/bP3Hntl.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
+<div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Remera%20%2342%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/bP3Hntl.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
 </div>
 </div>
 <div class="product-slot card">
 <div class="slot-corner tl"></div><div class="slot-corner tr"></div>
 <div class="slot-corner bl"></div><div class="slot-corner br"></div>
 <div class="slot-inner">
-<div class="product-img-box"><img alt="Camiseta #43" class="slot-product-img" data-images="https://i.imgur.com/V7EIDKZ.jpeg" onclick="abrirGaleria(this)" src="https://i.imgur.com/V7EIDKZ.jpeg"/></div>
-<div class="nombre">Camiseta #43</div>
+<div class="product-img-box"><img alt="Remera #43" class="slot-product-img" data-images="https://i.imgur.com/V7EIDKZ.jpeg" onclick="abrirGaleria(this)" src="https://i.imgur.com/V7EIDKZ.jpeg"/></div>
+<div class="nombre">Remera #43</div>
 <div class="precio">$8.000 ARS</div>
-<div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Camiseta%20%2343%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/V7EIDKZ.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
+<div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Remera%20%2343%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/V7EIDKZ.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
 </div>
 </div>
 <div class="product-slot card">
 <div class="slot-corner tl"></div><div class="slot-corner tr"></div>
 <div class="slot-corner bl"></div><div class="slot-corner br"></div>
 <div class="slot-inner">
-<div class="product-img-box"><img alt="Camiseta #44" class="slot-product-img" data-images="https://i.imgur.com/1IZMPjP.jpeg" onclick="abrirGaleria(this)" src="https://i.imgur.com/1IZMPjP.jpeg"/></div>
-<div class="nombre">Camiseta #44</div>
+<div class="product-img-box"><img alt="Remera #44" class="slot-product-img" data-images="https://i.imgur.com/1IZMPjP.jpeg" onclick="abrirGaleria(this)" src="https://i.imgur.com/1IZMPjP.jpeg"/></div>
+<div class="nombre">Remera #44</div>
 <div class="precio">$8.000 ARS</div>
-<div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Camiseta%20%2344%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/1IZMPjP.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
+<div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Remera%20%2344%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/1IZMPjP.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
 </div>
 </div>
 <div class="product-slot card">
 <div class="slot-corner tl"></div><div class="slot-corner tr"></div>
 <div class="slot-corner bl"></div><div class="slot-corner br"></div>
 <div class="slot-inner">
-<div class="product-img-box"><img alt="Camiseta #45" class="slot-product-img" data-images="https://i.imgur.com/VSBOjqZ.jpeg" onclick="abrirGaleria(this)" src="https://i.imgur.com/VSBOjqZ.jpeg"/></div>
-<div class="nombre">Camiseta #45</div>
+<div class="product-img-box"><img alt="Remera #45" class="slot-product-img" data-images="https://i.imgur.com/VSBOjqZ.jpeg" onclick="abrirGaleria(this)" src="https://i.imgur.com/VSBOjqZ.jpeg"/></div>
+<div class="nombre">Remera #45</div>
 <div class="precio">$8.000 ARS</div>
-<div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Camiseta%20%2345%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/VSBOjqZ.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
+<div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Remera%20%2345%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/VSBOjqZ.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
 </div>
 </div>
 <div class="product-slot card">
 <div class="slot-corner tl"></div><div class="slot-corner tr"></div>
 <div class="slot-corner bl"></div><div class="slot-corner br"></div>
 <div class="slot-inner">
-<div class="product-img-box"><img alt="Camiseta #46" class="slot-product-img" data-images="https://i.imgur.com/QkMHClr.jpeg" onclick="abrirGaleria(this)" src="https://i.imgur.com/QkMHClr.jpeg"/></div>
-<div class="nombre">Camiseta #46</div>
+<div class="product-img-box"><img alt="Remera #46" class="slot-product-img" data-images="https://i.imgur.com/QkMHClr.jpeg" onclick="abrirGaleria(this)" src="https://i.imgur.com/QkMHClr.jpeg"/></div>
+<div class="nombre">Remera #46</div>
 <div class="precio">$8.000 ARS</div>
-<div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Camiseta%20%2346%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/QkMHClr.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
+<div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Remera%20%2346%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/QkMHClr.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
 </div>
 </div>
 <div class="product-slot card">
 <div class="slot-corner tl"></div><div class="slot-corner tr"></div>
 <div class="slot-corner bl"></div><div class="slot-corner br"></div>
 <div class="slot-inner">
-<div class="product-img-box"><img alt="Camiseta #47" class="slot-product-img" data-images="https://i.imgur.com/L7wd2gz.jpeg" onclick="abrirGaleria(this)" src="https://i.imgur.com/L7wd2gz.jpeg"/></div>
-<div class="nombre">Camiseta #47</div>
+<div class="product-img-box"><img alt="Remera #47" class="slot-product-img" data-images="https://i.imgur.com/L7wd2gz.jpeg" onclick="abrirGaleria(this)" src="https://i.imgur.com/L7wd2gz.jpeg"/></div>
+<div class="nombre">Remera #47</div>
 <div class="precio">$8.000 ARS</div>
-<div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Camiseta%20%2347%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/L7wd2gz.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
+<div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Remera%20%2347%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/L7wd2gz.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
 </div>
 </div>
 <div class="product-slot card">
 <div class="slot-corner tl"></div><div class="slot-corner tr"></div>
 <div class="slot-corner bl"></div><div class="slot-corner br"></div>
 <div class="slot-inner">
-<div class="product-img-box"><img alt="Camiseta #48" class="slot-product-img" data-images="https://i.imgur.com/bCSyPqr.jpeg" onclick="abrirGaleria(this)" src="https://i.imgur.com/bCSyPqr.jpeg"/></div>
-<div class="nombre">Camiseta #48</div>
+<div class="product-img-box"><img alt="Remera #48" class="slot-product-img" data-images="https://i.imgur.com/bCSyPqr.jpeg" onclick="abrirGaleria(this)" src="https://i.imgur.com/bCSyPqr.jpeg"/></div>
+<div class="nombre">Remera #48</div>
 <div class="precio">$8.000 ARS</div>
-<div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Camiseta%20%2348%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/bCSyPqr.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
+<div class="btn-row"><a class="btn" href="https://wa.me/541170743305?text=Hola%20quiero%20consultar%20por%20Remera%20%2348%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/bCSyPqr.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
 </div>
 </div>
 </div>
@@ -3219,12 +3391,12 @@ footer {
 <div id="modal" class="modal" onclick="cerrarImagen()">
   <span class="cerrar" onclick="cerrarImagen()">&times;</span>
   <span class="flecha izquierda" onclick="imagenAnterior(event)">&#10094;</span>
-  <img id="imgGrande" alt="Imagen ampliada">
+  <img id="imgGrande" alt="Imagen ampliada" decoding="async" fetchpriority="high">
   <span class="flecha derecha" onclick="imagenSiguiente(event)">&#10095;</span>
   <div id="contador" class="contador">1 / 1</div>
 </div>
 
-<div id="popup-info">👆 Clic en el item para ver más colores</div>
+<div id="popup-info">Alerta: clic en un item para ver mas colores</div>
 
 
 <section id="contacto" class="contact-section">
@@ -3299,65 +3471,192 @@ footer {
 // GALERIA + CARRITO DEL CATALOGO ORIGINAL
 let imagenesActuales = [];
 let indiceActual = 0;
+const cacheImagenesGaleria = new Map();
+const modalGaleriaEl = document.getElementById("modal");
+const imgGrandeEl = document.getElementById("imgGrande");
+const contadorGaleriaEl = document.getElementById("contador");
+
+function obtenerImagenesGaleria(elemento) {
+  if (!elemento || !elemento.dataset.images) return [];
+  return elemento.dataset.images.split(",").map(src => src.trim()).filter(Boolean);
+}
+
+function precargarImagenGaleria(src) {
+  if (!src) return null;
+  if (cacheImagenesGaleria.has(src)) return cacheImagenesGaleria.get(src);
+  const img = new Image();
+  img.decoding = "async";
+  img.src = src;
+  const listo = img.decode ? img.decode().catch(() => {}) : Promise.resolve();
+  const cache = { img, listo };
+  cacheImagenesGaleria.set(src, cache);
+  return cache;
+}
+
+function precargarGrupoGaleria(lista, indiceBase) {
+  if (!lista.length) return;
+  precargarImagenGaleria(lista[indiceBase]);
+  precargarImagenGaleria(lista[(indiceBase + 1) % lista.length]);
+  precargarImagenGaleria(lista[(indiceBase - 1 + lista.length) % lista.length]);
+
+  const cargarResto = () => {
+    lista.forEach(src => precargarImagenGaleria(src));
+  };
+
+  if ("requestIdleCallback" in window) {
+    requestIdleCallback(cargarResto, { timeout: 900 });
+  } else {
+    setTimeout(cargarResto, 120);
+  }
+}
+
+function mostrarImagenGaleria() {
+  if (!imgGrandeEl || !imagenesActuales.length) return;
+  const src = imagenesActuales[indiceActual];
+  precargarImagenGaleria(src);
+  if (imgGrandeEl.getAttribute("src") !== src) {
+    imgGrandeEl.src = src;
+  }
+  actualizarContador();
+  precargarGrupoGaleria(imagenesActuales, indiceActual);
+}
 
 function abrirGaleria(elemento) {
-  if (!elemento || !elemento.dataset.images) return;
-  imagenesActuales = elemento.dataset.images.split(",");
+  imagenesActuales = obtenerImagenesGaleria(elemento);
+  if (!imagenesActuales.length || !modalGaleriaEl) return;
   indiceActual = 0;
-  document.getElementById("imgGrande").src = imagenesActuales[indiceActual];
-  document.getElementById("modal").style.display = "flex";
-  actualizarContador();
+  modalGaleriaEl.style.display = "flex";
+  mostrarImagenGaleria();
 }
 
 function cerrarImagen() {
-  document.getElementById("modal").style.display = "none";
+  if (modalGaleriaEl) modalGaleriaEl.style.display = "none";
 }
 
 function imagenSiguiente(event) {
-  event.stopPropagation();
+  if (event) event.stopPropagation();
+  if (!imagenesActuales.length) return;
   indiceActual++;
   if (indiceActual >= imagenesActuales.length) indiceActual = 0;
-  document.getElementById("imgGrande").src = imagenesActuales[indiceActual];
-  actualizarContador();
+  mostrarImagenGaleria();
 }
 
 function imagenAnterior(event) {
-  event.stopPropagation();
+  if (event) event.stopPropagation();
+  if (!imagenesActuales.length) return;
   indiceActual--;
   if (indiceActual < 0) indiceActual = imagenesActuales.length - 1;
-  document.getElementById("imgGrande").src = imagenesActuales[indiceActual];
-  actualizarContador();
+  mostrarImagenGaleria();
 }
 
 function actualizarContador() {
-  document.getElementById("contador").textContent = (indiceActual + 1) + " / " + imagenesActuales.length;
+  if (contadorGaleriaEl) {
+    contadorGaleriaEl.textContent = (indiceActual + 1) + " / " + imagenesActuales.length;
+  }
 }
 
-const imgGrandeEl = document.getElementById("imgGrande");
 if (imgGrandeEl) {
   imgGrandeEl.addEventListener("click", function(event) {
     event.stopPropagation();
   });
 }
 
+document.querySelectorAll(".slot-product-img").forEach(img => {
+  img.loading = "lazy";
+  img.decoding = "async";
+  img.addEventListener("pointerenter", () => {
+    const lista = obtenerImagenesGaleria(img);
+    precargarGrupoGaleria(lista, 0);
+  }, { passive: true });
+  img.addEventListener("focus", () => {
+    const lista = obtenerImagenesGaleria(img);
+    precargarGrupoGaleria(lista, 0);
+  });
+});
+
 document.addEventListener("keydown", function(event) {
-  if (document.getElementById("modal").style.display !== "flex") return;
+  if (!modalGaleriaEl || modalGaleriaEl.style.display !== "flex") return;
   if (event.key === "Escape") cerrarImagen();
   if (event.key === "ArrowRight") imagenSiguiente(event);
   if (event.key === "ArrowLeft") imagenAnterior(event);
 });
 
-window.addEventListener("load", function() {
-  setTimeout(function() {
-    const popup = document.getElementById("popup-info");
-    if (!popup) return;
-    popup.classList.add("mostrar");
-    const sonidoClin = new Audio("https://assets.mixkit.co/active_storage/sfx/2869/2869-preview.mp3");
-    sonidoClin.volume = 0.4;
-    sonidoClin.play().catch(() => {});
-    setTimeout(function() { popup.classList.remove("mostrar"); }, 3500);
-  }, 5200);
+const AudioContextNotificacion = window.AudioContext || window.webkitAudioContext;
+let audioNotificacionCtx = null;
+
+function prepararAudioNotificacion() {
+  if (!AudioContextNotificacion) return null;
+  if (!audioNotificacionCtx) audioNotificacionCtx = new AudioContextNotificacion();
+  if (audioNotificacionCtx.state === "suspended") {
+    audioNotificacionCtx.resume().catch(() => {});
+  }
+  return audioNotificacionCtx;
+}
+
+function reproducirNotificacionSutil() {
+  const ctx = prepararAudioNotificacion();
+  if (!ctx) return;
+
+  const sonar = () => {
+    const inicio = ctx.currentTime;
+    const ganancia = ctx.createGain();
+    const tono = ctx.createOscillator();
+    tono.type = "sine";
+    tono.frequency.setValueAtTime(660, inicio);
+    tono.frequency.exponentialRampToValueAtTime(880, inicio + 0.12);
+    ganancia.gain.setValueAtTime(0.0001, inicio);
+    ganancia.gain.exponentialRampToValueAtTime(0.055, inicio + 0.018);
+    ganancia.gain.exponentialRampToValueAtTime(0.0001, inicio + 0.24);
+    tono.connect(ganancia);
+    ganancia.connect(ctx.destination);
+    tono.start(inicio);
+    tono.stop(inicio + 0.26);
+  };
+
+  if (ctx.state === "suspended") {
+    ctx.resume().then(sonar).catch(() => {});
+  } else {
+    sonar();
+  }
+}
+
+["pointerdown", "touchstart", "keydown"].forEach(evento => {
+  document.addEventListener(evento, prepararAudioNotificacion, { once: true, passive: true });
 });
+
+(function activarPopupProductos() {
+  const popup = document.getElementById("popup-info");
+  const productos = document.getElementById("productos");
+  if (!popup || !productos) return;
+
+  let mostrado = false;
+  const mostrarPopup = () => {
+    if (mostrado) return;
+    mostrado = true;
+    popup.classList.add("mostrar");
+    reproducirNotificacionSutil();
+    setTimeout(() => popup.classList.remove("mostrar"), 6200);
+  };
+
+  if ("IntersectionObserver" in window) {
+    const popupObserver = new IntersectionObserver((entries, observer) => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        mostrarPopup();
+        observer.disconnect();
+      });
+    }, { threshold: 0.01, rootMargin: "0px 0px -25% 0px" });
+    popupObserver.observe(productos);
+  } else {
+    window.addEventListener("scroll", function revisarProductos() {
+      const rect = productos.getBoundingClientRect();
+      if (rect.top < window.innerHeight * 0.72 && rect.bottom > 0) {
+        mostrarPopup();
+        window.removeEventListener("scroll", revisarProductos);
+      }
+    }, { passive: true });
+  }
+})();
 
 const WHATSAPP_NUMERO = "541170743305";
 const CARRITO_STORAGE_KEY = "cestIndumentariaCarritoV1";
@@ -3479,7 +3778,159 @@ function vaciarCarrito() {
 
 actualizarCarrito();
 
+const DETALLES_PRODUCTOS = [
+  "Buzo con capucha estilo Jordan, logo grande tipo script en el pecho. Variantes en negro, blanco y rojo.",
+  "Buzo con capucha y Jumpman central grande. Disponible en rojo, blanco, negro, crema y bordo.",
+  "Buzo Jordan con capucha y logo pequeno central. Opciones en negro, crema, lila y rojo.",
+  "Buzo Jordan con capucha, letras en el frente y Jumpman cruzado. Variantes blanco, crema y rojo.",
+  "Buzo Jordan con capucha y logo frontal de letras. Disponible en blanco, crema, negro y rojo.",
+  "Buzo Jordan con capucha y logo multicolor en el pecho. Opciones blanco, negro y crema.",
+  "Buzo Jordan negro con capucha, lettering arqueado en el frente y espalda lisa.",
+  "Buzo Jordan negro con capucha y grafica circular multicolor en el pecho.",
+  "Buzo con capucha estilo Nike Swoosh By Nike. Variantes rojo, verde, celeste, marron, lila, blanco, negro y amarillo.",
+  "Buzo Jordan Flyght con capucha y grafica de zapatillas en el frente. Variantes negro, crema, rojo y blanco.",
+  "Buzo Jordan con capucha, grafica tipo rayo y lettering en espalda. Opciones bordo, negro y blanco.",
+  "Buzo Jordan con capucha, panel frontal gris y detalle estampado en capucha. Disponible blanco y negro.",
+  "Buzo Nike negro con capucha, cierre frontal y logo pequeno en el pecho.",
+  "Buzo Jordan negro con capucha y Jumpman grande central en el frente.",
+  "Buzo Jordan negro con capucha y logo pequeno estilo Jumpman en el pecho.",
+  "Buzo Jordan con capucha y lettering rojo en el pecho. Variantes negro y gris claro.",
+  "Buzo Jordan con capucha y grafica de personaje/aro en el frente. Variantes negro y gris.",
+  "Buzo Jordan con capucha y estampado rectangular de zapatilla. Variantes negro y rojo.",
+  "Buzo Jordan con capucha y logo circular Jumpman. Variantes blanco y negro.",
+  "Buzo Hugo Boss con capucha y recuadro frontal. Variantes negro y blanco.",
+  "Buzo Jordan 23 con capucha y numero grande al frente. Variantes negro, rojo y blanco.",
+  "Buzo con capucha estilo Hugo, logo grande frontal. Variantes negro y blanco.",
+  "Buzo Jordan con capucha y logo central. Variedad en blanco, rojo, verde y negro.",
+  "Buzo Calvin Klein con capucha y logo lineal. Opciones negro, rojo, azul y blanco.",
+  "Buzo negro con capucha y grafica Jordan dorada en el pecho.",
+  "Buzo negro con capucha y logo Jordan multicolor en el frente.",
+  "Buzo negro con capucha, estampa Jordan con detalles rojo y azul.",
+  "Buzo negro con capucha y logo Jordan minimal en el pecho.",
+  "Buzo negro con capucha y grafica Jumpman grande en tonos naranja y amarillo.",
+  "Buzo negro con capucha y logo Jordan multicolor de estilo urbano.",
+  "Buzo Jordan con capucha y grafica celeste. Variantes gris, rojo y negro.",
+  "Buzo Calvin Klein con capucha y logo frontal. Variantes gris, blanco y negro.",
+  "Buzo Jordan con capucha y Jumpman lateral. Variantes gris, blanco y negro.",
+  "Buzo estilo Diesel con capucha y logo frontal. Variantes gris, blanco y negro.",
+  "Buzo Jordan con capucha y Jumpman grande. Variantes rojo, gris y negro.",
+  "Buzo Puma con capucha y logo frontal. Variantes rojo, gris y negro.",
+  "Remera Jordan negra de cuello redondo, con grafica frontal estilo urbano.",
+  "Remera Jordan con Jumpman grande. Colores gris, marron y verde.",
+  "Remera negra estilo Jordan con estampado pequeno centrado.",
+  "Remera Jordan con logo Jumpman en pecho. Opciones blanco, negro, marron, rojo, azul y gris.",
+  "Remera estilo Jordan/Nike Air de manga corta. Opciones negro, marron, rojo, blanco, azul y gris.",
+  "Remera Jordan con Jumpman grande. Colores negro, rojo, blanco y azul.",
+  "Remera con estampa grafica central tipo foto. Colores negro, blanco y rojo.",
+  "Remera con franja rectangular en pecho. Colores negro, blanco y rojo.",
+  "Remera Jordan con lettering grande y Jumpman. Colores negro, blanco y rojo.",
+  "Remera de manga corta con grafica deportiva frontal. Colores negro, rojo y blanco.",
+  "Remera Jordan con grafica de zapatilla/Jumpman. Colores negro, rojo, crema y blanco.",
+  "Remera lisa deportiva con logo pequeno. Colores negro, rojo y blanco.",
+  "Remera Puma con logo frontal. Colores rojo y negro.",
+  "Remera deportiva con logo ovalado frontal. Colores rojo y negro.",
+  "Remera con grafica racing/urbana en pecho. Colores negro, blanco y rojo.",
+  "Remera Jordan minimal con lettering vertical. Colores negro, blanco y rojo.",
+  "Remera Diesel con logo rectangular en pecho. Colores negro, blanco y rojo.",
+  "Remera roja con grafica Jumpman/Nike grande en el frente.",
+  "Remera Nike Air con logo rectangular. Colores negro y blanco.",
+  "Remera Jordan Flyght con grafica de zapatillas. Colores negro, blanco y rojo.",
+  "Remera Hugo con logo de bloques. Colores negro y blanco.",
+  "Remera Hugo con recuadro de logo en pecho. Colores negro, blanco y rojo.",
+  "Remera Diesel con logo rectangular pequeno. Colores negro, blanco y rojo.",
+  "Remera Diesel con logo grande rojo/negro en pecho. Colores negro, blanco y rojo.",
+  "Remera Jordan con lettering grande. Colores negro, blanco y rojo.",
+  "Remera Hugo con logo multicolor. Colores negro y blanco.",
+  "Remera Jordan/Jumpman con grafica central. Colores blanco y negro.",
+  "Remera Calvin Klein con logo lineal. Colores negro, rojo, azul y blanco.",
+  "Remera con grafica de labios/corazon en pecho. Colores blanco y negro.",
+  "Remera con grafica de corazon/rostro. Colores negro, blanco y rojo.",
+  "Remera Calvin Klein basic logo. Colores negro, rojo, azul y blanco.",
+  "Remera Diesel con logo grande en el pecho. Colores blanco y negro.",
+  "Remera Jordan con letras partidas en el frente. Colores blanco y negro.",
+  "Remera con corazon rosa y texto frontal. Colores blanco y negro.",
+  "Remera con estampa cuadrada marron en pecho. Colores negro y blanco.",
+  "Remera Jordan con logo pequeno en el frente. Colores negro y blanco.",
+  "Remera Nike con logo verde sobre recuadro. Colores negro y blanco.",
+  "Remera Calvin Klein con logo CK grande. Colores negro, blanco, azul y rojo.",
+  "Remera Jordan con Jumpman en accion. Colores blanco y negro.",
+  "Remera Jordan 23 con grafica grande. Colores negro y blanco.",
+  "Remera Jordan con logo Jumpman en recuadro. Colores negro, blanco y rojo.",
+  "Remera Nike con swoosh grande. Colores negro, rojo, blanco y crema.",
+  "Remera grafica azul estilo estrella/personaje. Colores negro, blanco y azul.",
+  "Remera Jordan Jumpman minimal. Colores negro y blanco.",
+  "Remera 23 con estampado numerico grande. Colores rojo, negro y azul.",
+  "Remera Jordan con Jumpman grande. Colores negro, rojo, gris/blanco y crema.",
+  "Remera Jordan 23 con numero grande. Colores negro, blanco y rojo.",
+  "Remera Jordan con lettering y Jumpman en pecho. Colores negro, blanco, crema y rojo."
+];
+
+function inicializarDetallesProductos() {
+  document.querySelectorAll(".product-slot.card").forEach((card, index) => {
+    if (card.dataset.detallesReady === "true") return;
+    const precio = card.querySelector(".precio");
+    if (!precio) return;
+
+    const detalle = DETALLES_PRODUCTOS[index] || "Producto de estilo urbano con diseno estampado y variantes segun disponibilidad.";
+    const fila = document.createElement("div");
+    fila.className = "price-details-row";
+    precio.parentNode.insertBefore(fila, precio);
+    fila.appendChild(precio);
+
+    const boton = document.createElement("button");
+    boton.className = "details-toggle";
+    boton.type = "button";
+    boton.textContent = "detalles";
+    boton.setAttribute("aria-expanded", "false");
+    fila.appendChild(boton);
+
+    const panel = document.createElement("div");
+    panel.className = "product-details-panel";
+    panel.textContent = detalle;
+    fila.parentNode.insertBefore(panel, fila.nextSibling);
+
+    boton.addEventListener("click", event => {
+      event.stopPropagation();
+      const abierto = card.classList.toggle("detalles-abierto");
+      boton.setAttribute("aria-expanded", abierto ? "true" : "false");
+    });
+
+    card.dataset.detallesReady = "true";
+  });
+}
+
+function cerrarDetallesCard(card) {
+  if (!card || !card.classList.contains("detalles-abierto")) return;
+  card.classList.remove("detalles-abierto");
+  const boton = card.querySelector(".details-toggle");
+  if (boton) boton.setAttribute("aria-expanded", "false");
+}
+
+function cerrarDetallesFueraDePantalla() {
+  document.querySelectorAll(".product-slot.card.detalles-abierto").forEach(card => {
+    const rect = card.getBoundingClientRect();
+    const margen = 12;
+    const estaVisible = rect.bottom > margen && rect.top < (window.innerHeight - margen);
+    if (!estaVisible) cerrarDetallesCard(card);
+  });
+}
+
+inicializarDetallesProductos();
+
+if ("IntersectionObserver" in window) {
+  const observerDetalles = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) cerrarDetallesCard(entry.target);
+    });
+  }, { threshold: 0.02 });
+  document.querySelectorAll(".product-slot.card").forEach(card => observerDetalles.observe(card));
+}
+
+window.addEventListener("scroll", cerrarDetallesFueraDePantalla, { passive: true });
+window.addEventListener("resize", cerrarDetallesFueraDePantalla);
+
 function toggleCarrito(event) {
+
   event.stopPropagation();
   document.getElementById("cartWidget").classList.toggle("abierto");
 }
