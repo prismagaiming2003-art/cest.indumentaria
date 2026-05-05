@@ -645,14 +645,15 @@
 }
 .product-img-box {
   width: 100%;
-  aspect-ratio: 1 / 1;
+  aspect-ratio: 1450 / 998;
   overflow: hidden;
-  background: radial-gradient(circle at center, #222 0%, #0b0b10 70%);
-  border: 1px solid rgba(255,255,255,0.06);
+  background: #fff;
+  border: 1px solid rgba(255,255,255,0.18);
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
+  padding: 0;
 }
 .slot-product-img {
   width: 100%;
@@ -1060,8 +1061,8 @@
   .product-slot.card { min-height: 255px !important; aspect-ratio: auto !important; padding: .35rem !important; }
   .product-slot.card { contain-intrinsic-size: 255px; }
   .slot-inner { position: relative !important; inset: auto !important; min-height: 255px; padding: .45rem .28rem !important; gap: .34rem !important; justify-content: flex-start !important; }
-  .product-img-box { width: 100%; height: 108px !important; display: flex; align-items: center; justify-content: center; overflow: hidden; }
-  .slot-product-img { max-width: 100%; max-height: 108px !important; object-fit: contain !important; }
+  .product-img-box { width: 100%; height: auto !important; aspect-ratio: 1450 / 998 !important; display: flex; align-items: center; justify-content: center; overflow: hidden; padding: 0 !important; }
+  .slot-product-img { width: 100% !important; height: 100% !important; max-width: none !important; max-height: none !important; object-fit: contain !important; }
   .nombre { font-size: .78rem !important; line-height: 1.05 !important; min-height: 1.7em; text-align: center; }
   .precio { font-size: .95rem !important; line-height: 1 !important; }
   .price-details-row { align-items: center; gap: .38rem; }
@@ -1090,8 +1091,8 @@
   .catalogo-doble { gap: .32rem !important; }
   .product-slot.card { min-height: 238px !important; }
   .slot-inner { min-height: 238px; }
-  .product-img-box { height: 92px !important; }
-  .slot-product-img { max-height: 92px !important; }
+  .product-img-box { height: auto !important; aspect-ratio: 1450 / 998 !important; }
+  .slot-product-img { max-height: none !important; }
   .nombre { font-size: .7rem !important; }
   .precio { font-size: .85rem !important; }
   .btn { min-height: 30px !important; font-size: .46rem !important; }
@@ -2129,11 +2130,9 @@ footer span,
 }
 
 .product-img-box {
-  background:
-    radial-gradient(circle at 50% 42%, rgba(255,255,255,.10), transparent 34%),
-    linear-gradient(145deg, #171216, #050506 70%);
-  border-color: rgba(255,23,61,.24);
-  box-shadow: inset 0 0 34px rgba(0,0,0,.68);
+  background: #fff;
+  border-color: rgba(255,255,255,.34);
+  box-shadow: 0 12px 26px rgba(0,0,0,.2);
 }
 
 .nombre {
@@ -2415,6 +2414,32 @@ footer {
 .modal,
 .modal * {
   cursor: none !important;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  body,
+  a,
+  button,
+  .btn,
+  .btn-enter,
+  .product-slot,
+  .product-img-box,
+  .slot-product-img,
+  .cart-widget,
+  .cart-widget *,
+  .wa-header-link,
+  .modal,
+  .modal * {
+    cursor: none !important;
+  }
+
+  .cursor,
+  .cursor-ring {
+    left: 0 !important;
+    top: 0 !important;
+    will-change: transform;
+    transition: opacity .15s ease, background .2s ease, width .2s ease, height .2s ease, border-color .2s ease, box-shadow .2s ease;
+  }
 }
 
 @media (max-width: 768px) {
@@ -3063,8 +3088,8 @@ footer {
 <div class="slot-inner">
 <div class="product-img-box"><img fetchpriority="low" decoding="async" loading="lazy" alt="Buzo Nike Boca 12" class="slot-product-img" data-images="https://i.imgur.com/QdOgkq2.jpeg,https://i.imgur.com/KAsBuD1.jpeg" onclick="abrirGaleria(this)" src="https://i.imgur.com/QdOgkq2l.jpeg"/></div>
 <div class="nombre">Buzo Nike Boca 12</div>
-<div class="precio">$14.000 ARS</div>
-<div class="btn-row"><a class="btn" href="https://wa.me/5491170743305?text=Hola%20quiero%20consultar%20por%20Buzo%20Nike%20Boca%2012%0APrecio%3A%20%2414.000%0AFoto%20del%20producto%3A%20https%3A//i.imgur.com/QdOgkq2.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
+<div class="precio">$16.000 ARS</div>
+<div class="btn-row"><a class="btn" href="https://wa.me/5491170743305?text=Hola%20quiero%20consultar%20por%20Buzo%20Nike%20Boca%2012%0APrecio%3A%20%2416.000%0AFoto%20del%20producto%3A%20https%3A//i.imgur.com/QdOgkq2.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
 </div>
 </div>
 <div class="product-slot card">
@@ -3615,13 +3640,11 @@ footer {
     const ring = document.getElementById('cursorRing');
     const usarCursorAnimado = cursor && ring && window.matchMedia('(hover: hover) and (pointer: fine)').matches;
     if (usarCursorAnimado) {
-      let mx = 0, my = 0, rx = 0, ry = 0;
+      let mx = -100, my = -100, cursorScale = 1;
       document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
       function animCursor() {
-        cursor.style.left = mx + 'px'; cursor.style.top = my + 'px';
-        rx += (mx - rx) * 0.12;
-        ry += (my - ry) * 0.12;
-        ring.style.left = rx + 'px'; ring.style.top = ry + 'px';
+        cursor.style.transform = 'translate3d(' + mx + 'px,' + my + 'px,0) translate(-50%,-50%) scale(' + cursorScale + ')';
+        ring.style.transform = 'translate3d(' + mx + 'px,' + my + 'px,0) translate(-50%,-50%)';
         requestAnimationFrame(animCursor);
       }
       animCursor();
@@ -3629,11 +3652,11 @@ footer {
       // HOVER CURSOR SCALE
       document.querySelectorAll('a, button, .product-slot, .btn-enter').forEach(el => {
         el.addEventListener('mouseenter', () => {
-          cursor.style.transform = 'translate(-50%,-50%) scale(2.5)';
+          cursorScale = 2.5;
           ring.style.width = '60px'; ring.style.height = '60px';
         });
         el.addEventListener('mouseleave', () => {
-          cursor.style.transform = 'translate(-50%,-50%) scale(1)';
+          cursorScale = 1;
           ring.style.width = '36px'; ring.style.height = '36px';
         });
       });
@@ -3766,6 +3789,13 @@ if (imgGrandeEl) {
 document.querySelectorAll(".slot-product-img").forEach(img => {
   img.loading = "lazy";
   img.decoding = "async";
+  const ajustarEncuadre = () => {
+    if (!img.naturalWidth || !img.naturalHeight) return;
+    const box = img.closest(".product-img-box");
+    if (box) box.style.aspectRatio = img.naturalWidth + " / " + img.naturalHeight;
+  };
+  if (img.complete) ajustarEncuadre();
+  img.addEventListener("load", ajustarEncuadre, { once: true });
   img.addEventListener("pointerenter", () => {
     const lista = obtenerImagenesGaleria(img);
     precargarGrupoGaleria(lista, 0);
