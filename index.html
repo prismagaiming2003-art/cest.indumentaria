@@ -2559,6 +2559,58 @@ footer {
   55% { opacity: .95; }
   78%, 100% { transform: translateX(135%) skewX(-12deg); opacity: 0; }
 }
+
+/* ===== AJUSTE ITEMS: fondo de foto sin bordes visibles ===== */
+.product-grid,
+.catalogo-doble .product-grid {
+  background: transparent !important;
+  gap: 0 !important;
+}
+
+#buzos .product-grid,
+#remeras .product-grid {
+  background: transparent !important;
+  gap: 0 !important;
+}
+
+.product-slot.card {
+  --photo-bg: #f4f4f4;
+}
+
+.product-img-box {
+  background: var(--photo-bg) !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  line-height: 0 !important;
+}
+
+.slot-product-img {
+  background: var(--photo-bg) !important;
+}
+
+@media (min-width: 769px) {
+  #productos {
+    padding-left: clamp(.75rem, 1.2vw, 1.5rem) !important;
+    padding-right: clamp(.75rem, 1.2vw, 1.5rem) !important;
+  }
+
+  .catalogo-doble {
+    max-width: 1840px !important;
+    width: min(100%, calc(100vw - 1.5rem)) !important;
+    gap: clamp(1rem, 1.8vw, 2rem) !important;
+  }
+
+  #buzos .product-slot.card,
+  #remeras .product-slot.card {
+    min-height: clamp(470px, 30vw, 560px) !important;
+  }
+
+  #buzos .product-slot.card.detalles-abierto,
+  #remeras .product-slot.card.detalles-abierto {
+    min-height: clamp(540px, 35vw, 640px) !important;
+  }
+}
+
 /* ===== FIX: ocultar "Deslizar" en PC ===== */
 .scroll-hint {
   display: none;
@@ -3786,6 +3838,95 @@ if (imgGrandeEl) {
   });
 }
 
+const cacheColorFondoFoto = new Map();
+
+function colorDominanteBordeFoto(image) {
+  const maxSize = 48;
+  const scale = Math.min(maxSize / image.naturalWidth, maxSize / image.naturalHeight, 1);
+  const width = Math.max(1, Math.round(image.naturalWidth * scale));
+  const height = Math.max(1, Math.round(image.naturalHeight * scale));
+  const canvas = document.createElement("canvas");
+  const ctx = canvas.getContext("2d", { willReadFrequently: true });
+  if (!ctx) return null;
+
+  canvas.width = width;
+  canvas.height = height;
+  ctx.drawImage(image, 0, 0, width, height);
+
+  const pixels = ctx.getImageData(0, 0, width, height).data;
+  const ring = Math.max(2, Math.round(Math.min(width, height) * 0.16));
+  const buckets = new Map();
+
+  for (let y = 0; y < height; y++) {
+    for (let x = 0; x < width; x++) {
+      const isBorder = x < ring || y < ring || x >= width - ring || y >= height - ring;
+      if (!isBorder) continue;
+
+      const index = (y * width + x) * 4;
+      const alpha = pixels[index + 3];
+      if (alpha < 32) continue;
+
+      const r = pixels[index];
+      const g = pixels[index + 1];
+      const b = pixels[index + 2];
+      const key = `${r >> 4}-${g >> 4}-${b >> 4}`;
+      const isCorner = (x < ring || x >= width - ring) && (y < ring || y >= height - ring);
+      const weight = isCorner ? 2 : 1;
+      const bucket = buckets.get(key) || { weight: 0, r: 0, g: 0, b: 0 };
+      bucket.weight += weight;
+      bucket.r += r * weight;
+      bucket.g += g * weight;
+      bucket.b += b * weight;
+      buckets.set(key, bucket);
+    }
+  }
+
+  let selected = null;
+  buckets.forEach(bucket => {
+    if (!selected || bucket.weight > selected.weight) selected = bucket;
+  });
+  if (!selected || !selected.weight) return null;
+
+  const r = Math.round(selected.r / selected.weight);
+  const g = Math.round(selected.g / selected.weight);
+  const b = Math.round(selected.b / selected.weight);
+  return `rgb(${r}, ${g}, ${b})`;
+}
+
+async function detectarFondoFoto(src) {
+  if (!src) return null;
+  if (cacheColorFondoFoto.has(src)) return cacheColorFondoFoto.get(src);
+
+  const color = await new Promise(resolve => {
+    const sample = new Image();
+    sample.crossOrigin = "anonymous";
+    sample.decoding = "async";
+    sample.onload = () => {
+      try {
+        resolve(colorDominanteBordeFoto(sample));
+      } catch (error) {
+        resolve(null);
+      }
+    };
+    sample.onerror = () => resolve(null);
+    sample.src = src;
+  });
+
+  cacheColorFondoFoto.set(src, color);
+  return color;
+}
+
+async function aplicarFondoFotoItem(img) {
+  const box = img.closest(".product-img-box");
+  const card = img.closest(".product-slot.card");
+  const src = img.currentSrc || img.src;
+  const color = await detectarFondoFoto(src);
+  if (!color) return;
+
+  if (box) box.style.setProperty("--photo-bg", color);
+  if (card) card.style.setProperty("--photo-bg", color);
+}
+
 document.querySelectorAll(".slot-product-img").forEach(img => {
   img.loading = "lazy";
   img.decoding = "async";
@@ -3793,6 +3934,7 @@ document.querySelectorAll(".slot-product-img").forEach(img => {
     if (!img.naturalWidth || !img.naturalHeight) return;
     const box = img.closest(".product-img-box");
     if (box) box.style.aspectRatio = img.naturalWidth + " / " + img.naturalHeight;
+    aplicarFondoFotoItem(img);
   };
   if (img.complete) ajustarEncuadre();
   img.addEventListener("load", ajustarEncuadre, { once: true });
