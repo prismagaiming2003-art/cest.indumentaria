@@ -2621,6 +2621,76 @@ footer {
     display: flex !important;
   }
 }
+
+
+/* ===== LANZAMIENTO CONJUNTO: diseño destacado en cuadrícula ===== */
+.product-slot.card.lanzamiento-conjunto {
+  background:
+    linear-gradient(135deg, rgba(255,23,61,.24), rgba(255,255,255,.055) 30%, rgba(5,5,8,.98) 100%),
+    var(--card-bg);
+  border: 1px solid rgba(255,23,61,.42);
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,.06), 0 0 34px rgba(255,23,61,.18);
+}
+.product-slot.card.lanzamiento-conjunto::before {
+  content: 'NUEVO LANZAMIENTO';
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  z-index: 5;
+  padding: .34rem .62rem;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #ff173d, #8f0714);
+  color: #fff;
+  font-size: .58rem;
+  font-weight: 900;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  box-shadow: 0 0 18px rgba(255,23,61,.55);
+}
+.product-slot.card.lanzamiento-conjunto .slot-inner {
+  border-color: rgba(255,23,61,.24);
+}
+.product-slot.card.lanzamiento-conjunto .product-img-box {
+  border-color: rgba(255,23,61,.55);
+  background: radial-gradient(circle at center, rgba(255,23,61,.08), #fff 62%);
+}
+.product-slot.card.lanzamiento-conjunto .nombre {
+  color: #fff;
+  text-transform: uppercase;
+  text-shadow: 0 0 14px rgba(255,23,61,.42);
+}
+.product-slot.card.lanzamiento-conjunto .descripcion-lanzamiento {
+  width: 100%;
+  color: rgba(255,255,255,.76);
+  font-size: .78rem;
+  font-weight: 600;
+  line-height: 1.28;
+  letter-spacing: .03em;
+}
+.product-slot.card.lanzamiento-conjunto .precio {
+  color: #ff314f;
+}
+@media (max-width: 768px) {
+  .product-slot.card.lanzamiento-conjunto::before {
+    top: 8px;
+    left: 8px;
+    font-size: .45rem;
+    padding: .24rem .42rem;
+  }
+  .product-slot.card.lanzamiento-conjunto .descripcion-lanzamiento {
+    font-size: .56rem;
+    line-height: 1.18;
+    text-align: center;
+  }
+}
+
+
+
+/* ===== FIX: quitar circulo/etiqueta roja sobre items nuevos ===== */
+.product-slot.card.lanzamiento-conjunto::before {
+  content: none !important;
+  display: none !important;
+}
 </style>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" media="print" onload="this.media='all'" rel="stylesheet"/>
 <noscript><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet"/></noscript></head>
@@ -2741,9 +2811,130 @@ footer {
 <div class="section-glow"></div>
 <span class="category-num">01</span>
 <h3 class="category-name">BUZOS</h3>
-<span class="category-badge">41 productos</span>
+<span class="category-badge">51 productos</span>
 </div>
 <div class="product-grid">
+<div class="product-slot card lanzamiento-conjunto">
+<div class="slot-corner tl"></div><div class="slot-corner tr"></div>
+<div class="slot-corner bl"></div><div class="slot-corner br"></div>
+<div class="slot-inner">
+<div class="product-img-box"><img fetchpriority="high" decoding="async" loading="lazy" alt="Conjunto #1 - Conjunto urbano premium" class="slot-product-img" data-images="https://i.imgur.com/mE0KIyH.jpeg" onclick="abrirGaleria(this)" src="https://i.imgur.com/mE0KIyH.jpeg"/></div>
+<div class="nombre">Conjunto #1 · Conjunto urbano premium</div>
+<div class="descripcion-lanzamiento">Set moderno con calce cómodo y estilo deportivo para uso diario.</div>
+<div class="price-details-row"><div class="precio">Consultar precio</div><button class="details-toggle" onclick="toggleDetalles(this)" type="button">Detalles</button></div>
+<div class="product-details-panel">Nuevo producto de lanzamiento en la línea Conjunto. Consultá disponibilidad, talles y colores por WhatsApp.</div>
+<div class="btn-row"><a class="btn" href="https://wa.me/5491170743305?text=Hola%20quiero%20consultar%20por%20Conjunto%20%231%0AProducto%3A%20Conjunto%20urbano%20premium%0AFoto%3A%20https%3A//i.imgur.com/mE0KIyH.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
+</div>
+</div>
+<div class="product-slot card lanzamiento-conjunto">
+<div class="slot-corner tl"></div><div class="slot-corner tr"></div>
+<div class="slot-corner bl"></div><div class="slot-corner br"></div>
+<div class="slot-inner">
+<div class="product-img-box"><img fetchpriority="high" decoding="async" loading="lazy" alt="Conjunto #2 - Conjunto street sport" class="slot-product-img" data-images="https://i.imgur.com/g6C2fzn.jpeg" onclick="abrirGaleria(this)" src="https://i.imgur.com/g6C2fzn.jpeg"/></div>
+<div class="nombre">Conjunto #2 · Conjunto street sport</div>
+<div class="descripcion-lanzamiento">Diseño urbano llamativo, ideal para combinar con zapatillas.</div>
+<div class="price-details-row"><div class="precio">Consultar precio</div><button class="details-toggle" onclick="toggleDetalles(this)" type="button">Detalles</button></div>
+<div class="product-details-panel">Nuevo producto de lanzamiento en la línea Conjunto. Consultá disponibilidad, talles y colores por WhatsApp.</div>
+<div class="btn-row"><a class="btn" href="https://wa.me/5491170743305?text=Hola%20quiero%20consultar%20por%20Conjunto%20%232%0AProducto%3A%20Conjunto%20street%20sport%0AFoto%3A%20https%3A//i.imgur.com/g6C2fzn.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
+</div>
+</div>
+<div class="product-slot card lanzamiento-conjunto">
+<div class="slot-corner tl"></div><div class="slot-corner tr"></div>
+<div class="slot-corner bl"></div><div class="slot-corner br"></div>
+<div class="slot-inner">
+<div class="product-img-box"><img fetchpriority="high" decoding="async" loading="lazy" alt="Conjunto #3 - Conjunto casual urbano" class="slot-product-img" data-images="https://i.imgur.com/ytZIgcD.jpeg" onclick="abrirGaleria(this)" src="https://i.imgur.com/ytZIgcD.jpeg"/></div>
+<div class="nombre">Conjunto #3 · Conjunto casual urbano</div>
+<div class="descripcion-lanzamiento">Prenda versátil con terminación prolija y look moderno.</div>
+<div class="price-details-row"><div class="precio">Consultar precio</div><button class="details-toggle" onclick="toggleDetalles(this)" type="button">Detalles</button></div>
+<div class="product-details-panel">Nuevo producto de lanzamiento en la línea Conjunto. Consultá disponibilidad, talles y colores por WhatsApp.</div>
+<div class="btn-row"><a class="btn" href="https://wa.me/5491170743305?text=Hola%20quiero%20consultar%20por%20Conjunto%20%233%0AProducto%3A%20Conjunto%20casual%20urbano%0AFoto%3A%20https%3A//i.imgur.com/ytZIgcD.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
+</div>
+</div>
+<div class="product-slot card lanzamiento-conjunto">
+<div class="slot-corner tl"></div><div class="slot-corner tr"></div>
+<div class="slot-corner bl"></div><div class="slot-corner br"></div>
+<div class="slot-inner">
+<div class="product-img-box"><img fetchpriority="high" decoding="async" loading="lazy" alt="Conjunto #4 - Conjunto edición nueva" class="slot-product-img" data-images="https://i.imgur.com/VbZl9Hd.jpeg" onclick="abrirGaleria(this)" src="https://i.imgur.com/VbZl9Hd.jpeg"/></div>
+<div class="nombre">Conjunto #4 · Conjunto edición nueva</div>
+<div class="descripcion-lanzamiento">Modelo de lanzamiento con presencia fuerte y estilo actual.</div>
+<div class="price-details-row"><div class="precio">Consultar precio</div><button class="details-toggle" onclick="toggleDetalles(this)" type="button">Detalles</button></div>
+<div class="product-details-panel">Nuevo producto de lanzamiento en la línea Conjunto. Consultá disponibilidad, talles y colores por WhatsApp.</div>
+<div class="btn-row"><a class="btn" href="https://wa.me/5491170743305?text=Hola%20quiero%20consultar%20por%20Conjunto%20%234%0AProducto%3A%20Conjunto%20edici%C3%B3n%20nueva%0AFoto%3A%20https%3A//i.imgur.com/VbZl9Hd.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
+</div>
+</div>
+<div class="product-slot card lanzamiento-conjunto">
+<div class="slot-corner tl"></div><div class="slot-corner tr"></div>
+<div class="slot-corner bl"></div><div class="slot-corner br"></div>
+<div class="slot-inner">
+<div class="product-img-box"><img fetchpriority="high" decoding="async" loading="lazy" alt="Conjunto #5 - Conjunto sport clásico" class="slot-product-img" data-images="https://i.imgur.com/X5eu8yq.jpeg" onclick="abrirGaleria(this)" src="https://i.imgur.com/X5eu8yq.jpeg"/></div>
+<div class="nombre">Conjunto #5 · Conjunto sport clásico</div>
+<div class="descripcion-lanzamiento">Opción cómoda para outfit diario con toque deportivo.</div>
+<div class="price-details-row"><div class="precio">Consultar precio</div><button class="details-toggle" onclick="toggleDetalles(this)" type="button">Detalles</button></div>
+<div class="product-details-panel">Nuevo producto de lanzamiento en la línea Conjunto. Consultá disponibilidad, talles y colores por WhatsApp.</div>
+<div class="btn-row"><a class="btn" href="https://wa.me/5491170743305?text=Hola%20quiero%20consultar%20por%20Conjunto%20%235%0AProducto%3A%20Conjunto%20sport%20cl%C3%A1sico%0AFoto%3A%20https%3A//i.imgur.com/X5eu8yq.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
+</div>
+</div>
+<div class="product-slot card lanzamiento-conjunto">
+<div class="slot-corner tl"></div><div class="slot-corner tr"></div>
+<div class="slot-corner bl"></div><div class="slot-corner br"></div>
+<div class="slot-inner">
+<div class="product-img-box"><img fetchpriority="high" decoding="async" loading="lazy" alt="Conjunto #6 - Conjunto urbano destacado" class="slot-product-img" data-images="https://i.imgur.com/8VV8ChP.jpeg" onclick="abrirGaleria(this)" src="https://i.imgur.com/8VV8ChP.jpeg"/></div>
+<div class="nombre">Conjunto #6 · Conjunto urbano destacado</div>
+<div class="descripcion-lanzamiento">Diseño de impacto visual para quienes buscan un look diferente.</div>
+<div class="price-details-row"><div class="precio">Consultar precio</div><button class="details-toggle" onclick="toggleDetalles(this)" type="button">Detalles</button></div>
+<div class="product-details-panel">Nuevo producto de lanzamiento en la línea Conjunto. Consultá disponibilidad, talles y colores por WhatsApp.</div>
+<div class="btn-row"><a class="btn" href="https://wa.me/5491170743305?text=Hola%20quiero%20consultar%20por%20Conjunto%20%236%0AProducto%3A%20Conjunto%20urbano%20destacado%0AFoto%3A%20https%3A//i.imgur.com/8VV8ChP.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
+</div>
+</div>
+<div class="product-slot card lanzamiento-conjunto">
+<div class="slot-corner tl"></div><div class="slot-corner tr"></div>
+<div class="slot-corner bl"></div><div class="slot-corner br"></div>
+<div class="slot-inner">
+<div class="product-img-box"><img fetchpriority="high" decoding="async" loading="lazy" alt="Conjunto #7 - Conjunto moda street" class="slot-product-img" data-images="https://i.imgur.com/sRRR4ay.jpeg" onclick="abrirGaleria(this)" src="https://i.imgur.com/sRRR4ay.jpeg"/></div>
+<div class="nombre">Conjunto #7 · Conjunto moda street</div>
+<div class="descripcion-lanzamiento">Estilo fresco y urbano, pensado para combinar fácil.</div>
+<div class="price-details-row"><div class="precio">Consultar precio</div><button class="details-toggle" onclick="toggleDetalles(this)" type="button">Detalles</button></div>
+<div class="product-details-panel">Nuevo producto de lanzamiento en la línea Conjunto. Consultá disponibilidad, talles y colores por WhatsApp.</div>
+<div class="btn-row"><a class="btn" href="https://wa.me/5491170743305?text=Hola%20quiero%20consultar%20por%20Conjunto%20%237%0AProducto%3A%20Conjunto%20moda%20street%0AFoto%3A%20https%3A//i.imgur.com/sRRR4ay.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
+</div>
+</div>
+<div class="product-slot card lanzamiento-conjunto">
+<div class="slot-corner tl"></div><div class="slot-corner tr"></div>
+<div class="slot-corner bl"></div><div class="slot-corner br"></div>
+<div class="slot-inner">
+<div class="product-img-box"><img fetchpriority="high" decoding="async" loading="lazy" alt="Conjunto #8 - Conjunto lanzamiento top" class="slot-product-img" data-images="https://i.imgur.com/dqySkLP.jpeg" onclick="abrirGaleria(this)" src="https://i.imgur.com/dqySkLP.jpeg"/></div>
+<div class="nombre">Conjunto #8 · Conjunto lanzamiento top</div>
+<div class="descripcion-lanzamiento">Modelo nuevo con diseño moderno y terminación llamativa.</div>
+<div class="price-details-row"><div class="precio">Consultar precio</div><button class="details-toggle" onclick="toggleDetalles(this)" type="button">Detalles</button></div>
+<div class="product-details-panel">Nuevo producto de lanzamiento en la línea Conjunto. Consultá disponibilidad, talles y colores por WhatsApp.</div>
+<div class="btn-row"><a class="btn" href="https://wa.me/5491170743305?text=Hola%20quiero%20consultar%20por%20Conjunto%20%238%0AProducto%3A%20Conjunto%20lanzamiento%20top%0AFoto%3A%20https%3A//i.imgur.com/dqySkLP.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
+</div>
+</div>
+<div class="product-slot card lanzamiento-conjunto">
+<div class="slot-corner tl"></div><div class="slot-corner tr"></div>
+<div class="slot-corner bl"></div><div class="slot-corner br"></div>
+<div class="slot-inner">
+<div class="product-img-box"><img fetchpriority="high" decoding="async" loading="lazy" alt="Conjunto #9 - Conjunto sport fashion" class="slot-product-img" data-images="https://i.imgur.com/MXu5aUL.jpeg" onclick="abrirGaleria(this)" src="https://i.imgur.com/MXu5aUL.jpeg"/></div>
+<div class="nombre">Conjunto #9 · Conjunto sport fashion</div>
+<div class="descripcion-lanzamiento">Look deportivo con presencia moderna para uso casual.</div>
+<div class="price-details-row"><div class="precio">Consultar precio</div><button class="details-toggle" onclick="toggleDetalles(this)" type="button">Detalles</button></div>
+<div class="product-details-panel">Nuevo producto de lanzamiento en la línea Conjunto. Consultá disponibilidad, talles y colores por WhatsApp.</div>
+<div class="btn-row"><a class="btn" href="https://wa.me/5491170743305?text=Hola%20quiero%20consultar%20por%20Conjunto%20%239%0AProducto%3A%20Conjunto%20sport%20fashion%0AFoto%3A%20https%3A//i.imgur.com/MXu5aUL.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
+</div>
+</div>
+<div class="product-slot card lanzamiento-conjunto">
+<div class="slot-corner tl"></div><div class="slot-corner tr"></div>
+<div class="slot-corner bl"></div><div class="slot-corner br"></div>
+<div class="slot-inner">
+<div class="product-img-box"><img fetchpriority="high" decoding="async" loading="lazy" alt="Conjunto #10 - Conjunto urbano edición" class="slot-product-img" data-images="https://i.imgur.com/tkqpvYF.jpeg" onclick="abrirGaleria(this)" src="https://i.imgur.com/tkqpvYF.jpeg"/></div>
+<div class="nombre">Conjunto #10 · Conjunto urbano edición</div>
+<div class="descripcion-lanzamiento">Nuevo ingreso con estilo callejero y diseño actual.</div>
+<div class="price-details-row"><div class="precio">Consultar precio</div><button class="details-toggle" onclick="toggleDetalles(this)" type="button">Detalles</button></div>
+<div class="product-details-panel">Nuevo producto de lanzamiento en la línea Conjunto. Consultá disponibilidad, talles y colores por WhatsApp.</div>
+<div class="btn-row"><a class="btn" href="https://wa.me/5491170743305?text=Hola%20quiero%20consultar%20por%20Conjunto%20%2310%0AProducto%3A%20Conjunto%20urbano%20edici%C3%B3n%0AFoto%3A%20https%3A//i.imgur.com/tkqpvYF.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
+</div>
+</div>
+
 <div class="product-slot card">
 <div class="slot-corner tl"></div><div class="slot-corner tr"></div>
 <div class="slot-corner bl"></div><div class="slot-corner br"></div>
