@@ -3353,6 +3353,132 @@ nav,
     box-shadow: 0 0 30px rgba(32,217,255,.36), 0 14px 34px rgba(0,0,0,.38) !important;
   }
 }
+
+.hero-title .line2,
+html.android-device #hero .hero-title .line2 {
+  -webkit-text-stroke-color: #00b7ff !important;
+  filter: drop-shadow(0 0 30px rgba(0,183,255,.62));
+}
+
+.hero-title .line2::after {
+  color: #00d8ff !important;
+  opacity: .48 !important;
+  text-shadow: 0 0 24px rgba(0,216,255,.58);
+}
+
+.cart-toggle,
+.cart-panel,
+.contador {
+  background: rgba(3,18,38,.97) !important;
+  border-color: rgba(0,216,255,.72) !important;
+  box-shadow: 0 18px 52px rgba(0,0,0,.62), 0 0 34px rgba(0,183,255,.34) !important;
+}
+
+.cart-widget::before {
+  border-color: rgba(0,216,255,.76) !important;
+  filter: drop-shadow(0 0 16px rgba(0,216,255,.68)) !important;
+}
+
+.cart-widget::after {
+  background:
+    linear-gradient(115deg, transparent 0 32%, rgba(255,255,255,.2) 33% 34%, transparent 35% 100%),
+    linear-gradient(135deg, rgba(0,216,255,.2), rgba(0,105,255,.16), rgba(255,255,255,.045)) !important;
+  filter: drop-shadow(0 0 20px rgba(0,183,255,.5)) !important;
+}
+
+.cart-toggle {
+  background:
+    linear-gradient(135deg, rgba(255,255,255,.2) 0 8%, transparent 8% 28%, rgba(0,216,255,.36) 28% 54%, rgba(3,18,38,.98) 54% 100%),
+    linear-gradient(135deg, #00e5ff, #008dff 48%, #031226 49% 100%) !important;
+  box-shadow: 0 18px 52px rgba(0,0,0,.62), 0 0 38px rgba(0,183,255,.62), inset 0 0 0 1px rgba(255,255,255,.15) !important;
+  filter: drop-shadow(0 0 12px rgba(0,216,255,.46)) !important;
+}
+
+.cart-toggle i {
+  text-shadow: 0 0 10px rgba(255,255,255,.95), 0 0 24px rgba(0,216,255,.98), 0 0 34px rgba(0,105,255,.82) !important;
+}
+
+.cart-count {
+  background: linear-gradient(135deg, #ffffff, #00e5ff 44%, #006cff) !important;
+  color: #021225 !important;
+  box-shadow: 0 0 18px rgba(0,216,255,.86), inset 0 0 0 1px rgba(255,255,255,.68) !important;
+}
+
+.cart-widget.has-items::before {
+  border-color: rgba(255,255,255,.8) !important;
+  filter: drop-shadow(0 0 22px rgba(0,216,255,.9)) !important;
+}
+
+.cart-consultar {
+  background: linear-gradient(135deg, #ffffff 0 8%, #00e5ff 9% 54%, #006cff 55% 100%) !important;
+  color: #021225 !important;
+  border-color: rgba(215,250,255,.86) !important;
+  box-shadow: 0 0 34px rgba(0,216,255,.68), 0 14px 34px rgba(0,0,0,.55), inset 0 0 0 1px rgba(255,255,255,.3) !important;
+}
+
+.cart-clear {
+  background: linear-gradient(135deg, rgba(0,216,255,.2), rgba(3,18,38,.97)) !important;
+  border-color: rgba(0,216,255,.52) !important;
+}
+
+.remera-seleccion .precio-mayorista {
+  display: grid;
+  gap: .2rem;
+  margin-top: -.2rem;
+  color: rgba(210,248,255,.92);
+  font-size: .82rem;
+  font-weight: 800;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  text-shadow: 0 0 14px rgba(0,216,255,.34);
+}
+
+.remera-seleccion .precio-mayorista span {
+  display: block;
+}
+
+/* Correccion final: fuerza INDUMENTARIA en azul tambien en celular */
+.hero-title .line2,
+.hero-title .line2::before,
+.hero-title .line2::after,
+html.android-device #hero .hero-title .line2,
+html.android-device #hero .hero-title .line2::before,
+html.android-device #hero .hero-title .line2::after {
+  color: #00d8ff !important;
+  -webkit-text-fill-color: rgba(0,216,255,.22) !important;
+  -webkit-text-stroke-color: #00b7ff !important;
+  text-shadow: 0 0 20px rgba(0,216,255,.62), 0 0 34px rgba(0,105,255,.32) !important;
+  filter: drop-shadow(0 0 28px rgba(0,183,255,.66)) !important;
+}
+
+.hero-title .line2::before,
+html.android-device #hero .hero-title .line2::before {
+  -webkit-text-fill-color: rgba(210,248,255,.2) !important;
+  -webkit-text-stroke-color: rgba(210,248,255,.86) !important;
+}
+
+.hero-title .line2::after,
+html.android-device #hero .hero-title .line2::after {
+  opacity: .55 !important;
+}
+
+.nav-logo span,
+.nav-logo .logo-word,
+html.android-device .nav-logo span,
+html.android-device .nav-logo .logo-word {
+  color: #00d8ff !important;
+  background: linear-gradient(90deg, #00e5ff 0%, #ffffff 42%, #7df4ff 58%, #008dff 100%) !important;
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  filter: drop-shadow(0 0 14px rgba(0,216,255,.62)) !important;
+}
+
+.nav-logo .logo-word::after,
+html.android-device .nav-logo .logo-word::after {
+  background: linear-gradient(90deg, transparent, #ffffff, #00e5ff, #008dff, transparent) !important;
+  box-shadow: 0 0 14px rgba(0,216,255,.78) !important;
+}
 </style>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" media="print" onload="this.media='all'" rel="stylesheet"/>
 <noscript><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet"/></noscript></head>
@@ -3374,12 +3500,12 @@ nav,
 <i class="fab fa-whatsapp"></i>
 </a>
 
-<button aria-label="Ver camiseta de la Seleccion Argentina" class="lanzamiento-overlay" id="lanzamientoNuevaPrenda" type="button">
+<button aria-label="Ver remera de la Seleccion Argentina" class="lanzamiento-overlay" id="lanzamientoNuevaPrenda" type="button">
 <span class="lanzamiento-card">
-<img alt="Nueva camiseta de la Seleccion Argentina" decoding="async" fetchpriority="high" src="https://i.imgur.com/dmMxNlY.jpeg"/>
+<img alt="Nueva remera de la Seleccion Argentina" decoding="async" fetchpriority="high" src="https://i.imgur.com/dmMxNlY.jpeg"/>
 <span class="lanzamiento-copy">
 <span class="lanzamiento-kicker">Nueva prenda</span>
-<span class="lanzamiento-title">Camiseta Argentina</span>
+<span class="lanzamiento-title">Remera Argentina</span>
 <span class="lanzamiento-subtitle">Calidad importada </span>
 <span class="lanzamiento-cta">Ver lanzamiento</span>
 </span>
@@ -4037,19 +4163,20 @@ nav,
 <div class="category-header">
 <div class="section-glow"></div>
 <span class="category-num">02</span>
-<h3 class="category-name">CAMISETAS</h3>
+<h3 class="category-name">REMERAS</h3>
 <span class="category-badge">54 productos</span>
 </div>
 <div class="product-grid">
-<div class="product-slot card producto-nuevo-epico camiseta-seleccion" data-detalle="Camiseta de la Seleccion Argentina de calidad importada. Tela liviana, terminaciones premium, escudo y detalles dorados; ideal para lucir la celeste y blanca con presencia de seleccion." id="camiseta-seleccion-argentina">
+<div class="product-slot card producto-nuevo-epico remera-seleccion" data-detalle="Remera de la Seleccion Argentina de calidad importada. Tela liviana, terminaciones premium, escudo y detalles dorados; ideal para lucir la celeste y blanca con presencia de seleccion." id="remera-seleccion-argentina">
 <div class="slot-corner tl"></div><div class="slot-corner tr"></div>
 <div class="slot-corner bl"></div><div class="slot-corner br"></div>
 <div class="slot-inner">
 <div class="badge-nuevo">Nueva prenda</div>
-<div class="product-img-box"><img fetchpriority="high" decoding="async" loading="lazy" alt="Camiseta de la Seleccion Argentina" class="slot-product-img" data-images="https://i.imgur.com/dO4yENg.png,https://i.imgur.com/hZf6gnr.jpeg,https://i.imgur.com/sYNPYUj.jpeg,https://i.imgur.com/sYNPYUj.jpeg,https://i.imgur.com/JfIkFBr.jpeg,https://i.imgur.com/qykDvSB.jpeg" onclick="abrirGaleria(this)" src="https://i.imgur.com/dO4yENg.png"/></div>
-<div class="nombre">Camiseta de la Seleccion Argentina</div>
-<div class="precio">$20.000 ARS</div>
-<div class="btn-row"><a class="btn" href="https://wa.me/5491170743305?text=Hola%20quiero%20consultar%20por%20Camiseta%20de%20la%20Seleccion%20Argentina%0APrecio%3A%20%2420.000%20ARS%0AFoto%3A%20https%3A%2F%2Fi.imgur.com%2FdO4yENg.png" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
+<div class="product-img-box"><img fetchpriority="high" decoding="async" loading="lazy" alt="Remera de la Seleccion Argentina" class="slot-product-img" data-images="https://i.imgur.com/dO4yENg.png,https://i.imgur.com/hZf6gnr.jpeg,https://i.imgur.com/sYNPYUj.jpeg,https://i.imgur.com/sYNPYUj.jpeg,https://i.imgur.com/JfIkFBr.jpeg,https://i.imgur.com/qykDvSB.jpeg" onclick="abrirGaleria(this)" src="https://i.imgur.com/dO4yENg.png"/></div>
+<div class="nombre">Remera de la Seleccion Argentina</div>
+<div class="precio">$22.000 ARS por unidad</div>
+<div class="precio-mayorista"><span>$20.000 por mayor</span><span>$18.000 por curva</span><span>$16.000 docena</span></div>
+<div class="btn-row"><a class="btn" href="https://wa.me/5491170743305?text=Hola%20quiero%20consultar%20por%20Remera%20de%20la%20Seleccion%20Argentina%0APrecio%3A%20%2422.000%20ARS%20por%20unidad%0A%2420.000%20por%20mayor%0A%2418.000%20por%20curva%0A%2416.000%20docena%0AFoto%3A%20https%3A%2F%2Fi.imgur.com%2FdO4yENg.png" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
 </div>
 </div>
 <div class="product-slot card">
@@ -4672,7 +4799,7 @@ nav,
 
     (function activarAnuncioLanzamiento() {
       const anuncio = document.getElementById("lanzamientoNuevaPrenda");
-      const destino = document.getElementById("camiseta-seleccion-argentina");
+      const destino = document.getElementById("remera-seleccion-argentina");
       if (!anuncio || !destino) return;
 
       let cerrado = false;
@@ -4693,7 +4820,7 @@ nav,
         setTimeout(() => destino.classList.remove("producto-destacado-pulso"), 2600);
       });
 
-      setTimeout(cerrarAnuncio, 6000);
+      setTimeout(cerrarAnuncio, 3000);
     })();
   
 
