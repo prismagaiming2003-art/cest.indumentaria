@@ -3302,6 +3302,56 @@ nav,
   .lanzamiento-card img {
     aspect-ratio: 16 / 11;
   }
+
+  body {
+    background:
+      radial-gradient(circle at 16% 8%, rgba(32,217,255,.24), transparent 34%),
+      radial-gradient(circle at 84% 4%, rgba(247,201,95,.12), transparent 30%),
+      linear-gradient(135deg, rgba(255,255,255,.035) 0 8%, transparent 8% 16%, rgba(32,217,255,.055) 16% 17%, transparent 17% 100%),
+      #020912 !important;
+  }
+
+  #hero,
+  html.android-device #hero {
+    background:
+      linear-gradient(118deg, rgba(255,255,255,.13) 0 9%, transparent 10% 30%, rgba(32,217,255,.20) 31% 55%, transparent 56% 100%),
+      radial-gradient(circle at 50% 24%, rgba(32,217,255,.34), rgba(4,18,32,.96) 44%, #020912 78%) !important;
+  }
+
+  #hero::before,
+  html.android-device #hero::before {
+    background:
+      radial-gradient(circle at 50% 42%, rgba(255,255,255,.20), transparent 7%),
+      radial-gradient(circle at 50% 42%, rgba(32,217,255,.42), transparent 18%),
+      conic-gradient(from 225deg at 50% 42%, transparent 0 10%, rgba(247,201,95,.16) 11% 12%, transparent 13% 38%, rgba(255,255,255,.12) 39% 40%, transparent 41% 100%),
+      repeating-linear-gradient(118deg, transparent 0 88px, rgba(32,217,255,.055) 89px 90px, transparent 91px 176px) !important;
+    opacity: .46 !important;
+  }
+
+  #hero::after,
+  html.android-device #hero::after {
+    background-image:
+      linear-gradient(rgba(32,217,255,.08) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(32,217,255,.08) 1px, transparent 1px),
+      linear-gradient(115deg, transparent 0 47%, rgba(255,255,255,.1) 47% 48%, transparent 48% 100%) !important;
+    opacity: .68 !important;
+  }
+
+  #productos {
+    background:
+      linear-gradient(116deg, transparent 0 13%, rgba(32,217,255,.055) 13% 14%, transparent 14% 44%, rgba(247,201,95,.04) 44% 45%, transparent 45% 100%),
+      radial-gradient(circle at 78% 8%, rgba(32,217,255,.18), transparent 34%),
+      #020912 !important;
+  }
+
+  html.android-device #hero .hero-title .line2 {
+    -webkit-text-stroke-color: var(--accent1) !important;
+    text-shadow: 0 0 6px rgba(32,217,255,.28), 0 0 12px rgba(32,217,255,.14) !important;
+  }
+
+  html.android-device #hero .btn-enter {
+    box-shadow: 0 0 30px rgba(32,217,255,.36), 0 14px 34px rgba(0,0,0,.38) !important;
+  }
 }
 </style>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" media="print" onload="this.media='all'" rel="stylesheet"/>
@@ -3456,9 +3506,9 @@ nav,
 <div class="product-img-box"><img fetchpriority="high" decoding="async" loading="lazy" alt="Conjunto #1 - Conjunto urbano premium" class="slot-product-img" data-images="https://i.imgur.com/mE0KIyH.jpeg" onclick="abrirGaleria(this)" src="https://i.imgur.com/mE0KIyH.jpeg"/></div>
 <div class="nombre">Conjunto #1 · Conjunto urbano premium</div>
 <div class="descripcion-lanzamiento">Set moderno con calce cómodo y estilo deportivo para uso diario.</div>
-<div class="price-details-row"><div class="precio">Consultar precio</div><button class="details-toggle" onclick="toggleDetalles(this)" type="button">Detalles</button></div>
+<div class="price-details-row"><div class="precio">$29.000 ARS</div><button class="details-toggle" onclick="toggleDetalles(this)" type="button">Detalles</button></div>
 <div class="product-details-panel">Nuevo producto de lanzamiento en la línea Conjunto. Consultá disponibilidad, talles y colores por WhatsApp.</div>
-<div class="btn-row"><a class="btn" href="https://wa.me/5491170743305?text=Hola%20quiero%20consultar%20por%20Conjunto%20%231%0AProducto%3A%20Conjunto%20urbano%20premium%0AFoto%3A%20https%3A//i.imgur.com/mE0KIyH.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
+<div class="btn-row"><a class="btn" href="https://wa.me/5491170743305?text=Hola%20quiero%20consultar%20por%20Conjunto%20%231%0AProducto%3A%20Conjunto%20urbano%20premium%0APrecio%3A%20%2429.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/mE0KIyH.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
 </div>
 </div>
 <div class="product-slot card lanzamiento-conjunto">
@@ -3468,9 +3518,9 @@ nav,
 <div class="product-img-box"><img fetchpriority="high" decoding="async" loading="lazy" alt="Conjunto #2 - Conjunto street sport" class="slot-product-img" data-images="https://i.imgur.com/g6C2fzn.jpeg" onclick="abrirGaleria(this)" src="https://i.imgur.com/g6C2fzn.jpeg"/></div>
 <div class="nombre">Conjunto #2 · Conjunto street sport</div>
 <div class="descripcion-lanzamiento">Diseño urbano llamativo, ideal para combinar con zapatillas.</div>
-<div class="price-details-row"><div class="precio">Consultar precio</div><button class="details-toggle" onclick="toggleDetalles(this)" type="button">Detalles</button></div>
+<div class="price-details-row"><div class="precio">$29.000 ARS</div><button class="details-toggle" onclick="toggleDetalles(this)" type="button">Detalles</button></div>
 <div class="product-details-panel">Nuevo producto de lanzamiento en la línea Conjunto. Consultá disponibilidad, talles y colores por WhatsApp.</div>
-<div class="btn-row"><a class="btn" href="https://wa.me/5491170743305?text=Hola%20quiero%20consultar%20por%20Conjunto%20%232%0AProducto%3A%20Conjunto%20street%20sport%0AFoto%3A%20https%3A//i.imgur.com/g6C2fzn.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
+<div class="btn-row"><a class="btn" href="https://wa.me/5491170743305?text=Hola%20quiero%20consultar%20por%20Conjunto%20%232%0AProducto%3A%20Conjunto%20street%20sport%0APrecio%3A%20%2429.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/g6C2fzn.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
 </div>
 </div>
 <div class="product-slot card lanzamiento-conjunto">
@@ -3480,9 +3530,9 @@ nav,
 <div class="product-img-box"><img fetchpriority="high" decoding="async" loading="lazy" alt="Conjunto #3 - Conjunto casual urbano" class="slot-product-img" data-images="https://i.imgur.com/ytZIgcD.jpeg" onclick="abrirGaleria(this)" src="https://i.imgur.com/ytZIgcD.jpeg"/></div>
 <div class="nombre">Conjunto #3 · Conjunto casual urbano</div>
 <div class="descripcion-lanzamiento">Prenda versátil con terminación prolija y look moderno.</div>
-<div class="price-details-row"><div class="precio">Consultar precio</div><button class="details-toggle" onclick="toggleDetalles(this)" type="button">Detalles</button></div>
+<div class="price-details-row"><div class="precio">$29.000 ARS</div><button class="details-toggle" onclick="toggleDetalles(this)" type="button">Detalles</button></div>
 <div class="product-details-panel">Nuevo producto de lanzamiento en la línea Conjunto. Consultá disponibilidad, talles y colores por WhatsApp.</div>
-<div class="btn-row"><a class="btn" href="https://wa.me/5491170743305?text=Hola%20quiero%20consultar%20por%20Conjunto%20%233%0AProducto%3A%20Conjunto%20casual%20urbano%0AFoto%3A%20https%3A//i.imgur.com/ytZIgcD.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
+<div class="btn-row"><a class="btn" href="https://wa.me/5491170743305?text=Hola%20quiero%20consultar%20por%20Conjunto%20%233%0AProducto%3A%20Conjunto%20casual%20urbano%0APrecio%3A%20%2429.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/ytZIgcD.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
 </div>
 </div>
 <div class="product-slot card lanzamiento-conjunto">
@@ -3492,9 +3542,9 @@ nav,
 <div class="product-img-box"><img fetchpriority="high" decoding="async" loading="lazy" alt="Conjunto #4 - Conjunto edición nueva" class="slot-product-img" data-images="https://i.imgur.com/VbZl9Hd.jpeg" onclick="abrirGaleria(this)" src="https://i.imgur.com/VbZl9Hd.jpeg"/></div>
 <div class="nombre">Conjunto #4 · Conjunto edición nueva</div>
 <div class="descripcion-lanzamiento">Modelo de lanzamiento con presencia fuerte y estilo actual.</div>
-<div class="price-details-row"><div class="precio">Consultar precio</div><button class="details-toggle" onclick="toggleDetalles(this)" type="button">Detalles</button></div>
+<div class="price-details-row"><div class="precio">$29.000 ARS</div><button class="details-toggle" onclick="toggleDetalles(this)" type="button">Detalles</button></div>
 <div class="product-details-panel">Nuevo producto de lanzamiento en la línea Conjunto. Consultá disponibilidad, talles y colores por WhatsApp.</div>
-<div class="btn-row"><a class="btn" href="https://wa.me/5491170743305?text=Hola%20quiero%20consultar%20por%20Conjunto%20%234%0AProducto%3A%20Conjunto%20edici%C3%B3n%20nueva%0AFoto%3A%20https%3A//i.imgur.com/VbZl9Hd.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
+<div class="btn-row"><a class="btn" href="https://wa.me/5491170743305?text=Hola%20quiero%20consultar%20por%20Conjunto%20%234%0AProducto%3A%20Conjunto%20edici%C3%B3n%20nueva%0APrecio%3A%20%2429.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/VbZl9Hd.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
 </div>
 </div>
 <div class="product-slot card lanzamiento-conjunto">
@@ -3504,9 +3554,9 @@ nav,
 <div class="product-img-box"><img fetchpriority="high" decoding="async" loading="lazy" alt="Conjunto #5 - Conjunto sport clásico" class="slot-product-img" data-images="https://i.imgur.com/X5eu8yq.jpeg" onclick="abrirGaleria(this)" src="https://i.imgur.com/X5eu8yq.jpeg"/></div>
 <div class="nombre">Conjunto #5 · Conjunto sport clásico</div>
 <div class="descripcion-lanzamiento">Opción cómoda para outfit diario con toque deportivo.</div>
-<div class="price-details-row"><div class="precio">Consultar precio</div><button class="details-toggle" onclick="toggleDetalles(this)" type="button">Detalles</button></div>
+<div class="price-details-row"><div class="precio">$29.000 ARS</div><button class="details-toggle" onclick="toggleDetalles(this)" type="button">Detalles</button></div>
 <div class="product-details-panel">Nuevo producto de lanzamiento en la línea Conjunto. Consultá disponibilidad, talles y colores por WhatsApp.</div>
-<div class="btn-row"><a class="btn" href="https://wa.me/5491170743305?text=Hola%20quiero%20consultar%20por%20Conjunto%20%235%0AProducto%3A%20Conjunto%20sport%20cl%C3%A1sico%0AFoto%3A%20https%3A//i.imgur.com/X5eu8yq.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
+<div class="btn-row"><a class="btn" href="https://wa.me/5491170743305?text=Hola%20quiero%20consultar%20por%20Conjunto%20%235%0AProducto%3A%20Conjunto%20sport%20cl%C3%A1sico%0APrecio%3A%20%2429.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/X5eu8yq.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
 </div>
 </div>
 <div class="product-slot card lanzamiento-conjunto">
@@ -3516,9 +3566,9 @@ nav,
 <div class="product-img-box"><img fetchpriority="high" decoding="async" loading="lazy" alt="Conjunto #6 - Conjunto urbano destacado" class="slot-product-img" data-images="https://i.imgur.com/8VV8ChP.jpeg" onclick="abrirGaleria(this)" src="https://i.imgur.com/8VV8ChP.jpeg"/></div>
 <div class="nombre">Conjunto #6 · Conjunto urbano destacado</div>
 <div class="descripcion-lanzamiento">Diseño de impacto visual para quienes buscan un look diferente.</div>
-<div class="price-details-row"><div class="precio">Consultar precio</div><button class="details-toggle" onclick="toggleDetalles(this)" type="button">Detalles</button></div>
+<div class="price-details-row"><div class="precio">$29.000 ARS</div><button class="details-toggle" onclick="toggleDetalles(this)" type="button">Detalles</button></div>
 <div class="product-details-panel">Nuevo producto de lanzamiento en la línea Conjunto. Consultá disponibilidad, talles y colores por WhatsApp.</div>
-<div class="btn-row"><a class="btn" href="https://wa.me/5491170743305?text=Hola%20quiero%20consultar%20por%20Conjunto%20%236%0AProducto%3A%20Conjunto%20urbano%20destacado%0AFoto%3A%20https%3A//i.imgur.com/8VV8ChP.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
+<div class="btn-row"><a class="btn" href="https://wa.me/5491170743305?text=Hola%20quiero%20consultar%20por%20Conjunto%20%236%0AProducto%3A%20Conjunto%20urbano%20destacado%0APrecio%3A%20%2429.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/8VV8ChP.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
 </div>
 </div>
 <div class="product-slot card lanzamiento-conjunto">
@@ -3528,9 +3578,9 @@ nav,
 <div class="product-img-box"><img fetchpriority="high" decoding="async" loading="lazy" alt="Conjunto #7 - Conjunto moda street" class="slot-product-img" data-images="https://i.imgur.com/sRRR4ay.jpeg" onclick="abrirGaleria(this)" src="https://i.imgur.com/sRRR4ay.jpeg"/></div>
 <div class="nombre">Conjunto #7 · Conjunto moda street</div>
 <div class="descripcion-lanzamiento">Estilo fresco y urbano, pensado para combinar fácil.</div>
-<div class="price-details-row"><div class="precio">Consultar precio</div><button class="details-toggle" onclick="toggleDetalles(this)" type="button">Detalles</button></div>
+<div class="price-details-row"><div class="precio">$29.000 ARS</div><button class="details-toggle" onclick="toggleDetalles(this)" type="button">Detalles</button></div>
 <div class="product-details-panel">Nuevo producto de lanzamiento en la línea Conjunto. Consultá disponibilidad, talles y colores por WhatsApp.</div>
-<div class="btn-row"><a class="btn" href="https://wa.me/5491170743305?text=Hola%20quiero%20consultar%20por%20Conjunto%20%237%0AProducto%3A%20Conjunto%20moda%20street%0AFoto%3A%20https%3A//i.imgur.com/sRRR4ay.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
+<div class="btn-row"><a class="btn" href="https://wa.me/5491170743305?text=Hola%20quiero%20consultar%20por%20Conjunto%20%237%0AProducto%3A%20Conjunto%20moda%20street%0APrecio%3A%20%2429.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/sRRR4ay.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
 </div>
 </div>
 <div class="product-slot card lanzamiento-conjunto">
@@ -3540,9 +3590,9 @@ nav,
 <div class="product-img-box"><img fetchpriority="high" decoding="async" loading="lazy" alt="Conjunto #8 - Conjunto lanzamiento top" class="slot-product-img" data-images="https://i.imgur.com/dqySkLP.jpeg" onclick="abrirGaleria(this)" src="https://i.imgur.com/dqySkLP.jpeg"/></div>
 <div class="nombre">Conjunto #8 · Conjunto lanzamiento top</div>
 <div class="descripcion-lanzamiento">Modelo nuevo con diseño moderno y terminación llamativa.</div>
-<div class="price-details-row"><div class="precio">Consultar precio</div><button class="details-toggle" onclick="toggleDetalles(this)" type="button">Detalles</button></div>
+<div class="price-details-row"><div class="precio">$29.000 ARS</div><button class="details-toggle" onclick="toggleDetalles(this)" type="button">Detalles</button></div>
 <div class="product-details-panel">Nuevo producto de lanzamiento en la línea Conjunto. Consultá disponibilidad, talles y colores por WhatsApp.</div>
-<div class="btn-row"><a class="btn" href="https://wa.me/5491170743305?text=Hola%20quiero%20consultar%20por%20Conjunto%20%238%0AProducto%3A%20Conjunto%20lanzamiento%20top%0AFoto%3A%20https%3A//i.imgur.com/dqySkLP.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
+<div class="btn-row"><a class="btn" href="https://wa.me/5491170743305?text=Hola%20quiero%20consultar%20por%20Conjunto%20%238%0AProducto%3A%20Conjunto%20lanzamiento%20top%0APrecio%3A%20%2429.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/dqySkLP.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
 </div>
 </div>
 <div class="product-slot card lanzamiento-conjunto">
@@ -3552,9 +3602,9 @@ nav,
 <div class="product-img-box"><img fetchpriority="high" decoding="async" loading="lazy" alt="Conjunto #9 - Conjunto sport fashion" class="slot-product-img" data-images="https://i.imgur.com/MXu5aUL.jpeg" onclick="abrirGaleria(this)" src="https://i.imgur.com/MXu5aUL.jpeg"/></div>
 <div class="nombre">Conjunto #9 · Conjunto sport fashion</div>
 <div class="descripcion-lanzamiento">Look deportivo con presencia moderna para uso casual.</div>
-<div class="price-details-row"><div class="precio">Consultar precio</div><button class="details-toggle" onclick="toggleDetalles(this)" type="button">Detalles</button></div>
+<div class="price-details-row"><div class="precio">$29.000 ARS</div><button class="details-toggle" onclick="toggleDetalles(this)" type="button">Detalles</button></div>
 <div class="product-details-panel">Nuevo producto de lanzamiento en la línea Conjunto. Consultá disponibilidad, talles y colores por WhatsApp.</div>
-<div class="btn-row"><a class="btn" href="https://wa.me/5491170743305?text=Hola%20quiero%20consultar%20por%20Conjunto%20%239%0AProducto%3A%20Conjunto%20sport%20fashion%0AFoto%3A%20https%3A//i.imgur.com/MXu5aUL.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
+<div class="btn-row"><a class="btn" href="https://wa.me/5491170743305?text=Hola%20quiero%20consultar%20por%20Conjunto%20%239%0AProducto%3A%20Conjunto%20sport%20fashion%0APrecio%3A%20%2429.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/MXu5aUL.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
 </div>
 </div>
 <div class="product-slot card lanzamiento-conjunto">
@@ -3564,9 +3614,9 @@ nav,
 <div class="product-img-box"><img fetchpriority="high" decoding="async" loading="lazy" alt="Conjunto #10 - Conjunto urbano edición" class="slot-product-img" data-images="https://i.imgur.com/tkqpvYF.jpeg" onclick="abrirGaleria(this)" src="https://i.imgur.com/tkqpvYF.jpeg"/></div>
 <div class="nombre">Conjunto #10 · Conjunto urbano edición</div>
 <div class="descripcion-lanzamiento">Nuevo ingreso con estilo callejero y diseño actual.</div>
-<div class="price-details-row"><div class="precio">Consultar precio</div><button class="details-toggle" onclick="toggleDetalles(this)" type="button">Detalles</button></div>
+<div class="price-details-row"><div class="precio">$29.000 ARS</div><button class="details-toggle" onclick="toggleDetalles(this)" type="button">Detalles</button></div>
 <div class="product-details-panel">Nuevo producto de lanzamiento en la línea Conjunto. Consultá disponibilidad, talles y colores por WhatsApp.</div>
-<div class="btn-row"><a class="btn" href="https://wa.me/5491170743305?text=Hola%20quiero%20consultar%20por%20Conjunto%20%2310%0AProducto%3A%20Conjunto%20urbano%20edici%C3%B3n%0AFoto%3A%20https%3A//i.imgur.com/tkqpvYF.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
+<div class="btn-row"><a class="btn" href="https://wa.me/5491170743305?text=Hola%20quiero%20consultar%20por%20Conjunto%20%2310%0AProducto%3A%20Conjunto%20urbano%20edici%C3%B3n%0APrecio%3A%20%2429.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/tkqpvYF.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
 </div>
 </div>
 
@@ -3998,8 +4048,8 @@ nav,
 <div class="badge-nuevo">Nueva prenda</div>
 <div class="product-img-box"><img fetchpriority="high" decoding="async" loading="lazy" alt="Camiseta de la Seleccion Argentina" class="slot-product-img" data-images="https://i.imgur.com/dO4yENg.png,https://i.imgur.com/hZf6gnr.jpeg,https://i.imgur.com/sYNPYUj.jpeg,https://i.imgur.com/sYNPYUj.jpeg,https://i.imgur.com/JfIkFBr.jpeg,https://i.imgur.com/qykDvSB.jpeg" onclick="abrirGaleria(this)" src="https://i.imgur.com/dO4yENg.png"/></div>
 <div class="nombre">Camiseta de la Seleccion Argentina</div>
-<div class="precio">$16.000 ARS</div>
-<div class="btn-row"><a class="btn" href="https://wa.me/5491170743305?text=Hola%20quiero%20consultar%20por%20Camiseta%20de%20la%20Seleccion%20Argentina%0APrecio%3A%20%2416.000%20ARS%0AFoto%3A%20https%3A%2F%2Fi.imgur.com%2FdO4yENg.png" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
+<div class="precio">$20.000 ARS</div>
+<div class="btn-row"><a class="btn" href="https://wa.me/5491170743305?text=Hola%20quiero%20consultar%20por%20Camiseta%20de%20la%20Seleccion%20Argentina%0APrecio%3A%20%2420.000%20ARS%0AFoto%3A%20https%3A%2F%2Fi.imgur.com%2FdO4yENg.png" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
 </div>
 </div>
 <div class="product-slot card">
