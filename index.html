@@ -2691,6 +2691,618 @@ footer {
   content: none !important;
   display: none !important;
 }
+
+/* ===== TEMA ARGENTINA EPICA: CELESTE ELECTRICO / BLANCO / DORADO ===== */
+:root {
+  --bg: #020912;
+  --surface: #071523;
+  --accent1: #20d9ff;
+  --accent2: #effcff;
+  --accent3: #70f3ff;
+  --gold: #f7c95f;
+  --text: #f8fdff;
+  --muted: #99b8c9;
+  --card-bg: #06121f;
+  --border: rgba(99, 220, 255, .24);
+}
+
+body {
+  background:
+    radial-gradient(circle at 15% 8%, rgba(32,217,255,.20), transparent 31%),
+    radial-gradient(circle at 88% 4%, rgba(247,201,95,.12), transparent 28%),
+    linear-gradient(135deg, rgba(255,255,255,.035) 0 8%, transparent 8% 16%, rgba(32,217,255,.045) 16% 17%, transparent 17% 100%),
+    var(--bg);
+}
+
+.cursor {
+  background: var(--accent1);
+  box-shadow: 0 0 18px rgba(255,255,255,.85), 0 0 34px rgba(32,217,255,.7);
+}
+
+.cursor-ring {
+  border-color: rgba(210,248,255,.78);
+  box-shadow: 0 0 22px rgba(32,217,255,.48);
+}
+
+#hero {
+  background:
+    linear-gradient(118deg, rgba(255,255,255,.14) 0 9%, transparent 10% 30%, rgba(32,217,255,.18) 31% 55%, transparent 56% 100%),
+    radial-gradient(circle at 50% 24%, rgba(32,217,255,.32), rgba(4,18,32,.95) 43%, #020912 78%);
+}
+
+#hero::before {
+  background:
+    radial-gradient(circle at 50% 42%, rgba(255,255,255,.23), transparent 7%),
+    radial-gradient(circle at 50% 42%, rgba(32,217,255,.48), transparent 18%),
+    conic-gradient(from 225deg at 50% 42%, transparent 0 10%, rgba(247,201,95,.18) 11% 12%, transparent 13% 38%, rgba(255,255,255,.14) 39% 40%, transparent 41% 100%),
+    repeating-linear-gradient(118deg, transparent 0 70px, rgba(32,217,255,.07) 71px 72px, transparent 73px 140px);
+}
+
+#hero::after {
+  background-image:
+    linear-gradient(rgba(32,217,255,.08) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(32,217,255,.08) 1px, transparent 1px),
+    linear-gradient(115deg, transparent 0 47%, rgba(255,255,255,.11) 47% 48%, transparent 48% 100%);
+}
+
+.orb1 { background: rgba(32,217,255,.27) !important; }
+.orb2 { background: rgba(255,255,255,.14) !important; }
+.orb3 { background: rgba(247,201,95,.18) !important; }
+
+.hero-energy span {
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,.95), rgba(32,217,255,.98), rgba(247,201,95,.72), transparent);
+  box-shadow: 0 0 18px rgba(32,217,255,.78), 0 0 28px rgba(255,255,255,.25);
+}
+
+.hero-energy::before {
+  background:
+    linear-gradient(90deg, transparent, rgba(32,217,255,.34), transparent),
+    repeating-linear-gradient(0deg, transparent 0 11px, rgba(255,255,255,.04) 12px 13px);
+}
+
+.hero-energy::after {
+  background: linear-gradient(180deg, transparent 0 38%, rgba(255,255,255,.16) 39%, rgba(32,217,255,.28) 40%, transparent 43% 100%);
+}
+
+.hero-eyebrow,
+.products-tag,
+.category-badge {
+  color: var(--gold);
+  border-color: rgba(247,201,95,.44);
+}
+
+.hero-eyebrow::before,
+.hero-eyebrow::after {
+  background: linear-gradient(90deg, transparent, var(--gold), var(--accent1));
+}
+
+.hero-title {
+  text-shadow: 0 0 26px rgba(32,217,255,.24), 0 0 60px rgba(255,255,255,.11);
+}
+
+.hero-title .line1 {
+  color: #ffffff;
+  filter: drop-shadow(0 0 24px rgba(32,217,255,.42));
+}
+
+.hero-title .line1::before {
+  text-shadow: -5px 0 rgba(32,217,255,.72);
+}
+
+.hero-title .line1::after,
+.hero-title .line2::after,
+.products-title .t-red,
+.nav-logo span,
+.contact-title span {
+  color: var(--accent1);
+}
+
+.hero-title .line2 {
+  -webkit-text-stroke-color: var(--accent1);
+  filter: drop-shadow(0 0 28px rgba(32,217,255,.52));
+}
+
+.hero-subtitle span,
+.stat-num,
+.category-num,
+.precio,
+.cart-item-price {
+  color: var(--gold);
+}
+
+.btn-enter {
+  background: linear-gradient(135deg, var(--accent1), #ffffff 52%, var(--gold) 56%, var(--accent1) 70%);
+  color: #03101b;
+  box-shadow: 0 0 40px rgba(32,217,255,.42), 0 18px 42px rgba(0,0,0,.42);
+}
+
+.btn-enter::before {
+  background: linear-gradient(135deg, #ffffff, var(--accent1) 42%, #087fb2);
+}
+
+nav,
+.catalogo-doble .category-header {
+  background: linear-gradient(to bottom, rgba(2,9,18,.96), rgba(4,19,34,.74));
+}
+
+.nav-logo {
+  background:
+    linear-gradient(118deg, rgba(255,255,255,.16) 0 9%, transparent 10% 32%, rgba(32,217,255,.22) 33% 57%, transparent 58% 100%),
+    linear-gradient(135deg, rgba(32,217,255,.15), rgba(4,18,32,.82) 48%, rgba(247,201,95,.08));
+  border-color: rgba(32,217,255,.42);
+  box-shadow: 0 0 24px rgba(32,217,255,.18), inset 0 0 0 1px rgba(255,255,255,.06);
+  text-shadow: 0 0 18px rgba(255,255,255,.16), 0 0 24px rgba(32,217,255,.26);
+}
+
+.nav-logo::before {
+  background:
+    repeating-linear-gradient(90deg, transparent 0 11px, rgba(255,255,255,.075) 12px 13px),
+    linear-gradient(90deg, transparent, rgba(32,217,255,.36), transparent);
+}
+
+.nav-logo::after {
+  text-shadow: 5px 0 rgba(32,217,255,.68), -4px 0 rgba(255,255,255,.2);
+}
+
+.nav-logo .logo-mark {
+  color: #ffffff;
+  text-shadow: 0 0 12px rgba(255,255,255,.22), 0 0 24px rgba(32,217,255,.24);
+}
+
+.nav-logo .logo-word {
+  background: linear-gradient(90deg, var(--accent1) 0%, #ffffff 38%, var(--gold) 52%, #ffffff 63%, var(--accent1) 100%);
+  background-size: 230% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  filter: drop-shadow(0 0 12px rgba(32,217,255,.5));
+}
+
+.nav-logo .logo-word::after {
+  background: linear-gradient(90deg, transparent, #ffffff, var(--accent1), var(--gold), transparent);
+  box-shadow: 0 0 12px rgba(32,217,255,.7);
+}
+
+.nav-logo .logo-scan {
+  background: linear-gradient(110deg, transparent 0 38%, rgba(255,255,255,.95) 48%, rgba(32,217,255,.42) 52%, transparent 64% 100%);
+}
+
+.nav-links a {
+  color: rgba(210,248,255,.72);
+}
+
+.stats-bar,
+.marquee-wrap {
+  background: rgba(4,20,34,.68);
+  border-color: var(--border);
+}
+
+#productos {
+  background:
+    linear-gradient(116deg, transparent 0 13%, rgba(32,217,255,.055) 13% 14%, transparent 14% 44%, rgba(247,201,95,.04) 44% 45%, transparent 45% 100%),
+    radial-gradient(circle at 78% 8%, rgba(32,217,255,.16), transparent 34%),
+    #020912;
+}
+
+#productos::before { background: #020912; }
+
+.products-title::after {
+  -webkit-text-stroke-color: rgba(32,217,255,.25);
+}
+
+.products-divider .divider-line,
+.products-divider .divider-line.rev,
+.category-header::after,
+.section-glow,
+.scroll-line {
+  background: linear-gradient(to right, transparent, var(--accent1), #ffffff, var(--gold), transparent);
+  box-shadow: 0 0 20px rgba(32,217,255,.58);
+}
+
+.divider-diamond,
+.marquee-dot {
+  background: var(--gold);
+  box-shadow: 0 0 14px rgba(247,201,95,.82);
+}
+
+.catalogo-doble::before {
+  background: linear-gradient(to bottom, transparent, rgba(32,217,255,.9), rgba(255,255,255,.75), rgba(247,201,95,.72), transparent);
+  box-shadow: 0 0 24px rgba(32,217,255,.62), 0 0 34px rgba(247,201,95,.2);
+}
+
+.product-slot.card {
+  background:
+    linear-gradient(145deg, rgba(32,217,255,.09), transparent 42%),
+    linear-gradient(0deg, rgba(255,255,255,.035), transparent),
+    #06121f;
+}
+
+.product-slot.card::before {
+  background:
+    linear-gradient(120deg, transparent 0 58%, rgba(32,217,255,.12) 58% 60%, transparent 60%),
+    repeating-linear-gradient(135deg, rgba(255,255,255,.035) 0 1px, transparent 1px 14px);
+}
+
+.product-slot:hover {
+  box-shadow: 0 20px 48px rgba(0,0,0,.62), 0 0 34px rgba(32,217,255,.26);
+}
+
+.product-slot:hover .slot-inner,
+.product-slot:hover .slot-corner,
+.product-slot.detalles-abierto .product-details-panel {
+  border-color: rgba(32,217,255,.48);
+}
+
+.slot-corner.tl,
+.slot-corner.tr,
+.slot-corner.bl,
+.slot-corner.br {
+  border-color: var(--accent1);
+}
+
+.details-toggle {
+  color: #ffffff;
+  text-shadow: 0 0 12px rgba(255,255,255,.34), 0 0 16px rgba(32,217,255,.34);
+}
+
+.details-toggle::after,
+.details-toggle:hover {
+  color: var(--gold);
+}
+
+.product-details-panel {
+  background: rgba(255,255,255,.045);
+  color: rgba(248,253,255,.9);
+}
+
+.btn {
+  background: linear-gradient(135deg, rgba(32,217,255,.2), rgba(7,18,31,.97));
+  border-color: rgba(32,217,255,.6);
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,.04);
+}
+
+.btn:hover {
+  background: linear-gradient(135deg, var(--accent1), #ffffff 58%, var(--gold));
+  color: #03101b;
+  box-shadow: 0 0 30px rgba(32,217,255,.48), 0 14px 28px rgba(0,0,0,.42);
+}
+
+.cart-toggle,
+.cart-panel,
+.contador {
+  background: rgba(4,18,32,.96);
+  border-color: rgba(32,217,255,.5);
+  box-shadow: 0 18px 52px rgba(0,0,0,.62), 0 0 30px rgba(32,217,255,.24);
+}
+
+.cart-widget::before {
+  border-color: rgba(32,217,255,.62);
+  filter: drop-shadow(0 0 14px rgba(32,217,255,.56));
+}
+
+.cart-widget::after {
+  background:
+    linear-gradient(115deg, transparent 0 32%, rgba(255,255,255,.18) 33% 34%, transparent 35% 100%),
+    linear-gradient(135deg, rgba(32,217,255,.14), rgba(255,255,255,.04), rgba(247,201,95,.12));
+  filter: drop-shadow(0 0 18px rgba(32,217,255,.4));
+}
+
+.cart-toggle {
+  background:
+    linear-gradient(135deg, rgba(255,255,255,.18) 0 8%, transparent 8% 28%, rgba(32,217,255,.32) 28% 54%, rgba(7,18,31,.98) 54% 100%),
+    linear-gradient(135deg, var(--accent1), #087fb2 46%, #04101d 47% 100%);
+  box-shadow: 0 18px 52px rgba(0,0,0,.62), 0 0 34px rgba(32,217,255,.5), inset 0 0 0 1px rgba(255,255,255,.12);
+}
+
+.cart-toggle i {
+  text-shadow: 0 0 9px rgba(255,255,255,.95), 0 0 22px rgba(32,217,255,.95), 0 0 30px rgba(247,201,95,.45);
+}
+
+.cart-count {
+  background: linear-gradient(135deg, #ffffff, var(--accent1) 46%, var(--gold));
+  color: #03101b;
+  box-shadow: 0 0 16px rgba(32,217,255,.75), inset 0 0 0 1px rgba(255,255,255,.62);
+}
+
+.cart-consultar {
+  background:
+    linear-gradient(135deg, #ffffff 0 8%, var(--accent1) 9% 48%, var(--gold) 49% 64%, #087fb2 65% 100%) !important;
+  color: #03101b !important;
+  border-color: rgba(255,255,255,.78) !important;
+  box-shadow:
+    0 0 30px rgba(32,217,255,.62),
+    0 14px 34px rgba(0,0,0,.55),
+    inset 0 0 0 1px rgba(255,255,255,.28) !important;
+}
+
+.cart-clear {
+  background: linear-gradient(135deg, rgba(32,217,255,.14), rgba(7,18,31,.96)) !important;
+  border-color: rgba(32,217,255,.4) !important;
+}
+
+.modal {
+  background: radial-gradient(circle at center, rgba(32,217,255,.24), transparent 40%), rgba(0,0,0,.96);
+}
+
+.modal img {
+  box-shadow: 0 0 72px rgba(32,217,255,.22), 0 22px 80px rgba(0,0,0,.76);
+}
+
+.product-slot.card.lanzamiento-conjunto,
+.product-slot.card.producto-nuevo-epico {
+  background:
+    linear-gradient(135deg, rgba(32,217,255,.24), rgba(255,255,255,.065) 30%, rgba(6,18,31,.98) 100%),
+    var(--card-bg);
+  border: 1px solid rgba(32,217,255,.46);
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,.08), 0 0 36px rgba(32,217,255,.2);
+}
+
+.product-slot.card.producto-nuevo-epico .slot-inner {
+  border-color: rgba(32,217,255,.28);
+}
+
+.product-slot.card.producto-nuevo-epico .nombre {
+  color: #ffffff;
+  text-transform: uppercase;
+  text-shadow: 0 0 16px rgba(32,217,255,.44);
+}
+
+.badge-nuevo {
+  align-self: flex-start;
+  padding: .32rem .58rem;
+  border: 1px solid rgba(247,201,95,.55);
+  background: linear-gradient(135deg, rgba(247,201,95,.24), rgba(32,217,255,.14));
+  color: var(--gold);
+  font-size: .58rem;
+  font-weight: 900;
+  letter-spacing: .13em;
+  text-transform: uppercase;
+  box-shadow: 0 0 16px rgba(247,201,95,.22);
+}
+
+.producto-destacado-pulso {
+  animation: productoDestinoPulso 1.2s ease-in-out 2;
+}
+
+.lanzamiento-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(1rem, 4vw, 2.5rem);
+  border: 0;
+  font-family: 'Rajdhani', sans-serif;
+  text-align: inherit;
+  cursor: pointer;
+  background:
+    radial-gradient(circle at 50% 45%, rgba(32,217,255,.34), transparent 32%),
+    radial-gradient(circle at 50% 45%, rgba(247,201,95,.14), transparent 48%),
+    rgba(1,8,16,.92);
+  color: var(--text);
+  opacity: 0;
+  backdrop-filter: blur(10px);
+  animation: lanzamientoOverlayIn .45s ease forwards, lanzamientoOverlayOut .65s ease 5.35s forwards;
+}
+
+.lanzamiento-overlay::before,
+.lanzamiento-overlay::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.lanzamiento-overlay::before {
+  background:
+    linear-gradient(110deg, transparent 0 35%, rgba(255,255,255,.17) 45%, rgba(32,217,255,.22) 50%, transparent 62% 100%),
+    repeating-linear-gradient(90deg, transparent 0 54px, rgba(255,255,255,.04) 55px 56px);
+  opacity: .68;
+  animation: lanzamientoRayos 2.4s linear infinite;
+}
+
+.lanzamiento-overlay::after {
+  inset: 12%;
+  background: radial-gradient(circle, rgba(255,255,255,.2), rgba(32,217,255,.17) 32%, transparent 58%);
+  filter: blur(24px);
+  animation: lanzamientoGlow 1.2s ease-in-out infinite;
+}
+
+.lanzamiento-card {
+  position: relative;
+  z-index: 1;
+  width: min(860px, 94vw);
+  display: grid;
+  grid-template-columns: minmax(210px, .9fr) minmax(220px, 1fr);
+  gap: clamp(1rem, 3vw, 2rem);
+  align-items: center;
+  padding: clamp(1rem, 3vw, 1.45rem);
+  border: 1px solid rgba(255,255,255,.32);
+  background:
+    linear-gradient(135deg, rgba(255,255,255,.16), rgba(32,217,255,.16) 48%, rgba(4,16,30,.98)),
+    rgba(3,13,24,.96);
+  box-shadow:
+    0 0 50px rgba(32,217,255,.42),
+    0 0 80px rgba(247,201,95,.14),
+    inset 0 0 0 1px rgba(255,255,255,.08);
+  transform-origin: center;
+  animation: lanzamientoHeartbeat 1.05s ease-in-out infinite;
+}
+
+.lanzamiento-card img {
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+  display: block;
+  border: 1px solid rgba(255,255,255,.26);
+  box-shadow: 0 0 34px rgba(32,217,255,.34);
+}
+
+.lanzamiento-copy {
+  text-align: left;
+}
+
+.lanzamiento-kicker {
+  display: inline-block;
+  margin-bottom: .75rem;
+  color: var(--gold);
+  font-size: .72rem;
+  font-weight: 900;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+}
+
+.lanzamiento-title {
+  display: block;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(2.5rem, 8vw, 5.1rem);
+  line-height: .9;
+  letter-spacing: 0;
+  color: #ffffff;
+  text-shadow: 0 0 28px rgba(32,217,255,.48);
+}
+
+.lanzamiento-subtitle {
+  display: block;
+  margin-top: .8rem;
+  color: rgba(248,253,255,.84);
+  font-size: clamp(.88rem, 2vw, 1.05rem);
+  font-weight: 700;
+  line-height: 1.25;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+}
+
+.lanzamiento-cta {
+  display: inline-flex;
+  margin-top: 1.15rem;
+  padding: .68rem .95rem;
+  color: #03101b;
+  background: linear-gradient(135deg, #ffffff, var(--accent1) 48%, var(--gold));
+  font-size: .72rem;
+  font-weight: 900;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+}
+
+.lanzamiento-overlay.oculto {
+  animation: lanzamientoOverlayOut .55s ease forwards;
+  pointer-events: none;
+}
+
+@keyframes productoDestinoPulso {
+  0%, 100% { box-shadow: 0 0 0 rgba(32,217,255,0), inset 0 0 0 1px rgba(255,255,255,.08); }
+  50% { box-shadow: 0 0 48px rgba(32,217,255,.62), 0 0 28px rgba(247,201,95,.24), inset 0 0 0 1px rgba(255,255,255,.18); }
+}
+
+@keyframes lanzamientoOverlayIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes lanzamientoOverlayOut {
+  to { opacity: 0; visibility: hidden; }
+}
+
+@keyframes lanzamientoRayos {
+  from { background-position: -240px 0, 0 0; }
+  to { background-position: 240px 0, 56px 0; }
+}
+
+@keyframes lanzamientoGlow {
+  0%, 100% { opacity: .42; transform: scale(.94); }
+  50% { opacity: .85; transform: scale(1.06); }
+}
+
+@keyframes lanzamientoHeartbeat {
+  0%, 100% { transform: scale(1); filter: brightness(1); }
+  14% { transform: scale(1.035); filter: brightness(1.12); }
+  28% { transform: scale(1); filter: brightness(1); }
+  42% { transform: scale(1.022); filter: brightness(1.08); }
+  62% { transform: scale(1); filter: brightness(1); }
+}
+
+@keyframes heroTitlePulse {
+  0%, 100% { text-shadow: 0 0 24px rgba(32,217,255,.22), 0 0 58px rgba(255,255,255,.12); }
+  50% { text-shadow: 0 0 34px rgba(255,255,255,.18), 0 0 82px rgba(32,217,255,.38); }
+}
+
+@keyframes navLogoPlatePulse {
+  0%, 100% { box-shadow: 0 0 22px rgba(32,217,255,.18), inset 0 0 0 1px rgba(255,255,255,.055); border-color: rgba(32,217,255,.4); }
+  50% { box-shadow: 0 0 32px rgba(32,217,255,.42), inset 0 0 0 1px rgba(255,255,255,.1); border-color: rgba(247,201,95,.46); }
+}
+
+@keyframes navLogoMarkSnap {
+  0%, 100% { text-shadow: 0 0 12px rgba(255,255,255,.22), 0 0 24px rgba(32,217,255,.24); }
+  50% { text-shadow: 0 0 18px rgba(255,255,255,.42), 0 0 34px rgba(32,217,255,.42); }
+}
+
+@keyframes navLogoWordFlow {
+  0%, 100% { background-position: 0% 50%; filter: drop-shadow(0 0 10px rgba(32,217,255,.5)); }
+  50% { background-position: 100% 50%; filter: drop-shadow(0 0 16px rgba(247,201,95,.55)); }
+}
+
+@keyframes heroOutlineCharge {
+  0%, 100% { filter: drop-shadow(0 0 22px rgba(32,217,255,.36)); }
+  50% { filter: drop-shadow(0 0 40px rgba(32,217,255,.76)); }
+}
+
+@keyframes heroEyebrowCharge {
+  0%, 100% { box-shadow: inset 0 0 0 1px rgba(255,255,255,.05), 0 0 24px rgba(32,217,255,.18); }
+  50% { box-shadow: inset 0 0 0 1px rgba(255,255,255,.12), 0 0 38px rgba(247,201,95,.34); }
+}
+
+@keyframes heroSubtitleGlow {
+  0%, 100% { text-shadow: 0 0 0 rgba(32,217,255,0); }
+  50% { text-shadow: 0 0 22px rgba(32,217,255,.32); }
+}
+
+@keyframes heroButtonCharge {
+  0%, 100% { box-shadow: 0 0 36px rgba(32,217,255,.36), 0 18px 42px rgba(0,0,0,.42); }
+  50% { box-shadow: 0 0 58px rgba(32,217,255,.62), 0 18px 48px rgba(0,0,0,.52); }
+}
+
+@keyframes cartToggleGlow {
+  0%, 100% { filter: drop-shadow(0 0 8px rgba(32,217,255,.36)); transform: translateY(0); }
+  50% { filter: drop-shadow(0 0 18px rgba(32,217,255,.7)); transform: translateY(-1px); }
+}
+
+@keyframes cartIconGlow {
+  0%, 100% { transform: scale(1); text-shadow: 0 0 8px rgba(255,255,255,.75), 0 0 18px rgba(32,217,255,.74); }
+  50% { transform: scale(1.12); text-shadow: 0 0 13px rgba(255,255,255,.94), 0 0 30px rgba(32,217,255,.96); }
+}
+
+@keyframes cartCountPulse {
+  0%, 100% { transform: scale(1); box-shadow: 0 0 14px rgba(32,217,255,.58); }
+  50% { transform: scale(1.12); box-shadow: 0 0 22px rgba(247,201,95,.78); }
+}
+
+@keyframes consultarSeleccionPulse {
+  0%, 100% { transform: translateY(0); box-shadow: 0 0 28px rgba(32,217,255,.56), 0 14px 34px rgba(0,0,0,.55); }
+  50% { transform: translateY(-1px); box-shadow: 0 0 46px rgba(32,217,255,.86), 0 16px 38px rgba(0,0,0,.58); }
+}
+
+@media (max-width: 768px) {
+  .badge-nuevo {
+    align-self: center;
+    font-size: .48rem;
+    padding: .24rem .42rem;
+  }
+
+  .lanzamiento-card {
+    grid-template-columns: 1fr;
+    width: min(420px, 94vw);
+    text-align: center;
+  }
+
+  .lanzamiento-copy {
+    text-align: center;
+  }
+
+  .lanzamiento-card img {
+    aspect-ratio: 16 / 11;
+  }
+}
 </style>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" media="print" onload="this.media='all'" rel="stylesheet"/>
 <noscript><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet"/></noscript></head>
@@ -2711,6 +3323,18 @@ footer {
 <a class="wa-header-link" href="https://wa.me/5491170743305?text=Hola, vengo del catálogo y tengo una consulta" target="_blank">
 <i class="fab fa-whatsapp"></i>
 </a>
+
+<button aria-label="Ver camiseta de la Seleccion Argentina" class="lanzamiento-overlay" id="lanzamientoNuevaPrenda" type="button">
+<span class="lanzamiento-card">
+<img alt="Nueva camiseta de la Seleccion Argentina" decoding="async" fetchpriority="high" src="https://i.imgur.com/dmMxNlY.jpeg"/>
+<span class="lanzamiento-copy">
+<span class="lanzamiento-kicker">Nueva prenda</span>
+<span class="lanzamiento-title">Camiseta Argentina</span>
+<span class="lanzamiento-subtitle">Calidad importada </span>
+<span class="lanzamiento-cta">Ver lanzamiento</span>
+</span>
+</span>
+</button>
 
 <!-- NAV -->
 <nav>
@@ -2811,9 +3435,20 @@ footer {
 <div class="section-glow"></div>
 <span class="category-num">01</span>
 <h3 class="category-name">BUZOS</h3>
-<span class="category-badge">51 productos</span>
+<span class="category-badge">52 productos</span>
 </div>
 <div class="product-grid">
+<div class="product-slot card producto-nuevo-epico" data-detalle="Buzo Jordan negro con capucha, patron tonal camuflado y logo blanco en el pecho. Look Black Phantom con frente y espalda en la misma publicacion." id="buzo-jordan-black-phantom">
+<div class="slot-corner tl"></div><div class="slot-corner tr"></div>
+<div class="slot-corner bl"></div><div class="slot-corner br"></div>
+<div class="slot-inner">
+<div class="badge-nuevo">Nuevo ingreso</div>
+<div class="product-img-box"><img fetchpriority="high" decoding="async" loading="lazy" alt="Buzo Jordan Black Phantom" class="slot-product-img" data-images="https://i.imgur.com/QybbVLI.png" onclick="abrirGaleria(this)" src="https://i.imgur.com/QybbVLI.png"/></div>
+<div class="nombre">Buzo Jordan Black Phantom</div>
+<div class="precio">$16.000 ARS</div>
+<div class="btn-row"><a class="btn" href="https://wa.me/5491170743305?text=Hola%20quiero%20consultar%20por%20Buzo%20Jordan%20Black%20Phantom%0APrecio%3A%20%2416.000%20ARS%0AFoto%3A%20https%3A%2F%2Fi.imgur.com%2FQybbVLI.png" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
+</div>
+</div>
 <div class="product-slot card lanzamiento-conjunto">
 <div class="slot-corner tl"></div><div class="slot-corner tr"></div>
 <div class="slot-corner bl"></div><div class="slot-corner br"></div>
@@ -3352,10 +3987,21 @@ footer {
 <div class="category-header">
 <div class="section-glow"></div>
 <span class="category-num">02</span>
-<h3 class="category-name">REMERAS</h3>
-<span class="category-badge">53 productos</span>
+<h3 class="category-name">CAMISETAS</h3>
+<span class="category-badge">54 productos</span>
 </div>
 <div class="product-grid">
+<div class="product-slot card producto-nuevo-epico camiseta-seleccion" data-detalle="Camiseta de la Seleccion Argentina de calidad importada. Tela liviana, terminaciones premium, escudo y detalles dorados; ideal para lucir la celeste y blanca con presencia de seleccion." id="camiseta-seleccion-argentina">
+<div class="slot-corner tl"></div><div class="slot-corner tr"></div>
+<div class="slot-corner bl"></div><div class="slot-corner br"></div>
+<div class="slot-inner">
+<div class="badge-nuevo">Nueva prenda</div>
+<div class="product-img-box"><img fetchpriority="high" decoding="async" loading="lazy" alt="Camiseta de la Seleccion Argentina" class="slot-product-img" data-images="https://i.imgur.com/dO4yENg.png,https://i.imgur.com/hZf6gnr.jpeg,https://i.imgur.com/sYNPYUj.jpeg,https://i.imgur.com/sYNPYUj.jpeg,https://i.imgur.com/JfIkFBr.jpeg,https://i.imgur.com/qykDvSB.jpeg" onclick="abrirGaleria(this)" src="https://i.imgur.com/dO4yENg.png"/></div>
+<div class="nombre">Camiseta de la Seleccion Argentina</div>
+<div class="precio">$16.000 ARS</div>
+<div class="btn-row"><a class="btn" href="https://wa.me/5491170743305?text=Hola%20quiero%20consultar%20por%20Camiseta%20de%20la%20Seleccion%20Argentina%0APrecio%3A%20%2416.000%20ARS%0AFoto%3A%20https%3A%2F%2Fi.imgur.com%2FdO4yENg.png" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
+</div>
+</div>
 <div class="product-slot card">
 <div class="slot-corner tl"></div><div class="slot-corner tr"></div>
 <div class="slot-corner bl"></div><div class="slot-corner br"></div>
@@ -3973,6 +4619,32 @@ footer {
       el.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
       observer.observe(el);
     });
+
+    (function activarAnuncioLanzamiento() {
+      const anuncio = document.getElementById("lanzamientoNuevaPrenda");
+      const destino = document.getElementById("camiseta-seleccion-argentina");
+      if (!anuncio || !destino) return;
+
+      let cerrado = false;
+      const cerrarAnuncio = () => {
+        if (cerrado) return;
+        cerrado = true;
+        anuncio.classList.add("oculto");
+        setTimeout(() => {
+          if (anuncio && anuncio.parentNode) anuncio.parentNode.removeChild(anuncio);
+        }, 700);
+      };
+
+      anuncio.addEventListener("click", () => {
+        cerrarAnuncio();
+        const top = destino.getBoundingClientRect().top + window.pageYOffset - 92;
+        window.scrollTo({ top, behavior: "smooth" });
+        destino.classList.add("producto-destacado-pulso");
+        setTimeout(() => destino.classList.remove("producto-destacado-pulso"), 2600);
+      });
+
+      setTimeout(cerrarAnuncio, 6000);
+    })();
   
 
 
@@ -4481,13 +5153,32 @@ const DETALLES_PRODUCTOS = [
   "Remera Michael Jordan Bulls de manga corta, con grafica frontal tipo collage deportivo en rojo/naranja. Colores blanco y negro."
 ];
 
+function toggleDetalles(boton) {
+  const card = boton ? boton.closest(".product-slot.card") : null;
+  if (!card) return;
+  const abierto = card.classList.toggle("detalles-abierto");
+  boton.setAttribute("aria-expanded", abierto ? "true" : "false");
+}
+
 function inicializarDetallesProductos() {
-  document.querySelectorAll(".product-slot.card").forEach((card, index) => {
+  let indiceDetalle = 0;
+
+  document.querySelectorAll(".product-slot.card").forEach((card) => {
     if (card.dataset.detallesReady === "true") return;
     const precio = card.querySelector(".precio");
     if (!precio) return;
 
-    const detalle = DETALLES_PRODUCTOS[index] || "Producto de estilo urbano con diseno estampado y variantes segun disponibilidad.";
+    const botonExistente = card.querySelector(".details-toggle");
+    const panelExistente = card.querySelector(".product-details-panel");
+    if (botonExistente && panelExistente && !card.dataset.detalle) {
+      botonExistente.setAttribute("aria-expanded", "false");
+      card.dataset.detallesReady = "true";
+      return;
+    }
+
+    const detalle = card.dataset.detalle || DETALLES_PRODUCTOS[indiceDetalle] || "Producto de estilo urbano con diseno estampado y variantes segun disponibilidad.";
+    if (!card.dataset.detalle) indiceDetalle += 1;
+
     const fila = document.createElement("div");
     fila.className = "price-details-row";
     precio.parentNode.insertBefore(fila, precio);
@@ -4507,8 +5198,7 @@ function inicializarDetallesProductos() {
 
     boton.addEventListener("click", event => {
       event.stopPropagation();
-      const abierto = card.classList.toggle("detalles-abierto");
-      boton.setAttribute("aria-expanded", abierto ? "true" : "false");
+      toggleDetalles(boton);
     });
 
     card.dataset.detallesReady = "true";
