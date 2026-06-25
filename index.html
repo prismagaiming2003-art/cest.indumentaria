@@ -3478,6 +3478,85 @@ html.android-device .nav-logo .logo-word::after {
   0%, 100% { box-shadow: 0 24px 70px rgba(0,0,0,.68), 0 0 42px rgba(0,216,255,.52), inset 0 0 0 1px rgba(255,255,255,.1); }
   50% { box-shadow: 0 28px 82px rgba(0,0,0,.78), 0 0 64px rgba(0,216,255,.84), inset 0 0 0 1px rgba(255,255,255,.2); }
 }
+
+.entry-announcement {
+  position: fixed;
+  top: clamp(72px, 9vh, 116px);
+  left: 50%;
+  z-index: 1000000;
+  width: min(430px, calc(100vw - 28px));
+  padding: .9rem 1.1rem .82rem;
+  border: 1px solid rgba(0,229,255,.78);
+  border-radius: 8px;
+  background:
+    linear-gradient(135deg, rgba(0,216,255,.24), rgba(255,255,255,.08) 35%, rgba(3,18,38,.98) 36% 100%),
+    rgba(3,18,38,.96);
+  color: #f7fdff;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: .12em;
+  box-shadow: 0 24px 70px rgba(0,0,0,.72), 0 0 48px rgba(0,216,255,.62), inset 0 0 0 1px rgba(255,255,255,.12);
+  text-shadow: 0 0 14px rgba(0,216,255,.62);
+  transform: translate(-50%, -18px) scale(.96);
+  opacity: 0;
+  cursor: pointer;
+  animation: entryAnnouncementIn .45s cubic-bezier(.16,.84,.26,1) forwards, entryAnnouncementPulse 1.05s ease-in-out .45s infinite;
+}
+
+.entry-announcement::before {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  border-radius: inherit;
+  border: 1px solid rgba(255,255,255,.3);
+  pointer-events: none;
+}
+
+.entry-announcement__eyebrow {
+  display: block;
+  margin-bottom: .3rem;
+  color: rgba(194,246,255,.92);
+  font-size: .78rem;
+  font-weight: 700;
+}
+
+.entry-announcement strong {
+  display: block;
+  color: #ffffff;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(1.45rem, 5vw, 2.15rem);
+  font-weight: 400;
+  line-height: 1;
+  letter-spacing: .08em;
+}
+
+.entry-announcement.is-hiding {
+  pointer-events: none;
+  animation: entryAnnouncementOut .42s ease forwards;
+}
+
+@keyframes entryAnnouncementIn {
+  to {
+    opacity: 1;
+    transform: translate(-50%, 0) scale(1);
+  }
+}
+
+@keyframes entryAnnouncementPulse {
+  0%, 100% {
+    box-shadow: 0 24px 70px rgba(0,0,0,.72), 0 0 42px rgba(0,216,255,.54), inset 0 0 0 1px rgba(255,255,255,.12);
+  }
+  50% {
+    box-shadow: 0 28px 82px rgba(0,0,0,.78), 0 0 66px rgba(0,216,255,.86), inset 0 0 0 1px rgba(255,255,255,.2);
+  }
+}
+
+@keyframes entryAnnouncementOut {
+  to {
+    opacity: 0;
+    transform: translate(-50%, -14px) scale(.96);
+  }
+}
 </style>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" media="print" onload="this.media='all'" rel="stylesheet"/>
 <noscript><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet"/></noscript></head>
@@ -3485,6 +3564,10 @@ html.android-device .nav-logo .logo-word::after {
 <!-- CUSTOM CURSOR -->
 <div class="cursor" id="cursor"></div>
 <div class="cursor-ring" id="cursorRing"></div>
+<div class="entry-announcement" id="entryAnnouncement" role="button" tabindex="0" aria-label="Cerrar aviso de ubicacion">
+<span class="entry-announcement__eyebrow">Encontranos en</span>
+<strong>Pasillo 6 , puesto 18-20</strong>
+</div>
 <div class="cart-widget" id="cartWidget">
 <button aria-label="Abrir carrito" class="cart-toggle" onclick="toggleCarrito(event)" type="button"><i class="fas fa-shopping-cart"></i> Carrito <span class="cart-count" id="cartCount">0</span></button>
 <div class="cart-panel" onclick="event.stopPropagation()">
@@ -4155,9 +4238,39 @@ html.android-device .nav-logo .logo-word::after {
 <div class="section-glow"></div>
 <span class="category-num">02</span>
 <h3 class="category-name">REMERAS</h3>
-<span class="category-badge">56 productos</span>
+<span class="category-badge">59 productos</span>
 </div>
 <div class="product-grid">
+<div class="product-slot card" data-detalle="Remera urbana de manga corta con estampa destacada. Disponible en nueva publicacion.">
+<div class="slot-corner tl"></div><div class="slot-corner tr"></div>
+<div class="slot-corner bl"></div><div class="slot-corner br"></div>
+<div class="slot-inner">
+<div class="product-img-box"><img fetchpriority="high" decoding="async" loading="lazy" alt="Remera #51" class="slot-product-img" data-images="https://i.imgur.com/5M0XmwY.jpeg" onclick="abrirGaleria(this)" src="https://i.imgur.com/5M0XmwY.jpeg"/></div>
+<div class="nombre">Remera #51</div>
+<div class="precio">$8.000 ARS</div>
+<div class="btn-row"><a class="btn" href="https://wa.me/5491170743305?text=Hola%20quiero%20consultar%20por%20Remera%20%2351%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A%2F%2Fi.imgur.com%2F5M0XmwY.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
+</div>
+</div>
+<div class="product-slot card" data-detalle="Remera urbana de manga corta con estampa destacada. Incluye fotos adicionales en galeria.">
+<div class="slot-corner tl"></div><div class="slot-corner tr"></div>
+<div class="slot-corner bl"></div><div class="slot-corner br"></div>
+<div class="slot-inner">
+<div class="product-img-box"><img fetchpriority="high" decoding="async" loading="lazy" alt="Remera #52" class="slot-product-img" data-images="https://i.imgur.com/chkvPts.jpeg,https://i.imgur.com/RQ9neDk.jpeg" onclick="abrirGaleria(this)" src="https://i.imgur.com/chkvPts.jpeg"/></div>
+<div class="nombre">Remera #52</div>
+<div class="precio">$8.000 ARS</div>
+<div class="btn-row"><a class="btn" href="https://wa.me/5491170743305?text=Hola%20quiero%20consultar%20por%20Remera%20%2352%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A%2F%2Fi.imgur.com%2FchkvPts.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
+</div>
+</div>
+<div class="product-slot card" data-detalle="Remera urbana de manga corta con estampa destacada. Incluye fotos adicionales en galeria.">
+<div class="slot-corner tl"></div><div class="slot-corner tr"></div>
+<div class="slot-corner bl"></div><div class="slot-corner br"></div>
+<div class="slot-inner">
+<div class="product-img-box"><img fetchpriority="high" decoding="async" loading="lazy" alt="Remera #53" class="slot-product-img" data-images="https://i.imgur.com/akJqnb3.jpeg,https://i.imgur.com/zGonzLl.jpeg" onclick="abrirGaleria(this)" src="https://i.imgur.com/akJqnb3.jpeg"/></div>
+<div class="nombre">Remera #53</div>
+<div class="precio">$8.000 ARS</div>
+<div class="btn-row"><a class="btn" href="https://wa.me/5491170743305?text=Hola%20quiero%20consultar%20por%20Remera%20%2353%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A%2F%2Fi.imgur.com%2FakJqnb3.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
+</div>
+</div>
 <div class="product-slot card producto-sin-stock" data-detalle="Remera urbana de manga corta con estampa destacada. Sin stock actualmente.">
 <div class="slot-corner tl"></div><div class="slot-corner tr"></div>
 <div class="slot-corner bl"></div><div class="slot-corner br"></div>
@@ -4754,6 +4867,31 @@ html.android-device .nav-logo .logo-word::after {
 
 
 <script>
+    (function activarAvisoEntrada() {
+      const aviso = document.getElementById("entryAnnouncement");
+      if (!aviso) return;
+
+      let cerrado = false;
+      const ocultarAviso = () => {
+        if (cerrado) return;
+        cerrado = true;
+        aviso.classList.add("is-hiding");
+        window.setTimeout(() => aviso.remove(), 450);
+      };
+
+      const cierreAutomatico = window.setTimeout(ocultarAviso, 3000);
+      aviso.addEventListener("click", () => {
+        window.clearTimeout(cierreAutomatico);
+        ocultarAviso();
+      });
+      aviso.addEventListener("keydown", event => {
+        if (event.key !== "Enter" && event.key !== " ") return;
+        event.preventDefault();
+        window.clearTimeout(cierreAutomatico);
+        ocultarAviso();
+      });
+    }());
+
     // CURSOR
     const cursor = document.getElementById('cursor');
     const ring = document.getElementById('cursorRing');
