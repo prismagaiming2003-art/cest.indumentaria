@@ -3621,6 +3621,7 @@ html.entry-announcement-active body {
   font-weight: 900;
   letter-spacing: .18em;
   text-shadow: 0 0 12px rgba(126,244,255,.62), 0 0 26px rgba(0,216,255,.45);
+  animation: entryAnnouncementTextGlow 1.25s ease-in-out infinite;
 }
 
 .entry-announcement strong {
@@ -3640,6 +3641,7 @@ html.entry-announcement-active body {
   letter-spacing: .055em;
   text-shadow: 0 0 16px rgba(255,255,255,.58), 0 0 28px rgba(0,216,255,.72), 0 0 46px rgba(255,23,61,.28);
   filter: drop-shadow(0 0 24px rgba(0,216,255,.28));
+  animation: entryAnnouncementTextGlow 1.25s ease-in-out infinite;
 }
 
 .entry-announcement__sep {
@@ -3685,6 +3687,21 @@ html.entry-announcement-active body {
   line-height: .8;
   letter-spacing: 0;
   text-shadow: 0 0 16px rgba(126,244,255,.9), 0 0 30px rgba(255,23,61,.35);
+}
+
+.entry-announcement__zone {
+  position: relative;
+  z-index: 1;
+  display: block;
+  margin-top: clamp(.42rem, 1.2vw, .7rem);
+  color: #ffdf6e;
+  font-family: 'Rajdhani', sans-serif;
+  font-size: clamp(.88rem, 2.2vw, 1.22rem);
+  font-weight: 900;
+  line-height: 1;
+  letter-spacing: .14em;
+  text-shadow: 0 0 12px rgba(255,223,110,.7), 0 0 26px rgba(255,23,61,.3);
+  animation: entryAnnouncementGoldGlow 1.25s ease-in-out infinite;
 }
 
 .entry-announcement.is-hiding {
@@ -3733,6 +3750,26 @@ html.entry-announcement-active body {
   }
 }
 
+@keyframes entryAnnouncementTextGlow {
+  0%, 100% {
+    filter: drop-shadow(0 0 18px rgba(0,216,255,.28));
+    text-shadow: 0 0 14px rgba(255,255,255,.5), 0 0 24px rgba(0,216,255,.68), 0 0 42px rgba(255,23,61,.22);
+  }
+  50% {
+    filter: drop-shadow(0 0 30px rgba(0,216,255,.54));
+    text-shadow: 0 0 18px rgba(255,255,255,.82), 0 0 34px rgba(0,216,255,.95), 0 0 64px rgba(255,23,61,.42);
+  }
+}
+
+@keyframes entryAnnouncementGoldGlow {
+  0%, 100% {
+    text-shadow: 0 0 12px rgba(255,223,110,.68), 0 0 24px rgba(255,23,61,.24);
+  }
+  50% {
+    text-shadow: 0 0 18px rgba(255,240,156,.95), 0 0 34px rgba(255,223,110,.72), 0 0 48px rgba(255,23,61,.36);
+  }
+}
+
 @keyframes entryAnnouncementOut {
   to {
     opacity: 0;
@@ -3765,6 +3802,10 @@ html.entry-announcement-active body {
     font-size: clamp(.68rem, 3.4vw, .86rem);
   }
 
+  .entry-announcement__zone {
+    font-size: clamp(.78rem, 4vw, 1rem);
+  }
+
   .entry-announcement::before {
     animation-duration: 3.6s;
   }
@@ -3777,7 +3818,10 @@ html.entry-announcement-active body {
 @media (prefers-reduced-motion: reduce) {
   .entry-announcement,
   .entry-announcement::before,
-  .entry-announcement::after {
+  .entry-announcement::after,
+  .entry-announcement__eyebrow,
+  .entry-announcement strong,
+  .entry-announcement__zone {
     animation: none !important;
   }
 
@@ -3802,7 +3846,8 @@ html.entry-announcement-active body {
 <div class="entry-announcement__card">
 <span class="entry-announcement__eyebrow">Encontranos en</span>
 <strong><span>Pasillo 6</span><span class="entry-announcement__sep">|</span><span>Puesto 18-20</span></strong>
-<div class="entry-announcement__countdown" aria-live="polite">Salta en <span id="entryCountdown">3</span></div>
+<span class="entry-announcement__zone">En Punta Mogote</span>
+<div class="entry-announcement__countdown" aria-live="polite">Salta en <span id="entryCountdown">4</span></div>
 </div>
 </div>
 <div class="cart-widget" id="cartWidget">
@@ -5111,7 +5156,7 @@ html.entry-announcement-active body {
       let cerrado = false;
       let cierreAutomatico = 0;
       let intervaloCuenta = 0;
-      let segundosRestantes = 3;
+      let segundosRestantes = 4;
       const contador = document.getElementById("entryCountdown");
       const actualizarCuenta = () => {
         if (!contador) return;
@@ -5134,7 +5179,7 @@ html.entry-announcement-active body {
         actualizarCuenta();
         if (segundosRestantes <= 0) window.clearInterval(intervaloCuenta);
       }, 1000);
-      cierreAutomatico = window.setTimeout(ocultarAviso, 3200);
+      cierreAutomatico = window.setTimeout(ocultarAviso, 4200);
 
       aviso.addEventListener("click", () => {
         ocultarAviso();
