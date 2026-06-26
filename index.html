@@ -696,6 +696,38 @@
   flex: 1 1 auto;
   min-width: 0;
 }
+.price-details-row .precio-stack {
+  display: flex;
+  flex: 1 1 auto;
+  min-width: 0;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: .18rem;
+}
+.price-details-row .precio-stack .precio {
+  width: auto;
+  flex: 0 0 auto;
+}
+.talle-conjunto {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  max-width: 100%;
+  padding: .18rem .44rem;
+  border: 1px solid rgba(32,217,255,.55);
+  border-radius: 999px;
+  background: linear-gradient(135deg, rgba(32,217,255,.16), rgba(255,255,255,.06));
+  color: #effcff;
+  font-family: 'Rajdhani', sans-serif;
+  font-size: .68rem;
+  font-weight: 900;
+  line-height: 1;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  text-shadow: 0 0 10px rgba(32,217,255,.55);
+  box-shadow: 0 0 16px rgba(32,217,255,.18), inset 0 0 0 1px rgba(255,255,255,.08);
+  white-space: nowrap;
+}
 .details-toggle {
   flex: 0 0 auto;
   border: 0;
@@ -1107,6 +1139,8 @@
   .nombre { font-size: .78rem !important; line-height: 1.05 !important; min-height: 1.7em; text-align: center; }
   .precio { font-size: .95rem !important; line-height: 1 !important; }
   .price-details-row { align-items: center; gap: .38rem; }
+  .price-details-row .precio-stack { align-items: center; gap: .12rem; }
+  .talle-conjunto { font-size: .48rem; padding: .14rem .28rem; letter-spacing: .045em; }
   .details-toggle { font-size: .55rem !important; letter-spacing: .035em !important; padding-left: .35rem !important; }
   .product-details-panel { font-size: .58rem !important; line-height: 1.24 !important; padding-left: .42rem; padding-right: .42rem; }
   .product-slot.card.detalles-abierto { min-height: 315px !important; }
@@ -3479,55 +3513,178 @@ html.android-device .nav-logo .logo-word::after {
   50% { box-shadow: 0 28px 82px rgba(0,0,0,.78), 0 0 64px rgba(0,216,255,.84), inset 0 0 0 1px rgba(255,255,255,.2); }
 }
 
+html.entry-announcement-active,
+html.entry-announcement-active body {
+  overflow: hidden;
+}
+
 .entry-announcement {
   position: fixed;
-  top: clamp(72px, 9vh, 116px);
-  left: 50%;
+  inset: 0;
   z-index: 1000000;
-  width: min(430px, calc(100vw - 28px));
-  padding: .9rem 1.1rem .82rem;
-  border: 1px solid rgba(0,229,255,.78);
-  border-radius: 8px;
-  background:
-    linear-gradient(135deg, rgba(0,216,255,.24), rgba(255,255,255,.08) 35%, rgba(3,18,38,.98) 36% 100%),
-    rgba(3,18,38,.96);
+  width: 100vw;
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: grid;
+  place-items: center;
+  align-content: center;
+  gap: clamp(.7rem, 2vw, 1.2rem);
+  padding: clamp(1.2rem, 4vw, 3rem);
+  border: 0;
+  border-radius: 0;
+  overflow: hidden;
+  isolation: isolate;
+  contain: layout paint;
+  backface-visibility: hidden;
+  background: rgba(2,9,18,.3);
+  backdrop-filter: blur(8px) saturate(1.12);
+  -webkit-backdrop-filter: blur(8px) saturate(1.12);
   color: #f7fdff;
   text-align: center;
   text-transform: uppercase;
-  letter-spacing: .12em;
-  box-shadow: 0 24px 70px rgba(0,0,0,.72), 0 0 48px rgba(0,216,255,.62), inset 0 0 0 1px rgba(255,255,255,.12);
+  letter-spacing: .11em;
+  box-shadow: inset 0 0 0 1px rgba(126,244,255,.12), inset 0 0 90px rgba(0,216,255,.08);
   text-shadow: 0 0 14px rgba(0,216,255,.62);
-  transform: translate(-50%, -18px) scale(.96);
+  transform: scale(1.045);
   opacity: 0;
   cursor: pointer;
-  animation: entryAnnouncementIn .45s cubic-bezier(.16,.84,.26,1) forwards, entryAnnouncementPulse 1.05s ease-in-out .45s infinite;
+  touch-action: manipulation;
+  overscroll-behavior: contain;
+  will-change: transform, opacity;
+  animation: entryAnnouncementIn .48s cubic-bezier(.16,.84,.26,1) forwards, entryAnnouncementFloat 3.2s ease-in-out .48s infinite;
 }
 
 .entry-announcement::before {
   content: '';
   position: absolute;
-  inset: -2px;
-  border-radius: inherit;
-  border: 1px solid rgba(255,255,255,.3);
+  inset: 0;
+  border: 0;
+  border-radius: 0;
+  background:
+    radial-gradient(circle at 50% 44%, rgba(126,244,255,.28), transparent 20rem),
+    radial-gradient(circle at 82% 70%, rgba(255,23,61,.16), transparent 18rem),
+    radial-gradient(circle at 16% 20%, rgba(255,255,255,.12), transparent 16rem);
+  box-shadow: inset 0 0 96px rgba(0,0,0,.3);
+  pointer-events: none;
+  z-index: 0;
+  animation: entryAnnouncementAura 2.6s ease-in-out .45s infinite;
+}
+
+.entry-announcement::after {
+  content: '';
+  position: absolute;
+  top: -80%;
+  bottom: -80%;
+  left: -65%;
+  width: 42%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,.78), rgba(126,244,255,.56), transparent);
+  opacity: 0;
+  pointer-events: none;
+  transform: translate3d(-35%, 0, 0) skewX(-18deg);
+  animation: entryAnnouncementSheen 2.7s ease-in-out .72s infinite;
+  will-change: transform, opacity;
+  z-index: 1;
+}
+
+.entry-announcement__card {
+  position: relative;
+  z-index: 2;
+  width: min(640px, calc(100vw - 34px));
+  padding: clamp(1.05rem, 3vw, 1.85rem) clamp(.95rem, 3.4vw, 2.2rem);
+  border: 1px solid rgba(126,244,255,.72);
+  border-radius: 10px;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 50% 0%, rgba(255,255,255,.2), transparent 45%),
+    linear-gradient(135deg, rgba(0,229,255,.24), rgba(5,13,28,.78) 48%, rgba(255,23,61,.16)),
+    rgba(3,18,38,.72);
+  box-shadow: 0 24px 70px rgba(0,0,0,.45), 0 0 36px rgba(0,216,255,.38), 0 0 74px rgba(255,23,61,.14), inset 0 0 0 1px rgba(255,255,255,.12);
+}
+
+.entry-announcement__card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(90deg, transparent, rgba(126,244,255,.22), transparent) 50% 0 / 72% 1px no-repeat,
+    linear-gradient(90deg, transparent, rgba(255,23,61,.18), transparent) 50% 100% / 72% 1px no-repeat;
   pointer-events: none;
 }
 
 .entry-announcement__eyebrow {
+  position: relative;
+  z-index: 1;
   display: block;
-  margin-bottom: .3rem;
-  color: rgba(194,246,255,.92);
-  font-size: .78rem;
-  font-weight: 700;
+  margin-bottom: clamp(.45rem, 1.4vw, .8rem);
+  color: rgba(219,251,255,.96);
+  font-size: clamp(.74rem, 1.7vw, 1rem);
+  font-weight: 900;
+  letter-spacing: .18em;
+  text-shadow: 0 0 12px rgba(126,244,255,.62), 0 0 26px rgba(0,216,255,.45);
 }
 
 .entry-announcement strong {
-  display: block;
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: clamp(.38rem, 1.3vw, .72rem) clamp(.7rem, 2vw, 1.15rem);
+  max-width: 100%;
   color: #ffffff;
   font-family: 'Bebas Neue', sans-serif;
-  font-size: clamp(1.45rem, 5vw, 2.15rem);
+  font-size: clamp(2.15rem, 7vw, 4.65rem);
   font-weight: 400;
+  line-height: .9;
+  letter-spacing: .055em;
+  text-shadow: 0 0 16px rgba(255,255,255,.58), 0 0 28px rgba(0,216,255,.72), 0 0 46px rgba(255,23,61,.28);
+  filter: drop-shadow(0 0 24px rgba(0,216,255,.28));
+}
+
+.entry-announcement__sep {
+  display: inline-flex;
+  width: clamp(.34rem, .8vw, .55rem);
+  height: clamp(.34rem, .8vw, .55rem);
+  border: 1px solid rgba(126,244,255,.9);
+  border-radius: 2px;
+  background: #ffffff;
+  color: #7ef4ff;
+  font-size: 0;
+  transform: rotate(45deg);
+  box-shadow: 0 0 18px rgba(126,244,255,.9), 0 0 34px rgba(255,23,61,.36);
+}
+
+.entry-announcement__countdown {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: .45rem;
+  margin-top: clamp(.72rem, 1.8vw, 1rem);
+  padding: .38rem .7rem;
+  border: 1px solid rgba(126,244,255,.5);
+  border-radius: 999px;
+  background: rgba(2,9,18,.52);
+  color: rgba(239,252,255,.92);
+  font-family: 'Rajdhani', sans-serif;
+  font-size: clamp(.72rem, 1.8vw, .92rem);
+  font-weight: 900;
   line-height: 1;
-  letter-spacing: .08em;
+  letter-spacing: .12em;
+  box-shadow: 0 0 18px rgba(0,216,255,.22), inset 0 0 0 1px rgba(255,255,255,.06);
+}
+
+.entry-announcement__countdown span {
+  display: inline-block;
+  min-width: 1ch;
+  color: #ffffff;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.45em;
+  line-height: .8;
+  letter-spacing: 0;
+  text-shadow: 0 0 16px rgba(126,244,255,.9), 0 0 30px rgba(255,23,61,.35);
 }
 
 .entry-announcement.is-hiding {
@@ -3538,23 +3695,100 @@ html.android-device .nav-logo .logo-word::after {
 @keyframes entryAnnouncementIn {
   to {
     opacity: 1;
-    transform: translate(-50%, 0) scale(1);
+    transform: scale(1);
   }
 }
 
-@keyframes entryAnnouncementPulse {
+@keyframes entryAnnouncementFloat {
   0%, 100% {
-    box-shadow: 0 24px 70px rgba(0,0,0,.72), 0 0 42px rgba(0,216,255,.54), inset 0 0 0 1px rgba(255,255,255,.12);
+    transform: scale(1);
   }
   50% {
-    box-shadow: 0 28px 82px rgba(0,0,0,.78), 0 0 66px rgba(0,216,255,.86), inset 0 0 0 1px rgba(255,255,255,.2);
+    transform: scale(1.012);
+  }
+}
+
+@keyframes entryAnnouncementAura {
+  0%, 100% {
+    opacity: .68;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.018);
+  }
+}
+
+@keyframes entryAnnouncementSheen {
+  0%, 42% {
+    opacity: 0;
+    transform: translate3d(-45%, 0, 0) skewX(-18deg);
+  }
+  55% {
+    opacity: .88;
+  }
+  80%, 100% {
+    opacity: 0;
+    transform: translate3d(360%, 0, 0) skewX(-18deg);
   }
 }
 
 @keyframes entryAnnouncementOut {
   to {
     opacity: 0;
-    transform: translate(-50%, -14px) scale(.96);
+    transform: scale(.98);
+  }
+}
+
+@media (max-width: 768px) {
+  .entry-announcement {
+    padding: 1rem;
+    backdrop-filter: blur(5px) saturate(1.08);
+    -webkit-backdrop-filter: blur(5px) saturate(1.08);
+    box-shadow: inset 0 0 0 1px rgba(126,244,255,.2), inset 0 0 68px rgba(0,216,255,.16), inset 0 0 120px rgba(255,23,61,.1);
+    animation-duration: .42s, 3.8s;
+  }
+
+  .entry-announcement__card {
+    width: min(430px, calc(100vw - 26px));
+    padding: 1rem .88rem .95rem;
+  }
+
+  .entry-announcement strong {
+    flex-direction: column;
+    gap: .38rem;
+    font-size: clamp(2.15rem, 13vw, 3.55rem);
+    line-height: .9;
+  }
+
+  .entry-announcement__eyebrow {
+    font-size: clamp(.68rem, 3.4vw, .86rem);
+  }
+
+  .entry-announcement::before {
+    animation-duration: 3.6s;
+  }
+
+  .entry-announcement::after {
+    animation-duration: 3.9s;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .entry-announcement,
+  .entry-announcement::before,
+  .entry-announcement::after {
+    animation: none !important;
+  }
+
+  .entry-announcement {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  .entry-announcement.is-hiding {
+    opacity: 0;
+    transform: scale(.98);
   }
 }
 </style>
@@ -3565,8 +3799,11 @@ html.android-device .nav-logo .logo-word::after {
 <div class="cursor" id="cursor"></div>
 <div class="cursor-ring" id="cursorRing"></div>
 <div class="entry-announcement" id="entryAnnouncement" role="button" tabindex="0" aria-label="Cerrar aviso de ubicacion">
+<div class="entry-announcement__card">
 <span class="entry-announcement__eyebrow">Encontranos en</span>
-<strong>Pasillo 6 , puesto 18-20</strong>
+<strong><span>Pasillo 6</span><span class="entry-announcement__sep">|</span><span>Puesto 18-20</span></strong>
+<div class="entry-announcement__countdown" aria-live="polite">Salta en <span id="entryCountdown">3</span></div>
+</div>
 </div>
 <div class="cart-widget" id="cartWidget">
 <button aria-label="Abrir carrito" class="cart-toggle" onclick="toggleCarrito(event)" type="button"><i class="fas fa-shopping-cart"></i> Carrito <span class="cart-count" id="cartCount">0</span></button>
@@ -3706,7 +3943,7 @@ html.android-device .nav-logo .logo-word::after {
 <div class="product-img-box"><img fetchpriority="high" decoding="async" loading="lazy" alt="Conjunto #1 - Conjunto urbano premium" class="slot-product-img" data-images="https://i.imgur.com/mE0KIyH.jpeg" onclick="abrirGaleria(this)" src="https://i.imgur.com/mE0KIyH.jpeg"/></div>
 <div class="nombre">Conjunto #1 · Conjunto urbano premium</div>
 <div class="descripcion-lanzamiento">Set moderno con calce cómodo y estilo deportivo para uso diario.</div>
-<div class="price-details-row"><div class="precio">$29.000 ARS</div><button class="details-toggle" onclick="toggleDetalles(this)" type="button">Detalles</button></div>
+<div class="price-details-row"><div class="precio-stack"><div class="precio">$29.000 ARS</div><div class="talle-conjunto">Talles M a XXL</div></div><button class="details-toggle" onclick="toggleDetalles(this)" type="button">Detalles</button></div>
 <div class="product-details-panel">Nuevo producto de lanzamiento en la línea Conjunto. Consultá disponibilidad, talles y colores por WhatsApp.</div>
 <div class="btn-row"><a class="btn" href="https://wa.me/5491170743305?text=Hola%20quiero%20consultar%20por%20Conjunto%20%231%0AProducto%3A%20Conjunto%20urbano%20premium%0APrecio%3A%20%2429.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/mE0KIyH.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
 </div>
@@ -3718,7 +3955,7 @@ html.android-device .nav-logo .logo-word::after {
 <div class="product-img-box"><img fetchpriority="high" decoding="async" loading="lazy" alt="Conjunto #2 - Conjunto street sport" class="slot-product-img" data-images="https://i.imgur.com/g6C2fzn.jpeg" onclick="abrirGaleria(this)" src="https://i.imgur.com/g6C2fzn.jpeg"/></div>
 <div class="nombre">Conjunto #2 · Conjunto street sport</div>
 <div class="descripcion-lanzamiento">Diseño urbano llamativo, ideal para combinar con zapatillas.</div>
-<div class="price-details-row"><div class="precio">$29.000 ARS</div><button class="details-toggle" onclick="toggleDetalles(this)" type="button">Detalles</button></div>
+<div class="price-details-row"><div class="precio-stack"><div class="precio">$29.000 ARS</div><div class="talle-conjunto">Talles M a XXL</div></div><button class="details-toggle" onclick="toggleDetalles(this)" type="button">Detalles</button></div>
 <div class="product-details-panel">Nuevo producto de lanzamiento en la línea Conjunto. Consultá disponibilidad, talles y colores por WhatsApp.</div>
 <div class="btn-row"><a class="btn" href="https://wa.me/5491170743305?text=Hola%20quiero%20consultar%20por%20Conjunto%20%232%0AProducto%3A%20Conjunto%20street%20sport%0APrecio%3A%20%2429.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/g6C2fzn.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
 </div>
@@ -3730,7 +3967,7 @@ html.android-device .nav-logo .logo-word::after {
 <div class="product-img-box"><img fetchpriority="high" decoding="async" loading="lazy" alt="Conjunto #3 - Conjunto casual urbano" class="slot-product-img" data-images="https://i.imgur.com/ytZIgcD.jpeg" onclick="abrirGaleria(this)" src="https://i.imgur.com/ytZIgcD.jpeg"/></div>
 <div class="nombre">Conjunto #3 · Conjunto casual urbano</div>
 <div class="descripcion-lanzamiento">Prenda versátil con terminación prolija y look moderno.</div>
-<div class="price-details-row"><div class="precio">$29.000 ARS</div><button class="details-toggle" onclick="toggleDetalles(this)" type="button">Detalles</button></div>
+<div class="price-details-row"><div class="precio-stack"><div class="precio">$29.000 ARS</div><div class="talle-conjunto">Talles M a XXL</div></div><button class="details-toggle" onclick="toggleDetalles(this)" type="button">Detalles</button></div>
 <div class="product-details-panel">Nuevo producto de lanzamiento en la línea Conjunto. Consultá disponibilidad, talles y colores por WhatsApp.</div>
 <div class="btn-row"><a class="btn" href="https://wa.me/5491170743305?text=Hola%20quiero%20consultar%20por%20Conjunto%20%233%0AProducto%3A%20Conjunto%20casual%20urbano%0APrecio%3A%20%2429.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/ytZIgcD.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
 </div>
@@ -3742,7 +3979,7 @@ html.android-device .nav-logo .logo-word::after {
 <div class="product-img-box"><img fetchpriority="high" decoding="async" loading="lazy" alt="Conjunto #4 - Conjunto edición nueva" class="slot-product-img" data-images="https://i.imgur.com/VbZl9Hd.jpeg" onclick="abrirGaleria(this)" src="https://i.imgur.com/VbZl9Hd.jpeg"/></div>
 <div class="nombre">Conjunto #4 · Conjunto edición nueva</div>
 <div class="descripcion-lanzamiento">Modelo de lanzamiento con presencia fuerte y estilo actual.</div>
-<div class="price-details-row"><div class="precio">$29.000 ARS</div><button class="details-toggle" onclick="toggleDetalles(this)" type="button">Detalles</button></div>
+<div class="price-details-row"><div class="precio-stack"><div class="precio">$29.000 ARS</div><div class="talle-conjunto">Talles M a XXL</div></div><button class="details-toggle" onclick="toggleDetalles(this)" type="button">Detalles</button></div>
 <div class="product-details-panel">Nuevo producto de lanzamiento en la línea Conjunto. Consultá disponibilidad, talles y colores por WhatsApp.</div>
 <div class="btn-row"><a class="btn" href="https://wa.me/5491170743305?text=Hola%20quiero%20consultar%20por%20Conjunto%20%234%0AProducto%3A%20Conjunto%20edici%C3%B3n%20nueva%0APrecio%3A%20%2429.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/VbZl9Hd.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
 </div>
@@ -3754,7 +3991,7 @@ html.android-device .nav-logo .logo-word::after {
 <div class="product-img-box"><img fetchpriority="high" decoding="async" loading="lazy" alt="Conjunto #5 - Conjunto sport clásico" class="slot-product-img" data-images="https://i.imgur.com/X5eu8yq.jpeg" onclick="abrirGaleria(this)" src="https://i.imgur.com/X5eu8yq.jpeg"/></div>
 <div class="nombre">Conjunto #5 · Conjunto sport clásico</div>
 <div class="descripcion-lanzamiento">Opción cómoda para outfit diario con toque deportivo.</div>
-<div class="price-details-row"><div class="precio">$29.000 ARS</div><button class="details-toggle" onclick="toggleDetalles(this)" type="button">Detalles</button></div>
+<div class="price-details-row"><div class="precio-stack"><div class="precio">$29.000 ARS</div><div class="talle-conjunto">Talles M a XXL</div></div><button class="details-toggle" onclick="toggleDetalles(this)" type="button">Detalles</button></div>
 <div class="product-details-panel">Nuevo producto de lanzamiento en la línea Conjunto. Consultá disponibilidad, talles y colores por WhatsApp.</div>
 <div class="btn-row"><a class="btn" href="https://wa.me/5491170743305?text=Hola%20quiero%20consultar%20por%20Conjunto%20%235%0AProducto%3A%20Conjunto%20sport%20cl%C3%A1sico%0APrecio%3A%20%2429.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/X5eu8yq.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
 </div>
@@ -3766,7 +4003,7 @@ html.android-device .nav-logo .logo-word::after {
 <div class="product-img-box"><img fetchpriority="high" decoding="async" loading="lazy" alt="Conjunto #6 - Conjunto urbano destacado" class="slot-product-img" data-images="https://i.imgur.com/8VV8ChP.jpeg" onclick="abrirGaleria(this)" src="https://i.imgur.com/8VV8ChP.jpeg"/></div>
 <div class="nombre">Conjunto #6 · Conjunto urbano destacado</div>
 <div class="descripcion-lanzamiento">Diseño de impacto visual para quienes buscan un look diferente.</div>
-<div class="price-details-row"><div class="precio">$29.000 ARS</div><button class="details-toggle" onclick="toggleDetalles(this)" type="button">Detalles</button></div>
+<div class="price-details-row"><div class="precio-stack"><div class="precio">$29.000 ARS</div><div class="talle-conjunto">Talles M a XXL</div></div><button class="details-toggle" onclick="toggleDetalles(this)" type="button">Detalles</button></div>
 <div class="product-details-panel">Nuevo producto de lanzamiento en la línea Conjunto. Consultá disponibilidad, talles y colores por WhatsApp.</div>
 <div class="btn-row"><a class="btn" href="https://wa.me/5491170743305?text=Hola%20quiero%20consultar%20por%20Conjunto%20%236%0AProducto%3A%20Conjunto%20urbano%20destacado%0APrecio%3A%20%2429.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/8VV8ChP.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
 </div>
@@ -3778,7 +4015,7 @@ html.android-device .nav-logo .logo-word::after {
 <div class="product-img-box"><img fetchpriority="high" decoding="async" loading="lazy" alt="Conjunto #7 - Conjunto moda street" class="slot-product-img" data-images="https://i.imgur.com/sRRR4ay.jpeg" onclick="abrirGaleria(this)" src="https://i.imgur.com/sRRR4ay.jpeg"/></div>
 <div class="nombre">Conjunto #7 · Conjunto moda street</div>
 <div class="descripcion-lanzamiento">Estilo fresco y urbano, pensado para combinar fácil.</div>
-<div class="price-details-row"><div class="precio">$29.000 ARS</div><button class="details-toggle" onclick="toggleDetalles(this)" type="button">Detalles</button></div>
+<div class="price-details-row"><div class="precio-stack"><div class="precio">$29.000 ARS</div><div class="talle-conjunto">Talles M a XXL</div></div><button class="details-toggle" onclick="toggleDetalles(this)" type="button">Detalles</button></div>
 <div class="product-details-panel">Nuevo producto de lanzamiento en la línea Conjunto. Consultá disponibilidad, talles y colores por WhatsApp.</div>
 <div class="btn-row"><a class="btn" href="https://wa.me/5491170743305?text=Hola%20quiero%20consultar%20por%20Conjunto%20%237%0AProducto%3A%20Conjunto%20moda%20street%0APrecio%3A%20%2429.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/sRRR4ay.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
 </div>
@@ -3790,7 +4027,7 @@ html.android-device .nav-logo .logo-word::after {
 <div class="product-img-box"><img fetchpriority="high" decoding="async" loading="lazy" alt="Conjunto #8 - Conjunto lanzamiento top" class="slot-product-img" data-images="https://i.imgur.com/dqySkLP.jpeg" onclick="abrirGaleria(this)" src="https://i.imgur.com/dqySkLP.jpeg"/></div>
 <div class="nombre">Conjunto #8 · Conjunto lanzamiento top</div>
 <div class="descripcion-lanzamiento">Modelo nuevo con diseño moderno y terminación llamativa.</div>
-<div class="price-details-row"><div class="precio">$29.000 ARS</div><button class="details-toggle" onclick="toggleDetalles(this)" type="button">Detalles</button></div>
+<div class="price-details-row"><div class="precio-stack"><div class="precio">$29.000 ARS</div><div class="talle-conjunto">Talles M a XXL</div></div><button class="details-toggle" onclick="toggleDetalles(this)" type="button">Detalles</button></div>
 <div class="product-details-panel">Nuevo producto de lanzamiento en la línea Conjunto. Consultá disponibilidad, talles y colores por WhatsApp.</div>
 <div class="btn-row"><a class="btn" href="https://wa.me/5491170743305?text=Hola%20quiero%20consultar%20por%20Conjunto%20%238%0AProducto%3A%20Conjunto%20lanzamiento%20top%0APrecio%3A%20%2429.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/dqySkLP.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
 </div>
@@ -3802,7 +4039,7 @@ html.android-device .nav-logo .logo-word::after {
 <div class="product-img-box"><img fetchpriority="high" decoding="async" loading="lazy" alt="Conjunto #9 - Conjunto sport fashion" class="slot-product-img" data-images="https://i.imgur.com/MXu5aUL.jpeg" onclick="abrirGaleria(this)" src="https://i.imgur.com/MXu5aUL.jpeg"/></div>
 <div class="nombre">Conjunto #9 · Conjunto sport fashion</div>
 <div class="descripcion-lanzamiento">Look deportivo con presencia moderna para uso casual.</div>
-<div class="price-details-row"><div class="precio">$29.000 ARS</div><button class="details-toggle" onclick="toggleDetalles(this)" type="button">Detalles</button></div>
+<div class="price-details-row"><div class="precio-stack"><div class="precio">$29.000 ARS</div><div class="talle-conjunto">Talles M a XXL</div></div><button class="details-toggle" onclick="toggleDetalles(this)" type="button">Detalles</button></div>
 <div class="product-details-panel">Nuevo producto de lanzamiento en la línea Conjunto. Consultá disponibilidad, talles y colores por WhatsApp.</div>
 <div class="btn-row"><a class="btn" href="https://wa.me/5491170743305?text=Hola%20quiero%20consultar%20por%20Conjunto%20%239%0AProducto%3A%20Conjunto%20sport%20fashion%0APrecio%3A%20%2429.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/MXu5aUL.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
 </div>
@@ -3814,7 +4051,7 @@ html.android-device .nav-logo .logo-word::after {
 <div class="product-img-box"><img fetchpriority="high" decoding="async" loading="lazy" alt="Conjunto #10 - Conjunto urbano edición" class="slot-product-img" data-images="https://i.imgur.com/E29fZmH.jpeg" onclick="abrirGaleria(this)" src="https://i.imgur.com/E29fZmH.jpeg"/></div>
 <div class="nombre">Conjunto #10 · Conjunto urbano edición</div>
 <div class="descripcion-lanzamiento">Nuevo ingreso con estilo callejero y diseño actual.</div>
-<div class="price-details-row"><div class="precio">$29.000 ARS</div><button class="details-toggle" onclick="toggleDetalles(this)" type="button">Detalles</button></div>
+<div class="price-details-row"><div class="precio-stack"><div class="precio">$29.000 ARS</div><div class="talle-conjunto">Talles M a XXL</div></div><button class="details-toggle" onclick="toggleDetalles(this)" type="button">Detalles</button></div>
 <div class="product-details-panel">Nuevo producto de lanzamiento en la línea Conjunto. Consultá disponibilidad, talles y colores por WhatsApp.</div>
 <div class="btn-row"><a class="btn" href="https://wa.me/5491170743305?text=Hola%20quiero%20consultar%20por%20Conjunto%20%2310%0AProducto%3A%20Conjunto%20urbano%20edici%C3%B3n%0APrecio%3A%20%2429.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/E29fZmH.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
 </div>
@@ -4241,6 +4478,16 @@ html.android-device .nav-logo .logo-word::after {
 <span class="category-badge">59 productos</span>
 </div>
 <div class="product-grid">
+<div class="product-slot card" data-detalle="Remera urbana de manga corta con estampa destacada. Disponible en stock.">
+<div class="slot-corner tl"></div><div class="slot-corner tr"></div>
+<div class="slot-corner bl"></div><div class="slot-corner br"></div>
+<div class="slot-inner">
+<div class="product-img-box"><img fetchpriority="high" decoding="async" loading="lazy" alt="Remera #49" class="slot-product-img" data-images="https://i.imgur.com/RrCVKZc.png" onclick="abrirGaleria(this)" src="https://i.imgur.com/RrCVKZc.png"/></div>
+<div class="nombre">Remera #49</div>
+<div class="precio">$10.000 ARS</div>
+<div class="btn-row"><a class="btn" href="https://wa.me/5491170743305?text=Hola%20quiero%20consultar%20por%20Remera%20%2349%0APrecio%3A%20%2410.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/RrCVKZc.png" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
+</div>
+</div>
 <div class="product-slot card" data-detalle="Remera urbana de manga corta con estampa destacada. Disponible en nueva publicacion.">
 <div class="slot-corner tl"></div><div class="slot-corner tr"></div>
 <div class="slot-corner bl"></div><div class="slot-corner br"></div>
@@ -4280,17 +4527,6 @@ html.android-device .nav-logo .logo-word::after {
 <div class="nombre">Remera #50</div>
 <div class="precio">$10.000 ARS</div>
 <div class="btn-row"><a class="btn" href="https://wa.me/5491170743305?text=Hola%20quiero%20consultar%20por%20Remera%20%2350%0APrecio%3A%20%2410.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/huyRkIQ.png" target="_blank">Consultar</a><button class="btn btn-stock" disabled type="button"><i class="fas fa-ban"></i> Sin stock</button></div>
-</div>
-</div>
-<div class="product-slot card producto-sin-stock" data-detalle="Remera urbana de manga corta con estampa destacada. Sin stock actualmente.">
-<div class="slot-corner tl"></div><div class="slot-corner tr"></div>
-<div class="slot-corner bl"></div><div class="slot-corner br"></div>
-<div class="slot-inner">
-<div class="badge-stock">Sin stock</div>
-<div class="product-img-box"><img fetchpriority="high" decoding="async" loading="lazy" alt="Remera #49" class="slot-product-img" data-images="https://i.imgur.com/RrCVKZc.png" onclick="abrirGaleria(this)" src="https://i.imgur.com/RrCVKZc.png"/></div>
-<div class="nombre">Remera #49</div>
-<div class="precio">$10.000 ARS</div>
-<div class="btn-row"><a class="btn" href="https://wa.me/5491170743305?text=Hola%20quiero%20consultar%20por%20Remera%20%2349%0APrecio%3A%20%2410.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/RrCVKZc.png" target="_blank">Consultar</a><button class="btn btn-stock" disabled type="button"><i class="fas fa-ban"></i> Sin stock</button></div>
 </div>
 </div>
 <div class="product-slot card producto-nuevo-epico remera-seleccion producto-sin-stock" data-detalle="Remera de la Seleccion Argentina de calidad importada. Sin stock actualmente." id="remera-seleccion-argentina">
@@ -4870,24 +5106,42 @@ html.android-device .nav-logo .logo-word::after {
     (function activarAvisoEntrada() {
       const aviso = document.getElementById("entryAnnouncement");
       if (!aviso) return;
+      document.documentElement.classList.add("entry-announcement-active");
 
       let cerrado = false;
+      let cierreAutomatico = 0;
+      let intervaloCuenta = 0;
+      let segundosRestantes = 3;
+      const contador = document.getElementById("entryCountdown");
+      const actualizarCuenta = () => {
+        if (!contador) return;
+        contador.textContent = String(Math.max(0, segundosRestantes));
+      };
+
       const ocultarAviso = () => {
         if (cerrado) return;
         cerrado = true;
+        window.clearTimeout(cierreAutomatico);
+        window.clearInterval(intervaloCuenta);
         aviso.classList.add("is-hiding");
+        document.documentElement.classList.remove("entry-announcement-active");
         window.setTimeout(() => aviso.remove(), 450);
       };
 
-      const cierreAutomatico = window.setTimeout(ocultarAviso, 3000);
+      actualizarCuenta();
+      intervaloCuenta = window.setInterval(() => {
+        segundosRestantes -= 1;
+        actualizarCuenta();
+        if (segundosRestantes <= 0) window.clearInterval(intervaloCuenta);
+      }, 1000);
+      cierreAutomatico = window.setTimeout(ocultarAviso, 3200);
+
       aviso.addEventListener("click", () => {
-        window.clearTimeout(cierreAutomatico);
         ocultarAviso();
       });
       aviso.addEventListener("keydown", event => {
         if (event.key !== "Enter" && event.key !== " ") return;
         event.preventDefault();
-        window.clearTimeout(cierreAutomatico);
         ocultarAviso();
       });
     }());
