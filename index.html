@@ -3835,6 +3835,627 @@ html.entry-announcement-active body {
     transform: scale(.98);
   }
 }
+
+/* ===== TEMA FINAL: FUXIA / MORADO / VIOLETA ===== */
+:root {
+  --bg: #08020f;
+  --surface: #130720;
+  --accent1: #ff3fd1;
+  --accent2: #a855f7;
+  --accent3: #d946ef;
+  --gold: #f5a3ff;
+  --text: #fff7ff;
+  --muted: #c7a3d9;
+  --card-bg: #12071d;
+  --border: rgba(255, 63, 209, .24);
+}
+
+body {
+  background:
+    radial-gradient(circle at 14% 8%, rgba(255,63,209,.22), transparent 31%),
+    radial-gradient(circle at 88% 4%, rgba(168,85,247,.18), transparent 29%),
+    linear-gradient(135deg, rgba(255,255,255,.035) 0 8%, transparent 8% 16%, rgba(217,70,239,.055) 16% 17%, transparent 17% 100%),
+    var(--bg) !important;
+  color: var(--text);
+}
+
+.cursor {
+  background: var(--accent1) !important;
+  box-shadow: 0 0 18px rgba(255,255,255,.75), 0 0 36px rgba(255,63,209,.72) !important;
+}
+
+.cursor-ring {
+  border-color: rgba(245,163,255,.76) !important;
+  box-shadow: 0 0 24px rgba(168,85,247,.5) !important;
+}
+
+#hero,
+html.android-device #hero {
+  background:
+    linear-gradient(118deg, rgba(255,255,255,.1) 0 9%, transparent 10% 30%, rgba(255,63,209,.2) 31% 55%, transparent 56% 100%),
+    radial-gradient(circle at 50% 24%, rgba(168,85,247,.42), rgba(19,7,32,.96) 45%, #08020f 78%) !important;
+}
+
+#hero::before,
+html.android-device #hero::before {
+  background:
+    radial-gradient(circle at 50% 42%, rgba(255,255,255,.18), transparent 7%),
+    radial-gradient(circle at 50% 42%, rgba(255,63,209,.48), transparent 18%),
+    conic-gradient(from 225deg at 50% 42%, transparent 0 10%, rgba(168,85,247,.22) 11% 12%, transparent 13% 38%, rgba(245,163,255,.17) 39% 40%, transparent 41% 100%),
+    repeating-linear-gradient(118deg, transparent 0 70px, rgba(217,70,239,.075) 71px 72px, transparent 73px 140px) !important;
+}
+
+#hero::after,
+html.android-device #hero::after {
+  background-image:
+    linear-gradient(rgba(255,63,209,.085) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(168,85,247,.085) 1px, transparent 1px),
+    linear-gradient(115deg, transparent 0 47%, rgba(245,163,255,.12) 47% 48%, transparent 48% 100%) !important;
+}
+
+.orb1 { background: rgba(255,63,209,.28) !important; }
+.orb2 { background: rgba(168,85,247,.22) !important; }
+.orb3 { background: rgba(217,70,239,.18) !important; }
+
+.hero-energy span {
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,.95), rgba(255,63,209,.98), rgba(168,85,247,.82), transparent) !important;
+  box-shadow: 0 0 18px rgba(255,63,209,.78), 0 0 30px rgba(168,85,247,.34) !important;
+}
+
+.hero-energy::before {
+  background:
+    linear-gradient(90deg, transparent, rgba(217,70,239,.34), transparent),
+    repeating-linear-gradient(0deg, transparent 0 11px, rgba(255,255,255,.04) 12px 13px) !important;
+}
+
+.hero-energy::after {
+  background: linear-gradient(180deg, transparent 0 38%, rgba(245,163,255,.17) 39%, rgba(255,63,209,.3) 40%, transparent 43% 100%) !important;
+}
+
+.hero-eyebrow,
+.products-tag,
+.category-badge {
+  color: var(--gold) !important;
+  border-color: rgba(245,163,255,.45) !important;
+}
+
+.hero-eyebrow::before,
+.hero-eyebrow::after {
+  background: linear-gradient(90deg, transparent, var(--gold), var(--accent1)) !important;
+}
+
+.hero-title,
+.products-title {
+  text-shadow: 0 0 26px rgba(255,63,209,.28), 0 0 60px rgba(168,85,247,.16) !important;
+}
+
+.hero-title .line1 {
+  color: #ffffff !important;
+  filter: drop-shadow(0 0 24px rgba(255,63,209,.42)) !important;
+}
+
+.hero-title .line1::before {
+  text-shadow: -5px 0 rgba(217,70,239,.72) !important;
+}
+
+.hero-title .line2,
+html.android-device #hero .hero-title .line2 {
+  color: var(--accent1) !important;
+  -webkit-text-fill-color: rgba(255,63,209,.22) !important;
+  -webkit-text-stroke-color: #ff3fd1 !important;
+  text-shadow: 0 0 20px rgba(255,63,209,.65), 0 0 36px rgba(168,85,247,.38) !important;
+  filter: drop-shadow(0 0 30px rgba(217,70,239,.68)) !important;
+}
+
+.hero-title .line2::after,
+html.android-device #hero .hero-title .line2::after {
+  color: #ff3fd1 !important;
+  opacity: .55 !important;
+  text-shadow: 0 0 24px rgba(255,63,209,.62) !important;
+}
+
+.hero-subtitle span,
+.stat-num,
+.category-num,
+.precio,
+.cart-item-price {
+  color: var(--gold) !important;
+}
+
+.btn-enter {
+  background: linear-gradient(135deg, var(--accent1), #ffffff 50%, var(--accent2) 58%, #6d28d9 100%) !important;
+  color: #16051f !important;
+  box-shadow: 0 0 42px rgba(255,63,209,.48), 0 18px 42px rgba(0,0,0,.44) !important;
+}
+
+.btn-enter::before {
+  background: linear-gradient(135deg, #ffffff, var(--accent1) 42%, var(--accent2)) !important;
+}
+
+nav,
+.catalogo-doble .category-header {
+  background: linear-gradient(to bottom, rgba(8,2,15,.96), rgba(19,7,32,.76)) !important;
+}
+
+.nav-logo {
+  background:
+    linear-gradient(118deg, rgba(255,255,255,.14) 0 9%, transparent 10% 32%, rgba(255,63,209,.24) 33% 57%, transparent 58% 100%),
+    linear-gradient(135deg, rgba(168,85,247,.2), rgba(19,7,32,.86) 48%, rgba(217,70,239,.12)) !important;
+  border-color: rgba(255,63,209,.46) !important;
+  box-shadow: 0 0 26px rgba(255,63,209,.22), inset 0 0 0 1px rgba(255,255,255,.06) !important;
+}
+
+.nav-logo::before {
+  background:
+    repeating-linear-gradient(90deg, transparent 0 11px, rgba(255,255,255,.075) 12px 13px),
+    linear-gradient(90deg, transparent, rgba(255,63,209,.42), transparent) !important;
+}
+
+.nav-logo::after {
+  text-shadow: 5px 0 rgba(255,63,209,.72), -4px 0 rgba(168,85,247,.36) !important;
+}
+
+.nav-logo span,
+.nav-logo .logo-word,
+html.android-device .nav-logo span,
+html.android-device .nav-logo .logo-word,
+.contact-title span {
+  color: var(--accent1) !important;
+  background: linear-gradient(90deg, #ff3fd1 0%, #ffffff 42%, #f5a3ff 58%, #a855f7 100%) !important;
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  filter: drop-shadow(0 0 14px rgba(255,63,209,.62)) !important;
+}
+
+.nav-logo .logo-word::after,
+html.android-device .nav-logo .logo-word::after {
+  background: linear-gradient(90deg, transparent, #ffffff, #ff3fd1, #a855f7, transparent) !important;
+  box-shadow: 0 0 14px rgba(255,63,209,.78) !important;
+}
+
+.nav-logo .logo-scan {
+  background: linear-gradient(110deg, transparent 0 38%, rgba(255,255,255,.92) 48%, rgba(255,63,209,.45) 52%, transparent 64% 100%) !important;
+}
+
+.nav-links a {
+  color: rgba(245,210,255,.72) !important;
+}
+
+.nav-links a::after {
+  background: var(--accent1) !important;
+}
+
+.stats-bar,
+.marquee-wrap {
+  background: rgba(19,7,32,.68) !important;
+  border-color: var(--border) !important;
+}
+
+#productos {
+  background:
+    linear-gradient(116deg, transparent 0 13%, rgba(255,63,209,.065) 13% 14%, transparent 14% 44%, rgba(168,85,247,.055) 44% 45%, transparent 45% 100%),
+    radial-gradient(circle at 78% 8%, rgba(217,70,239,.18), transparent 34%),
+    #08020f !important;
+}
+
+#productos::before {
+  background: #08020f !important;
+}
+
+.products-title .t-white,
+.products-title .t-red {
+  color: #ff3fd1 !important;
+  text-shadow: 0 0 18px rgba(255,63,209,.72), 0 0 34px rgba(168,85,247,.36) !important;
+}
+
+.products-title::after {
+  -webkit-text-stroke-color: rgba(255,63,209,.38) !important;
+  text-shadow: 0 0 24px rgba(217,70,239,.42) !important;
+}
+
+.products-divider .divider-line,
+.products-divider .divider-line.rev,
+.category-header::after,
+.section-glow,
+.scroll-line {
+  background: linear-gradient(to right, transparent, var(--accent1), #ffffff, var(--accent2), transparent) !important;
+  box-shadow: 0 0 22px rgba(255,63,209,.62) !important;
+}
+
+.divider-diamond,
+.marquee-dot {
+  background: var(--accent1) !important;
+  box-shadow: 0 0 14px rgba(255,63,209,.82) !important;
+}
+
+.catalogo-doble::before {
+  background: linear-gradient(to bottom, transparent, rgba(255,63,209,.9), rgba(245,163,255,.72), rgba(168,85,247,.78), transparent) !important;
+  box-shadow: 0 0 26px rgba(255,63,209,.62), 0 0 36px rgba(168,85,247,.28) !important;
+}
+
+.product-slot.card {
+  background:
+    linear-gradient(145deg, rgba(255,63,209,.1), transparent 42%),
+    linear-gradient(0deg, rgba(255,255,255,.035), transparent),
+    #12071d !important;
+}
+
+.product-slot.card::before {
+  background:
+    linear-gradient(120deg, transparent 0 58%, rgba(217,70,239,.14) 58% 60%, transparent 60%),
+    repeating-linear-gradient(135deg, rgba(255,255,255,.035) 0 1px, transparent 1px 14px) !important;
+}
+
+.product-slot:hover {
+  box-shadow: 0 20px 48px rgba(0,0,0,.64), 0 0 34px rgba(255,63,209,.3) !important;
+}
+
+.product-slot:hover .slot-inner,
+.product-slot:hover .slot-corner,
+.product-slot.detalles-abierto .product-details-panel {
+  border-color: rgba(255,63,209,.5) !important;
+}
+
+.slot-corner.tl,
+.slot-corner.tr,
+.slot-corner.bl,
+.slot-corner.br {
+  border-color: var(--accent1) !important;
+}
+
+.details-toggle {
+  color: #ffffff !important;
+  text-shadow: 0 0 12px rgba(255,255,255,.3), 0 0 16px rgba(255,63,209,.38) !important;
+}
+
+.details-toggle::after,
+.details-toggle:hover {
+  color: var(--gold) !important;
+}
+
+.product-details-panel {
+  background: rgba(255,255,255,.048) !important;
+  color: rgba(255,247,255,.9) !important;
+}
+
+.btn {
+  background: linear-gradient(135deg, rgba(255,63,209,.2), rgba(19,7,32,.97)) !important;
+  border-color: rgba(255,63,209,.62) !important;
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,.04) !important;
+}
+
+.btn:hover {
+  background: linear-gradient(135deg, var(--accent1), #ffffff 56%, var(--accent2)) !important;
+  color: #16051f !important;
+  box-shadow: 0 0 30px rgba(255,63,209,.5), 0 14px 28px rgba(0,0,0,.42) !important;
+}
+
+.product-slot.card.lanzamiento-conjunto,
+.product-slot.card.producto-nuevo-epico {
+  background:
+    linear-gradient(135deg, rgba(255,63,209,.25), rgba(255,255,255,.065) 30%, rgba(19,7,32,.98) 100%),
+    var(--card-bg) !important;
+  border-color: rgba(255,63,209,.48) !important;
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,.08), 0 0 38px rgba(255,63,209,.22) !important;
+}
+
+.product-slot.card.producto-nuevo-epico .slot-inner {
+  border-color: rgba(255,63,209,.3) !important;
+}
+
+.product-slot.card.producto-nuevo-epico .nombre {
+  color: #ffffff !important;
+  text-shadow: 0 0 16px rgba(255,63,209,.46) !important;
+}
+
+.badge-nuevo {
+  border-color: rgba(245,163,255,.56) !important;
+  background: linear-gradient(135deg, rgba(245,163,255,.25), rgba(255,63,209,.16)) !important;
+  color: var(--gold) !important;
+  box-shadow: 0 0 16px rgba(255,63,209,.24) !important;
+}
+
+.cart-toggle,
+.cart-panel,
+.contador {
+  background: rgba(19,7,32,.97) !important;
+  border-color: rgba(255,63,209,.7) !important;
+  box-shadow: 0 18px 52px rgba(0,0,0,.62), 0 0 36px rgba(255,63,209,.36) !important;
+}
+
+.cart-widget::before {
+  border-color: rgba(255,63,209,.78) !important;
+  filter: drop-shadow(0 0 16px rgba(255,63,209,.68)) !important;
+}
+
+.cart-widget::after {
+  background:
+    linear-gradient(115deg, transparent 0 32%, rgba(255,255,255,.2) 33% 34%, transparent 35% 100%),
+    linear-gradient(135deg, rgba(255,63,209,.22), rgba(168,85,247,.18), rgba(255,255,255,.045)) !important;
+  filter: drop-shadow(0 0 20px rgba(255,63,209,.52)) !important;
+}
+
+.cart-toggle {
+  background:
+    linear-gradient(135deg, rgba(255,255,255,.2) 0 8%, transparent 8% 28%, rgba(255,63,209,.36) 28% 54%, rgba(19,7,32,.98) 54% 100%),
+    linear-gradient(135deg, #ff3fd1, #a855f7 48%, #16051f 49% 100%) !important;
+  box-shadow: 0 18px 52px rgba(0,0,0,.62), 0 0 38px rgba(255,63,209,.62), inset 0 0 0 1px rgba(255,255,255,.15) !important;
+}
+
+.cart-toggle i {
+  text-shadow: 0 0 10px rgba(255,255,255,.94), 0 0 24px rgba(255,63,209,.98), 0 0 34px rgba(168,85,247,.82) !important;
+}
+
+.cart-count {
+  background: linear-gradient(135deg, #ffffff, #ff3fd1 44%, #a855f7) !important;
+  color: #16051f !important;
+  box-shadow: 0 0 18px rgba(255,63,209,.86), inset 0 0 0 1px rgba(255,255,255,.68) !important;
+}
+
+.cart-consultar {
+  background: linear-gradient(135deg, #ffffff 0 8%, #ff3fd1 9% 54%, #a855f7 55% 100%) !important;
+  color: #16051f !important;
+  border-color: rgba(255,227,255,.86) !important;
+  box-shadow: 0 0 34px rgba(255,63,209,.7), 0 14px 34px rgba(0,0,0,.55), inset 0 0 0 1px rgba(255,255,255,.3) !important;
+}
+
+.cart-clear {
+  background: linear-gradient(135deg, rgba(255,63,209,.2), rgba(19,7,32,.97)) !important;
+  border-color: rgba(255,63,209,.52) !important;
+}
+
+.wa-header-link,
+.contact-wa {
+  background: linear-gradient(135deg, #ff3fd1, #a855f7) !important;
+  color: #ffffff !important;
+  box-shadow: 0 0 26px rgba(255,63,209,.56), 0 18px 42px rgba(0,0,0,.46) !important;
+}
+
+.wa-location-badge {
+  background: rgba(19,7,32,.9) !important;
+  border-color: rgba(255,63,209,.5) !important;
+  box-shadow: 0 16px 38px rgba(0,0,0,.52), 0 0 24px rgba(255,63,209,.28) !important;
+}
+
+.wa-location-badge span,
+.wa-location-badge strong {
+  color: var(--gold) !important;
+  text-shadow: 0 0 12px rgba(255,63,209,.42) !important;
+}
+
+.contact-section {
+  background:
+    radial-gradient(circle at 50% 0%, rgba(255,63,209,.16), transparent 34%),
+    linear-gradient(180deg, rgba(8,2,15,0), rgba(19,7,32,.96)) !important;
+}
+
+.modal {
+  background: radial-gradient(circle at center, rgba(255,63,209,.24), transparent 40%), rgba(0,0,0,.96) !important;
+}
+
+.modal img {
+  box-shadow: 0 0 72px rgba(255,63,209,.25), 0 22px 80px rgba(0,0,0,.76) !important;
+}
+
+#popup-info {
+  background:
+    linear-gradient(135deg, rgba(255,63,209,.26), rgba(255,255,255,.075) 34%, rgba(19,7,32,.98) 35% 100%),
+    rgba(19,7,32,.98) !important;
+  border-color: rgba(255,63,209,.6) !important;
+  color: #fff7ff !important;
+  box-shadow: 0 24px 70px rgba(0,0,0,.68), 0 0 44px rgba(255,63,209,.54), inset 0 0 0 1px rgba(255,255,255,.1) !important;
+  text-shadow: 0 0 14px rgba(255,63,209,.54) !important;
+}
+
+#popup-info::before {
+  background: linear-gradient(135deg, #ffffff, #ff3fd1 44%, #a855f7) !important;
+  color: #16051f !important;
+  box-shadow: 0 0 26px rgba(255,63,209,.92), inset 0 0 0 1px rgba(255,255,255,.72) !important;
+}
+
+.badge-stock {
+  border-color: rgba(255,227,255,.82) !important;
+  background: linear-gradient(135deg, #ff2fcf 0 44%, #7c3aed 45% 100%) !important;
+  color: #ffffff !important;
+  box-shadow: 0 0 24px rgba(255,47,207,.64), 0 0 34px rgba(168,85,247,.42), inset 0 0 0 1px rgba(255,255,255,.3) !important;
+}
+
+.producto-sin-stock .product-img-box {
+  border-color: rgba(255,63,209,.68) !important;
+  box-shadow: 0 0 30px rgba(255,63,209,.24), inset 0 0 0 2px rgba(255,255,255,.08) !important;
+}
+
+.producto-sin-stock .product-img-box::before {
+  background: linear-gradient(135deg, rgba(8,2,15,.08), rgba(8,2,15,.3)) !important;
+}
+
+.producto-sin-stock .product-img-box::after {
+  background: linear-gradient(90deg, #ff2fcf, #a855f7 52%, #4c1d95) !important;
+  color: #ffffff !important;
+  box-shadow: 0 0 32px rgba(255,47,207,.54), 0 0 38px rgba(168,85,247,.36) !important;
+}
+
+.product-slot.card.lanzamiento-conjunto.producto-sin-stock .btn-row::after {
+  background: linear-gradient(135deg, rgba(255,47,207,.92), rgba(76,29,149,.98)) !important;
+  box-shadow: 0 0 20px rgba(255,47,207,.48), inset 0 0 0 1px rgba(255,255,255,.14) !important;
+}
+
+.btn-stock,
+.btn-stock:hover {
+  background: linear-gradient(135deg, #ff2fcf, rgba(76,29,149,.98)) !important;
+  border-color: rgba(255,227,255,.74) !important;
+  box-shadow: 0 0 24px rgba(255,47,207,.48), inset 0 0 0 1px rgba(255,255,255,.16) !important;
+}
+
+.entry-announcement {
+  background: rgba(8,2,15,.42) !important;
+  color: #fff7ff !important;
+  box-shadow: inset 0 0 0 1px rgba(245,163,255,.14), inset 0 0 96px rgba(255,63,209,.1) !important;
+  text-shadow: 0 0 14px rgba(255,63,209,.62) !important;
+}
+
+.entry-announcement::before {
+  background:
+    radial-gradient(circle at 50% 44%, rgba(255,63,209,.28), transparent 20rem),
+    radial-gradient(circle at 82% 70%, rgba(168,85,247,.22), transparent 18rem),
+    radial-gradient(circle at 16% 20%, rgba(245,163,255,.14), transparent 16rem) !important;
+}
+
+.entry-announcement::after {
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,.78), rgba(255,63,209,.56), transparent) !important;
+}
+
+.entry-announcement__card {
+  border-color: rgba(255,63,209,.74) !important;
+  background:
+    radial-gradient(circle at 50% 0%, rgba(255,255,255,.18), transparent 45%),
+    linear-gradient(135deg, rgba(255,63,209,.28), rgba(19,7,32,.82) 48%, rgba(168,85,247,.22)),
+    rgba(19,7,32,.76) !important;
+  box-shadow: 0 24px 70px rgba(0,0,0,.45), 0 0 38px rgba(255,63,209,.42), 0 0 76px rgba(168,85,247,.18), inset 0 0 0 1px rgba(255,255,255,.12) !important;
+}
+
+.entry-announcement__card::before {
+  background:
+    linear-gradient(90deg, transparent, rgba(245,163,255,.24), transparent) 50% 0 / 72% 1px no-repeat,
+    linear-gradient(90deg, transparent, rgba(255,63,209,.2), transparent) 50% 100% / 72% 1px no-repeat !important;
+}
+
+.entry-announcement__eyebrow {
+  color: rgba(255,232,255,.96) !important;
+  text-shadow: 0 0 12px rgba(245,163,255,.62), 0 0 26px rgba(255,63,209,.45) !important;
+}
+
+.entry-announcement strong {
+  text-shadow: 0 0 16px rgba(255,255,255,.58), 0 0 28px rgba(255,63,209,.72), 0 0 46px rgba(168,85,247,.3) !important;
+  filter: drop-shadow(0 0 24px rgba(255,63,209,.3)) !important;
+}
+
+.entry-announcement__sep {
+  border-color: rgba(245,163,255,.9) !important;
+  background: #ffffff !important;
+  color: #ff3fd1 !important;
+  box-shadow: 0 0 18px rgba(245,163,255,.9), 0 0 34px rgba(168,85,247,.4) !important;
+}
+
+.entry-announcement__countdown {
+  border-color: rgba(255,63,209,.54) !important;
+  background: rgba(8,2,15,.56) !important;
+  color: rgba(255,247,255,.94) !important;
+  box-shadow: 0 0 18px rgba(255,63,209,.24), inset 0 0 0 1px rgba(255,255,255,.06) !important;
+}
+
+.entry-announcement__countdown span {
+  color: #ffffff !important;
+  text-shadow: 0 0 16px rgba(245,163,255,.9), 0 0 30px rgba(255,63,209,.38) !important;
+}
+
+.entry-announcement__zone {
+  color: var(--gold) !important;
+  text-shadow: 0 0 12px rgba(245,163,255,.72), 0 0 26px rgba(255,63,209,.34) !important;
+}
+
+@keyframes popupAlertaPulso {
+  0%, 100% { box-shadow: 0 24px 70px rgba(0,0,0,.68), 0 0 42px rgba(255,63,209,.52), inset 0 0 0 1px rgba(255,255,255,.1); }
+  50% { box-shadow: 0 28px 82px rgba(0,0,0,.78), 0 0 64px rgba(255,63,209,.84), inset 0 0 0 1px rgba(255,255,255,.2); }
+}
+
+@keyframes heroTitlePulse {
+  0%, 100% { text-shadow: 0 0 24px rgba(255,63,209,.24), 0 0 58px rgba(168,85,247,.14); }
+  50% { text-shadow: 0 0 34px rgba(245,163,255,.22), 0 0 82px rgba(255,63,209,.4); }
+}
+
+@keyframes navLogoPlatePulse {
+  0%, 100% { box-shadow: 0 0 22px rgba(255,63,209,.2), inset 0 0 0 1px rgba(255,255,255,.055); border-color: rgba(255,63,209,.42); }
+  50% { box-shadow: 0 0 32px rgba(255,63,209,.44), inset 0 0 0 1px rgba(255,255,255,.1); border-color: rgba(245,163,255,.48); }
+}
+
+@keyframes navLogoMarkSnap {
+  0%, 100% { text-shadow: 0 0 12px rgba(255,255,255,.22), 0 0 24px rgba(255,63,209,.26); }
+  50% { text-shadow: 0 0 18px rgba(255,255,255,.42), 0 0 34px rgba(255,63,209,.44); }
+}
+
+@keyframes navLogoWordFlow {
+  0%, 100% { background-position: 0% 50%; filter: drop-shadow(0 0 10px rgba(255,63,209,.52)); }
+  50% { background-position: 100% 50%; filter: drop-shadow(0 0 16px rgba(168,85,247,.58)); }
+}
+
+@keyframes heroOutlineCharge {
+  0%, 100% { filter: drop-shadow(0 0 22px rgba(255,63,209,.38)); }
+  50% { filter: drop-shadow(0 0 40px rgba(255,63,209,.78)); }
+}
+
+@keyframes heroEyebrowCharge {
+  0%, 100% { box-shadow: inset 0 0 0 1px rgba(255,255,255,.05), 0 0 24px rgba(255,63,209,.2); }
+  50% { box-shadow: inset 0 0 0 1px rgba(255,255,255,.12), 0 0 38px rgba(168,85,247,.36); }
+}
+
+@keyframes heroSubtitleGlow {
+  0%, 100% { text-shadow: 0 0 0 rgba(255,63,209,0); }
+  50% { text-shadow: 0 0 22px rgba(255,63,209,.34); }
+}
+
+@keyframes heroButtonCharge {
+  0%, 100% { box-shadow: 0 0 36px rgba(255,63,209,.4), 0 18px 42px rgba(0,0,0,.42); }
+  50% { box-shadow: 0 0 58px rgba(255,63,209,.66), 0 18px 48px rgba(0,0,0,.52); }
+}
+
+@keyframes cartToggleGlow {
+  0%, 100% { filter: drop-shadow(0 0 8px rgba(255,63,209,.38)); transform: translateY(0); }
+  50% { filter: drop-shadow(0 0 18px rgba(255,63,209,.72)); transform: translateY(-1px); }
+}
+
+@keyframes cartIconGlow {
+  0%, 100% { transform: scale(1); text-shadow: 0 0 8px rgba(255,255,255,.75), 0 0 18px rgba(255,63,209,.76); }
+  50% { transform: scale(1.12); text-shadow: 0 0 13px rgba(255,255,255,.94), 0 0 30px rgba(255,63,209,.98); }
+}
+
+@keyframes cartCountPulse {
+  0%, 100% { transform: scale(1); box-shadow: 0 0 14px rgba(255,63,209,.6); }
+  50% { transform: scale(1.12); box-shadow: 0 0 22px rgba(168,85,247,.78); }
+}
+
+@keyframes consultarSeleccionPulse {
+  0%, 100% { transform: translateY(0); box-shadow: 0 0 28px rgba(255,63,209,.58), 0 14px 34px rgba(0,0,0,.55); }
+  50% { transform: translateY(-1px); box-shadow: 0 0 46px rgba(255,63,209,.86), 0 16px 38px rgba(0,0,0,.58); }
+}
+
+@keyframes entryAnnouncementTextGlow {
+  0%, 100% {
+    filter: drop-shadow(0 0 18px rgba(255,63,209,.3));
+    text-shadow: 0 0 14px rgba(255,255,255,.5), 0 0 24px rgba(255,63,209,.68), 0 0 42px rgba(168,85,247,.24);
+  }
+  50% {
+    filter: drop-shadow(0 0 30px rgba(255,63,209,.56));
+    text-shadow: 0 0 18px rgba(255,255,255,.82), 0 0 34px rgba(255,63,209,.95), 0 0 64px rgba(168,85,247,.44);
+  }
+}
+
+@keyframes entryAnnouncementGoldGlow {
+  0%, 100% {
+    text-shadow: 0 0 12px rgba(245,163,255,.72), 0 0 24px rgba(255,63,209,.28);
+  }
+  50% {
+    text-shadow: 0 0 18px rgba(255,232,255,.95), 0 0 34px rgba(245,163,255,.74), 0 0 48px rgba(168,85,247,.38);
+  }
+}
+
+@media (max-width: 768px) {
+  body {
+    background:
+      radial-gradient(circle at 16% 8%, rgba(255,63,209,.25), transparent 34%),
+      radial-gradient(circle at 84% 4%, rgba(168,85,247,.18), transparent 30%),
+      linear-gradient(135deg, rgba(255,255,255,.035) 0 8%, transparent 8% 16%, rgba(217,70,239,.06) 16% 17%, transparent 17% 100%),
+      #08020f !important;
+  }
+
+  #productos {
+    background:
+      linear-gradient(116deg, transparent 0 13%, rgba(255,63,209,.065) 13% 14%, transparent 14% 44%, rgba(168,85,247,.055) 44% 45%, transparent 45% 100%),
+      radial-gradient(circle at 78% 8%, rgba(217,70,239,.2), transparent 34%),
+      #08020f !important;
+  }
+}
 </style>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" media="print" onload="this.media='all'" rel="stylesheet"/>
 <noscript><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet"/></noscript></head>
@@ -3847,7 +4468,7 @@ html.entry-announcement-active body {
 <span class="entry-announcement__eyebrow">Encontranos en</span>
 <strong><span>Pasillo 6</span><span class="entry-announcement__sep">|</span><span>Puesto 18-20</span></strong>
 <span class="entry-announcement__zone">En Punta Mogote</span>
-<div class="entry-announcement__countdown" aria-live="polite">Salta en <span id="entryCountdown">4</span></div>
+<div class="entry-announcement__countdown" aria-live="polite">Salta en <span id="entryCountdown">6</span></div>
 </div>
 </div>
 <div class="cart-widget" id="cartWidget">
@@ -3896,8 +4517,8 @@ html.entry-announcement-active body {
 <span class="line2" data-text="INDUMENTARIA">INDUMENTARIA</span>
 </h1>
 <p class="hero-subtitle">
-        Lo mejor de cada mundo.<br/>
-<span>Seleccionado para los que exigen calidad.</span>
+        Indumentaria Masculina.<br/>
+<span>La mejor Ropa de calidad Nacional la encontras acá.</span>
 </p>
 <a class="btn-enter" href="#productos">
 <span>Entrar al catálogo</span>
@@ -3967,7 +4588,7 @@ html.entry-announcement-active body {
 <div class="section-glow"></div>
 <span class="category-num">01</span>
 <h3 class="category-name">BUZOS</h3>
-<span class="category-badge">52 productos</span>
+<span class="category-badge">54 productos</span>
 </div>
 <div class="product-grid">
 <div class="product-slot card producto-nuevo-epico" data-detalle="Buzo Jordan negro con capucha, patron tonal camuflado y logo blanco en el pecho. Look Black Phantom con frente y espalda en la misma publicacion." id="buzo-jordan-black-phantom">
@@ -3981,7 +4602,29 @@ html.entry-announcement-active body {
 <div class="btn-row"><a class="btn" href="https://wa.me/5491170743305?text=Hola%20quiero%20consultar%20por%20Buzo%20Jordan%20Black%20Phantom%0APrecio%3A%20%2416.000%20ARS%0AFoto%3A%20https%3A%2F%2Fi.imgur.com%2FQybbVLI.png" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
 </div>
 </div>
-<div class="product-slot card lanzamiento-conjunto">
+<div class="product-slot card producto-nuevo-epico" data-detalle="Buzo Jordan con capucha en base clara, patron geometrico gris y logo Jumpman. Incluye vista frontal y trasera en la misma imagen.">
+<div class="slot-corner tl"></div><div class="slot-corner tr"></div>
+<div class="slot-corner bl"></div><div class="slot-corner br"></div>
+<div class="slot-inner">
+<div class="badge-nuevo">Nuevo ingreso</div>
+<div class="product-img-box"><img fetchpriority="high" decoding="async" loading="lazy" alt="Buzo Jordan Geometrico Gris" class="slot-product-img" data-images="https://i.imgur.com/8C8l4ql.png" onclick="abrirGaleria(this)" src="https://i.imgur.com/8C8l4ql.png"/></div>
+<div class="nombre">Buzo Jordan Geometrico Gris</div>
+<div class="precio">$16.000 ARS</div>
+<div class="btn-row"><a class="btn" href="https://wa.me/5491170743305?text=Hola%20quiero%20consultar%20por%20Buzo%20Jordan%20Geometrico%20Gris%0APrecio%3A%20%2416.000%20ARS%0AFoto%3A%20https%3A%2F%2Fi.imgur.com%2F8C8l4ql.png" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
+</div>
+</div>
+<div class="product-slot card producto-nuevo-epico" data-detalle="Buzo Jordan rojo con capucha, patron geometrico tonal y logo Jumpman blanco en el pecho. Incluye frente y espalda en la misma imagen.">
+<div class="slot-corner tl"></div><div class="slot-corner tr"></div>
+<div class="slot-corner bl"></div><div class="slot-corner br"></div>
+<div class="slot-inner">
+<div class="badge-nuevo">Nuevo ingreso</div>
+<div class="product-img-box"><img fetchpriority="high" decoding="async" loading="lazy" alt="Buzo Jordan Geometrico Rojo" class="slot-product-img" data-images="https://i.imgur.com/1YZKoCf.png" onclick="abrirGaleria(this)" src="https://i.imgur.com/1YZKoCf.png"/></div>
+<div class="nombre">Buzo Jordan Geometrico Rojo</div>
+<div class="precio">$16.000 ARS</div>
+<div class="btn-row"><a class="btn" href="https://wa.me/5491170743305?text=Hola%20quiero%20consultar%20por%20Buzo%20Jordan%20Geometrico%20Rojo%0APrecio%3A%20%2416.000%20ARS%0AFoto%3A%20https%3A%2F%2Fi.imgur.com%2F1YZKoCf.png" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
+</div>
+</div>
+<div class="product-slot card lanzamiento-conjunto producto-sin-stock">
 <div class="slot-corner tl"></div><div class="slot-corner tr"></div>
 <div class="slot-corner bl"></div><div class="slot-corner br"></div>
 <div class="slot-inner">
@@ -3993,7 +4636,7 @@ html.entry-announcement-active body {
 <div class="btn-row"><a class="btn" href="https://wa.me/5491170743305?text=Hola%20quiero%20consultar%20por%20Conjunto%20%231%0AProducto%3A%20Conjunto%20urbano%20premium%0APrecio%3A%20%2429.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/mE0KIyH.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
 </div>
 </div>
-<div class="product-slot card lanzamiento-conjunto">
+<div class="product-slot card lanzamiento-conjunto producto-sin-stock">
 <div class="slot-corner tl"></div><div class="slot-corner tr"></div>
 <div class="slot-corner bl"></div><div class="slot-corner br"></div>
 <div class="slot-inner">
@@ -4005,7 +4648,7 @@ html.entry-announcement-active body {
 <div class="btn-row"><a class="btn" href="https://wa.me/5491170743305?text=Hola%20quiero%20consultar%20por%20Conjunto%20%232%0AProducto%3A%20Conjunto%20street%20sport%0APrecio%3A%20%2429.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/g6C2fzn.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
 </div>
 </div>
-<div class="product-slot card lanzamiento-conjunto">
+<div class="product-slot card lanzamiento-conjunto producto-sin-stock">
 <div class="slot-corner tl"></div><div class="slot-corner tr"></div>
 <div class="slot-corner bl"></div><div class="slot-corner br"></div>
 <div class="slot-inner">
@@ -4017,7 +4660,7 @@ html.entry-announcement-active body {
 <div class="btn-row"><a class="btn" href="https://wa.me/5491170743305?text=Hola%20quiero%20consultar%20por%20Conjunto%20%233%0AProducto%3A%20Conjunto%20casual%20urbano%0APrecio%3A%20%2429.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/ytZIgcD.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
 </div>
 </div>
-<div class="product-slot card lanzamiento-conjunto">
+<div class="product-slot card lanzamiento-conjunto producto-sin-stock">
 <div class="slot-corner tl"></div><div class="slot-corner tr"></div>
 <div class="slot-corner bl"></div><div class="slot-corner br"></div>
 <div class="slot-inner">
@@ -4029,7 +4672,7 @@ html.entry-announcement-active body {
 <div class="btn-row"><a class="btn" href="https://wa.me/5491170743305?text=Hola%20quiero%20consultar%20por%20Conjunto%20%234%0AProducto%3A%20Conjunto%20edici%C3%B3n%20nueva%0APrecio%3A%20%2429.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/VbZl9Hd.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
 </div>
 </div>
-<div class="product-slot card lanzamiento-conjunto">
+<div class="product-slot card lanzamiento-conjunto producto-sin-stock">
 <div class="slot-corner tl"></div><div class="slot-corner tr"></div>
 <div class="slot-corner bl"></div><div class="slot-corner br"></div>
 <div class="slot-inner">
@@ -4041,7 +4684,7 @@ html.entry-announcement-active body {
 <div class="btn-row"><a class="btn" href="https://wa.me/5491170743305?text=Hola%20quiero%20consultar%20por%20Conjunto%20%235%0AProducto%3A%20Conjunto%20sport%20cl%C3%A1sico%0APrecio%3A%20%2429.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/X5eu8yq.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
 </div>
 </div>
-<div class="product-slot card lanzamiento-conjunto">
+<div class="product-slot card lanzamiento-conjunto producto-sin-stock">
 <div class="slot-corner tl"></div><div class="slot-corner tr"></div>
 <div class="slot-corner bl"></div><div class="slot-corner br"></div>
 <div class="slot-inner">
@@ -4053,7 +4696,7 @@ html.entry-announcement-active body {
 <div class="btn-row"><a class="btn" href="https://wa.me/5491170743305?text=Hola%20quiero%20consultar%20por%20Conjunto%20%236%0AProducto%3A%20Conjunto%20urbano%20destacado%0APrecio%3A%20%2429.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/8VV8ChP.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
 </div>
 </div>
-<div class="product-slot card lanzamiento-conjunto">
+<div class="product-slot card lanzamiento-conjunto producto-sin-stock">
 <div class="slot-corner tl"></div><div class="slot-corner tr"></div>
 <div class="slot-corner bl"></div><div class="slot-corner br"></div>
 <div class="slot-inner">
@@ -4065,7 +4708,7 @@ html.entry-announcement-active body {
 <div class="btn-row"><a class="btn" href="https://wa.me/5491170743305?text=Hola%20quiero%20consultar%20por%20Conjunto%20%237%0AProducto%3A%20Conjunto%20moda%20street%0APrecio%3A%20%2429.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/sRRR4ay.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
 </div>
 </div>
-<div class="product-slot card lanzamiento-conjunto">
+<div class="product-slot card lanzamiento-conjunto producto-sin-stock">
 <div class="slot-corner tl"></div><div class="slot-corner tr"></div>
 <div class="slot-corner bl"></div><div class="slot-corner br"></div>
 <div class="slot-inner">
@@ -4077,7 +4720,7 @@ html.entry-announcement-active body {
 <div class="btn-row"><a class="btn" href="https://wa.me/5491170743305?text=Hola%20quiero%20consultar%20por%20Conjunto%20%238%0AProducto%3A%20Conjunto%20lanzamiento%20top%0APrecio%3A%20%2429.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/dqySkLP.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
 </div>
 </div>
-<div class="product-slot card lanzamiento-conjunto">
+<div class="product-slot card lanzamiento-conjunto producto-sin-stock">
 <div class="slot-corner tl"></div><div class="slot-corner tr"></div>
 <div class="slot-corner bl"></div><div class="slot-corner br"></div>
 <div class="slot-inner">
@@ -4089,7 +4732,7 @@ html.entry-announcement-active body {
 <div class="btn-row"><a class="btn" href="https://wa.me/5491170743305?text=Hola%20quiero%20consultar%20por%20Conjunto%20%239%0AProducto%3A%20Conjunto%20sport%20fashion%0APrecio%3A%20%2429.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/MXu5aUL.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
 </div>
 </div>
-<div class="product-slot card lanzamiento-conjunto">
+<div class="product-slot card lanzamiento-conjunto producto-sin-stock">
 <div class="slot-corner tl"></div><div class="slot-corner tr"></div>
 <div class="slot-corner bl"></div><div class="slot-corner br"></div>
 <div class="slot-inner">
@@ -4590,56 +5233,6 @@ html.entry-announcement-active body {
 <div class="slot-corner tl"></div><div class="slot-corner tr"></div>
 <div class="slot-corner bl"></div><div class="slot-corner br"></div>
 <div class="slot-inner">
-<div class="product-img-box"><img fetchpriority="low" decoding="async" loading="lazy" alt="Remera #1" class="slot-product-img" data-images="https://i.imgur.com/Q9MsY6J.jpeg" onclick="abrirGaleria(this)" src="https://i.imgur.com/Q9MsY6Jl.jpeg"/></div>
-<div class="nombre">Remera #1</div>
-<div class="precio">$8.000 ARS</div>
-<div class="btn-row"><a class="btn" href="https://wa.me/5491170743305?text=Hola%20quiero%20consultar%20por%20Remera%20%231%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/Q9MsY6J.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
-</div>
-</div>
-<div class="product-slot card">
-<div class="slot-corner tl"></div><div class="slot-corner tr"></div>
-<div class="slot-corner bl"></div><div class="slot-corner br"></div>
-<div class="slot-inner">
-<div class="product-img-box"><img fetchpriority="low" decoding="async" loading="lazy" alt="Remera #2" class="slot-product-img" data-images="https://i.imgur.com/pJdN75m.jpeg" onclick="abrirGaleria(this)" src="https://i.imgur.com/pJdN75ml.jpeg"/></div>
-<div class="nombre">Remera #2</div>
-<div class="precio">$8.000 ARS</div>
-<div class="btn-row"><a class="btn" href="https://wa.me/5491170743305?text=Hola%20quiero%20consultar%20por%20Remera%20%232%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/pJdN75m.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
-</div>
-</div>
-<div class="product-slot card">
-<div class="slot-corner tl"></div><div class="slot-corner tr"></div>
-<div class="slot-corner bl"></div><div class="slot-corner br"></div>
-<div class="slot-inner">
-<div class="product-img-box"><img fetchpriority="low" decoding="async" loading="lazy" alt="Remera #3" class="slot-product-img" data-images="https://i.imgur.com/pkDjlqw.jpeg" onclick="abrirGaleria(this)" src="https://i.imgur.com/pkDjlqwl.jpeg"/></div>
-<div class="nombre">Remera #3</div>
-<div class="precio">$8.000 ARS</div>
-<div class="btn-row"><a class="btn" href="https://wa.me/5491170743305?text=Hola%20quiero%20consultar%20por%20Remera%20%233%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/pkDjlqw.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
-</div>
-</div>
-<div class="product-slot card">
-<div class="slot-corner tl"></div><div class="slot-corner tr"></div>
-<div class="slot-corner bl"></div><div class="slot-corner br"></div>
-<div class="slot-inner">
-<div class="product-img-box"><img fetchpriority="low" decoding="async" loading="lazy" alt="Remera #4" class="slot-product-img" data-images="https://i.imgur.com/Hn7bY2m.jpeg,https://i.imgur.com/pxwVeQP.jpeg" onclick="abrirGaleria(this)" src="https://i.imgur.com/Hn7bY2ml.jpeg"/></div>
-<div class="nombre">Remera #4</div>
-<div class="precio">$8.000 ARS</div>
-<div class="btn-row"><a class="btn" href="https://wa.me/5491170743305?text=Hola%20quiero%20consultar%20por%20Remera%20%234%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/Hn7bY2m.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
-</div>
-</div>
-<div class="product-slot card">
-<div class="slot-corner tl"></div><div class="slot-corner tr"></div>
-<div class="slot-corner bl"></div><div class="slot-corner br"></div>
-<div class="slot-inner">
-<div class="product-img-box"><img fetchpriority="low" decoding="async" loading="lazy" alt="Remera #5" class="slot-product-img" data-images="https://i.imgur.com/DACUjwo.jpeg,https://i.imgur.com/RvoASgk.jpeg" onclick="abrirGaleria(this)" src="https://i.imgur.com/DACUjwol.jpeg"/></div>
-<div class="nombre">Remera #5</div>
-<div class="precio">$8.000 ARS</div>
-<div class="btn-row"><a class="btn" href="https://wa.me/5491170743305?text=Hola%20quiero%20consultar%20por%20Remera%20%235%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/DACUjwo.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
-</div>
-</div>
-<div class="product-slot card">
-<div class="slot-corner tl"></div><div class="slot-corner tr"></div>
-<div class="slot-corner bl"></div><div class="slot-corner br"></div>
-<div class="slot-inner">
 <div class="product-img-box"><img fetchpriority="low" decoding="async" loading="lazy" alt="Remera #6" class="slot-product-img" data-images="https://i.imgur.com/8GWdUlM.jpeg" onclick="abrirGaleria(this)" src="https://i.imgur.com/8GWdUlMl.jpeg"/></div>
 <div class="nombre">Remera #6</div>
 <div class="precio">$8.000 ARS</div>
@@ -5116,6 +5709,56 @@ html.entry-announcement-active body {
 <div class="btn-row"><a class="btn" href="https://wa.me/5491170743305?text=Hola%20quiero%20consultar%20por%20Remera%20Michael%20Jordan%20Bulls%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A%2F%2Fi.imgur.com%2FiIaxaXD.png" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
 </div>
 </div>
+<div class="product-slot card">
+<div class="slot-corner tl"></div><div class="slot-corner tr"></div>
+<div class="slot-corner bl"></div><div class="slot-corner br"></div>
+<div class="slot-inner">
+<div class="product-img-box"><img fetchpriority="low" decoding="async" loading="lazy" alt="Remera #1" class="slot-product-img" data-images="https://i.imgur.com/Q9MsY6J.jpeg" onclick="abrirGaleria(this)" src="https://i.imgur.com/Q9MsY6Jl.jpeg"/></div>
+<div class="nombre">Remera #1</div>
+<div class="precio">$8.000 ARS</div>
+<div class="btn-row"><a class="btn" href="https://wa.me/5491170743305?text=Hola%20quiero%20consultar%20por%20Remera%20%231%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/Q9MsY6J.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
+</div>
+</div>
+<div class="product-slot card">
+<div class="slot-corner tl"></div><div class="slot-corner tr"></div>
+<div class="slot-corner bl"></div><div class="slot-corner br"></div>
+<div class="slot-inner">
+<div class="product-img-box"><img fetchpriority="low" decoding="async" loading="lazy" alt="Remera #2" class="slot-product-img" data-images="https://i.imgur.com/pJdN75m.jpeg" onclick="abrirGaleria(this)" src="https://i.imgur.com/pJdN75ml.jpeg"/></div>
+<div class="nombre">Remera #2</div>
+<div class="precio">$8.000 ARS</div>
+<div class="btn-row"><a class="btn" href="https://wa.me/5491170743305?text=Hola%20quiero%20consultar%20por%20Remera%20%232%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/pJdN75m.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
+</div>
+</div>
+<div class="product-slot card">
+<div class="slot-corner tl"></div><div class="slot-corner tr"></div>
+<div class="slot-corner bl"></div><div class="slot-corner br"></div>
+<div class="slot-inner">
+<div class="product-img-box"><img fetchpriority="low" decoding="async" loading="lazy" alt="Remera #3" class="slot-product-img" data-images="https://i.imgur.com/pkDjlqw.jpeg" onclick="abrirGaleria(this)" src="https://i.imgur.com/pkDjlqwl.jpeg"/></div>
+<div class="nombre">Remera #3</div>
+<div class="precio">$8.000 ARS</div>
+<div class="btn-row"><a class="btn" href="https://wa.me/5491170743305?text=Hola%20quiero%20consultar%20por%20Remera%20%233%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/pkDjlqw.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
+</div>
+</div>
+<div class="product-slot card">
+<div class="slot-corner tl"></div><div class="slot-corner tr"></div>
+<div class="slot-corner bl"></div><div class="slot-corner br"></div>
+<div class="slot-inner">
+<div class="product-img-box"><img fetchpriority="low" decoding="async" loading="lazy" alt="Remera #4" class="slot-product-img" data-images="https://i.imgur.com/Hn7bY2m.jpeg,https://i.imgur.com/pxwVeQP.jpeg" onclick="abrirGaleria(this)" src="https://i.imgur.com/Hn7bY2ml.jpeg"/></div>
+<div class="nombre">Remera #4</div>
+<div class="precio">$8.000 ARS</div>
+<div class="btn-row"><a class="btn" href="https://wa.me/5491170743305?text=Hola%20quiero%20consultar%20por%20Remera%20%234%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/Hn7bY2m.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
+</div>
+</div>
+<div class="product-slot card">
+<div class="slot-corner tl"></div><div class="slot-corner tr"></div>
+<div class="slot-corner bl"></div><div class="slot-corner br"></div>
+<div class="slot-inner">
+<div class="product-img-box"><img fetchpriority="low" decoding="async" loading="lazy" alt="Remera #5" class="slot-product-img" data-images="https://i.imgur.com/DACUjwo.jpeg,https://i.imgur.com/RvoASgk.jpeg" onclick="abrirGaleria(this)" src="https://i.imgur.com/DACUjwol.jpeg"/></div>
+<div class="nombre">Remera #5</div>
+<div class="precio">$8.000 ARS</div>
+<div class="btn-row"><a class="btn" href="https://wa.me/5491170743305?text=Hola%20quiero%20consultar%20por%20Remera%20%235%0APrecio%3A%20%248.000%20ARS%0AFoto%3A%20https%3A//i.imgur.com/DACUjwo.jpeg" target="_blank">Consultar</a><button class="btn btn-cart" onclick="agregarAlCarrito(this)" type="button"><i class="fas fa-cart-plus"></i> Agregar al carrito</button></div>
+</div>
+</div>
 </div>
 </div>
 </div>
@@ -5156,7 +5799,7 @@ html.entry-announcement-active body {
       let cerrado = false;
       let cierreAutomatico = 0;
       let intervaloCuenta = 0;
-      let segundosRestantes = 4;
+      let segundosRestantes = 6;
       const contador = document.getElementById("entryCountdown");
       const actualizarCuenta = () => {
         if (!contador) return;
@@ -5179,7 +5822,7 @@ html.entry-announcement-active body {
         actualizarCuenta();
         if (segundosRestantes <= 0) window.clearInterval(intervaloCuenta);
       }, 1000);
-      cierreAutomatico = window.setTimeout(ocultarAviso, 4200);
+      cierreAutomatico = window.setTimeout(ocultarAviso, 6200);
 
       aviso.addEventListener("click", () => {
         ocultarAviso();
