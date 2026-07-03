@@ -4456,6 +4456,126 @@ html.android-device .nav-logo .logo-word::after {
       #08020f !important;
   }
 }
+
+/* ===== AJUSTE FINAL: mobile hero legible + descarga de fotos ===== */
+@media (max-width: 768px) {
+  #hero .hero-title .line2,
+  html.android-device #hero .hero-title .line2 {
+    color: #ffe8ff !important;
+    -webkit-text-fill-color: #ffe8ff !important;
+    -webkit-text-stroke: 1px rgba(255,166,242,.96) !important;
+    text-shadow:
+      0 3px 10px rgba(8,2,15,.94),
+      0 0 9px rgba(255,106,222,.38),
+      0 0 18px rgba(168,85,247,.24) !important;
+    filter: drop-shadow(0 0 4px rgba(255,181,246,.28)) !important;
+  }
+
+  #hero .hero-title .line2::before,
+  #hero .hero-title .line2::after,
+  html.android-device #hero .hero-title .line2::before,
+  html.android-device #hero .hero-title .line2::after {
+    display: none !important;
+    content: none !important;
+  }
+
+  #hero::before,
+  html.android-device #hero::before {
+    opacity: .28 !important;
+  }
+}
+
+.btn-row.descarga-ready {
+  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+}
+
+.btn-row.descarga-ready > .btn:first-child {
+  grid-column: 1 / -1;
+}
+
+.btn-download-img {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  border-color: rgba(255,227,255,.88) !important;
+  background: linear-gradient(135deg, #ffffff 0 8%, #ff3fd1 9% 54%, #a855f7 55% 100%) !important;
+  color: #16051f !important;
+  font-weight: 900 !important;
+  letter-spacing: .08em !important;
+  box-shadow: 0 0 26px rgba(255,63,209,.56), 0 12px 28px rgba(0,0,0,.45), inset 0 0 0 1px rgba(255,255,255,.3) !important;
+  text-shadow: none !important;
+}
+
+.btn-download-img::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(115deg, transparent 0 34%, rgba(255,255,255,.95) 45%, transparent 56% 100%);
+  transform: translateX(-135%) skewX(-12deg);
+  animation: descargaImagenShine 2.4s ease-in-out infinite;
+}
+
+.btn-download-img:hover {
+  color: #16051f !important;
+  transform: translateY(-2px) scale(1.015);
+  box-shadow: 0 0 38px rgba(255,63,209,.78), 0 16px 34px rgba(0,0,0,.5), inset 0 0 0 1px rgba(255,255,255,.42) !important;
+}
+
+.btn-download-img:disabled,
+.btn-download-img.is-downloading {
+  opacity: .78;
+  pointer-events: none;
+}
+
+@keyframes descargaImagenShine {
+  0%, 42% { transform: translateX(-135%) skewX(-12deg); opacity: 0; }
+  55% { opacity: .95; }
+  78%, 100% { transform: translateX(135%) skewX(-12deg); opacity: 0; }
+}
+
+.modal-download-btn {
+  position: absolute;
+  left: 50%;
+  bottom: 78px;
+  z-index: 3;
+  min-width: min(310px, calc(100vw - 44px));
+  min-height: 48px;
+  padding-inline: 1.2rem !important;
+  transform: translateX(-50%);
+}
+
+.modal-download-btn:hover {
+  transform: translateX(-50%) translateY(-2px) scale(1.015);
+}
+
+@media (max-width: 768px) {
+  .btn-row.descarga-ready {
+    grid-template-columns: 1fr !important;
+  }
+
+  .modal {
+    padding: 58px 14px 122px !important;
+  }
+
+  .modal img {
+    max-width: 96% !important;
+    max-height: 70vh !important;
+  }
+
+  .modal-download-btn {
+    bottom: 58px;
+    width: min(300px, calc(100vw - 36px));
+    min-width: 0;
+    min-height: 44px !important;
+    font-size: .68rem !important;
+    letter-spacing: .08em !important;
+  }
+
+  .contador {
+    bottom: 17px !important;
+  }
+}
 </style>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" media="print" onload="this.media='all'" rel="stylesheet"/>
 <noscript><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet"/></noscript></head>
@@ -5769,6 +5889,7 @@ html.android-device .nav-logo .logo-word::after {
   <span class="cerrar" onclick="cerrarImagen()">&times;</span>
   <span class="flecha izquierda" onclick="imagenAnterior(event)">&#10094;</span>
   <img id="imgGrande" alt="Imagen ampliada" decoding="async" fetchpriority="high">
+  <button class="btn btn-download-img modal-download-btn" id="modalDownloadBtn" onclick="descargarImagenModal(event)" type="button"><i class="fas fa-download"></i> Descargar imagen</button>
   <span class="flecha derecha" onclick="imagenSiguiente(event)">&#10095;</span>
   <div id="contador" class="contador">1 / 1</div>
 </div>
@@ -5895,10 +6016,12 @@ html.android-device .nav-logo .logo-word::after {
 // GALERIA + CARRITO DEL CATALOGO ORIGINAL
 let imagenesActuales = [];
 let indiceActual = 0;
+let nombreGaleriaActual = "cest-indumentaria";
 const cacheImagenesGaleria = new Map();
 const modalGaleriaEl = document.getElementById("modal");
 const imgGrandeEl = document.getElementById("imgGrande");
 const contadorGaleriaEl = document.getElementById("contador");
+const botonDescargaModalEl = document.getElementById("modalDownloadBtn");
 
 function obtenerImagenesGaleria(elemento) {
   if (!elemento || !elemento.dataset.images) return [];
@@ -5941,6 +6064,11 @@ function mostrarImagenGaleria() {
   if (imgGrandeEl.getAttribute("src") !== src) {
     imgGrandeEl.src = src;
   }
+  imgGrandeEl.alt = nombreGaleriaActual;
+  if (botonDescargaModalEl) {
+    botonDescargaModalEl.disabled = false;
+    botonDescargaModalEl.setAttribute("aria-label", "Descargar imagen " + (indiceActual + 1) + " de " + imagenesActuales.length);
+  }
   actualizarContador();
   precargarGrupoGaleria(imagenesActuales, indiceActual);
 }
@@ -5948,6 +6076,8 @@ function mostrarImagenGaleria() {
 function abrirGaleria(elemento) {
   imagenesActuales = obtenerImagenesGaleria(elemento);
   if (!imagenesActuales.length || !modalGaleriaEl) return;
+  const card = elemento.closest(".product-slot.card");
+  nombreGaleriaActual = nombreProductoDesdeCard(card) || elemento.getAttribute("alt") || "cest-indumentaria";
   indiceActual = 0;
   modalGaleriaEl.style.display = "flex";
   mostrarImagenGaleria();
@@ -5977,6 +6107,169 @@ function actualizarContador() {
   if (contadorGaleriaEl) {
     contadorGaleriaEl.textContent = (indiceActual + 1) + " / " + imagenesActuales.length;
   }
+}
+
+function sanearNombreArchivo(texto) {
+  return (texto || "cest-indumentaria")
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "")
+    .slice(0, 64) || "cest-indumentaria";
+}
+
+function extensionImagenDesdeUrl(src, tipo) {
+  const tipoNormalizado = (tipo || "").toLowerCase();
+  if (tipoNormalizado.includes("png")) return "png";
+  if (tipoNormalizado.includes("webp")) return "webp";
+  if (tipoNormalizado.includes("gif")) return "gif";
+  if (tipoNormalizado.includes("avif")) return "avif";
+  if (tipoNormalizado.includes("jpeg") || tipoNormalizado.includes("jpg")) return "jpg";
+
+  try {
+    const nombre = new URL(src, window.location.href).pathname.split("/").pop() || "";
+    const match = nombre.match(/\.(jpe?g|png|webp|gif|avif)$/i);
+    if (match) return match[1].toLowerCase().replace("jpeg", "jpg");
+  } catch (error) {}
+  return "jpg";
+}
+
+function obtenerBlobImagen(url) {
+  if (window.fetch) {
+    return fetch(url, { mode: "cors", cache: "force-cache" }).then(respuesta => {
+      if (!respuesta.ok) throw new Error("No se pudo descargar la imagen");
+      return respuesta.blob();
+    });
+  }
+
+  return new Promise((resolve, reject) => {
+    const pedido = new XMLHttpRequest();
+    pedido.open("GET", url, true);
+    pedido.responseType = "blob";
+    pedido.onload = () => {
+      if ((pedido.status >= 200 && pedido.status < 300) || pedido.status === 0) {
+        if (pedido.response) resolve(pedido.response);
+        else reject(new Error("La imagen no llego como archivo"));
+      } else {
+        reject(new Error("No se pudo descargar la imagen"));
+      }
+    };
+    pedido.onerror = () => reject(new Error("No se pudo descargar la imagen"));
+    pedido.send();
+  });
+}
+
+function crearUrlDescarga(blob) {
+  const creadorUrl = window.URL || window.webkitURL;
+  if (creadorUrl && creadorUrl.createObjectURL) {
+    const href = creadorUrl.createObjectURL(blob);
+    return Promise.resolve({
+      href,
+      limpiar: () => creadorUrl.revokeObjectURL(href)
+    });
+  }
+
+  return new Promise((resolve, reject) => {
+    if (!window.FileReader) {
+      reject(new Error("El navegador no permite preparar la descarga"));
+      return;
+    }
+    const lector = new FileReader();
+    lector.onload = () => resolve({ href: lector.result, limpiar: null });
+    lector.onerror = () => reject(new Error("No se pudo preparar la descarga"));
+    lector.readAsDataURL(blob);
+  });
+}
+
+function nombreProductoDesdeCard(card) {
+  const nombreEl = card ? card.querySelector(".nombre") : null;
+  return nombreEl ? nombreEl.textContent.trim() : "cest-indumentaria";
+}
+
+function imagenesDesdeCard(card) {
+  const img = card ? card.querySelector(".slot-product-img") : null;
+  if (!img) return [];
+  const imagenes = obtenerImagenesGaleria(img);
+  const fallback = img.currentSrc || img.getAttribute("src") || img.src;
+  return imagenes.length ? imagenes : [fallback].filter(Boolean);
+}
+
+async function descargarFotoComoArchivo(src, nombreBase, indice, total) {
+  const url = new URL(src, window.location.href).href;
+  const blob = await obtenerBlobImagen(url);
+  const extension = extensionImagenDesdeUrl(url, blob.type);
+  const descarga = await crearUrlDescarga(blob);
+  const enlace = document.createElement("a");
+  const sufijo = total > 1 ? "-" + String(indice + 1).padStart(2, "0") : "";
+  enlace.href = descarga.href;
+  enlace.download = sanearNombreArchivo(nombreBase) + sufijo + "." + extension;
+  enlace.style.display = "none";
+  document.body.appendChild(enlace);
+  enlace.click();
+  enlace.remove();
+  if (descarga.limpiar) window.setTimeout(descarga.limpiar, 60000);
+}
+
+async function descargarImagenes(nombreBase, imagenes, boton) {
+  if (!imagenes || !imagenes.length) return;
+  const htmlOriginal = boton ? boton.innerHTML : "";
+  if (boton) {
+    boton.disabled = true;
+    boton.classList.add("is-downloading");
+    boton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Descargando';
+  }
+
+  try {
+    for (let i = 0; i < imagenes.length; i += 1) {
+      await descargarFotoComoArchivo(imagenes[i], nombreBase, i, imagenes.length);
+      if (imagenes.length > 1) await new Promise(resolve => setTimeout(resolve, 260));
+    }
+  } catch (error) {
+    console.error(error);
+    alert("No se pudo descargar la imagen como archivo. Proba de nuevo en unos segundos.");
+  } finally {
+    if (boton) {
+      boton.disabled = false;
+      boton.classList.remove("is-downloading");
+      boton.innerHTML = htmlOriginal;
+    }
+  }
+}
+
+function descargarImagenesDesdeBoton(boton) {
+  const card = boton ? boton.closest(".product-slot.card") : null;
+  if (!card) return;
+  descargarImagenes(nombreProductoDesdeCard(card), imagenesDesdeCard(card), boton);
+}
+
+function descargarImagenModal(event) {
+  if (event) event.stopPropagation();
+  if (!imagenesActuales.length) return;
+  descargarImagenes(nombreGaleriaActual, [imagenesActuales[indiceActual]], botonDescargaModalEl);
+}
+
+function inicializarBotonesDescargaProductos() {
+  document.querySelectorAll(".product-slot.card").forEach(card => {
+    if (card.dataset.descargaReady === "true") return;
+    const filaBotones = card.querySelector(".btn-row");
+    const imagenes = imagenesDesdeCard(card);
+    if (!filaBotones || !imagenes.length) return;
+
+    const boton = document.createElement("button");
+    boton.className = "btn btn-download-img";
+    boton.type = "button";
+    boton.innerHTML = '<i class="fas fa-download"></i> Descargar imagen';
+    boton.addEventListener("click", event => {
+      event.preventDefault();
+      event.stopPropagation();
+      descargarImagenesDesdeBoton(boton);
+    });
+
+    filaBotones.appendChild(boton);
+    filaBotones.classList.add("descarga-ready");
+    card.dataset.descargaReady = "true";
+  });
 }
 
 if (imgGrandeEl) {
@@ -6309,6 +6602,7 @@ function vaciarCarrito() {
 }
 
 actualizarCarrito();
+inicializarBotonesDescargaProductos();
 
 const DETALLES_PRODUCTOS = [
   "Buzo con capucha estilo Jordan, logo grande tipo script en el pecho. Variantes en negro, blanco y rojo.",
