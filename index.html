@@ -999,7 +999,8 @@
   border: 1px solid rgba(255,255,255,.16);
   padding: 8px 15px;
 }
-#popup-info {
+#popup-info,
+#popup-envios {
   position: fixed;
   top: 92px;
   left: 50%;
@@ -1027,7 +1028,8 @@
   backdrop-filter: blur(14px);
   transition: opacity .32s ease, transform .32s ease, top .32s ease;
 }
-#popup-info::before {
+#popup-info::before,
+#popup-envios::before {
   content: '!';
   display: grid;
   place-items: center;
@@ -1042,11 +1044,18 @@
   font-weight: 900;
   box-shadow: 0 0 24px rgba(255,23,61,.9), inset 0 0 0 1px rgba(255,255,255,.7);
 }
-#popup-info.mostrar {
+#popup-info.mostrar,
+#popup-envios.mostrar {
   opacity: 1;
   top: 112px;
   transform: translate(-50%, 0) scale(1);
   animation: popupAlertaPulso 1.7s ease-in-out 2;
+}
+#popup-envios {
+  top: 92px;
+}
+#popup-envios.mostrar {
+  top: 112px;
 }
 @keyframes popupAlertaPulso {
   0%, 100% { box-shadow: 0 24px 70px rgba(0,0,0,.68), 0 0 38px rgba(255,23,61,.44), inset 0 0 0 1px rgba(255,255,255,.08); }
@@ -3492,7 +3501,8 @@ html.android-device .nav-logo .logo-word::after {
   text-shadow: 0 0 24px rgba(0,183,255,.42) !important;
 }
 
-#popup-info {
+#popup-info,
+#popup-envios {
   background:
     linear-gradient(135deg, rgba(0,216,255,.24), rgba(255,255,255,.075) 34%, rgba(3,18,38,.98) 35% 100%),
     rgba(3,18,38,.98) !important;
@@ -3502,7 +3512,8 @@ html.android-device .nav-logo .logo-word::after {
   text-shadow: 0 0 14px rgba(0,216,255,.52) !important;
 }
 
-#popup-info::before {
+#popup-info::before,
+#popup-envios::before {
   background: linear-gradient(135deg, #ffffff, #00e5ff 44%, #006cff) !important;
   color: #021225 !important;
   box-shadow: 0 0 26px rgba(0,216,255,.92), inset 0 0 0 1px rgba(255,255,255,.72) !important;
@@ -4238,7 +4249,8 @@ html.android-device .nav-logo .logo-word::after {
   box-shadow: 0 0 72px rgba(255,63,209,.25), 0 22px 80px rgba(0,0,0,.76) !important;
 }
 
-#popup-info {
+#popup-info,
+#popup-envios {
   background:
     linear-gradient(135deg, rgba(255,63,209,.26), rgba(255,255,255,.075) 34%, rgba(19,7,32,.98) 35% 100%),
     rgba(19,7,32,.98) !important;
@@ -4248,10 +4260,36 @@ html.android-device .nav-logo .logo-word::after {
   text-shadow: 0 0 14px rgba(255,63,209,.54) !important;
 }
 
-#popup-info::before {
+#popup-info::before,
+#popup-envios::before {
   background: linear-gradient(135deg, #ffffff, #ff3fd1 44%, #a855f7) !important;
   color: #16051f !important;
   box-shadow: 0 0 26px rgba(255,63,209,.92), inset 0 0 0 1px rgba(255,255,255,.72) !important;
+}
+
+#popup-envios {
+  background:
+    linear-gradient(135deg, rgba(34,197,94,.28), rgba(255,255,255,.08) 34%, rgba(4,32,18,.98) 35% 100%),
+    rgba(4,32,18,.98) !important;
+  border-color: rgba(34,197,94,.72) !important;
+  color: #dcffe9 !important;
+  box-shadow: 0 24px 70px rgba(0,0,0,.68), 0 0 44px rgba(34,197,94,.58), inset 0 0 0 1px rgba(255,255,255,.12) !important;
+  text-shadow: 0 0 14px rgba(34,197,94,.62) !important;
+}
+
+#popup-envios::before {
+  background: linear-gradient(135deg, #ffffff, #22c55e 44%, #047857) !important;
+  color: #02160a !important;
+  box-shadow: 0 0 26px rgba(34,197,94,.92), inset 0 0 0 1px rgba(255,255,255,.72) !important;
+}
+
+#popup-envios.mostrar {
+  animation: popupEnviosPulso 1.7s ease-in-out 2 !important;
+}
+
+@keyframes popupEnviosPulso {
+  0%, 100% { box-shadow: 0 24px 70px rgba(0,0,0,.68), 0 0 44px rgba(34,197,94,.58), inset 0 0 0 1px rgba(255,255,255,.12); }
+  50% { box-shadow: 0 28px 82px rgba(0,0,0,.78), 0 0 66px rgba(34,197,94,.88), inset 0 0 0 1px rgba(255,255,255,.22); }
 }
 
 .badge-stock {
@@ -5895,6 +5933,7 @@ html.android-device .nav-logo .logo-word::after {
 </div>
 
 <div id="popup-info">Clic en un item para ver más colores</div>
+<div id="popup-envios" role="status" aria-live="polite">REALIZAMOS ENVIOS POR VIACARGO</div>
 
 
 <section id="contacto" class="contact-section">
@@ -6449,7 +6488,11 @@ function reproducirNotificacionSutil() {
     mostrado = true;
     popup.classList.add("mostrar");
     reproducirNotificacionSutil();
-    setTimeout(() => popup.classList.remove("mostrar"), 6200);
+    setTimeout(() => {
+      popup.classList.remove("mostrar");
+      window.popupProductosFinalizado = true;
+      document.dispatchEvent(new Event("popupProductosFinalizado"));
+    }, 6200);
   };
 
   if ("IntersectionObserver" in window) {
@@ -6469,6 +6512,45 @@ function reproducirNotificacionSutil() {
         window.removeEventListener("scroll", revisarProductos);
       }
     }, { passive: true });
+  }
+})();
+
+(function activarPopupEnvios() {
+  const popup = document.getElementById("popup-envios");
+  if (!popup) return;
+
+  let mostrado = false;
+  const mostrarPopup = () => {
+    if (mostrado) return;
+    mostrado = true;
+    popup.classList.add("mostrar");
+    if (typeof reproducirNotificacionSutil === "function") reproducirNotificacionSutil();
+    window.setTimeout(() => popup.classList.remove("mostrar"), 5000);
+  };
+
+  const programarPopup = () => {
+    window.setTimeout(mostrarPopup, 650);
+  };
+
+  const iniciar = () => {
+    const esperarEntrada = () => {
+      if (document.documentElement.classList.contains("entry-announcement-active")) {
+        window.setTimeout(esperarEntrada, 350);
+        return;
+      }
+      if (window.popupProductosFinalizado) {
+        programarPopup();
+        return;
+      }
+      document.addEventListener("popupProductosFinalizado", programarPopup, { once: true });
+    };
+    esperarEntrada();
+  };
+
+  if (document.readyState === "complete") {
+    iniciar();
+  } else {
+    window.addEventListener("load", iniciar, { once: true });
   }
 })();
 
@@ -6730,7 +6812,23 @@ function inicializarDetallesProductos() {
     const fila = document.createElement("div");
     fila.className = "price-details-row";
     precio.parentNode.insertBefore(fila, precio);
-    fila.appendChild(precio);
+
+    const esBuzo = card.closest("#buzos") && !card.classList.contains("lanzamiento-conjunto");
+    const esRemera = card.closest("#remeras");
+
+    if (esBuzo || esRemera) {
+      const precioStack = document.createElement("div");
+      precioStack.className = "precio-stack";
+      fila.appendChild(precioStack);
+      precioStack.appendChild(precio);
+
+      const talleProducto = document.createElement("div");
+      talleProducto.className = esBuzo ? "talle-conjunto talle-buzo" : "talle-conjunto talle-remera";
+      talleProducto.textContent = esBuzo ? "Talles M a XXL" : "Talles S a XXL";
+      precioStack.appendChild(talleProducto);
+    } else {
+      fila.appendChild(precio);
+    }
 
     const boton = document.createElement("button");
     boton.className = "details-toggle";
